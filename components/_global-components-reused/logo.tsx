@@ -1,5 +1,14 @@
 "use client";
-export const Logo = () => {
+
+import { cn } from "@/lib/utils";
+import { SVGProps } from "./navbar-svg-components/interface-navbar";
+
+export const Logo = ({
+  height = 58,
+  width = 217,
+  className,
+  fill = "none",
+}: SVGProps) => {
   return (
     <svg
       width="217"
@@ -7,6 +16,7 @@ export const Logo = () => {
       viewBox="0 0 217 58"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={cn("cursor-pointer", className)}
     >
       <path
         d="M0 11.3778H4.50148L4.06548 18.1536H4.11261C5.51491 13.5578 9.33881 10.7002 13.9405 10.7002C18.7837 10.7002 22.1185 13.4576 23.2321 18.4423H23.2793C24.8289 13.4576 28.6528 10.7002 33.3016 10.7002C39.3526 10.7002 43.2237 15.1074 43.2237 22.5136V36.2125H38.7222V22.9968C38.7222 17.6233 36.059 14.7185 31.6577 14.7185C27.2564 14.7185 23.8626 18.3951 23.8626 23.4799V36.2125H19.3611V22.9968C19.3611 17.6233 16.6979 14.7185 12.2966 14.7185C7.89527 14.7185 4.50148 18.3951 4.50148 23.4799V36.2125H0V11.3778Z"
