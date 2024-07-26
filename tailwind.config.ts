@@ -54,6 +54,7 @@ const config = {
         },
         main_background_color: "#fefbf4",
         moi_moc_text_green: "rgba(--moi-moc-text)",
+        moi_moc_green: "#003c14",
       },
       borderRadius: {
         lg: "var(--radius)",

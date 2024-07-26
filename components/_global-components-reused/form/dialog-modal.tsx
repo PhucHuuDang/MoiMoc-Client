@@ -6,7 +6,7 @@ import {
   DialogFooter,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Header } from "./header";
+import { Header } from "../header";
 
 interface DialogModalProps {
   isOpen: boolean;
@@ -14,7 +14,7 @@ interface DialogModalProps {
   header: React.ReactNode;
   body: React.ReactNode;
   footer?: React.ReactNode;
-  title: string;
+  title?: string;
 }
 
 export const DialogModal = ({
@@ -33,8 +33,8 @@ export const DialogModal = ({
         {header}
         {/* </DialogTitle> */}
         {body}
+        <DialogFooter className="mx-auto">{footer}</DialogFooter>
       </DialogContent>
-      <DialogFooter>{footer}</DialogFooter>
     </Dialog>
   );
 };
