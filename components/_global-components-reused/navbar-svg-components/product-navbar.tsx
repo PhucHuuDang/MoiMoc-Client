@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { SVGProps } from "./interface-navbar";
+import { SVGProps } from "../../../interface/interface-navbar";
 
 export const ProductNavbar = ({
   width = 93,

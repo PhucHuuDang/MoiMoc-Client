@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "@million/lint": "^1.0.0-rc.84",
     "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "babel-plugin-react-compiler": "^0.0.0-experimental-696af53-20240625",
@@ -21,8 +23,10 @@
     "next": "^15.0.0-rc.0",
     "react": "^19.0.0-rc-76002254-20240724",
     "react-dom": "^19.0.0-rc-76002254-20240724",
+    "react-hook-form": "^7.52.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8",
     "zustand": "^4.5.4"
   },
   "devDependencies": {

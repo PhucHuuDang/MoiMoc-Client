@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { SVGProps } from "./navbar-svg-components/interface-navbar";
+import { SVGProps } from "../../interface/interface-navbar";
 
 export const Logo = ({
   height = 58,
