@@ -19,7 +19,7 @@ export const Header = ({
     <>
       <DialogTitle
         className={cn(
-          `${center && "text-moi_moc_green text-center font-semibold"}`,
+          `${center && "text-center"} font-semibold text-moi_moc_green`,
           classNameTitle,
         )}
       >

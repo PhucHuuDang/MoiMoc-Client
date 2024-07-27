@@ -32,11 +32,20 @@ export const FormPassword = <T extends FieldValues>({
   type,
   classNameLabel,
 }: FormItemsControlProps<T>) => {
-  const [typeInput, setTypeInput] = useState<string>("text");
+  const [typeInput, setTypeInput] = useState<string>("password");
 
   const onToggleType = (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation();
     setTypeInput((prev) => (prev === "text" ? "password" : "text"));
+  };
+
+  const formError = form.formState.errors[""];
+
+  const getErrorMessage = (error: unknown): string | undefined => {
+    if (typeof error === "object" && error !== null && "message" in error) {
+      return (error as { message?: string }).message;
+    }
+    return undefined;
   };
 
   return (
@@ -44,7 +53,11 @@ export const FormPassword = <T extends FieldValues>({
       control={form.control}
       name={name}
       render={({ field, fieldState, formState }) => {
-        console.log({ field });
+        // console.log({ fieldState });
+        // console.log({ formState });
+        const errorMessage =
+          getErrorMessage(fieldState.error) || getErrorMessage(formError);
+        // console.log({ errorMessage });
         return (
           <FormItem>
             <FormLabel className={cn("text-moi_moc_green", classNameLabel)}>
@@ -61,7 +74,7 @@ export const FormPassword = <T extends FieldValues>({
                 placeholder={placeholder}
               />
             </FormControl>
-            <FormMessage>{fieldState.error?.message}</FormMessage>
+            <FormMessage>{errorMessage}</FormMessage>
           </FormItem>
         );
       }}

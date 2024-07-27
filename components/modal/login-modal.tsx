@@ -24,9 +24,16 @@ import { FormItemsControl } from "../_global-components-reused/form/form-items-c
 import { DialogClose } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { FormPassword } from "../_global-components-reused/form/form-password";
+import { useRegisterDiaLogModal } from "@/hooks/register-dialog-modal";
 
 export const LoginModal = () => {
   const loginModal = useLoginDiaLogModal();
+  const registerModal = useRegisterDiaLogModal();
+
+  const toggle = () => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  };
 
   const form = useForm<z.infer<typeof LoginSchemaTypes>>({
     resolver: zodResolver(LoginSchemaTypes),
@@ -50,7 +57,11 @@ export const LoginModal = () => {
         height={120}
         className="mx-auto"
       />
-      <Header description="Welcome back to Moi Moc..." />
+      <Header
+        title="Login"
+        classNameTitle="text-xl"
+        description="Welcome back to Moi Moc..."
+      />
     </>
   );
 
@@ -108,9 +119,12 @@ export const LoginModal = () => {
   );
 
   const footer = (
-    <div className="text-moi_moc_green flex items-center gap-x-1 underline">
+    <div className="flex items-center gap-x-1 text-moi_moc_green underline">
       You don't have account?{" "}
-      <span className="cursor-pointer font-bold transition duration-200 hover:scale-110">
+      <span
+        onClick={toggle}
+        className="cursor-pointer font-bold transition duration-200 hover:scale-110"
+      >
         Let's register!
       </span>
     </div>
