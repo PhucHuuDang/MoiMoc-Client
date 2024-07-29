@@ -12,7 +12,7 @@ export const LoginSchemaTypes = z.object({
   //     return value.replace(/\s+/g, "");
   //   })
   //   .pipe(
-  //     z
+  //     zm
   //       .string()
   //       .min(10, {
   //         message: "Phone number must be at least 10 characters",
@@ -91,3 +91,35 @@ export const RegisterSchemaTypes = z
     message: "Password and confirm password must be the same",
     path: ["confirmPassword"],
   });
+
+export const ContactSchemaTypes = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters",
+  }),
+  phone: z
+    .string({
+      message: "Phone number is required",
+      invalid_type_error: "Phone number must be a string",
+    })
+    .trim()
+    .min(10, {
+      message: "Phone number must be at least 10 characters",
+    })
+    .max(12, {
+      message: "Phone number must be at most 10 characters",
+    })
+    .refine(isValidPhone, {
+      message: "Invalid phone number",
+    }),
+  email: z
+    .string({
+      message: "Email is required",
+      invalid_type_error: "Email must be a string",
+    })
+    .email({
+      message: "Invalid email address",
+    }),
+  askContent: z.string().min(5, {
+    message: "Content must be at least 5 characters",
+  }),
+});

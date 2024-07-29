@@ -4,17 +4,7 @@ import { isValidPhone } from "@/regex-validation/phone-number";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchemaTypes, RegisterSchemaTypes } from "@/safe-types-zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components//ui/form";
-
-import { Input } from "../ui/input";
+import { ContactSchemaTypes, RegisterSchemaTypes } from "@/safe-types-zod";
 import { FormSubmit } from "../_global-components-reused/form/form-submit";
 import { DialogModal } from "../_global-components-reused/form/dialog-modal";
 import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
@@ -26,28 +16,25 @@ import { Button } from "../ui/button";
 import { FormPassword } from "../_global-components-reused/form/form-password";
 import { FormValues } from "../_global-components-reused/form/form-values";
 import { useRegisterDiaLogModal } from "@/hooks/register-dialog-modal";
+import { useContactDialogModal } from "@/hooks/use-contact-dialog-modal";
+import { useFormStatus } from "react-dom";
 
-export const RegisterModal = () => {
-  const loginModal = useLoginDiaLogModal();
-  const registerModal = useRegisterDiaLogModal();
-
-  const toggle = () => {
-    registerModal.onClose();
-    loginModal.onOpen();
-  };
-
-  const form = useForm<z.infer<typeof RegisterSchemaTypes>>({
-    resolver: zodResolver(RegisterSchemaTypes),
+export const ContactModal = () => {
+  const { pending } = useFormStatus();
+  const contactModal = useContactDialogModal();
+  const form = useForm<z.infer<typeof ContactSchemaTypes>>({
+    resolver: zodResolver(ContactSchemaTypes),
     defaultValues: {
+      name: "",
       phone: "",
-      password: "",
-      confirmPassword: "",
+      email: "",
+      askContent: "",
     },
   });
 
   // console.log(form.watch());
 
-  const onSubmit = async (values: z.infer<typeof RegisterSchemaTypes>) => {
+  const onSubmit = async (values: z.infer<typeof ContactSchemaTypes>) => {
     // console.log({ values });
     console.log("123");
     console.log({ values });
@@ -63,9 +50,9 @@ export const RegisterModal = () => {
         className="mx-auto"
       />
       <Header
-        title="Register"
+        title="Contact to us now!"
         classNameTitle="text-xl"
-        description="Let's register account in Moi Moc..."
+        description="Let's ask or give us your ask question in Moi Moc..."
       />
     </>
   );
@@ -74,33 +61,45 @@ export const RegisterModal = () => {
     <FormValues onSubmit={onSubmit} form={form}>
       <FormItemsControl
         form={form}
+        name="name"
+        placeholder="Your name..."
+        label="Name"
+      />
+
+      <FormItemsControl
+        form={form}
         name="phone"
-        placeholder="*84..."
+        placeholder="+84..."
         label="Phone"
       />
 
-      <FormPassword
+      <FormItemsControl
         form={form}
-        name="password"
-        placeholder="your password"
-        label="Password"
+        name="email"
+        type="email"
+        placeholder="your email"
+        label="Email"
       />
 
-      <FormPassword
+      <FormItemsControl
         form={form}
-        name="confirmPassword"
-        placeholder="confirm your password"
-        label="Confirm password"
+        name="askContent"
+        placeholder="give us your ask question"
+        label="Ask content"
       />
 
       <div className="flex items-center justify-end gap-x-2">
         <DialogClose asChild>
-          <Button className="w-24" variant="outline">
-            Cancel
+          <Button className="w-24" variant="moiMoc">
+            Call with us
           </Button>
         </DialogClose>
-        <FormSubmit className="w-24 text-end" variant="moiMoc">
-          Submit
+        <FormSubmit
+          // disabled={pending}
+          variant="moiMoc"
+          className="w-24 text-end"
+        >
+          Send to us
         </FormSubmit>
       </div>
     </FormValues>
@@ -108,12 +107,12 @@ export const RegisterModal = () => {
 
   const footer = (
     <div className="flex items-center gap-x-1 text-moi_moc_green underline">
-      Already have account?{" "}
-      <span
-        onClick={toggle}
-        className="cursor-pointer font-bold transition duration-200 hover:scale-110"
-      >
-        Let's login!
+      <span>
+        Our mission is to help you to solve your problem and improve the
+        products,{" "}
+        <span className="cursor-pointer font-bold transition duration-200 hover:scale-110">
+          so don't hesitate to ask us!
+        </span>
       </span>
     </div>
   );
@@ -121,8 +120,8 @@ export const RegisterModal = () => {
   return (
     <DialogModal
       body={body}
-      isOpen={registerModal.isOpen}
-      onClose={registerModal.onClose}
+      isOpen={contactModal.isOpen}
+      onClose={contactModal.onClose}
       header={header}
       footer={footer}
     />

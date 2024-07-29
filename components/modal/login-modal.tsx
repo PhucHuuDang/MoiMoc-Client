@@ -112,7 +112,9 @@ export const LoginModal = () => {
               Cancel
             </Button>
           </DialogClose>
-          <FormSubmit className="w-24 text-end">Submit</FormSubmit>
+          <FormSubmit className="w-24 text-end" variant="moiMoc">
+            Submit
+          </FormSubmit>
         </div>
       </form>
     </Form>

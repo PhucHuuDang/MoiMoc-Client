@@ -17,7 +17,9 @@ interface FormSubmitProps {
     | "outline"
     | "secondary"
     | "ghost"
-    | "link";
+    | "link"
+    | "moiMoc"
+
 }
 
 export const FormSubmit = ({

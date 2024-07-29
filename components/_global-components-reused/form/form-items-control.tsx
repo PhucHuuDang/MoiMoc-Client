@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
-interface FormItemsControlProps<T extends FieldValues> {
+interface FormItemsControlProps<T extends FieldValues, K> {
   form: UseFormReturn<T>;
   onSubmit?: (data: T) => void;
   name: Path<T>;
@@ -20,16 +20,18 @@ interface FormItemsControlProps<T extends FieldValues> {
   formSubmit?: React.ReactNode;
   type?: string;
   classNameLabel?: string;
+  disabled?: boolean;
 }
 
-export const FormItemsControl = <T extends FieldValues>({
+export const FormItemsControl = <T extends FieldValues, K>({
   form,
   name,
   placeholder,
   label,
   type,
   classNameLabel,
-}: FormItemsControlProps<T>) => {
+  disabled,
+}: FormItemsControlProps<T, K>) => {
   return (
     <FormField
       control={form.control}
