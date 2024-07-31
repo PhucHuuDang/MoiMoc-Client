@@ -10,7 +10,6 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <RegisterModal />
       <ContactModal />
       <Navbar />
-
       {children}
     </div>
   );
