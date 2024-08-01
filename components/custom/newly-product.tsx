@@ -6,13 +6,16 @@ import { ProductItem } from "./product-item";
 import AutoPlay from "embla-carousel-autoplay";
 import { CircleUI } from "./circle-ui";
 import { Header } from "../_global-components-reused/header";
+import BlurFade from "../magic/blur-fade";
 
 export const NewlyProduct = () => {
   return (
     <>
-      <h1 className="py-4 text-center text-4xl text-moi_moc_green">
-        Newly Product
-      </h1>
+      <BlurFade delay={0.2}>
+        <h1 className="py-4 text-center text-4xl text-moi_moc_green">
+          Newly Product
+        </h1>
+      </BlurFade>
 
       <Carousel
         opts={{
@@ -25,9 +28,11 @@ export const NewlyProduct = () => {
         <CarouselContent className="h-full p-4 px-10">
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/4">
-              <div className="pl-1">
-                <ProductItem />
-              </div>
+              <BlurFade delay={0.2 + index * 0.2} inView>
+                <div className="pl-1">
+                  <ProductItem />
+                </div>
+              </BlurFade>
             </CarouselItem>
           ))}
         </CarouselContent>

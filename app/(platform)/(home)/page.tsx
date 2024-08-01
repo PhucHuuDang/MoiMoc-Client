@@ -3,7 +3,10 @@ import { Navbar } from "@/components/_global-components-reused/navbar";
 import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-effect";
 import { CircleUI } from "@/components/custom/circle-ui";
 import { NewlyProduct } from "@/components/custom/newly-product";
+import { Confirm } from "@/components/home-ui/confirm";
+import { DemoProducts } from "@/components/home-ui/demo-product";
 import { ProductIntroduction } from "@/components/home-ui/product-introduction";
+import BlurFade from "@/components/magic/blur-fade";
 import Image from "next/image";
 
 export default function HomePage() {
@@ -45,8 +48,15 @@ export default function HomePage() {
       </div>
 
       <div className="relative overflow-hidden px-10 py-5">
-        <ProductIntroduction />
-        <CircleUI className="-left-40 top-0 size-[800px]" />
+        <BlurFade inView delay={0.25}>
+          <ProductIntroduction />
+        </BlurFade>
+        <DemoProducts />
+        <CircleUI className="-left-40 top-0 size-[800px] overflow-hidden" />
+      </div>
+
+      <div className="mt-6">
+        <Confirm />
       </div>
     </div>
   );
