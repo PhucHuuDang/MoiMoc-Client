@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
 import { useEffect } from "react";
+import { Cover } from "./cover";
 
 export const TypewriterEffect = ({
   words,
@@ -123,7 +124,7 @@ export const TypewriterEffectSmooth = ({
   });
   const renderWords = () => {
     return (
-      <div>
+      <Cover classNameCoverContainer="bg-neutral-500/30 rounded-2xl">
         {wordsArray.map((word, idx) => {
           return (
             <div
@@ -144,7 +145,7 @@ export const TypewriterEffectSmooth = ({
             </div>
           );
         })}
-      </div>
+      </Cover>
     );
   };
 

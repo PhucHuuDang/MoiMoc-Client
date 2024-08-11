@@ -1,8 +1,10 @@
 import { Logo } from "@/components/_global-components-reused/logo";
 import { Navbar } from "@/components/_global-components-reused/navbar";
+import { Cover } from "@/components/aceternity-ui/cover";
 import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-effect";
 import { CircleUI } from "@/components/custom/circle-ui";
 import { NewlyProduct } from "@/components/custom/newly-product";
+import { BestSellingProducts } from "@/components/home-ui/best-selling-products";
 import { Confirm } from "@/components/home-ui/confirm";
 import { DemoProducts } from "@/components/home-ui/demo-product";
 import { ProductIntroduction } from "@/components/home-ui/product-introduction";
@@ -57,6 +59,12 @@ export default function HomePage() {
 
       <div className="mt-6">
         <Confirm />
+      </div>
+
+      <div className="mt-6">
+        <BlurFade inView delay={0.25}>
+          <BestSellingProducts />
+        </BlurFade>
       </div>
     </div>
   );
