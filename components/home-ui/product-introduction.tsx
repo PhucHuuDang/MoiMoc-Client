@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CircleUI } from "../custom/circle-ui";
 
 export const ProductIntroduction = () => {
   return (
@@ -12,7 +13,7 @@ export const ProductIntroduction = () => {
         // layout="responsive"
       />
       <div className="flex flex-col gap-y-4">
-        <h1 className="text-4xl text-moi_moc_green my-2">Son dưỡng Môi Mộc</h1>
+        <h1 className="my-2 text-4xl text-moi_moc_green">Son dưỡng Môi Mộc</h1>
         <span className="w-[500px] text-[#003c14]">
           Mang đến cho bạn đôi môi mềm mịn và căng mọng tự nhiên, son dưỡng Môi
           Mộc được làm từ 100% nguyên liệu hữu cơ như dầu dừa, sáp ong và tinh
@@ -20,6 +21,7 @@ export const ProductIntroduction = () => {
           đảm bảo an toàn tuyệt đối cho đôi môi của bạn.
         </span>
       </div>
+      <CircleUI className="-left-40 top-0 size-[800px] overflow-hidden" />
     </div>
   );
 };

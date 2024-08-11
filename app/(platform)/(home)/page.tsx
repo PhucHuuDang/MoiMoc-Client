@@ -1,3 +1,4 @@
+import { Footer } from "@/components/_global-components-reused/footer";
 import { Logo } from "@/components/_global-components-reused/logo";
 import { Navbar } from "@/components/_global-components-reused/navbar";
 import { Cover } from "@/components/aceternity-ui/cover";
@@ -54,7 +55,6 @@ export default function HomePage() {
           <ProductIntroduction />
         </BlurFade>
         <DemoProducts />
-        <CircleUI className="-left-40 top-0 size-[800px] overflow-hidden" />
       </div>
 
       <div className="mt-6">
@@ -65,6 +65,10 @@ export default function HomePage() {
         <BlurFade inView delay={0.25}>
           <BestSellingProducts />
         </BlurFade>
+      </div>
+
+      <div className="my-6">
+        <Footer />
       </div>
     </div>
   );

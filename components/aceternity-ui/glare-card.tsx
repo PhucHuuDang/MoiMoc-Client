@@ -6,9 +6,11 @@ import { useRef } from "react";
 export const GlareCard = ({
   children,
   className,
+  onClick,
 }: {
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }) => {
   const isPointerInside = useRef(false);
   const refElement = useRef<HTMLDivElement>(null);
@@ -56,7 +58,7 @@ export const GlareCard = ({
 
   const updateStyles = () => {
     if (refElement.current) {
-      console.log(state.current);
+      // console.log(state.current);
       const { background, rotate, glare } = state.current;
       refElement.current?.style.setProperty("--m-x", `${glare.x}%`);
       refElement.current?.style.setProperty("--m-y", `${glare.y}%`);
@@ -118,7 +120,10 @@ export const GlareCard = ({
         }
       }}
     >
-      <div className="duration-[var(--duration)] ease-[var(--easing)] delay-[var(--delay)] grid h-full origin-center overflow-hidden rounded-[var(--radius)] border border-slate-800 transition-transform will-change-transform [transform:rotateY(var(--r-x))_rotateX(var(--r-y))] hover:filter-none hover:[--duration:200ms] hover:[--easing:linear] hover:[--opacity:0.6]">
+      <div
+        onClick={onClick}
+        className="duration-[var(--duration)] ease-[var(--easing)] delay-[var(--delay)] grid h-full origin-center cursor-pointer overflow-hidden rounded-[var(--radius)] border border-slate-800 transition-transform will-change-transform [transform:rotateY(var(--r-x))_rotateX(var(--r-y))] hover:filter-none hover:[--duration:200ms] hover:[--easing:linear] hover:[--opacity:0.6]"
+      >
         <div className="grid h-full w-full mix-blend-soft-light [clip-path:inset(0_0_0_0_round_var(--radius))] [grid-area:1/1]">
           <div className={cn("h-full w-full bg-slate-950", className)}>
             {children}
