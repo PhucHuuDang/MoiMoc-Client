@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ElementRef, RefObject, useRef } from "react";
 import { LipBalm } from "./_components-about-moi-moc/lip-balm";
 import { OrganicLipstick } from "./_components-about-moi-moc/organic-lipstick";
+import { OrganicLipStickSolid } from "./_components-about-moi-moc/organic-lipstick-solid";
 
 const AboutMoiMoc = () => {
   const lipBalmRef = useRef<ElementRef<"div">>(null);
@@ -91,6 +92,7 @@ const AboutMoiMoc = () => {
       </div> */}
       <LipBalm ref={lipBalmRef} />
       <OrganicLipstick ref={organicLipstickRef} />
+      <OrganicLipStickSolid ref={lipstickRef} />
     </div>
   );
 };

@@ -18,23 +18,23 @@ export const OrganicLipstick = forwardRef<HTMLDivElement, OrganicLipstickProps>(
     phthalates, đảm bảo an toàn tuyệt đối`;
 
     return (
-      <div className="w-full" ref={ref}>
+      <div className="my-6 w-full" ref={ref}>
         <div className="flex">
           <Image
             src="/about-moi-moc-images/model-organic-lipstick.png"
             alt="model-organic"
-            width={600}
+            width={800}
             height={600}
-            className="h-[750px] w-full object-contain 2xl:h-full"
+            className="max-h-svh w-full object-cover 2xl:h-full"
           />
 
           <div className="relative w-full">
             <Image
               src="/about-moi-moc-images/background-organic-lipstick.png"
               alt="background-organic"
-              height={600}
-              width={600}
-              className="h-[750px] w-full object-cover 2xl:h-full"
+              height={800}
+              width={800}
+              className="max-h-svh w-full object-cover 2xl:h-full"
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <h1 className="text-4xl font-bold text-white">
@@ -50,7 +50,7 @@ export const OrganicLipstick = forwardRef<HTMLDivElement, OrganicLipstickProps>(
             </div>
           </div>
         </div>
-        <div className=" overflow-hidden px-14">
+        <div className="overflow-hidden px-14">
           <CarouselCustomized title="Son Kem Hữu Cơ">
             {products.map((product) => {
               return (
