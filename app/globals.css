@@ -32,6 +32,14 @@
     --moi-moc-text: 0, 60, 20, 1;
   }
 
+  .hoverAnimate {
+    transition: transform 200ms;
+    cursor: pointer;
+  }
+  .hoverAnimate:hover {
+    transform: scale(1.05);
+  }
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;

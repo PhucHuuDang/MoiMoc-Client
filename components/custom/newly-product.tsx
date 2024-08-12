@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
-import { ProductItem } from "./product-item";
+import { ProductItemGlareCard } from "./product-item";
 import AutoPlay from "embla-carousel-autoplay";
 import { CircleUI } from "./circle-ui";
 import { Header } from "../_global-components-reused/header";
@@ -30,7 +30,7 @@ export const NewlyProduct = () => {
             <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/4">
               <BlurFade delay={0.2 + index * 0.2} inView>
                 <div className="pl-1">
-                  <ProductItem />
+                  <ProductItemGlareCard />
                 </div>
               </BlurFade>
             </CarouselItem>

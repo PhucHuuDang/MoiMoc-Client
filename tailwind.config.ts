@@ -55,8 +55,6 @@ const config = {
         main_background_color: "#fefbf4",
         moi_moc_text_green: "rgba(--moi-moc-text)",
         moi_moc_green: "#003c14",
-        hoverAnimate:
-          "hover:scale-110 transition duration-200  p-0.5 rounded-lg",
       },
       borderRadius: {
         lg: "var(--radius)",

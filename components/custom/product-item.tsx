@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { GlareCard } from "../aceternity-ui/glare-card";
 
-interface ProductItemProps {}
+interface ProductItemGlareCardProps {}
 
-export const ProductItem = () => {
+export const ProductItemGlareCard = () => {
   return (
     <GlareCard className="flex cursor-pointer flex-col items-center justify-center">
       <Image
