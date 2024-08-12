@@ -15,19 +15,19 @@ export const ImagesDemo = [
 export const Lipsticks = [
   {
     label: "Son Dưỡng",
-    tabContent: "son-duong",
+    refContent: "lipBalmRef",
   },
   {
-    label: "Son kem hữu cơ",
-    tabContent: "son-kem-huu-co",
+    label: "Son Kem Hữu Cơ",
+    refContent: "organicLipstickRef",
   },
   {
     label: "Son Thỏi",
-    tabContent: "son-thoi",
+    refContent: "lipstickRef",
   },
   {
     label: "Set Quà Tặng",
-    tabContent: "set-qua-tang",
+    refContent: "giftSetRef",
   },
 ];
 

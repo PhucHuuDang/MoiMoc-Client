@@ -1,9 +1,37 @@
+"use client";
+
 import { CarouselCustomized } from "@/components/_global-components-reused/carousel-customized";
 import { TextGenerateEffect } from "@/components/aceternity-ui/text-generate-effect";
 import { Lipsticks } from "@/lib/db";
 import Image from "next/image";
+import { ElementRef, RefObject, useRef } from "react";
 
 const AboutMoiMoc = () => {
+  const lipBalmRef = useRef<ElementRef<"div">>(null);
+  const organicLipstickRef = useRef<ElementRef<"div">>(null);
+  const lipstickRef = useRef<ElementRef<"div">>(null);
+  const giftSetRef = useRef<ElementRef<"div">>(null);
+
+  const handleScrollPosition = (
+    // ref: RefObject<HTMLDivElement>,
+    refLabel: string,
+  ) => {
+    const refMap: Record<string, RefObject<HTMLDivElement>> = {
+      lipBalmRef,
+      organicLipstickRef,
+      lipstickRef,
+      giftSetRef,
+    };
+
+    const ref = refMap[refLabel as keyof typeof refMap];
+
+    if (ref?.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const text = `Mang đến cho bạn đôi môi mềm mịn và căng mọng tự nhiên, son dưỡng
   Môi Mộc được làm từ 100% nguyên liệu hữu cơ như dầu dừa, sáp ong và
   tinh dầu hoa hồng. Sản phẩm không chứa chất bảo quản và hóa chất độc
@@ -15,13 +43,21 @@ const AboutMoiMoc = () => {
         {Lipsticks.map((lipstick) => {
           return (
             <div
-              key={lipstick.tabContent}
+              // ref={lipstick.refContent === }
+              key={lipstick.refContent}
               className="hoverAnimate w-44 rounded-xl border border-moi_moc_green p-1.5 text-center font-semibold text-moi_moc_green"
+              onClick={() => handleScrollPosition(lipstick.refContent)}
             >
               {lipstick.label}
             </div>
           );
         })}
+        {/* <div
+          className="w-44 rounded-xl"
+          onClick={() => handleScrollPosition(lipBalmRef, "test")}
+        >
+          Test
+        </div> */}
       </div>
 
       <div className="flex items-center gap-x-2 px-6">
@@ -48,7 +84,7 @@ const AboutMoiMoc = () => {
         </div>
       </div>
 
-      <div className="my-6">
+      <div className="my-6" ref={lipBalmRef}>
         <h1 className="text-center text-4xl font-bold text-moi_moc_green">
           Son Dưỡng Môi Mộc
         </h1>
