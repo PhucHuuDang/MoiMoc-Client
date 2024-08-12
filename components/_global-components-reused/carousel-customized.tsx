@@ -9,30 +9,36 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { ProductItemEffectHoverEffectHover } from "./navbar-svg-components/product-item-effect-hover";
+import AutoPlay from "embla-carousel-autoplay";
 
-export const CarouselCustomized = () => {
+interface CarouselCustomizedProps {
+  children?: React.ReactNode;
+  title?: string;
+}
+
+export const CarouselCustomized = ({
+  children,
+  title,
+}: CarouselCustomizedProps) => {
   return (
-    <Carousel
-      opts={{
-        align: "start",
-        loop: true,
-      }}
-      // className="w-full"
-    >
-      <CarouselContent>
-        {products.map((product) => {
-          return (
-            <CarouselItem
-              key={product.id}
-              className="md:basis-1/2 lg:basis-1/5"
-            >
-              <ProductItemEffectHoverEffectHover product={product} />
-            </CarouselItem>
-          );
-        })}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+    <>
+      {title && (
+        <h1 className="my-5 text-center text-4xl font-bold text-moi_moc_green">
+          {title}
+        </h1>
+      )}
+      <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+        plugins={[AutoPlay({ delay: 3000, stopOnInteraction: false })]}
+        className="rounded-xl"
+      >
+        <CarouselContent>{children}</CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    </>
   );
 };

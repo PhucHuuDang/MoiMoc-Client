@@ -5,6 +5,8 @@ import { TextGenerateEffect } from "@/components/aceternity-ui/text-generate-eff
 import { Lipsticks } from "@/lib/db";
 import Image from "next/image";
 import { ElementRef, RefObject, useRef } from "react";
+import { LipBalm } from "./_components-about-moi-moc/lip-balm";
+import { OrganicLipstick } from "./_components-about-moi-moc/organic-lipstick";
 
 const AboutMoiMoc = () => {
   const lipBalmRef = useRef<ElementRef<"div">>(null);
@@ -52,15 +54,9 @@ const AboutMoiMoc = () => {
             </div>
           );
         })}
-        {/* <div
-          className="w-44 rounded-xl"
-          onClick={() => handleScrollPosition(lipBalmRef, "test")}
-        >
-          Test
-        </div> */}
       </div>
 
-      <div className="flex items-center gap-x-2 px-6">
+      {/* <div className="flex items-center gap-x-2 px-6">
         <Image
           src="/about-moi-moc-images/son-duong-moc.png"
           width={500}
@@ -92,7 +88,9 @@ const AboutMoiMoc = () => {
         <div className="mt-5 overflow-hidden px-14">
           <CarouselCustomized />
         </div>
-      </div>
+      </div> */}
+      <LipBalm ref={lipBalmRef} />
+      <OrganicLipstick ref={organicLipstickRef} />
     </div>
   );
 };
