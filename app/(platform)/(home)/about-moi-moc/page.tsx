@@ -60,39 +60,6 @@ const AboutMoiMoc = () => {
         })}
       </div>
 
-      {/* <div className="flex items-center gap-x-2 px-6">
-        <Image
-          src="/about-moi-moc-images/son-duong-moc.png"
-          width={500}
-          height={300}
-          className="h-[320px] w-full rounded-xl object-cover 2xl:h-[500px]"
-          alt="suong-duong-moc"
-        />
-
-        <div className="flex flex-col">
-          <h1 className="text-center text-4xl font-bold text-moi_moc_green">
-            Son Dưỡng Môi Mộc
-          </h1>
-          <span className="p-2 text-moi_moc_green">
-            <TextGenerateEffect
-              words={text}
-              duration={10}
-              filter={false}
-              className="font-semibold text-moi_moc_green"
-            />
-          </span>
-        </div>
-      </div>
-
-      <div className="my-6" ref={lipBalmRef}>
-        <h1 className="text-center text-4xl font-bold text-moi_moc_green">
-          Son Dưỡng Môi Mộc
-        </h1>
-
-        <div className="mt-5 overflow-hidden px-14">
-          <CarouselCustomized />
-        </div>
-      </div> */}
       <LipBalm ref={lipBalmRef} />
       <OrganicLipstick ref={organicLipstickRef} />
       <OrganicLipStickSolid ref={lipstickRef} />

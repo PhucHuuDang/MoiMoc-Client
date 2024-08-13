@@ -1,6 +1,7 @@
 "use client";
 
 import { truncateText } from "@/app/lodash-config/truncate";
+import { useCartStore } from "@/store/use-cart-store";
 import { ProductProps } from "@/types";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
@@ -12,6 +13,13 @@ interface ProductItemEffectHoverProps {
 export const ProductItemEffectHoverEffectHover = ({
   product,
 }: ProductItemEffectHoverProps) => {
+  const addOrder = useCartStore((state) => state.addOrder);
+
+  const handleAddToCart = (e: React.MouseEvent, product: ProductProps) => {
+    e.stopPropagation();
+    addOrder(product);
+  };
+
   const MAX_LENGTH = 54;
 
   return (
@@ -78,7 +86,7 @@ export const ProductItemEffectHoverEffectHover = ({
         </div>
 
         <ShoppingCart
-          // onClick={(e) => handleAddToCart(e, product)}
+          onClick={(e) => handleAddToCart(e, product)}
           className="size-10 cursor-pointer rounded-lg p-1 text-slate-600 duration-200 hover:scale-110 hover:bg-slate-200 hover:text-slate-800 hover:shadow-lg"
         />
       </div>

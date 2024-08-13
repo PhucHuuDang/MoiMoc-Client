@@ -5,6 +5,7 @@ import { ProductItemEffectHoverEffectHover } from "@/components/_global-componen
 import { TextGenerateEffect } from "@/components/aceternity-ui/text-generate-effect";
 import { CarouselItem } from "@/components/ui/carousel";
 import { products } from "@/lib/db";
+import { useCartStore } from "@/store/use-cart-store";
 import Image from "next/image";
 import { forwardRef } from "react";
 
@@ -12,6 +13,9 @@ interface OrganicLipstickProps {}
 
 export const OrganicLipstick = forwardRef<HTMLDivElement, OrganicLipstickProps>(
   ({}, ref) => {
+    const addOrder = useCartStore((state) => state.addOrder);
+    // cart.
+
     const text = `Công thức độc đáo từ các thành phần tự nhiên như dầu cám gạo và
     tinh dầu hạnh nhân, son kem hữu cơ Môi Mộc mang lại cảm giác mềm
     mại và mịn màng cho đôi môi. Sản phẩm không chứa parabens,
