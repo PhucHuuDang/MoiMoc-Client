@@ -67,8 +67,6 @@ export const LipBalm = forwardRef<HTMLDivElement>(({}, ref) => {
       </div>
 
       <div className="my-6" ref={ref}>
-       
-
         <div className="mt-5 overflow-hidden px-14">
           <CarouselCustomized title="Son Dưỡng Môi Mộc">
             {products.map((product) => {

@@ -8,6 +8,9 @@ import { ElementRef, RefObject, useRef } from "react";
 import { LipBalm } from "./_components-about-moi-moc/lip-balm";
 import { OrganicLipstick } from "./_components-about-moi-moc/organic-lipstick";
 import { OrganicLipStickSolid } from "./_components-about-moi-moc/organic-lipstick-solid";
+import { GiftSet } from "./_components-about-moi-moc/gift-set";
+import { Footer } from "@/components/_global-components-reused/footer";
+import { CircleUI } from "@/components/custom/circle-ui";
 
 const AboutMoiMoc = () => {
   const lipBalmRef = useRef<ElementRef<"div">>(null);
@@ -93,6 +96,8 @@ const AboutMoiMoc = () => {
       <LipBalm ref={lipBalmRef} />
       <OrganicLipstick ref={organicLipstickRef} />
       <OrganicLipStickSolid ref={lipstickRef} />
+      <GiftSet ref={giftSetRef} />
+      <Footer />
     </div>
   );
 };
