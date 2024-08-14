@@ -51,6 +51,7 @@ export const RegisterModal = () => {
     // console.log({ values });
     console.log("123");
     console.log({ values });
+    registerModal.onClose();
   };
 
   const header = (

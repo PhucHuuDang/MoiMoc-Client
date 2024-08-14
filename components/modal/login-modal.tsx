@@ -25,6 +25,7 @@ import { DialogClose } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { FormPassword } from "../_global-components-reused/form/form-password";
 import { useRegisterDiaLogModal } from "@/hooks/register-dialog-modal";
+import { FormValues } from "../_global-components-reused/form/form-values";
 
 export const LoginModal = () => {
   const loginModal = useLoginDiaLogModal();
@@ -66,58 +67,36 @@ export const LoginModal = () => {
   );
 
   const body = (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-        {/* <FormField
-          control={form.control}
-          name="phone"
-          render={({ field, fieldState, formState }) => {
-            // console.log({ fieldState });
-            // console.log({ formState });
-            return (
-              <FormItem>
-                <FormLabel>Number phone</FormLabel>
-                <FormControl>
-                  <Input placeholder="+84..." {...field} />
-                </FormControl>
-                <FormMessage>{fieldState.error?.message}</FormMessage>
-              </FormItem>
-            );
-          }}
-        /> */}
+    <FormValues form={form} onSubmit={onSubmit}>
+      {/* <Form {...form}> */}
+      {/* <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5"> */}
+      <FormItemsControl
+        form={form}
+        name="phone"
+        placeholder="*84..."
+        label="Phone"
+      />
 
-        <FormItemsControl
-          form={form}
-          name="phone"
-          placeholder="*84..."
-          label="Phone"
-        />
+      <FormPassword
+        form={form}
+        name="password"
+        placeholder="your password"
+        label="Password"
+      />
 
-        <FormPassword
-          form={form}
-          name="password"
-          placeholder="your password"
-          label="Password"
-        />
-
-        {/* <FormItemsControl
-          form={form}
-          name="password"
-          placeholder="your password"
-          label="Password"
-        /> */}
-        <div className="flex items-center justify-end gap-x-2">
-          <DialogClose asChild>
-            <Button className="w-24" variant="outline">
-              Cancel
-            </Button>
-          </DialogClose>
-          <FormSubmit className="w-24 text-end" variant="moiMoc">
-            Submit
-          </FormSubmit>
-        </div>
-      </form>
-    </Form>
+      <div className="flex items-center justify-end gap-x-2">
+        <DialogClose asChild>
+          <Button className="w-24" variant="outline">
+            Cancel
+          </Button>
+        </DialogClose>
+        <FormSubmit className="w-24 text-end" variant="moiMoc">
+          Submit
+        </FormSubmit>
+      </div>
+      {/* </form> */}
+      {/* </Form> */}
+    </FormValues>
   );
 
   const footer = (

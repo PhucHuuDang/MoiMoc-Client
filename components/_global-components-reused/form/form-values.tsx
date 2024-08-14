@@ -18,9 +18,11 @@ import {
 } from "react-hook-form";
 import { FormItemsControl } from "./form-items-control";
 import { ZodType } from "zod";
+import { cn } from "@/lib/utils";
 
 interface FormValuesProps<T extends FieldValues> {
   form: UseFormReturn<T>;
+  classNameForm?: string;
   onSubmit: (data: T) => void | Promise<void>;
   children: React.ReactNode;
   name?: Path<T>;
@@ -39,10 +41,14 @@ export const FormValues = <T extends FieldValues>({
   formSubmit,
   formItems,
   children,
+  classNameForm,
 }: FormValuesProps<T>) => {
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={cn("space-y-5", classNameForm)}
+      >
         {children}
       </form>
     </Form>

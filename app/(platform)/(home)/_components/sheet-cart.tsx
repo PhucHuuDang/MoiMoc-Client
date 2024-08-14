@@ -84,8 +84,8 @@ export const SheetCart = ({}: SheetCartProps) => {
             </Button>
 
             <SheetClose asChild>
-              <div className="cursor-pointer text-center text-slate-400 duration-200 hover:text-slate-600 hover:underline">
-                Continue shopping
+              <div className="flex cursor-pointer items-center gap-1 text-center text-slate-400 duration-200 hover:text-slate-600 hover:underline">
+                <ShoppingBag /> Continue shopping
               </div>
             </SheetClose>
           </div>
@@ -93,11 +93,13 @@ export const SheetCart = ({}: SheetCartProps) => {
           // </SheetFooter>
         )}
 
-        <SheetClose asChild>
-          <div className="item-center flex animate-bounce cursor-pointer items-center justify-center gap-1 text-center text-moi_moc_green duration-1000 hover:text-slate-600 hover:underline">
-            <ShoppingBag /> Back to shopping
-          </div>
-        </SheetClose>
+        {!cartCondition && (
+          <SheetClose asChild>
+            <div className="item-center flex animate-bounce cursor-pointer items-center justify-center gap-1 text-center text-moi_moc_green duration-1000 hover:text-slate-600 hover:underline">
+              <ShoppingBag /> Back to shopping
+            </div>
+          </SheetClose>
+        )}
       </SheetContent>
     </Sheet>
   );
