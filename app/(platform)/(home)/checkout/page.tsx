@@ -9,48 +9,35 @@ import { CheckoutHeader } from "./_components/checkout-header";
 import { MapPin, Phone } from "lucide-react";
 import { DeliveryMethod } from "./_components/delivery-method";
 import { ReceivingInformation } from "./_components/receiving-information";
+import { PaymentMethod } from "./_components/payment-method";
+import { OrderDetail } from "./_components/order-detail";
+import { Footer } from "@/components/_global-components-reused/footer";
+import { Separator } from "@/components/ui/separator";
+import { DiscountCode } from "./_components/discount-code";
 
 const CheckoutPage = () => {
   return (
-    <div className="min-h-screen pt-20">
-      <div className="py-10">
+    <div className="min-h-screen pt-20 overflow-x-hidden">
+      <div className="py-10 pt-20 flex items-center justify-center">
         <CheckoutHeader />
       </div>
-      <div>
-        {/* <Card className="w-[300px] space-y-8 border-moi_moc_green">
-          <CardHeader>
-            <CardTitle>Shipping Address</CardTitle>
-            <CardDescription></CardDescription>
-          </CardHeader>
+      <div className="flex justify-center gap-x-8 my-5">
+        <div className=" flex flex-col items-center gap-y-8">
+          <ReceivingInformation />
 
-          <CardContent className="space-y-4">
-            <div className="flex flex-col gap-y-1">
-              <h1 className="item-center flex gap-x-1 text-lg font-bold text-moi_moc_green">
-                <Phone className="size-6 font-bold text-moi_moc_green" />{" "}
-                Contact Information
-              </h1>
-              <div className="flex flex-col space-y-1">
-                <span>Name: Dang Huu Phuc</span>
-                <span>SDT: +84 81.459.3739</span>
-              </div>
-            </div>
+          <DeliveryMethod />
 
-            <div className="flex flex-col gap-y-1">
-              <h1 className="item-center flex gap-x-1 text-lg font-bold text-moi_moc_green">
-                <MapPin className="size-6 font-bold text-moi_moc_green" />{" "}
-                Shipping Address
-              </h1>
-              <div className="flex flex-col space-y-1">
-                <span>Name: Dang Huu Phuc</span>
-                <span>SDT: +84 81.459.3739</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card> */}
+          <PaymentMethod />
+          <DiscountCode />
+        </div>
 
-        <ReceivingInformation />
+        <OrderDetail />
+      </div>
 
-        <DeliveryMethod />
+      <Separator className="my-16 h-0.5 mx-1 bg-moi_moc_green" />
+
+      <div className="my-4">
+        <Footer />
       </div>
     </div>
   );

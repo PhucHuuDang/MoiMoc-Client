@@ -21,7 +21,7 @@ interface FormItemControlRadioProps<T extends FieldValues, K> {
   classNameLabel?: string;
   disabled?: boolean;
   formLabel?: string;
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export const FormItemControlRadio = <T extends FieldValues, K>({

@@ -1,49 +1,43 @@
 "use client";
 
 import { FormItemControlRadio } from "@/components/_global-components-reused/form/form-item-control-radio";
-import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
 import { FormValues } from "@/components/_global-components-reused/form/form-values";
 import { RadioItem } from "@/components/_global-components-reused/form/radio-item";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  CheckoutSchemaTypes,
-  deliveryMethods,
+  paymentMethods,
+  PaymentMethodSchemaTypes,
 } from "@/safe-types-zod/checkout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { DeliveryMethod } from "./delivery-method";
+import { CheckoutSchemaTypes } from "@/safe-types-zod/checkout";
 
-export const DeliveryMethod = () => {
-  const form = useForm<z.infer<typeof CheckoutSchemaTypes>>({
-    resolver: zodResolver(CheckoutSchemaTypes),
+export const PaymentMethod = () => {
+  const form = useForm<z.infer<typeof PaymentMethodSchemaTypes>>({
+    resolver: zodResolver(PaymentMethodSchemaTypes),
     defaultValues: {
-      method: "standard",
+      paymentMethod: "receive-order-payment",
     },
   });
 
-  const onSubmit = (method: z.infer<typeof CheckoutSchemaTypes>) => {
-    console.log({ method });
+  const onSubmit = (values: z.infer<typeof PaymentMethodSchemaTypes>) => {
+    console.log({ values });
   };
 
   return (
     <Card className="w-[300px] border-moi_moc_green">
       <CardHeader>
-        <CardTitle>Delivery Method</CardTitle>
+        <CardTitle>Payment Method</CardTitle>
       </CardHeader>
       <CardContent>
         <FormValues form={form} onSubmit={onSubmit}>
-          <FormItemControlRadio form={form} name="method">
-            {deliveryMethods.map((method) => {
-              return (
-                <RadioItem
-                  key={method.value}
-                  value={method.value}
-                  label={method.label}
-                />
-              );
+          <FormItemControlRadio form={form} name="paymentMethod">
+            {paymentMethods.map(({ value, label }) => {
+              return <RadioItem key={value} value={value} label={label} />;
             })}
           </FormItemControlRadio>
-          <FormSubmit>Continue</FormSubmit>
         </FormValues>
       </CardContent>
     </Card>

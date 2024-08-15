@@ -21,6 +21,7 @@ interface FormItemsControlProps<T extends FieldValues, K> {
   type?: string;
   classNameLabel?: string;
   disabled?: boolean;
+  classNameInput?: string;
 }
 
 export const FormItemsControl = <T extends FieldValues, K>({
@@ -31,6 +32,7 @@ export const FormItemsControl = <T extends FieldValues, K>({
   type,
   classNameLabel,
   disabled,
+  classNameInput,
 }: FormItemsControlProps<T, K>) => {
   return (
     <FormField
@@ -44,7 +46,13 @@ export const FormItemsControl = <T extends FieldValues, K>({
               {label}
             </FormLabel>
             <FormControl>
-              <Input placeholder={placeholder} {...field} type={type} />
+              <Input
+                className={cn("border-moi_moc_green", classNameInput)}
+                placeholder={placeholder}
+                disabled={disabled}
+                {...field}
+                type={type}
+              />
             </FormControl>
             <FormMessage>{fieldState.error?.message}</FormMessage>
           </FormItem>
