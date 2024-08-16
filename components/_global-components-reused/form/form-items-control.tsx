@@ -39,7 +39,7 @@ export const FormItemsControl = <T extends FieldValues, K>({
       control={form.control}
       name={name}
       render={({ field, fieldState, formState }) => {
-        console.log({ field });
+        // console.log({ field, fieldState, formState });
         return (
           <FormItem>
             <FormLabel className={cn("text-moi_moc_green", classNameLabel)}>

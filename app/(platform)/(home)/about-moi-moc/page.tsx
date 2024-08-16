@@ -1,72 +1,11 @@
-"use client";
+import { AboutMoiMoc } from "./about-moi-moc";
 
-import { CarouselCustomized } from "@/components/_global-components-reused/carousel-customized";
-import { TextGenerateEffect } from "@/components/aceternity-ui/text-generate-effect";
-import { Lipsticks } from "@/lib/db";
-import Image from "next/image";
-import { ElementRef, RefObject, useRef } from "react";
-import { LipBalm } from "./_components-about-moi-moc/lip-balm";
-import { OrganicLipstick } from "./_components-about-moi-moc/organic-lipstick";
-import { OrganicLipStickSolid } from "./_components-about-moi-moc/organic-lipstick-solid";
-import { GiftSet } from "./_components-about-moi-moc/gift-set";
-import { Footer } from "@/components/_global-components-reused/footer";
-import { CircleUI } from "@/components/custom/circle-ui";
-
-const AboutMoiMoc = () => {
-  const lipBalmRef = useRef<ElementRef<"div">>(null);
-  const organicLipstickRef = useRef<ElementRef<"div">>(null);
-  const lipstickRef = useRef<ElementRef<"div">>(null);
-  const giftSetRef = useRef<ElementRef<"div">>(null);
-
-  const handleScrollPosition = (
-    // ref: RefObject<HTMLDivElement>,
-    refLabel: string,
-  ) => {
-    const refMap: Record<string, RefObject<HTMLDivElement>> = {
-      lipBalmRef,
-      organicLipstickRef,
-      lipstickRef,
-      giftSetRef,
-    };
-
-    const ref = refMap[refLabel as keyof typeof refMap];
-
-    if (ref?.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    // ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  const text = `Mang đến cho bạn đôi môi mềm mịn và căng mọng tự nhiên, son dưỡng
-  Môi Mộc được làm từ 100% nguyên liệu hữu cơ như dầu dừa, sáp ong và
-  tinh dầu hoa hồng. Sản phẩm không chứa chất bảo quản và hóa chất độc
-  hại, đảm bảo an toàn tuyệt đối cho đôi môi của bạn.`;
-
+const AboutMoiMocPage = () => {
   return (
-    <div className="min-h-screen pt-20">
-      <div className="my-6 flex items-center justify-evenly">
-        {Lipsticks.map((lipstick) => {
-          return (
-            <div
-              // ref={lipstick.refContent === }
-              key={lipstick.refContent}
-              className="hoverAnimate w-44 rounded-xl border border-moi_moc_green p-1.5 text-center font-semibold text-moi_moc_green"
-              onClick={() => handleScrollPosition(lipstick.refContent)}
-            >
-              {lipstick.label}
-            </div>
-          );
-        })}
-      </div>
-
-      <LipBalm ref={lipBalmRef} />
-      <OrganicLipstick ref={organicLipstickRef} />
-      <OrganicLipStickSolid ref={lipstickRef} />
-      <GiftSet ref={giftSetRef} />
-      <Footer />
+    <div className="min-h-screen">
+      <AboutMoiMoc />
     </div>
   );
 };
 
-export default AboutMoiMoc;
+export default AboutMoiMocPage;

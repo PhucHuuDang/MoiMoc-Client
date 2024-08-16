@@ -69,7 +69,7 @@ export const Footer = () => {
     "hover:scale-110 transition duration-200  p-0.5 rounded-lg";
 
   return (
-    <div className="">
+    <div className="my-8">
       <div className="item-center my-8 flex justify-center">
         <Logo width={401} height={100} className={hoverAnimate} />
       </div>
