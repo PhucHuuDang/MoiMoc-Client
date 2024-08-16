@@ -1,4 +1,4 @@
-import { AboutMoiMocClient } from "./about-moi-moc";
+import { AboutMoiMocClient } from "./about-moi-moc-client";
 
 const AboutMoiMocPage = () => {
   return (
