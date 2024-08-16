@@ -1,9 +1,9 @@
-import { AboutMoiMoc } from "./about-moi-moc";
+import { AboutMoiMocClient } from "./about-moi-moc";
 
 const AboutMoiMocPage = () => {
   return (
     <div className="min-h-screen">
-      <AboutMoiMoc />
+      <AboutMoiMocClient />
     </div>
   );
 };

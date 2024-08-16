@@ -15,7 +15,7 @@ import { Footer } from "@/components/_global-components-reused/footer";
 import { Separator } from "@/components/ui/separator";
 import { FloatArrow } from "./_components-about-moi-moc/float-arrow";
 
-export const AboutMoiMoc = () => {
+export const AboutMoiMocClient = () => {
   const homeRef = useRef<ElementRef<"div">>(null);
   const lipBalmRef = useRef<ElementRef<"div">>(null);
   const organicLipstickRef = useRef<ElementRef<"div">>(null);
