@@ -14,11 +14,12 @@ import { OrderDetail } from "./_components/order-detail";
 import { Footer } from "@/components/_global-components-reused/footer";
 import { Separator } from "@/components/ui/separator";
 import { DiscountCode } from "./_components/discount-code";
+import { CheckoutClient } from "./checkout-client";
 
 const CheckoutPage = () => {
   return (
-    <div className="min-h-screen pt-20 overflow-x-hidden">
-      <div className="py-10 pt-20 flex items-center justify-center">
+    <div className="min-h-screen">
+      {/* <div className="py-10 pt-20 flex items-center justify-center">
         <CheckoutHeader />
       </div>
       <div className="flex justify-center gap-x-8 my-5">
@@ -38,7 +39,8 @@ const CheckoutPage = () => {
 
       <div className="my-4">
         <Footer />
-      </div>
+      </div> */}
+      <CheckoutClient />
     </div>
   );
 };

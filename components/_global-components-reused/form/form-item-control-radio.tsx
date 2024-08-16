@@ -40,7 +40,7 @@ export const FormItemControlRadio = <T extends FieldValues, K>({
       control={form.control}
       name={name}
       render={({ field, fieldState, formState }) => {
-        console.log({ field, fieldState, formState });
+        // console.log({ field, fieldState, formState });
         return (
           <FormItem className="space-y-3">
             <FormLabel>{formLabel}</FormLabel>
