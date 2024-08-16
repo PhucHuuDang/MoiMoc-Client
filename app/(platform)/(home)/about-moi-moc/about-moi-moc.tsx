@@ -5,6 +5,8 @@ import { useWindowScroll } from "react-use";
 
 import { Lipsticks } from "@/lib/db";
 
+import BlurFade from "@/components/magic/blur-fade";
+
 import { LipBalm } from "./_components-about-moi-moc/lip-balm";
 import { OrganicLipstick } from "./_components-about-moi-moc/organic-lipstick";
 import { OrganicLipStickSolid } from "./_components-about-moi-moc/organic-lipstick-solid";
@@ -22,9 +24,7 @@ export const AboutMoiMoc = () => {
 
   const { y } = useWindowScroll();
 
-  useEffect(() => {
-    console.log({ y });
-  }, [y]);
+  const delay = 0.25;
 
   const onScrollTop = () => {
     homeRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -53,26 +53,40 @@ export const AboutMoiMoc = () => {
   return (
     <div className="h-full overflow-hidden pt-20" ref={homeRef}>
       <div className="my-6 flex items-center justify-evenly">
-        {Lipsticks.map((lipstick) => {
+        {Lipsticks.map((lipstick, index) => {
           return (
-            <div
-              // ref={lipstick.refContent === }
-              key={lipstick.refContent}
-              className="hoverAnimate w-44 rounded-xl border border-moi_moc_green p-1.5 text-center font-semibold text-moi_moc_green"
-              onClick={() => handleScrollPosition(lipstick.refContent)}
-            >
-              {lipstick.label}
-            </div>
+            <BlurFade inView delay={0.2 + index * 0.1}>
+              <div
+                // ref={lipstick.refContent === }
+                key={lipstick.refContent}
+                className="hoverAnimate w-44 rounded-xl border border-moi_moc_green p-1.5 text-center font-semibold text-moi_moc_green"
+                onClick={() => handleScrollPosition(lipstick.refContent)}
+              >
+                {lipstick.label}
+              </div>
+            </BlurFade>
           );
         })}
       </div>
 
-      <LipBalm ref={lipBalmRef} />
-      <OrganicLipstick ref={organicLipstickRef} />
-      <OrganicLipStickSolid ref={lipstickRef} />
-      <GiftSet ref={giftSetRef} />
-      <Separator className="mx-1 my-16 h-0.5 bg-moi_moc_green" />
-      <Footer />
+      <BlurFade inView delay={delay}>
+        <LipBalm ref={lipBalmRef} />
+      </BlurFade>
+      <BlurFade inView delay={delay}>
+        <OrganicLipstick ref={organicLipstickRef} />
+      </BlurFade>
+      <BlurFade inView delay={delay}>
+        <OrganicLipStickSolid ref={lipstickRef} />
+      </BlurFade>
+      <BlurFade inView delay={delay}>
+        <GiftSet ref={giftSetRef} />
+      </BlurFade>
+      <BlurFade inView delay={delay}>
+        <Separator className="mx-1 my-16 h-0.5 bg-moi_moc_green" />
+      </BlurFade>
+      <BlurFade inView delay={delay}>
+        <Footer />
+      </BlurFade>
       <FloatArrow onScrollTop={onScrollTop} visible={y >= 1452} />
     </div>
   );
