@@ -1,3 +1,24 @@
+import { OrderCard } from "../_orders-components/order-card";
+
+export const tabValues = [
+  {
+    id: 1,
+    value: "week",
+    label: "Week",
+    component: OrderCard,
+  },
+  {
+    id: 2,
+    value: "month",
+    label: "Month",
+  },
+  {
+    id: 3,
+    value: "year",
+    label: "Month",
+  },
+];
+
 export const CustomerOrdersData = [
   {
     id: 1,
