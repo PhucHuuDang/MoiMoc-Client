@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import { SidebarItem } from "./sidebar-item";
 import { useState } from "react";
+import { FloatingDock } from "@/components/aceternity-ui/floating-dock";
 
 const navItems = [
   { href: "#", icon: Package2, label: "Acme Inc", isBrand: true },
@@ -39,6 +40,7 @@ export const AdminSideBar = () => {
           <SidebarItem key={index} {...item} />
         ))}
       </nav>
+
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
         <SidebarItem {...settingsItem} />
       </nav>
