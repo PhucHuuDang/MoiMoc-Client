@@ -9,6 +9,8 @@ interface CustomerOrderProps {
   status: string;
   date: string;
   amount: string;
+  isActive: boolean;
+  onActive: (id: number) => void;
 }
 
 export const CustomerOrder = ({
@@ -19,10 +21,15 @@ export const CustomerOrder = ({
   status,
   date,
   amount,
+  isActive,
+  onActive,
 }: CustomerOrderProps) => {
   return (
     <TableBody>
-      <TableRow className="bg-accent">
+      <TableRow
+        className={`${isActive && "bg-accent rounded-lg"} cursor-pointer`}
+        onClick={() => onActive(id)}
+      >
         <TableCell>
           <div className="font-medium">{userName}</div>
           <div className="hidden text-sm text-muted-foreground md:inline">

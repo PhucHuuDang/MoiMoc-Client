@@ -25,7 +25,11 @@ export const TabsOrders = () => {
         <TabsList>
           {tabValues.map((tab) => {
             return (
-              <TabsTrigger key={tab.id} value={tab.value}>
+              <TabsTrigger
+                key={tab.id}
+                value={tab.value}
+                className="text-moi_moc_green"
+              >
                 {tab.label}
               </TabsTrigger>
             );

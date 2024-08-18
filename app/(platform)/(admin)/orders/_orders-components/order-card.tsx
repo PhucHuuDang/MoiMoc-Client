@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 import {
   Card,
   CardContent,
@@ -16,6 +20,12 @@ import { CustomerOrdersData } from "../db/data";
 import { CustomerOrder } from "./customer-order";
 
 export const OrderCard = () => {
+  const [idSelected, setIdSelected] = useState<number>();
+
+  const onActive = (id: number) => {
+    setIdSelected(id);
+  };
+
   return (
     <Card x-chunk="dashboard-05-chunk-3">
       <CardHeader className="px-7">
@@ -35,7 +45,14 @@ export const OrderCard = () => {
           </TableHeader>
 
           {CustomerOrdersData.map((order) => {
-            return <CustomerOrder {...order} key={order.id} />;
+            return (
+              <CustomerOrder
+                {...order}
+                key={order.id}
+                isActive={idSelected === order.id}
+                onActive={onActive}
+              />
+            );
           })}
         </Table>
       </CardContent>
