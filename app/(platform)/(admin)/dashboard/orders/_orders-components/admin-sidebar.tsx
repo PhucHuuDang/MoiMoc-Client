@@ -22,8 +22,13 @@ import { FloatingDock } from "@/components/aceternity-ui/floating-dock";
 const navItems = [
   { href: "#", icon: Package2, label: "Acme Inc", isBrand: true },
   { href: "#", icon: Home, label: "Dashboard" },
-  { href: "/orders", icon: ShoppingCart, label: "Orders", active: true },
-  { href: "#", icon: Package, label: "Products" },
+  {
+    href: "/dashboard/orders",
+    icon: ShoppingCart,
+    label: "Orders",
+    active: true,
+  },
+  { href: "/dashboard/products", icon: Package, label: "Products" },
   { href: "#", icon: Users2, label: "Customers" },
   { href: "#", icon: LineChart, label: "Analytics" },
 ];

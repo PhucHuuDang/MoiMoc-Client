@@ -5,6 +5,7 @@ import { RegisterModal } from "@/components/modal/register-modal";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AdminSideBar } from "@/app/(platform)/(admin)/dashboard/orders/_orders-components/admin-sidebar";
 import { SheetSidebar } from "@/app/(platform)/(admin)/dashboard/orders/_orders-components/sheet-sidebar";
+import { AdminFloatingDock } from "./dashboard/orders/_orders-components/admin-floating-dock";
 
 const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
@@ -16,6 +17,8 @@ const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
           {children}
         </div>
+
+        <AdminFloatingDock />
       </div>
     </TooltipProvider>
   );

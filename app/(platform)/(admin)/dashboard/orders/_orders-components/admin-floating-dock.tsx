@@ -24,12 +24,12 @@ export const AdminFloatingDock = () => {
       title: "Dashboard",
     },
     {
-      href: "/orders",
+      href: "/dashboard/orders",
       icon: <ShoppingCart className="size-full text-moi_moc_green" />,
       title: "Orders",
     },
     {
-      href: "#",
+      href: "/dashboard/products",
       icon: <Package className="size-full text-moi_moc_green" />,
       title: "Products",
     },
