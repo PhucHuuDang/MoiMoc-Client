@@ -10,8 +10,13 @@ import {
 } from "lucide-react";
 
 import { FloatingDock } from "@/components/aceternity-ui/floating-dock";
+import { cn } from "@/lib/utils";
 
-export const AdminFloatingDock = () => {
+interface AdminFloatingDockProps {
+  className?: string;
+}
+
+export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
   const dockItems = [
     {
       href: "#",
@@ -46,10 +51,18 @@ export const AdminFloatingDock = () => {
   ];
 
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 transform">
+    // <div className="fixed bottom-4 left-1/2 -translate-x-1/2 transform">
+    <div
+      className={cn(
+        "fixed bottom-0 mx-auto text-center w-screen flex items-center justify-center",
+        className,
+      )}
+    >
       <FloatingDock
         items={dockItems}
         classNameIconContainer="bg-green-500"
+        desktopClassName=" bg-[#e3efef] "
+
         // desktopClassName="w-[450px] flex item-center justify-evenly bg-accent"
       />
     </div>
