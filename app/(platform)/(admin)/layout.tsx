@@ -6,9 +6,9 @@ import { AdminFloatingDock } from "./dashboard/orders/_orders-components/admin-f
 const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <TooltipProvider>
-      <div className="flex min-h-screen w-full flex-col">
+      <div className="flex min-h-screen w-full flex-col dark">
         <AdminSideBar />
-        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 dark:bg-card">
           <SheetSidebar />
 
           {children}

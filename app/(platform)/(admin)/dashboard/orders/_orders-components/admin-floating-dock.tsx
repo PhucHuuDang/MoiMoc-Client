@@ -17,35 +17,38 @@ interface AdminFloatingDockProps {
 }
 
 export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
+  const styleDockItems =
+    "size-full text-moi_moc_green dark:text-muted-foreground dark:group-hover:text-foreground duration-300 group-hover:scale-110";
+
   const dockItems = [
     {
       href: "#",
-      icon: <Package2 className="size-full text-moi_moc_green" />,
+      icon: <Package2 className={`${styleDockItems}`} />,
       title: "Acme Inc",
     },
     {
       href: "#",
-      icon: <Home className="size-full text-moi_moc_green" />,
+      icon: <Home className={`${styleDockItems}`} />,
       title: "Dashboard",
     },
     {
       href: "/dashboard/orders",
-      icon: <ShoppingCart className="size-full text-moi_moc_green" />,
+      icon: <ShoppingCart className={`${styleDockItems}`} />,
       title: "Orders",
     },
     {
       href: "/dashboard/products",
-      icon: <Package className="size-full text-moi_moc_green" />,
+      icon: <Package className={`${styleDockItems}`} />,
       title: "Products",
     },
     {
       href: "#",
-      icon: <Users2 className="size-full text-moi_moc_green" />,
+      icon: <Users2 className={`${styleDockItems}`} />,
       title: "Customers",
     },
     {
       href: "#",
-      icon: <LineChart className="size-full text-moi_moc_green" />,
+      icon: <LineChart className={`${styleDockItems}`} />,
       title: "Analytics",
     },
   ];
@@ -60,8 +63,8 @@ export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
     >
       <FloatingDock
         items={dockItems}
-        classNameIconContainer="bg-green-500"
-        desktopClassName=" bg-[#e3efef] "
+        classNameIconContainer="bg-green-500 text-foreground dark:bg-background group "
+        // desktopClassName="bg-red-500"
 
         // desktopClassName="w-[450px] flex item-center justify-evenly bg-accent"
       />

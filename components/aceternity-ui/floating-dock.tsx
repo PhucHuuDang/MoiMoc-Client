@@ -85,7 +85,7 @@ const FloatingDockMobile = ({
                   key={item.title}
                   className={cn(
                     `relative flex aspect-square items-center justify-center rounded-full bg-gray-200
-                    dark:bg-neutral-800`,
+                    dark:bg-background`,
                     classNameIconContainer,
                   )}
                 >
@@ -122,8 +122,8 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        `mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3
-        dark:bg-neutral-900 md:flex`,
+        `mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-neutral-200 px-4 pb-3
+        dark:bg-[#52472a] md:flex`,
         className,
       )}
     >

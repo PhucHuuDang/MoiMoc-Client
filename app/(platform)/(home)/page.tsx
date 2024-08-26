@@ -67,7 +67,7 @@ export default function HomePage() {
         </BlurFade>
       </div>
 
-      <div className="my-6">
+      <div className="py-8">
         <Footer />
       </div>
     </div>

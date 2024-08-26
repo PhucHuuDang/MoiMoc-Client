@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -74,5 +74,91 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+} */
+
+@tailwind base;
+/* [Red] This directive imports Tailwind's base styles, which include the default CSS reset and common styles like typography and form element normalization. */
+
+@tailwind components;
+/* [Orange] This directive imports Tailwind's component styles, which are pre-designed classes like buttons, forms, cards, etc., that you can extend and customize. */
+
+@tailwind utilities;
+/* [Yellow] This directive imports Tailwind's utility classes, the core of Tailwind CSS, which allow you to apply styles directly in your HTML, such as margins, padding, text colors, etc. */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* [Green] Light mode background color in HSL (hue, saturation, lightness) format. This is white. */
+    --foreground: 222.2 84% 4.9%; /* [Green] Light mode foreground color, typically for text. A dark color close to black. */
+    --card: 0 0% 100%; /* [Green] Light mode card background color, also white. */
+    --card-foreground: 222.2 84% 4.9%; /* [Green] Light mode card text color, the same dark color as the general foreground. */
+    --popover: 0 0% 100%; /* [Green] Light mode popover background color, white. */
+    --popover-foreground: 222.2 84% 4.9%; /* [Green] Light mode popover text color, dark. */
+    --primary: 222.2 47.4% 11.2%; /* [Green] Light mode primary color, a deep blue-black. */
+    --primary-foreground: 210 40% 98%; /* [Green] Light mode primary text color, a very light blue, almost white. */
+    --secondary: 210 40% 96.1%; /* [Green] Light mode secondary color, a very light blue. */
+    --secondary-foreground: 222.2 47.4% 11.2%; /* [Green] Light mode secondary text color, deep blue-black. */
+    --muted: 210 40% 96.1%; /* [Green] Light mode muted color, a light gray-blue. */
+    --muted-foreground: 215.4 16.3% 46.9%; /* [Green] Light mode muted text color, a medium gray. */
+    --accent: 210 40% 96.1%; /* [Green] Light mode accent color, light gray-blue. */
+    --accent-foreground: 222.2 47.4% 11.2%; /* [Green] Light mode accent text color, deep blue-black. */
+    --destructive: 0 84.2% 60.2%; /* [Green] Light mode destructive color, a bright red. */
+    --destructive-foreground: 210 40% 98%; /* [Green] Light mode destructive text color, very light blue (almost white). */
+    --border: 214.3 31.8% 91.4%; /* [Green] Light mode border color, a light gray. */
+    --input: 214.3 31.8% 91.4%; /* [Green] Light mode input field color, the same light gray as borders. */
+    --ring: 222.2 84% 4.9%; /* [Green] Light mode ring color for focus outlines, a dark near-black. */
+    --radius: 0.5rem; /* [Green] Border radius for rounded corners, set to 0.5rem. */
+    --chart-1: 12 76% 61%; /* [Green] Chart color 1, a warm orange. */
+    --chart-2: 173 58% 39%; /* [Green] Chart color 2, a cool teal. */
+    --chart-3: 197 37% 24%; /* [Green] Chart color 3, a muted blue. */
+    --chart-4: 43 74% 66%; /* [Green] Chart color 4, a bright yellow. */
+    --chart-5: 27 87% 67%; /* [Green] Chart color 5, a vibrant orange. */
+    --moi-moc-text: 0, 60, 20, 1; /* [Green] Custom text color for a specific use case, perhaps brand-related, with values corresponding to RGBA. */
+  }
+
+  .hoverAnimate {
+    transition: transform 200ms; /* [Blue] This class applies a smooth transition effect for transformations over 200ms. */
+    cursor: pointer; /* [Blue] Changes the cursor to a pointer on hover, indicating the element is clickable. */
+  }
+  .hoverAnimate:hover {
+    transform: scale(
+      1.05
+    ); /* [Blue] On hover, this class slightly scales up the element by 5%, creating a subtle zoom effect. */
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%; /* [Purple] Dark mode background color, a deep near-black. */
+    --foreground: 210 40% 98%; /* [Purple] Dark mode foreground color, a very light blue, almost white. */
+    --card: 222.2 84% 4.9%; /* [Purple] Dark mode card background color, the same near-black as the background. */
+    --card-foreground: 210 40% 98%; /* [Purple] Dark mode card text color, very light blue. */
+    --popover: 222.2 84% 4.9%; /* [Purple] Dark mode popover background color, the same near-black as the background. */
+    --popover-foreground: 210 40% 98%; /* [Purple] Dark mode popover text color, very light blue. */
+    --primary: 210 40% 98%; /* [Purple] Dark mode primary color, very light blue. */
+    --primary-foreground: 222.2 47.4% 11.2%; /* [Purple] Dark mode primary text color, deep blue-black. */
+    --secondary: 217.2 32.6% 17.5%; /* [Purple] Dark mode secondary color, a dark gray-blue. */
+    --secondary-foreground: 210 40% 98%; /* [Purple] Dark mode secondary text color, very light blue. */
+    --muted: 217.2 32.6% 17.5%; /* [Purple] Dark mode muted color, dark gray-blue. */
+    --muted-foreground: 215 20.2% 65.1%; /* [Purple] Dark mode muted text color, medium gray. */
+    --accent: 217.2 32.6% 17.5%; /* [Purple] Dark mode accent color, dark gray-blue. */
+    --accent-foreground: 210 40% 98%; /* [Purple] Dark mode accent text color, very light blue. */
+    --destructive: 0 62.8% 30.6%; /* [Purple] Dark mode destructive color, a darker red. */
+    --destructive-foreground: 210 40% 98%; /* [Purple] Dark mode destructive text color, very light blue. */
+    --border: 217.2 32.6% 17.5%; /* [Purple] Dark mode border color, dark gray-blue. */
+    --input: 217.2 32.6% 17.5%; /* [Purple] Dark mode input field color, dark gray-blue. */
+    --ring: 212.7 26.8% 83.9%; /* [Purple] Dark mode ring color for focus outlines, a light blue. */
+    --chart-1: 220 70% 50%; /* [Purple] Dark mode chart color 1, a strong blue. */
+    --chart-2: 160 60% 45%; /* [Purple] Dark mode chart color 2, a muted green. */
+    --chart-3: 30 80% 55%; /* [Purple] Dark mode chart color 3, a bright orange. */
+    --chart-4: 280 65% 60%; /* [Purple] Dark mode chart color 4, a vivid pink-purple. */
+    --chart-5: 340 75% 55%; /* [Purple] Dark mode chart color 5, a strong red-pink. */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border; /* [Pink] This applies the border color defined in the base layer to all elements. */
+  }
+  body {
+    @apply bg-background text-foreground; /* [Pink] This applies the background and text colors defined in the base layer to the body element, ensuring consistent theming. */
   }
 }
