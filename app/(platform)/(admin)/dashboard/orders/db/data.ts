@@ -156,3 +156,31 @@ export const CustomerOrdersData = [
     amount: "$220.00",
   },
 ];
+
+export const dashboardData = [
+  {
+    id: 1,
+    description: "Total Revenue",
+    title: "$ 1,200",
+    statistic: "Total revenue at 2024",
+  },
+  {
+    id: 2,
+
+    description: "Total Products",
+    title: "$ 1,100",
+    statistic: "For all the products at August",
+  },
+  {
+    id: 3,
+    description: "Highest User Engagement",
+    title: "$ 591",
+    statistic: "For week: Week 1",
+  },
+  {
+    id: 4,
+    description: "Highest Location Activity",
+    title: "$ 540",
+    statistic: "For location: HCM City",
+  },
+];
