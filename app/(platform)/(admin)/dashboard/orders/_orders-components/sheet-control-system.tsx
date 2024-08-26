@@ -33,7 +33,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-export const SheetSidebar = () => {
+export const SheetControlSystem = () => {
   return (
     <header
       className="sticky top-0 z-30 flex h-14 items-center justify-between bg-white gap-4 border-b
