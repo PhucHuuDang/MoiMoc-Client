@@ -114,6 +114,18 @@
     --chart-4: 43 74% 66%; /* [Green] Chart color 4, a bright yellow. */
     --chart-5: 27 87% 67%; /* [Green] Chart color 5, a vibrant orange. */
     --moi-moc-text: 0, 60, 20, 1; /* [Green] Custom text color for a specific use case, perhaps brand-related, with values corresponding to RGBA. */
+
+    /* --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%; */
+
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    --color-desktop: #4caf50; /* Example color */
+    --color-mobile: #ff9800; /* Example color */
   }
 
   .hoverAnimate {
@@ -151,6 +163,18 @@
     --chart-3: 30 80% 55%; /* [Purple] Dark mode chart color 3, a bright orange. */
     --chart-4: 280 65% 60%; /* [Purple] Dark mode chart color 4, a vivid pink-purple. */
     --chart-5: 340 75% 55%; /* [Purple] Dark mode chart color 5, a strong red-pink. */
+
+    /* --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%; */
+
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    --color-desktop: #4caf50; /* Example color */
+    --color-mobile: #ff9800; /* Example color */
   }
 }
 
