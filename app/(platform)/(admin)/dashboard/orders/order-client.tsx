@@ -1,7 +1,9 @@
-import { StatisticProgress } from "./_orders-components/statistic-progress";
-import { CustomerOrderDetail } from "./_orders-components/customer-order-detail";
-import { TabsOrders } from "./_orders-components/tabs-orders";
+"use client";
+
 import { CardOrderHeader } from "./_orders-components/card-order-header";
+import { CustomerOrderDetail } from "./_orders-components/customer-order-detail";
+import { StatisticProgress } from "./_orders-components/statistic-progress";
+import { TabsOrders } from "./_orders-components/tabs-orders";
 
 export const progressValue = [
   {
@@ -22,7 +24,7 @@ export const progressValue = [
   },
 ];
 
-export function OrderPage() {
+export const OrderClient = () => {
   return (
     <main
       className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3
@@ -44,6 +46,4 @@ export function OrderPage() {
       </div>
     </main>
   );
-}
-
-export default OrderPage;
+};

@@ -16,16 +16,22 @@ import { useFromStore } from "@/store/use-from-store";
 import { CreditCard, ShoppingBag } from "lucide-react";
 import { CartItem } from "./cart-item";
 import { useSheetCart } from "@/hooks/use-sheet-cart";
+import { useRouter } from "next/navigation";
 
 interface SheetCartProps {
   // handleCheckout: () => void;
 }
 
 export const SheetCart = ({}: SheetCartProps) => {
-  const handleCheckout = () => {};
+  const router = useRouter();
+  const sheetCart = useSheetCart();
+
+  const handleCheckout = () => {
+    router.push("/checkout");
+    sheetCart.onClose();
+  };
 
   const cart = useFromStore(useCartStore, (state) => state.orders);
-  const sheetCart = useSheetCart();
 
   const cartCondition = cart?.length! > 0;
 
@@ -84,7 +90,10 @@ export const SheetCart = ({}: SheetCartProps) => {
             </Button>
 
             <SheetClose asChild>
-              <div className="flex cursor-pointer items-center gap-1 text-center text-slate-400 duration-200 hover:text-slate-600 hover:underline">
+              <div
+                className="flex cursor-pointer items-center gap-1 text-center text-slate-400 duration-200
+                  hover:text-slate-600 hover:underline"
+              >
                 <ShoppingBag /> Continue shopping
               </div>
             </SheetClose>
@@ -95,7 +104,11 @@ export const SheetCart = ({}: SheetCartProps) => {
 
         {!cartCondition && (
           <SheetClose asChild>
-            <div className="item-center flex animate-bounce cursor-pointer items-center justify-center gap-1 text-center text-moi_moc_green duration-1000 hover:text-slate-600 hover:underline">
+            <div
+              className="item-center flex animate-bounce cursor-pointer items-center justify-center gap-1
+                text-center text-moi_moc_green duration-1000 hover:text-slate-600
+                hover:underline"
+            >
               <ShoppingBag /> Back to shopping
             </div>
           </SheetClose>

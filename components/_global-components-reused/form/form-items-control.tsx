@@ -13,9 +13,9 @@ import { FieldValues, Path, PathValue, UseFormReturn } from "react-hook-form";
 
 interface FormItemsControlProps<T extends FieldValues, K> {
   form: UseFormReturn<T>;
-  onSubmit?: (data: T) => void;
   name: Path<T>;
   placeholder?: string;
+  onSubmit?: (data: T) => void;
   label?: string;
   formSubmit?: React.ReactNode;
   type?: string;
