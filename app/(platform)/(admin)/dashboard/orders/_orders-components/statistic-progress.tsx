@@ -24,7 +24,7 @@ export const StatisticProgress = ({
   progressValue,
 }: StatisticProgressProps) => {
   return (
-    <Card x-chunk="dashboard-05-chunk-2">
+    <Card x-chunk="dashboard-05-chunk-2 ">
       <CardHeader className="pb-2">
         <CardDescription>{description}</CardDescription>
         <CardTitle className="text-4xl">{title}</CardTitle>

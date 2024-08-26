@@ -59,7 +59,7 @@ export const CheckoutClient = () => {
       </FormValues>
       <Separator className="mx-1 my-16 h-0.5 bg-moi_moc_green" />
 
-      <div className="">
+      <div className="py-8">
         <Footer />
       </div>
     </div>

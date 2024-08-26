@@ -42,7 +42,7 @@ export const FormTextareaControl = <T extends FieldValues, K>({
       render={({ field, fieldState, formState }) => {
         return (
           <FormItem>
-            <FormLabel className={cn("text-moi_moc_green", classNameLabel)}>
+            <FormLabel className={cn("text-foreground", classNameLabel)}>
               {label}
             </FormLabel>
             <FormControl>

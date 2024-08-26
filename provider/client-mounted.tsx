@@ -1,5 +1,5 @@
 "use client";
-import { Loading } from "@/app/(platform)/loading";
+import Loading from "@/app/(platform)/loading";
 import { useEffect, useState } from "react";
 
 export const ClientMounted = ({ children }: { children: React.ReactNode }) => {

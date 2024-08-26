@@ -20,6 +20,9 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         moiMoc:
           "bg-[#438a60] transition duration-200 hover:scale-110 hover:bg-[#326a49] text-white ",
+
+        dynamic:
+          "bg-primary hover:bg-primary/90  transition duration-200 hover:scale-110 text-accent hover:text-accent -foreground ",
       },
       size: {
         default: "h-10 px-4 py-2",
