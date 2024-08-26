@@ -17,7 +17,10 @@ export const ProductControllerHeader = () => {
       >
         Pro Controller
       </h1>
-      <Badge variant="outline" className="ml-auto sm:ml-0">
+      <Badge
+        variant="outline"
+        className="ml-auto sm:ml-0 text-primary border border-primary"
+      >
         In stock
       </Badge>
       <div className="hidden items-center gap-2 md:ml-auto md:flex dark:text-primary">

@@ -19,7 +19,7 @@ interface FormSubmitProps {
     | "ghost"
     | "link"
     | "moiMoc"
-
+    | "dynamic";
 }
 
 export const FormSubmit = ({
@@ -36,7 +36,7 @@ export const FormSubmit = ({
       type="submit"
       variant={variant}
       size="sm"
-      className={cn(className)}
+      className={cn("", className)}
     >
       {children}
     </Button>

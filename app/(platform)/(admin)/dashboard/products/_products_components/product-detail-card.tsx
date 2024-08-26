@@ -26,7 +26,7 @@ export const ProductDetailCard = <T extends FieldValues, K>({
   return (
     <Card x-chunk="dashboard-07-chunk-0">
       <CardHeader>
-        <CardTitle>Product Details</CardTitle>
+        <CardTitle className="text-primary">Product Details</CardTitle>
         <CardDescription>
           Lipsum dolor sit amet, consectetur adipiscing elit
         </CardDescription>

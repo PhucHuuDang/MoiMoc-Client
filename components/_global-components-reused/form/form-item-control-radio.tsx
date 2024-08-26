@@ -43,7 +43,7 @@ export const FormItemControlRadio = <T extends FieldValues, K>({
         // console.log({ field, fieldState, formState });
         return (
           <FormItem className="space-y-3">
-            <FormLabel>{formLabel}</FormLabel>
+            <FormLabel className="text-foreground">{formLabel}</FormLabel>
             <FormControl>
               <RadioGroup
                 defaultValue={field.value}

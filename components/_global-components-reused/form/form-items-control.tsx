@@ -53,12 +53,12 @@ export const FormItemsControl = <T extends FieldValues, K>({
         // console.log({ field, fieldState, formState });
         return (
           <FormItem>
-            <FormLabel className={cn("text-moi_moc_green", classNameLabel)}>
+            <FormLabel className={cn("text-text-foreground", classNameLabel)}>
               {label}
             </FormLabel>
             <FormControl>
               <Input
-                className={cn("border-moi_moc_green", classNameInput)}
+                className={cn("", classNameInput)}
                 placeholder={placeholder}
                 disabled={disabled}
                 {...field}

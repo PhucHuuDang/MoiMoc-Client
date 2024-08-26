@@ -20,7 +20,7 @@ export const ArchiveProduct = () => {
       </CardHeader>
       <CardContent>
         {/* <div></div> */}
-        <FormSubmit variant="moiMoc">Archive Product</FormSubmit>
+        <FormSubmit variant="dynamic">Archive Product</FormSubmit>
       </CardContent>
     </Card>
   );
