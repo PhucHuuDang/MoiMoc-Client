@@ -10,6 +10,14 @@ import {
 import { AreaChartTotalRevenue } from "./_components-dashboard/_customize-charts/area-chart-total-revenue";
 import { PieChartInteractive } from "./_components-dashboard/_customize-charts/pie-chart-interactive";
 import { TotalOrdersChart } from "./_components-dashboard/_customize-charts/total-orders-chart";
+import Maps from "@/components/_global-components-reused/maps";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export const DashboardClient = () => {
   return (
@@ -48,6 +56,20 @@ export const DashboardClient = () => {
 
             <ResizableHandle withHandle />
           </ResizablePanelGroup> */}
+        </div>
+
+        <div className="my-8 px-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-primary">Locations</CardTitle>
+              <CardDescription>Based on user activity</CardDescription>
+            </CardHeader>
+            <CardContent className="h-[600px]">
+              <div className="relative p-4 px-10 rounded-2xl h-full">
+                <Maps />
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
