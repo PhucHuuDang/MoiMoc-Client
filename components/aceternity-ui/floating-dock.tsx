@@ -17,6 +17,7 @@ import {
 } from "framer-motion";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export const FloatingDock = ({
   items,
@@ -111,12 +112,16 @@ const FloatingDockDesktop = ({
   items,
   className,
   classNameIconContainer,
+  active,
 }: {
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
   classNameIconContainer?: string;
+  active?: boolean;
 }) => {
   let mouseX = useMotionValue(Infinity);
+  const pathname = usePathname();
+
   return (
     <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
@@ -133,6 +138,7 @@ const FloatingDockDesktop = ({
           key={item.title}
           {...item}
           classNameIconContainer={classNameIconContainer}
+          active={pathname === item.href}
         />
       ))}
     </motion.div>
@@ -145,12 +151,14 @@ function IconContainer({
   icon,
   href,
   classNameIconContainer,
+  active,
 }: {
   mouseX: MotionValue;
   title: string;
   icon: React.ReactNode;
   href: string;
   classNameIconContainer?: string;
+  active?: boolean;
 }) {
   let ref = useRef<HTMLDivElement>(null);
 
@@ -195,7 +203,7 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Link href={href}>
+    <Link href={href} className="flex flex-col items-center">
       <motion.div
         ref={ref}
         style={{ width, height }}
@@ -228,6 +236,10 @@ function IconContainer({
           {icon}
         </motion.div>
       </motion.div>
+
+      {active && (
+        <div className="rounded-full bg-neutral-200 size-1 relative top-1" />
+      )}
     </Link>
   );
 }

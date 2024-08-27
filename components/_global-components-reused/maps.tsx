@@ -194,13 +194,23 @@ const Maps = ({ className }: { className?: string }) => {
               </div>
             </div>
 
-            <div className="flex flex-row items-center justify-between p-3">
-              <div className="text-primary">
-                Distance: <span className="text-primary">{distance}</span>
+            <div className="flex flex-row items-center justify-between flex-1 p-3">
+              <div className="text-primary font-semibold">
+                {distance && (
+                  <>
+                    <span>Distance:</span>{" "}
+                    <span className="text-primary">{distance}</span>
+                  </>
+                )}
               </div>
 
-              <div className="text-primary">
-                Estimate: <span className="text-primary">{duration}</span>
+              <div className="text-primary font-semibold">
+                {duration && (
+                  <>
+                    <span>Estimate: </span>
+                    <span className="text-primary">{duration}</span>
+                  </>
+                )}
               </div>
 
               <div

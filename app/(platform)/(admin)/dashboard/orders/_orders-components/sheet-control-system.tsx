@@ -1,3 +1,7 @@
+"use client";
+
+import { capitalize } from "lodash";
+
 import { ThemeColorToggle } from "@/components/theme/theme-color-toggle";
 import { ThemeModeToggle } from "@/components/theme/theme-mode-toggle";
 import {
@@ -32,8 +36,29 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  usePathname,
+  useSelectedLayoutSegment,
+  useSelectedLayoutSegments,
+} from "next/navigation";
 
 export const SheetControlSystem = () => {
+  const segments = useSelectedLayoutSegments();
+  // const singleSegment = useSelectedLayoutSegment();
+
+  // console.log({ singleSegment });
+  const pathname = usePathname();
+
+  const segmentsCurrent = segments.map((segment) => {
+    let label = capitalize(segment);
+    return {
+      href: segment,
+      label,
+    };
+  });
+
+  console.log({ segmentsCurrent });
+
   return (
     <header
       className="sticky top-0 z-30 flex h-14 items-center justify-between bg-white gap-4 border-b
@@ -97,7 +122,27 @@ export const SheetControlSystem = () => {
 
       <Breadcrumb className="hidden md:flex">
         <BreadcrumbList>
-          <BreadcrumbItem>
+          {segmentsCurrent.map((segment) => {
+            return (
+              <div
+                key={segment.href}
+                className="flex items-center justify-center gap-x-2"
+              >
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link
+                      href={segment.href}
+                      // className={`${pathname === segment.href && "text-primary/50"}`}
+                    >
+                      {segment.label}
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="" />
+              </div>
+            );
+          })}
+          {/* <BreadcrumbItem>
             <BreadcrumbLink asChild>
               <Link href="#">Dashboard</Link>
             </BreadcrumbLink>
@@ -111,7 +156,7 @@ export const SheetControlSystem = () => {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbPage>Recent Orders</BreadcrumbPage>
-          </BreadcrumbItem>
+          </BreadcrumbItem> */}
         </BreadcrumbList>
       </Breadcrumb>
       {/* <div className="relative ml-auto flex-1 md:grow-0">

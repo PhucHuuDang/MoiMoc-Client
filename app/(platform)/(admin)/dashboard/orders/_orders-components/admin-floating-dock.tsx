@@ -18,7 +18,7 @@ interface AdminFloatingDockProps {
 
 export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
   const styleDockItems =
-    "size-full text-moi_moc_green dark:text-primary dark:group-hover:text-primary/20 duration-300 group-hover:scale-110";
+    "size-full text-moi_moc_green dark:text-primary dark:group-hover:text-primary/80 duration-300 group-hover:scale-110";
 
   const dockItems = [
     {
@@ -27,7 +27,7 @@ export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
       title: "Acme Inc",
     },
     {
-      href: "#",
+      href: "/dashboard",
       icon: <Home className={`${styleDockItems}`} />,
       title: "Dashboard",
     },
@@ -57,8 +57,7 @@ export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
     // <div className="fixed bottom-4 left-1/2 -translate-x-1/2 transform">
     <div
       className={cn(
-        `fixed bottom-0 mx-auto text-center w-screen flex items-center justify-center
-        text-mu`,
+        "fixed bottom-0 mx-auto text-center w-screen flex items-center justify-center ",
         className,
       )}
     >
