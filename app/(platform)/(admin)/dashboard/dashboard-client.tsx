@@ -31,13 +31,13 @@ export const DashboardClient = () => {
         <div className="px-4 my-8">
           <ResizablePanelGroup direction="horizontal" className="w-full">
             <div className="flex items-center gap-x-2 w-full">
-              <ResizablePanel defaultSize={70}>
+              <ResizablePanel defaultSize={70} minSize={30} maxSize={70}>
                 <TotalOrdersChart />
               </ResizablePanel>
 
               <ResizableHandle withHandle className="border-none" />
 
-              <ResizablePanel defaultSize={30}>
+              <ResizablePanel defaultSize={30} minSize={30} maxSize={70}>
                 <PieChartInteractive />
               </ResizablePanel>
             </div>
