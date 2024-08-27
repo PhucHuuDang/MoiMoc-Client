@@ -80,7 +80,7 @@ export function PieChartInteractive() {
       <ChartStyle id={id} config={chartConfig} />
       <CardHeader className="flex-row items-start space-y-0 pb-0">
         <div className="grid gap-1">
-          <CardTitle>Pie Chart - Interactive</CardTitle>
+          <CardTitle>Statistic Months</CardTitle>
           <CardDescription>January - June 2024</CardDescription>
         </div>
         <Select value={activeMonth} onValueChange={setActiveMonth}>
@@ -123,7 +123,7 @@ export function PieChartInteractive() {
         <ChartContainer
           id={id}
           config={chartConfig}
-          className="mx-auto aspect-square w-full max-w-[300px]"
+          className="mx-auto aspect-square w-full max-w-[300px] "
         >
           <PieChart>
             <ChartTooltip

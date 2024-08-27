@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/resizable";
 import { AreaChartTotalRevenue } from "./_components-dashboard/_customize-charts/area-chart-total-revenue";
 import { PieChartInteractive } from "./_components-dashboard/_customize-charts/pie-chart-interactive";
+import { TotalOrdersChart } from "./_components-dashboard/_customize-charts/total-orders-chart";
 
 export const DashboardClient = () => {
   return (
@@ -19,22 +20,34 @@ export const DashboardClient = () => {
             <DashboardCard {...item} key={item.id} />
           ))}
         </div>
-
         <div className="px-4 my-8">
-          <ResizablePanelGroup
-            direction="horizontal"
-            className="w-full rounded-lg border space-x-2"
-          >
-            <ResizablePanel defaultSize={76}>
+          <ResizablePanelGroup direction="horizontal" className="w-full">
+            <div className="flex items-center gap-x-2 w-full">
+              <ResizablePanel defaultSize={70}>
+                <TotalOrdersChart />
+              </ResizablePanel>
+
+              <ResizableHandle withHandle className="border-none" />
+
+              <ResizablePanel defaultSize={30}>
+                <PieChartInteractive />
+              </ResizablePanel>
+            </div>
+          </ResizablePanelGroup>
+        </div>
+
+        <div className="px-4">
+          <AreaChartTotalRevenue />
+
+          {/* <ResizablePanelGroup direction="horizontal">
+            <ResizablePanel defaultSize={100}>
               <AreaChartTotalRevenue />
             </ResizablePanel>
 
-            <ResizableHandle withHandle className="border border-none" />
+            <ResizableHandle />
 
-            <ResizablePanel defaultSize={24}>
-              <PieChartInteractive />
-            </ResizablePanel>
-          </ResizablePanelGroup>
+            <ResizableHandle withHandle />
+          </ResizablePanelGroup> */}
         </div>
       </div>
     </div>
