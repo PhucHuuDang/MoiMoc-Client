@@ -117,10 +117,10 @@ const Maps = ({ className }: { className?: string }) => {
       const lat = place.geometry.location.lat();
       const lng = place.geometry.location.lng();
 
-      console.log("Name: " + name);
-      console.log("Address: " + address);
-      console.log("Latitude: " + lat);
-      console.log("Longitude: " + lng);
+      // console.log("Name: " + name);
+      // console.log("Address: " + address);
+      // console.log("Latitude: " + lat);
+      // console.log("Longitude: " + lng);
 
       // Do something with the selected place data, e.g., update state
       // For example, if you want to update a state variable with the selected place:

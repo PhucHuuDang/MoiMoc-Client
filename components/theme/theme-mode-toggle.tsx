@@ -11,7 +11,7 @@ export const ThemeModeToggle = () => {
     <Button
       variant="outline"
       size="icon"
-      className="flex items-center justify-center"
+      className="flex items-center justify-center w-16 rounded-3xl"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
     >
       <Sun

@@ -118,7 +118,6 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
                 )}
                 onClick={(e) => {
                   e.stopPropagation();
-                  console.log("first");
                 }}
               >
                 {typeInputPassword === "password" ? (

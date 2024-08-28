@@ -1,14 +1,19 @@
+import { Logo } from "@/components/_global-components-reused/logo";
 import { LoaderCircle } from "lucide-react";
 
 const LoadingMapsPage = () => {
   return (
     <div
-      className="absolute bg-neutral-500/10 h-full w-full inset-0 [mask-size:40px] flex
-        items-center justify-center"
+      className="absolute inset-0 flex h-full w-full items-center justify-center
+        bg-moi_moc_green/30"
     >
-      <div className="flex items-center gap-1">
-        <LoaderCircle size={20} className="animate-spin text-slate-200" />
-        <span className="text-slate-300">Loading...</span>
+      <div className="flex flex-col items-center justify-center gap-y-1">
+        <Logo height={100} width={300} />
+
+        <div className="flex items-center gap-x-1 justify-center">
+          <LoaderCircle className="size-6 animate-spin" />
+          <p className="text-lg font-bold">Loading...</p>
+        </div>
       </div>
     </div>
   );

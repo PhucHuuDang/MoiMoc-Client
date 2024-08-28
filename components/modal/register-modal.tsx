@@ -49,8 +49,8 @@ export const RegisterModal = () => {
 
   const onSubmit = async (values: z.infer<typeof RegisterSchemaTypes>) => {
     // console.log({ values });
-    console.log("123");
-    console.log({ values });
+    // console.log("123");
+    // console.log({ values });
     registerModal.onClose();
   };
 

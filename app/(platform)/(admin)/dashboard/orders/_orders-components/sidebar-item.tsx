@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/tooltip";
 import Link from "next/link";
 import { LucideIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 interface SidebarItemProps {
   href: string;
@@ -21,6 +22,8 @@ export const SidebarItem = ({
   label,
   active,
 }: SidebarItemProps) => {
+  const pathname = usePathname();
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -28,7 +31,7 @@ export const SidebarItem = ({
           href={href}
           className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8
             md:w-8 ${
-            active
+            href === pathname
                 ? "bg-accent text-accent-foreground hover:text-foreground"
                 : "text-muted-foreground hover:text-foreground"
             }`}

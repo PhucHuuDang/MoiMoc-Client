@@ -203,7 +203,7 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Link href={href} className="flex flex-col items-center">
+    <Link href={href} className="flex flex-col items-center relative">
       <motion.div
         ref={ref}
         style={{ width, height }}
@@ -238,7 +238,7 @@ function IconContainer({
       </motion.div>
 
       {active && (
-        <div className="rounded-full bg-neutral-200 size-1 relative top-1" />
+        <div className="rounded-full bg-neutral-200 size-[5px] absolute -bottom-2" />
       )}
     </Link>
   );

@@ -109,7 +109,7 @@ export const useCartStore = create(
       name: "moi-moc-cart",
       version: 1,
       migrate: (persistedState: any, version) => {
-        console.log({persistedState, version});
+        // console.log({persistedState, version});
         if (version === 0) {
           persistedState.totalProducts = persistedState.totalItems;
 

@@ -49,7 +49,7 @@ export const CartNavbarSVG = ({
         d="M9.375 6.24967V5.20801C9.375 3.48212 10.7741 2.08301 12.5 2.08301C14.2259 2.08301 15.625 3.48212 15.625 5.20801V6.24967"
         stroke="#003C14"
         strokeWidth="1.5"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );

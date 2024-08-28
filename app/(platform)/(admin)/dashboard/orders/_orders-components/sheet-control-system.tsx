@@ -57,7 +57,7 @@ export const SheetControlSystem = () => {
     };
   });
 
-  console.log({ segmentsCurrent });
+  // console.log({ segmentsCurrent });
 
   return (
     <header

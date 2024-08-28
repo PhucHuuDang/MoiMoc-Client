@@ -38,7 +38,7 @@ export const CustomerOrder = ({
         </TableCell>
         <TableCell className="hidden sm:table-cell">{type}</TableCell>
         <TableCell className="hidden sm:table-cell">
-          <Badge className="text-xs">{status}</Badge>
+          <Badge className="text-xs text-foreground">{status}</Badge>
         </TableCell>
         <TableCell className="hidden md:table-cell">{date}</TableCell>
         <TableCell className="text-right">{amount}</TableCell>

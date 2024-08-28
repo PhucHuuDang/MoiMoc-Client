@@ -1,11 +1,12 @@
 "use client";
 
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 
 import { ProductDetailCard } from "./_products_components/product-detail-card";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { AddProductSafeTypes } from "@/safe-types-zod/admin/product-types";
 import { ProductControllerHeader } from "./_products_components/header-naviagate-product";
 import { FormValues } from "@/components/_global-components-reused/form/form-values";
@@ -21,7 +22,7 @@ export function ProductClient() {
   });
 
   const onSubmit = (values: z.infer<typeof AddProductSafeTypes>) => {
-    console.log({ values });
+    // console.log({ values });
   };
 
   return (

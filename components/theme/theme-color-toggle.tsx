@@ -23,7 +23,6 @@ const availableThemeColors = [
 
 export const ThemeColorToggle = () => {
   const { themeColor, setThemeColor } = useThemeContext();
-  console.log({ themeColor });
   const { theme } = useTheme();
 
   const createSelectItems = () =>
