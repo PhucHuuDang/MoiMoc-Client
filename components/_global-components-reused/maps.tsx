@@ -11,7 +11,13 @@ import {
 
 import { useEventListener } from "usehooks-ts";
 
-import { Navigation, Search, X } from "lucide-react";
+import {
+  ArrowLeftToLine,
+  ArrowRightToLine,
+  Navigation,
+  Search,
+  X,
+} from "lucide-react";
 
 import { FormInput } from "./form/form-input";
 import LoadingMapsPage from "@/app/(platform)/(admin)/dashboard/loading";
@@ -30,6 +36,7 @@ const Maps = ({ className }: { className?: string }) => {
     useState<google.maps.DirectionsResult | null>(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
+  const [isSearchPlace, setIsSearchPlace] = useState<boolean>(true);
 
   const originRef = useRef<HTMLInputElement | null>(null);
   const destinationRef = useRef<HTMLInputElement | null>(null);
@@ -144,89 +151,114 @@ const Maps = ({ className }: { className?: string }) => {
   return (
     <div className="">
       <div className="flex flex-row items-center justify-center w-full relative">
-        <div className="w-full flex items-center justify-center">
-          <div className="flex flex-col gap-2 p-2 bg-card rounded-lg absolute left-4 top-4 z-10">
-            <div className="p-3 flex flex-row gap-2 items-center justify-center w-full">
-              <Autocomplete>
-                <FormInput
-                  ref={originRef}
-                  type="text"
-                  placeholder="Departure point"
-                  id="destination"
-                  className="h-10 pl-2 py-1 w-80 rounded-md outline-none duration-200"
-
-                  // searchIcon={<BsSearch size={24} />}
+        {!isSearchPlace && (
+          <ArrowRightToLine
+            className="size-8 text-primary cursor-pointer duration-300 z-10 absolute top-4 left-3
+              hover:scale-110 rounded-full p-1 hover:p-0 bg-secondary"
+            onClick={() => setIsSearchPlace(true)}
+          />
+        )}
+        {isSearchPlace && (
+          <div
+            className={`w-full flex items-center justify-center relative transition-all duration-300
+            ease-in-out `}
+          >
+            <ArrowRightToLine
+              className="size-8 text-primary cursor-pointer duration-300 absolute top-0 left-1
+                hover:scale-110 rounded-full p-1 hover:p-0 bg-red-500"
+              // onClick={() => setIsSearchPlace(!isSearchPlace)}
+            />
+            <div
+              className="flex flex-col gap-2 p-2 bg-card rounded-xl absolute left-4 top-4 z-10
+                min-w-[780px]"
+            >
+              {isSearchPlace && (
+                <ArrowLeftToLine
+                  onClick={() => setIsSearchPlace(!isSearchPlace)}
+                  className="size-8 text-primary cursor-pointer duration-300 absolute top-0 left-1
+                    hover:scale-110 rounded-full p-1 hover:p-0 bg-secondary"
                 />
-              </Autocomplete>
+              )}
+              <div className="p-3 flex flex-row gap-2 items-center justify-center w-full">
+                <Autocomplete>
+                  <FormInput
+                    ref={originRef}
+                    type="text"
+                    placeholder="Departure point"
+                    id="destination"
+                    className="h-10 pl-2 py-1 w-80 rounded-xl outline-none duration-200"
+                  />
+                </Autocomplete>
 
-              <Autocomplete onLoad={onLoad}>
-                <FormInput
-                  ref={destinationRef}
-                  type="text"
-                  placeholder="Destination"
-                  id="destination"
-                  className="h-10 pl-2 py-1 rounded-md w-80 outline-none duration-200"
+                <Autocomplete onLoad={onLoad}>
+                  <FormInput
+                    ref={destinationRef}
+                    type="text"
+                    placeholder="Destination"
+                    id="destination"
+                    className="h-10 pl-2 py-1 rounded-xl w-80 outline-none duration-200"
+                  />
+                </Autocomplete>
+                <div
+                  onClick={calculate}
+                  ref={searchRef}
+                  className="p-2 rounded-full cursor-pointer bg-secondary hover:bg-secondaryForeground
+                    hover:scale-105 transition duration-200"
+                >
+                  <Search
+                    size={24}
+                    className={`${conditionStyleSearch} text-primary font-semibold`}
+                  />
+                </div>
 
-                  // searchIcon={<BsSearch size={24} />}
-                />
-              </Autocomplete>
-              <div
-                onClick={calculate}
-                ref={searchRef}
-                className="p-2 rounded-full cursor-pointer bg-secondary hover:bg-secondaryForeground
-                  hover:scale-105 transition duration-200"
-              >
-                <Search
-                  size={24}
-                  className={`${conditionStyleSearch} text-primary font-semibold`}
-                />
-              </div>
-
-              <div
-                onClick={clearValue}
-                className="cursor-pointer bg-secondary hover:bg-secondaryForeground p-2 hover:scale-105
-                  rounded-full duration-200"
-              >
-                <X
-                  size={24}
-                  className={`${conditionStyleSearch} text-primary font-semibold`}
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-row items-center justify-between flex-1 p-3">
-              <div className="text-primary font-semibold">
-                {distance && (
-                  <>
-                    <span>Distance:</span>{" "}
-                    <span className="text-primary">{distance}</span>
-                  </>
+                {duration && distance && (
+                  <div
+                    onClick={clearValue}
+                    className="cursor-pointer bg-secondary hover:bg-secondaryForeground p-2 hover:scale-105
+                      rounded-full duration-200"
+                  >
+                    <X
+                      size={24}
+                      className={`${conditionStyleSearch} text-primary font-semibold`}
+                    />
+                  </div>
                 )}
               </div>
 
-              <div className="text-primary font-semibold">
-                {duration && (
-                  <>
-                    <span>Estimate: </span>
-                    <span className="text-primary">{duration}</span>
-                  </>
-                )}
-              </div>
+              <div className="flex flex-row items-center justify-between flex-1 p-3">
+                <div className="text-primary font-semibold">
+                  {distance && (
+                    <>
+                      <span>Distance:</span>{" "}
+                      <span className="text-primary">{distance}</span>
+                    </>
+                  )}
+                </div>
 
-              <div
-                onClick={() => map?.panTo(center)}
-                className="rounded-full p-2 bg-secondary hover:bg-secondaryForeground hover:scale-105
-                  cursor-pointer transition duration-200 group/navigation"
-              >
-                <Navigation
-                  size={20}
-                  className="group-hover/navigation:-translate-y-1 group-hover/navigation:translate-x-1
-                    transform duration-300 text-primary"
-                />
+                <div className="text-primary font-semibold">
+                  {duration && (
+                    <>
+                      <span>Estimate: </span>
+                      <span className="text-primary">{duration}</span>
+                    </>
+                  )}
+                </div>
+
+                <div
+                  onClick={() => map?.panTo(center)}
+                  className="rounded-full p-2 bg-secondary hover:bg-secondaryForeground hover:scale-105
+                    cursor-pointer transition duration-200 group/navigation"
+                >
+                  <Navigation
+                    size={20}
+                    className="group-hover/navigation:-translate-y-1 group-hover/navigation:translate-x-1
+                      transform duration-300 text-primary"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className={cn("absolute h-full inset-0 w-full ", className)}>
