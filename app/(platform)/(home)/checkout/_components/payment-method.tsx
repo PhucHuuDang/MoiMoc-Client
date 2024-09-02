@@ -23,16 +23,7 @@ export const PaymentMethod = <T extends FieldValues>({
   form,
   name,
 }: PaymentMethodProps<T>) => {
-  // const form = useForm<z.infer<typeof PaymentMethodSchemaTypes>>({
-  //   resolver: zodResolver(PaymentMethodSchemaTypes),
-  //   defaultValues: {
-  //     paymentMethod: "receive-order-payment",
-  //   },
-  // });
-
-  // const onSubmit = (values: z.infer<typeof PaymentMethodSchemaTypes>) => {
-  //   console.log({ values });
-  // };
+  
 
   return (
     <Card className="w-[500px] border-moi_moc_green">

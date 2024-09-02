@@ -17,14 +17,6 @@ export const DiscountCode = <T extends FieldValues>({
   form,
   name,
 }: DiscountCodeProps<T>) => {
-  // const form = useForm<z.infer<typeof DiscountCodeSchemaTypes>>({
-  //   resolver: zodResolver(DiscountCodeSchemaTypes),
-  // });
-
-  // const onSubmit = (code: z.infer<typeof DiscountCodeSchemaTypes>) => {
-  //   console.log({ code });
-  // };
-
   return (
     <Card className="w-[500px] border-moi_moc_green">
       <CardHeader>
