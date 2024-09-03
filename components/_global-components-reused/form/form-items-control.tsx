@@ -37,7 +37,7 @@ export const FormItemsControl = <T extends FieldValues, K>({
   classNameInput,
   value,
 }: FormItemsControlProps<T, K>) => {
-  console.log({ value });
+  // console.log({ value });
   return (
     <FormField
       control={form.control}

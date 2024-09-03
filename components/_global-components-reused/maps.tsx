@@ -136,7 +136,7 @@ const Maps = ({ className }: { className?: string }) => {
   };
 
   const onKeydown = (e: KeyboardEvent) => {
-    console.log(e.key);
+    // console.log(e.key);
     if (e.key === "Enter") {
       calculate();
     }

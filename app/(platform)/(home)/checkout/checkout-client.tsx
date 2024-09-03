@@ -35,7 +35,7 @@ export const CheckoutClient = () => {
   });
 
   const onSubmit = (values: z.infer<typeof CheckoutSchemaTypes>) => {
-    console.log({ values });
+    // console.log({ values });
   };
 
   return (

@@ -62,7 +62,7 @@ export const Footer = () => {
   });
 
   const onSubmit = (values: z.infer<typeof RegisterGetDiscountSchemaTypes>) => {
-    console.log({ values });
+    // console.log({ values });
   };
 
   const hoverAnimate =

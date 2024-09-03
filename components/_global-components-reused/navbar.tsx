@@ -1,6 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
+
 import { Separator } from "../ui/separator";
 import { Logo } from "./logo";
 import { AboutMoiMocNavbar } from "./navbar-svg-components/about-moi-moc-navbar";
@@ -11,9 +13,15 @@ import { LanguageNavbarSVG } from "./navbar-svg-components/language-navbar-SVG";
 import { CartNavbarSVG } from "./navbar-svg-components/cart-navbar-SVG";
 
 export const Navbar = () => {
+  const router = useRouter();
   const height = 24;
   const hoverAnimate =
     "hover:scale-110 transition duration-200  p-0.5 rounded-lg";
+
+  const handleRedirect = (path: string = "/") => {
+    router.push(path);
+  };
+
   return (
     <div className="fixed top-0 z-50 h-14 w-full border">
       <div className="flex items-center justify-between gap-x-4 bg-main_background_color px-20 py-2">
@@ -22,7 +30,7 @@ export const Navbar = () => {
         />
         <ProductNavbar height={height} className={hoverAnimate} />
         <AboutMoiMocNavbar height={height} className={hoverAnimate} />
-        <Logo className={hoverAnimate} />
+        <Logo className={hoverAnimate} onRedirect={handleRedirect} />
         <ContactNavbar height={height} className={hoverAnimate} />
         <LoginNavbarSVG height={height} className={hoverAnimate} />
         <LanguageNavbarSVG height={height} className={hoverAnimate} />

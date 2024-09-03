@@ -12,7 +12,7 @@ const Loading = () => {
 
         <div className="flex items-center gap-x-1 justify-center">
           <LoaderCircle className="size-6 animate-spin" />
-          <p className="text-lg font-bold">Loading...</p>
+          <span className="text-lg font-bold">Loading...</span>
         </div>
       </div>
     </div>

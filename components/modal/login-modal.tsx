@@ -1,18 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { isValidPhone } from "@/regex-validation/phone-number";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchemaTypes } from "@/safe-types-zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components//ui/form";
 
 import { Input } from "../ui/input";
 import { FormSubmit } from "../_global-components-reused/form/form-submit";
@@ -30,6 +24,7 @@ import { FormValues } from "../_global-components-reused/form/form-values";
 export const LoginModal = () => {
   const loginModal = useLoginDiaLogModal();
   const registerModal = useRegisterDiaLogModal();
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const toggle = () => {
     loginModal.onClose();
@@ -45,9 +40,17 @@ export const LoginModal = () => {
 
   const onSubmit = async (values: z.infer<typeof LoginSchemaTypes>) => {
     // console.log({ values });
-    console.log("123");
-    console.log({ values });
+    // console.log("123");
+    // console.log({ values });
   };
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   const header = (
     <>

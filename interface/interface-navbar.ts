@@ -3,5 +3,7 @@ export interface SVGProps {
   height?: number;
   viewBox?: string;
   fill?: string;
-  className?: string
+  className?: string;
+  onOpenModal?: () => void;
+  onRedirect?: () => void;
 }

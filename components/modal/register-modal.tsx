@@ -26,10 +26,13 @@ import { Button } from "../ui/button";
 import { FormPassword } from "../_global-components-reused/form/form-password";
 import { FormValues } from "../_global-components-reused/form/form-values";
 import { useRegisterDiaLogModal } from "@/hooks/register-dialog-modal";
+import { useMount } from "react-use";
+import { useEffect, useState } from "react";
 
 export const RegisterModal = () => {
   const loginModal = useLoginDiaLogModal();
   const registerModal = useRegisterDiaLogModal();
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const toggle = () => {
     registerModal.onClose();
@@ -53,6 +56,15 @@ export const RegisterModal = () => {
     // console.log({ values });
     registerModal.onClose();
   };
+
+  // useMount(() => null);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   const header = (
     <>
