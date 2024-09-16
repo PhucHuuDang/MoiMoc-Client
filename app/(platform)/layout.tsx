@@ -1,5 +1,11 @@
+import { QueryProvider } from "@/provider/query.provider";
+
 const PlatformLayout = ({ children }: { children: React.ReactNode }) => {
-  return <>{children}</>;
+  return (
+    <>
+      <QueryProvider>{children}</QueryProvider>
+    </>
+  );
 };
 
 export default PlatformLayout;
