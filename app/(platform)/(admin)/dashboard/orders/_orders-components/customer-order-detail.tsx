@@ -31,6 +31,86 @@ import {
   PaginationItem,
 } from "@/components/ui/pagination";
 import { Separator } from "@/components/ui/separator";
+import { ProductProps } from "@/types";
+import { CartItem } from "@/app/(platform)/(home)/_components/cart-item";
+import { Tooltip, TooltipProvider } from "@/components/ui/tooltip";
+
+const productsDemo: ProductProps[] = [
+  {
+    id: "13",
+    name: "Smart Thermostat",
+    productName: "Thermostat",
+    price: 179.99,
+    productDescription:
+      "Smart thermostat that learns your schedule and adjusts the temperature automatically.",
+    imageUrl: "/about-moi-moc-images/son-duong-product.png",
+    quantityOrder: 4,
+  },
+  {
+    id: "6",
+    name: "Digital Camera",
+    productName: "Camera",
+    price: 749.99,
+    productDescription:
+      "24MP digital camera with 4K video recording, interchangeable lenses, and Wi-Fi connectivity.",
+    imageUrl: "/about-moi-moc-images/son-duong-product.png",
+    quantityOrder: 1,
+  },
+  {
+    id: "7",
+    name: "Wireless Charger",
+    productName: "Wireless Charger",
+    price: 29.99,
+    productDescription:
+      "Fast wireless charger compatible with all Qi-enabled devices.",
+    imageUrl: "/about-moi-moc-images/son-duong-product.png",
+    quantityOrder: 1,
+  },
+  {
+    id: "8",
+    name: "Noise-Cancelling Earbuds",
+    productName: "Earbuds",
+    price: 149.99,
+    discountPrice: 119.99,
+    discountPercent: 20,
+    productDescription:
+      "Premium noise-cancelling earbuds with superior sound quality and long battery life.",
+    imageUrl: "/about-moi-moc-images/son-duong-product.png",
+    quantityOrder: 1,
+  },
+  {
+    id: "9",
+    name: "Smart Home Hub",
+    productName: "Home Hub",
+    price: 89.99,
+    productDescription:
+      "Central hub for controlling smart home devices with voice commands and a touch screen.",
+    imageUrl: "/about-moi-moc-images/son-duong-product.png",
+    quantityOrder: 1,
+  },
+  {
+    id: "11",
+    name: "Air Purifier",
+    productName: "Air Purifier",
+    price: 129.99,
+    productDescription:
+      "High-efficiency air purifier with a HEPA filter, suitable for rooms up to 500 sq ft.",
+    imageUrl: "/about-moi-moc-images/son-duong-product.png",
+    quantityOrder: 2,
+  },
+  {
+    id: "10",
+    name: "Electric Toothbrush",
+    productName: "Toothbrush",
+    price: 59.99,
+    discountPrice: 49.99,
+    discountPercent: 17,
+    productDescription:
+      "Electric toothbrush with multiple brushing modes and a two-minute timer.",
+    imageUrl: "/about-moi-moc-images/son-duong-product.png",
+    quantityOrder: 2,
+  },
+];
 
 export const CustomerOrderDetail = () => {
   return (
@@ -76,28 +156,25 @@ export const CustomerOrderDetail = () => {
       <CardContent className="p-6 text-sm">
         <div className="grid gap-3">
           <div className="font-semibold">Order Details</div>
-          <ul className="grid gap-3">
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">
-                Glimmer Lamps x <span>2</span>
-              </span>
-              <span>$250.00</span>
-            </li>
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">
-                Aqua Filters x <span>1</span>
-              </span>
-              <span>$49.00</span>
-            </li>
+          <ul className="grid gap-3 h-[400px] overflow-y-auto overflow-x-hidden p-1">
+            <TooltipProvider delayDuration={200}>
+              {productsDemo.map((product) => {
+                return (
+                  <CartItem key={product.id} product={product} dashboard />
+                );
+              })}
+            </TooltipProvider>
           </ul>
+
           <Separator className="my-2" />
+
           <ul className="grid gap-3">
             <li className="flex items-center justify-between">
               <span className="text-muted-foreground">Subtotal</span>
               <span>$299.00</span>
             </li>
             <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">Shipping</span>
+              <span className="text-muted-foreground">Shipping (express)</span>
               <span>$5.00</span>
             </li>
             <li className="flex items-center justify-between">
@@ -110,6 +187,7 @@ export const CustomerOrderDetail = () => {
             </li>
           </ul>
         </div>
+
         <Separator className="my-4" />
         <div className="grid grid-cols-2 gap-4">
           <div className="grid gap-3">
@@ -127,7 +205,9 @@ export const CustomerOrderDetail = () => {
             </div>
           </div>
         </div>
+
         <Separator className="my-4" />
+
         <div className="grid gap-3">
           <div className="font-semibold">Customer Information</div>
           <dl className="grid gap-3">
@@ -149,7 +229,9 @@ export const CustomerOrderDetail = () => {
             </div>
           </dl>
         </div>
+
         <Separator className="my-4" />
+
         <div className="grid gap-3">
           <div className="font-semibold">Payment Information</div>
           <dl className="grid gap-3">
@@ -163,6 +245,7 @@ export const CustomerOrderDetail = () => {
           </dl>
         </div>
       </CardContent>
+
       <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
         <div className="text-xs text-muted-foreground">
           Updated <time dateTime="2023-11-23">November 23, 2023</time>

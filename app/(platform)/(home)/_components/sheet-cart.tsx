@@ -17,6 +17,7 @@ import { CreditCard, ShoppingBag } from "lucide-react";
 import { CartItem } from "./cart-item";
 import { useSheetCart } from "@/hooks/use-sheet-cart";
 import { useRouter } from "next/navigation";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 interface SheetCartProps {
   // handleCheckout: () => void;
@@ -42,7 +43,7 @@ export const SheetCart = ({}: SheetCartProps) => {
       (acc, product) =>
         acc +
         (product.discountPercent! > 0
-          ? product.discountPrice * (product.quantityOrder as number)
+          ? product?.discountPrice! * (product.quantityOrder as number)
           : product.price * (product.quantityOrder as number)),
       0,
     );
@@ -61,9 +62,11 @@ export const SheetCart = ({}: SheetCartProps) => {
         </SheetHeader>
 
         <ul className="space-y-5">
-          {cart?.map((product) => (
-            <CartItem key={product.id} product={product} />
-          ))}
+          <TooltipProvider delayDuration={200}>
+            {cart?.map((product) => (
+              <CartItem key={product.id} product={product} />
+            ))}
+          </TooltipProvider>
         </ul>
 
         {cartCondition && (
@@ -91,7 +94,7 @@ export const SheetCart = ({}: SheetCartProps) => {
 
             <SheetClose asChild>
               <div
-                className="flex cursor-pointer items-center gap-1 text-center text-slate-400 duration-200
+                className="flex cursor-pointer items-center gap-1 text-center text-slate-400  duration-200
                   hover:text-slate-600 hover:underline"
               >
                 <ShoppingBag /> Continue shopping
