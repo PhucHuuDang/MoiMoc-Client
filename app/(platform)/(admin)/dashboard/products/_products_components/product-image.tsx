@@ -1,5 +1,6 @@
 "use client";
 
+import { ImageUpload } from "@/components/_global-components-reused/image-upload";
 import {
   Card,
   CardContent,
@@ -17,7 +18,7 @@ export const ProductImage = () => {
       <CardHeader>
         <CardTitle>Product Images</CardTitle>
         <CardDescription>
-          Lipsum dolor sit amet, consectetur adipiscing elit
+          Add more product images to showcase your product
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -30,7 +31,7 @@ export const ProductImage = () => {
             width="300"
           />
           <div className="grid grid-cols-3 gap-2">
-            <button>
+            <div>
               <Image
                 alt="Product image"
                 className="aspect-square w-full rounded-md object-cover"
@@ -38,8 +39,9 @@ export const ProductImage = () => {
                 src="/placeholder.svg"
                 width="84"
               />
-            </button>
-            <button>
+            </div>
+
+            <div>
               <Image
                 alt="Product image"
                 className="aspect-square w-full rounded-md object-cover"
@@ -47,14 +49,16 @@ export const ProductImage = () => {
                 src="/placeholder.svg"
                 width="84"
               />
-            </button>
-            <button
+            </div>
+            {/* <div
               className="flex aspect-square w-full items-center justify-center rounded-md border
                 border-dashed"
             >
               <Upload className="h-4 w-4 text-muted-foreground" />
               <span className="sr-only">Upload</span>
-            </button>
+            </div> */}
+
+            <ImageUpload />
           </div>
         </div>
       </CardContent>

@@ -1,5 +1,6 @@
 {
   "name": "moimoc",
+  "author": "Harry Dang",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -40,6 +41,7 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.436.0",
     "next": "^15.0.0-rc.0",
+    "next-cloudinary": "^6.13.0",
     "next-themes": "^0.3.0",
     "prettier-plugin-classnames": "^0.7.2",
     "react": "^19.0.0-rc-76002254-20240724",

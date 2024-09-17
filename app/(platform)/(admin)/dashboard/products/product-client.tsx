@@ -19,10 +19,21 @@ import { ArchiveProduct } from "./_products_components/archive-product";
 export function ProductClient() {
   const form = useForm<z.infer<typeof AddProductSafeTypes>>({
     resolver: zodResolver(AddProductSafeTypes),
+    defaultValues: {
+      quantity: 1,
+      price: 100,
+    },
   });
 
   const onSubmit = (values: z.infer<typeof AddProductSafeTypes>) => {
-    // console.log({ values });
+    console.log({ values });
+  };
+
+  const stockProps = {
+    price: "price",
+    discountPrice: "discountPrice",
+    quantity: "quantity",
+    discountPercent: "discountPercent",
   };
 
   return (
@@ -45,7 +56,12 @@ export function ProductClient() {
                   descriptionName="productDescription"
                 />
 
-                <Stock />
+                {/* TODO: add the name of stock  */}
+                <Stock
+                  form={form}
+                  name="discountPrice"
+                  stockProps={stockProps}
+                />
 
                 <ProductCategory />
               </div>

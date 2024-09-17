@@ -1,5 +1,6 @@
 "use client";
 
+import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,8 +23,26 @@ import {
 } from "@/components/ui/table";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { PlusCircle } from "lucide-react";
+import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
-export const Stock = () => {
+interface StockProps<T extends FieldValues, K> {
+  form: UseFormReturn<T>;
+  name?: Path<T>;
+  stockProps: {
+    quantity: Path<T> | string;
+    discountPercent: Path<T> | string;
+    price: Path<T> | string;
+    discountPrice: Path<T> | string;
+  };
+}
+
+export const Stock = <T extends FieldValues, K>({
+  form,
+  name,
+  stockProps,
+}: StockProps<T, K>) => {
+  const typeFormItemControl = "number";
+
   return (
     <Card x-chunk="dashboard-07-chunk-1">
       <CardHeader>
@@ -36,77 +55,59 @@ export const Stock = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">SKU</TableHead>
+              {/* <TableHead className="w-[100px]">SKU</TableHead> */}
               <TableHead>Stock</TableHead>
               <TableHead>Price</TableHead>
-              <TableHead className="w-[100px]">Size</TableHead>
+              <TableHead>Discount (%)</TableHead>
+              <TableHead>Discount Price</TableHead>
+              {/* <TableHead className="w-[100px]">Size</TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell className="font-semibold">GGPC-001</TableCell>
               <TableCell>
-                <Label htmlFor="stock-1" className="sr-only">
-                  Stock
-                </Label>
-                <Input id="stock-1" type="number" defaultValue="100" />
+                <div className="h-[100px]">
+                  <FormItemsControl
+                    type={typeFormItemControl}
+                    name={stockProps.quantity as Path<T>}
+                    form={form}
+                  />
+                </div>
               </TableCell>
+
               <TableCell>
-                <Label htmlFor="price-1" className="sr-only">
-                  Price
-                </Label>
-                <Input id="price-1" type="number" defaultValue="99.99" />
+                <div className="h-[100px]">
+                  <FormItemsControl
+                    type={typeFormItemControl}
+                    name={stockProps.price as Path<T>}
+                    form={form}
+                    // value={20}
+                    placeholder="Enter the price for product..."
+                  />
+                </div>
               </TableCell>
+
               <TableCell>
-                <ToggleGroup type="single" defaultValue="s" variant="outline">
-                  <ToggleGroupItem value="s">S</ToggleGroupItem>
-                  <ToggleGroupItem value="m">M</ToggleGroupItem>
-                  <ToggleGroupItem value="l">L</ToggleGroupItem>
-                </ToggleGroup>
+                <div className="h-[100px]">
+                  <FormItemsControl
+                    type={typeFormItemControl}
+                    name={stockProps.discountPercent as Path<T>}
+                    form={form}
+                    placeholder="Set discount percentage..."
+                    // value={20}
+                  />
+                </div>
               </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-semibold">GGPC-002</TableCell>
+
               <TableCell>
-                <Label htmlFor="stock-2" className="sr-only">
-                  Stock
-                </Label>
-                <Input id="stock-2" type="number" defaultValue="143" />
-              </TableCell>
-              <TableCell>
-                <Label htmlFor="price-2" className="sr-only">
-                  Price
-                </Label>
-                <Input id="price-2" type="number" defaultValue="99.99" />
-              </TableCell>
-              <TableCell>
-                <ToggleGroup type="single" defaultValue="m" variant="outline">
-                  <ToggleGroupItem value="s">S</ToggleGroupItem>
-                  <ToggleGroupItem value="m">M</ToggleGroupItem>
-                  <ToggleGroupItem value="l">L</ToggleGroupItem>
-                </ToggleGroup>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-semibold">GGPC-003</TableCell>
-              <TableCell>
-                <Label htmlFor="stock-3" className="sr-only">
-                  Stock
-                </Label>
-                <Input id="stock-3" type="number" defaultValue="32" />
-              </TableCell>
-              <TableCell>
-                <Label htmlFor="price-3" className="sr-only">
-                  Stock
-                </Label>
-                <Input id="price-3" type="number" defaultValue="99.99" />
-              </TableCell>
-              <TableCell>
-                <ToggleGroup type="single" defaultValue="s" variant="outline">
-                  <ToggleGroupItem value="s">S</ToggleGroupItem>
-                  <ToggleGroupItem value="m">M</ToggleGroupItem>
-                  <ToggleGroupItem value="l">L</ToggleGroupItem>
-                </ToggleGroup>
+                <div className="h-[100px]">
+                  <FormItemsControl
+                    type={typeFormItemControl}
+                    name={stockProps.discountPrice as Path<T>}
+                    form={form}
+                    placeholder="Set discount price..."
+                  />
+                </div>
               </TableCell>
             </TableRow>
           </TableBody>

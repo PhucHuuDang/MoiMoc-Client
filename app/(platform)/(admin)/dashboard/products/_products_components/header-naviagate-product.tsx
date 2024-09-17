@@ -7,7 +7,10 @@ import { ChevronLeft } from "lucide-react";
 export const ProductControllerHeader = () => {
   return (
     <div className="flex items-center gap-4">
-      <Button variant="moiMoc" size="icon" className="h-7 w-7">
+      <Button
+        size="icon"
+        className="h-7 w-7 bg-primary hover:scale-110 duration-300 cursor-pointer"
+      >
         <ChevronLeft className="h-4 w-4" />
         <span className="sr-only">Back</span>
       </Button>
