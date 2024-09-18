@@ -115,9 +115,11 @@ export const AddProductSafeTypes = z.object({
     .refine((value) => value > 1, {
       message: "Product type id must be at least 1",
     }),
-  imagesProduct: z.array(z.string(), {
-    required_error: "Images product must be entered",
-  }),
+  imagesProduct: z
+    .array(z.string(), {
+      required_error: "Images product must be entered",
+    })
+    .min(1, { message: "Images product must be at least 1" }),
   // imagesProduct: z.string().array(),
 });
 

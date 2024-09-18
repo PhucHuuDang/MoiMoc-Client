@@ -22,10 +22,7 @@ interface ProductImageProps<T extends FieldValues, K> {
   name: Path<T>;
 }
 
-export const ProductImage = <T extends FieldValues, K>({
-  form,
-  name,
-}: ProductImageProps<T, K>) => {
+export const ProductImage = () => {
   // const imagesProductStore = useImagesProductStore();
   const imagesProductStore = useFromStoreImagesProduct(
     useImagesProductStore,
@@ -58,83 +55,57 @@ export const ProductImage = <T extends FieldValues, K>({
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Product Images</CardTitle>
-        <CardDescription>
-          Add more product images to showcase your product
-        </CardDescription>
+    // <Card>
+    // <CardContent>
+    <div className="grid gap-2 h-[392px] overflow-y-auto pr-1">
+      {imagesProductStore?.images.length === 0 ? (
+        <ImageLoading />
+      ) : (
+        <>
+          <div className="relative">
+            <Image
+              alt="Product image"
+              className="aspect-square h-full w-full rounded-md object-cover"
+              height="300"
+              src={imagesProductStore?.images[0]!}
+              width="300"
+            />
+            <X
+              className="absolute z-50 right-2 rounded-lg hover:bg-slate-300 duration-200 top-1 h-6 w-6
+                text-red-500 cursor-pointer"
+              onClick={(e) => handleDelete(e, 0)}
+            />
+            <div className="absolute inset-0 hover:bg-slate-900/20 cursor-pointer duration-300" />
+          </div>
 
-        <ImageUpload />
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-2 h-[392px] overflow-y-auto pr-1">
-          {imagesProductStore?.images.length === 0 ? (
-            <ImageLoading />
-          ) : (
-            <>
-              <div className="relative">
-                <Image
-                  alt="Product image"
-                  className="aspect-square h-full w-full rounded-md object-cover"
-                  height="300"
-                  src={imagesProductStore?.images[0]!}
-                  width="300"
-                />
-                <X
-                  className="absolute z-50 right-2 rounded-lg hover:bg-slate-300 duration-200 top-1 h-6 w-6
-                    text-red-500 cursor-pointer"
-                  onClick={(e) => handleDelete(e, 0)}
-                />
-                <div className="absolute inset-0 hover:bg-slate-900/20 cursor-pointer duration-300" />
-              </div>
+          <div className="grid grid-cols-3 gap-2">
+            {imagesProductStore?.images.map((image, index) => {
+              return (
+                index > 0 && (
+                  <div className="relative">
+                    <Image
+                      alt="Product image"
+                      className="aspect-square w-full rounded-md object-cover"
+                      height="84"
+                      src={image}
+                      width="90"
+                    />
 
-              <div className="grid grid-cols-3 gap-2">
-                {imagesProductStore?.images.map((image, index) => {
-                  return (
-                    index > 0 && (
-                      <div className="relative">
-                        <Image
-                          alt="Product image"
-                          className="aspect-square w-full rounded-md object-cover"
-                          height="84"
-                          src={image}
-                          width="90"
-                        />
-
-                        <X
-                          className="absolute z-50 right-1 rounded-lg hover:bg-slate-300 duration-200 top-0 h-5 w-5
-                            text-red-500 cursor-pointer"
-                          onClick={(e) => handleDelete(e, index)}
-                        />
-                        <div className="absolute inset-0 hover:bg-slate-900/20 cursor-pointer duration-300" />
-                      </div>
-                    )
-                  );
-                })}
-              </div>
-            </>
-          )}
-        </div>
-        {/* <FormField
-          control={form.control}
-          name={name}
-          render={({ field, fieldState, formState }) => {
-            // if (imagesProductStore?.images.length! > 0) {
-            //   form.setValue(
-            //     name,
-            //     imagesProductStore?.images! as PathValue<T, Path<T>>,
-            //   );
-            // }
-
-            return (
-              <FormItem>
-              
-              </FormItem>
-            );
-          }}
-        /> */}
-      </CardContent>
-    </Card>
+                    <X
+                      className="absolute z-50 right-1 rounded-lg hover:bg-slate-300 duration-200 top-0 h-5 w-5
+                        text-red-500 cursor-pointer"
+                      onClick={(e) => handleDelete(e, index)}
+                    />
+                    <div className="absolute inset-0 hover:bg-slate-900/20 cursor-pointer duration-300" />
+                  </div>
+                )
+              );
+            })}
+          </div>
+        </>
+      )}
+    </div>
+    // </CardContent>
+    //</Card>
   );
 };

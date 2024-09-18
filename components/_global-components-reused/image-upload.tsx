@@ -49,7 +49,7 @@ export const ImageUpload = ({ value, onChange, id }: ImageUploadProps) => {
         return (
           <div
             onClick={() => open?.()}
-            className="relative w-50 h-10 rounded-3xl cursor-pointer hover:opacity-70 transition p-10
+            className="relative w-50 h-5 rounded-3xl cursor-pointer hover:opacity-70 transition p-10
               border-dashed border-slate-400 flex bg-white justify-center items-center gap-2
               group/thumbnail hover:border-slate-200"
           >
@@ -68,7 +68,7 @@ export const ImageUpload = ({ value, onChange, id }: ImageUploadProps) => {
             >
               Upload
             </div>
-            {value ||
+            {/* {value ||
               (url && (
                 <div className="absolute inset-0 w-full h-full">
                   <Image
@@ -79,7 +79,7 @@ export const ImageUpload = ({ value, onChange, id }: ImageUploadProps) => {
                   />
                   <input type="text" hidden id={id} name={id} value={url} />
                 </div>
-              ))}
+              ))} */}
           </div>
         );
       }}

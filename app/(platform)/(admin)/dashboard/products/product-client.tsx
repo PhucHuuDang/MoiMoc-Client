@@ -16,6 +16,7 @@ import { ProductStatus } from "./_products_components/product-status";
 import { ProductImage } from "./_products_components/product-image";
 import { ArchiveProduct } from "./_products_components/archive-product";
 import { ImageUpload } from "@/components/_global-components-reused/image-upload";
+import { FormImagesProductControl } from "@/components/_global-components-reused/form/form-images-product-control";
 
 export function ProductClient() {
   const form = useForm<z.infer<typeof AddProductSafeTypes>>({
@@ -72,7 +73,10 @@ export function ProductClient() {
               </div>
               <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
                 <ProductStatus />
-                <ProductImage form={form} name="imagesProduct" />
+                <FormImagesProductControl form={form} name="imagesProduct">
+                  <ProductImage />
+                </FormImagesProductControl>
+                {/* <ProductImage form={form} name="imagesProduct" /> */}
                 {/* <ArchiveProduct /> */}
               </div>
             </div>
