@@ -105,7 +105,9 @@ export const Stock = <T extends FieldValues, K>({
                     type={typeFormItemControl}
                     name={stockProps.discountPrice as Path<T>}
                     form={form}
-                    placeholder="Set discount price..."
+                    disabled
+                    value={200}
+                    placeholder="Calculated..."
                   />
                 </div>
               </TableCell>

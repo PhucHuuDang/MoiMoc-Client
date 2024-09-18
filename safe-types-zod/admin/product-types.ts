@@ -97,10 +97,28 @@ export const AddProductSafeTypes = z.object({
     .transform((value) =>
       typeof value === "string" ? parseFloat(value) : value,
     )
-    .refine((value) => value >= 0, {
+    .refine((value) => value > 0, {
       message: "Discount price must be a positive number",
     })
     .optional(),
+
+  productTypeId: z
+    .union([
+      z.string({
+        required_error: "Product type is must be entered",
+      }),
+      z.number({
+        required_error: "Product type is must be entered",
+      }),
+    ])
+    .transform((value) => (typeof value === "string" ? parseInt(value) : value))
+    .refine((value) => value > 1, {
+      message: "Product type id must be at least 1",
+    }),
+  imagesProduct: z.array(z.string(), {
+    required_error: "Images product must be entered",
+  }),
+  // imagesProduct: z.string().array(),
 });
 
 export type test = z.infer<typeof AddProductSafeTypes>;

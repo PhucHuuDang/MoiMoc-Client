@@ -1,5 +1,6 @@
 "use client";
 
+import { FormSelectControl } from "@/components/_global-components-reused/form/form-select-control";
 import {
   Card,
   CardContent,
@@ -16,7 +17,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-export const ProductCategory = () => {
+import { FieldValues, Path, UseFormReturn } from "react-hook-form";
+
+interface ProductCategoryProps<T extends FieldValues, K> {
+  form: UseFormReturn<T>;
+  name: Path<T>;
+  formLabel: string;
+}
+
+export const ProductCategory = <T extends FieldValues, K>({
+  form,
+  name,
+  formLabel,
+}: ProductCategoryProps<T, K>) => {
+  const lipstickTypes = [
+    { id: "1", value: "matte", label: "Matte Lipstick" },
+    { id: "2", value: "glossy", label: "Glossy Lipstick" },
+    { id: "3", value: "sheer", label: "Sheer Lipstick" },
+    { id: "4", value: "satin", label: "Satin Lipstick" },
+    { id: "5", value: "liquid", label: "Liquid Lipstick" },
+    { id: "6", value: "cream", label: "Cream Lipstick" },
+    { id: "7", value: "tint", label: "Lip Tint" },
+    { id: "8", value: "stain", label: "Lip Stain" },
+  ];
+
   return (
     <Card x-chunk="dashboard-07-chunk-2">
       <CardHeader>
@@ -25,7 +49,7 @@ export const ProductCategory = () => {
       <CardContent>
         <div className="grid gap-6 sm:grid-cols-3">
           <div className="grid gap-3">
-            <Label htmlFor="category">Category</Label>
+            {/* <Label htmlFor="category">Category</Label>
             <Select>
               <SelectTrigger id="category" aria-label="Select category">
                 <SelectValue placeholder="Select category" />
@@ -35,9 +59,27 @@ export const ProductCategory = () => {
                 <SelectItem value="electronics">Electronics</SelectItem>
                 <SelectItem value="accessories">Accessories</SelectItem>
               </SelectContent>
-            </Select>
+            </Select> */}
+            <FormSelectControl
+              form={form}
+              name={name}
+              placeholder="
+              Select lipstick category
+            "
+              formLabel={formLabel}
+              classNameFormItem="w-[200px]"
+            >
+              {lipstickTypes.map((lipstick) => {
+                return (
+                  <SelectItem key={lipstick.id} value={lipstick.id}>
+                    {lipstick.label}
+                  </SelectItem>
+                );
+              })}
+            </FormSelectControl>
           </div>
-          <div className="grid gap-3">
+
+          {/* <div className="grid gap-3">
             <Label htmlFor="subcategory">Subcategory (optional)</Label>
             <Select>
               <SelectTrigger id="subcategory" aria-label="Select subcategory">
@@ -49,7 +91,7 @@ export const ProductCategory = () => {
                 <SelectItem value="sweatshirts">Sweatshirts</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
         </div>
       </CardContent>
     </Card>

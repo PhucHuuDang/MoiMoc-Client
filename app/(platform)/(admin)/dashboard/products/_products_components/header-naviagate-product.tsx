@@ -1,5 +1,6 @@
 "use client";
 
+import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
@@ -30,9 +31,11 @@ export const ProductControllerHeader = () => {
         <Button variant="outline" size="sm">
           Discard
         </Button>
-        <Button size="sm" variant="moiMoc">
+        {/* <Button size="sm" variant="moiMoc">
           Save Product
-        </Button>
+        </Button> */}
+
+        <FormSubmit variant="dynamic">Add Product</FormSubmit>
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ import { ProductCategory } from "./_products_components/product-category";
 import { ProductStatus } from "./_products_components/product-status";
 import { ProductImage } from "./_products_components/product-image";
 import { ArchiveProduct } from "./_products_components/archive-product";
+import { ImageUpload } from "@/components/_global-components-reused/image-upload";
 
 export function ProductClient() {
   const form = useForm<z.infer<typeof AddProductSafeTypes>>({
@@ -63,12 +64,16 @@ export function ProductClient() {
                   stockProps={stockProps}
                 />
 
-                <ProductCategory />
+                <ProductCategory
+                  form={form}
+                  name="productTypeId"
+                  formLabel="Category for the product"
+                />
               </div>
               <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
                 <ProductStatus />
-                <ProductImage />
-                <ArchiveProduct />
+                <ProductImage form={form} name="imagesProduct" />
+                {/* <ArchiveProduct /> */}
               </div>
             </div>
             <div className="flex items-center justify-center gap-2 md:hidden">
@@ -77,6 +82,8 @@ export function ProductClient() {
               </Button>
               <Button size="sm">Save Product</Button>
             </div>
+
+            {/* <ImageUpload /> */}
           </div>
         </main>
       </FormValues>
