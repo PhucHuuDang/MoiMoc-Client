@@ -77,7 +77,6 @@ export function ProductClient() {
                   <ProductImage />
                 </FormImagesProductControl>
                 {/* <ProductImage form={form} name="imagesProduct" /> */}
-                {/* <ArchiveProduct /> */}
               </div>
             </div>
             <div className="flex items-center justify-center gap-2 md:hidden">
@@ -86,8 +85,6 @@ export function ProductClient() {
               </Button>
               <Button size="sm">Save Product</Button>
             </div>
-
-            {/* <ImageUpload /> */}
           </div>
         </main>
       </FormValues>

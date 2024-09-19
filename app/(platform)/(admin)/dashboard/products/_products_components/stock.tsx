@@ -23,7 +23,8 @@ import {
 } from "@/components/ui/table";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { PlusCircle } from "lucide-react";
-import { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { useEffect } from "react";
+import { FieldValues, Path, PathValue, UseFormReturn } from "react-hook-form";
 
 interface StockProps<T extends FieldValues, K> {
   form: UseFormReturn<T>;
@@ -42,6 +43,29 @@ export const Stock = <T extends FieldValues, K>({
   stockProps,
 }: StockProps<T, K>) => {
   const typeFormItemControl = "number";
+
+  const watchPrice = form.watch(stockProps.price as Path<T>);
+  const watchDiscountPercent = form.watch(
+    stockProps.discountPercent as Path<T>,
+  );
+
+  console.log({ watchPrice, watchDiscountPercent });
+
+  useEffect(() => {
+    const discountPriceCalculated =
+      watchPrice && watchDiscountPercent
+        ? (watchPrice * (100 - watchDiscountPercent)) / 100
+        : 0;
+
+    console.log({ discountPriceCalculated });
+
+    form.setValue(
+      stockProps.discountPrice as Path<T>,
+      discountPriceCalculated as PathValue<T, Path<T>>,
+    );
+    form.trigger(stockProps.discountPrice as Path<T>);
+
+  }, [watchPrice, watchDiscountPercent, form, stockProps.discountPrice]);
 
   return (
     <Card x-chunk="dashboard-07-chunk-1">
@@ -106,7 +130,7 @@ export const Stock = <T extends FieldValues, K>({
                     name={stockProps.discountPrice as Path<T>}
                     form={form}
                     disabled
-                    value={200}
+                    value={form.watch(stockProps.discountPrice as Path<T>)}
                     placeholder="Calculated..."
                   />
                 </div>

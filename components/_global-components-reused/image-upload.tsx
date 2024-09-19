@@ -9,6 +9,8 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 
+import { useShallow } from "zustand/react/shallow";
+
 interface ImageUploadProps {
   value?: string;
   onChange?: (value: string) => void;
@@ -16,15 +18,9 @@ interface ImageUploadProps {
 }
 
 export const ImageUpload = ({ value, onChange, id }: ImageUploadProps) => {
-  const [url, setUrl] = useState<string>();
   const imagesProductStore = useImagesProductStore();
 
-  const handleUpload = (result: any) => {
-    console.log({ result });
-
-    onChange?.(result.info.secure_url);
-    setUrl(result.info.secure_url);
-  };
+  const test = useImagesProductStore(useShallow((state) => state.addImage));
 
   const handleUploadSuccess = (result: any, { widget }: any) => {
     imagesProductStore.addImage(result.info.secure_url);
@@ -53,14 +49,6 @@ export const ImageUpload = ({ value, onChange, id }: ImageUploadProps) => {
               border-dashed border-slate-400 flex bg-white justify-center items-center gap-2
               group/thumbnail hover:border-slate-200"
           >
-            {/* <Camera className="text-slate-400 h-6 w-6 group-hover/thumbnail:text-slate-100 transition" />
-            <div
-              className="font-semibold text-slate-400 group-hover/thumbnail:text-slate-100 text-lg
-                transition"
-            >
-              Thumbnail
-            </div> */}
-
             <Upload className="text-primary size-6 group-hover/thumbnail:bg-opacity-10 transition" />
             <div
               className="font-semibold text-primary group-hover/thumbnail:bg-opacity-10 text-lg

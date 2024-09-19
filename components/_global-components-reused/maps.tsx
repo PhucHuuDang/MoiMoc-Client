@@ -9,7 +9,8 @@ import {
   DirectionsRenderer,
 } from "@react-google-maps/api";
 
-import { useEventListener } from "usehooks-ts";
+// import { useEventListener } from "usehooks-ts";
+import { useEvent } from "react-use";
 
 import {
   ArrowLeftToLine,
@@ -142,7 +143,8 @@ const Maps = ({ className }: { className?: string }) => {
     }
   };
 
-  useEventListener("keydown", onKeydown);
+  // useEventListener("keydown", onKeydown);
+  useEvent("keydown", onKeydown);
 
   if (!isLoaded) {
     return <LoadingMapsPage />;
