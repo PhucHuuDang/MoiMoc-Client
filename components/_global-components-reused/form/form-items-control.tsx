@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { FieldValues, Path, PathValue, UseFormReturn } from "react-hook-form";
+import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 interface FormItemsControlProps<T extends FieldValues, K> {
   form: UseFormReturn<T>;
@@ -43,14 +43,10 @@ export const FormItemsControl = <T extends FieldValues, K>({
       control={form.control}
       name={name}
       render={({ field, fieldState, formState }) => {
-        // if (value && field.value !== value) {
-        //   form.setValue(name, value);
-        // }
         if (value !== undefined && value !== null && field.value !== value) {
           form.setValue(name, value);
         }
 
-        // console.log({ field, fieldState, formState });
         return (
           <FormItem>
             <FormLabel className={cn("text-text-foreground", classNameLabel)}>

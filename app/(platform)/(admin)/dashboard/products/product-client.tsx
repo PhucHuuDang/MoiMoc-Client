@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FieldValues, Path, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 
@@ -17,15 +17,33 @@ import { ProductImage } from "./_products_components/product-image";
 import { ArchiveProduct } from "./_products_components/archive-product";
 import { ImageUpload } from "@/components/_global-components-reused/image-upload";
 import { FormImagesProductControl } from "@/components/_global-components-reused/form/form-images-product-control";
+import { useEffect } from "react";
 
 export function ProductClient() {
   const form = useForm<z.infer<typeof AddProductSafeTypes>>({
     resolver: zodResolver(AddProductSafeTypes),
     defaultValues: {
       quantity: 1,
-      price: 100,
     },
   });
+
+  const price = form.watch("price");
+  const discountPercent = form.watch("discountPercent");
+  console.log({ price, discountPercent });
+
+  // console.log(discountPercent?.toString() === "");
+
+  useEffect(() => {
+    if (price && discountPercent) {
+      const discountPrice = price - (price * discountPercent) / 100;
+
+      form.setValue("discountPrice", discountPrice);
+    }
+    if (discountPercent?.toString() === "") {
+      form.setValue("discountPrice", undefined);
+      // form.control("")
+    }
+  }, [price, discountPercent, form]);
 
   const onSubmit = (values: z.infer<typeof AddProductSafeTypes>) => {
     console.log({ values });

@@ -86,21 +86,32 @@ export const AddProductSafeTypes = z.object({
 
   discountPercent: z
     .union([z.string(), z.number()])
-    .transform((value) => (typeof value === "string" ? parseInt(value) : value))
-    .refine((value) => value >= 0, {
-      message: "Discount must be a positive number",
-    })
-    .optional(),
+    .optional()
+    .transform((value) =>
+      value === "" || value === undefined
+        ? undefined
+        : typeof value === "string"
+          ? parseInt(value)
+          : value,
+    )
+    .refine((value) => value === undefined || (value >= 1 && value <= 90), {
+      message: "Discount must be between 1 and 90",
+    }),
 
   discountPrice: z
     .union([z.string(), z.number()])
+    .optional()
+
     .transform((value) =>
-      typeof value === "string" ? parseFloat(value) : value,
-    )
-    .refine((value) => value > 0, {
-      message: "Discount price must be a positive number",
-    })
-    .optional(),
+      value === "" || value === undefined
+        ? undefined
+        : typeof value === "string"
+          ? parseInt(value)
+          : value,
+    ),
+  // .refine((value) => value === undefined, {
+  //   message: "Discount must be between 1 and 90",
+  // }),
 
   productTypeId: z
     .union([
