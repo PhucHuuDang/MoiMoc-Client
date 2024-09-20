@@ -11,7 +11,7 @@ import BlurFade from "../magic/blur-fade";
 export const NewlyProduct = () => {
   return (
     <>
-      <BlurFade delay={0.2}>
+      <BlurFade delay={0.25}>
         <h1 className="py-4 text-center text-4xl text-moi_moc_green">
           Newly Product
         </h1>

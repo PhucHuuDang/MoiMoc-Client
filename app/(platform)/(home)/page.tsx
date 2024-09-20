@@ -62,13 +62,15 @@ export default function HomePage() {
       </div>
 
       <div className="mt-6">
-        <BlurFade inView delay={0.25}>
+        <BlurFade inView delay={0.35}>
           <BestSellingProducts />
         </BlurFade>
       </div>
 
       <div className="py-8">
-        <Footer />
+        <BlurFade inView delay={0.45}>
+          <Footer />
+        </BlurFade>
       </div>
     </div>
   );
