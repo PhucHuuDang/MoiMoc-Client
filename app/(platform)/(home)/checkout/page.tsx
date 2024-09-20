@@ -15,10 +15,14 @@ import { Footer } from "@/components/_global-components-reused/footer";
 import { Separator } from "@/components/ui/separator";
 import { DiscountCode } from "./_components/discount-code";
 import { CheckoutClient } from "./checkout-client";
+import { SparklesCore } from "@/components/aceternity-ui/sparkles";
 
 const CheckoutPage = () => {
   return (
-    <div className="min-h-screen">
+    <div
+      className="min-h-screen w-full relative flex flex-col items-center justify-center
+        overflow-hidden"
+    >
       {/* <div className="py-10 pt-20 flex items-center justify-center">
         <CheckoutHeader />
       </div>
@@ -40,7 +44,21 @@ const CheckoutPage = () => {
       <div className="my-4">
         <Footer />
       </div> */}
-      <CheckoutClient />
+      <div className="w-full h-full 2xl:h-screen absolute inset-0 z-0">
+        <SparklesCore
+          id="tsparticlesfullpage"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          // maxSize={2.4}
+          particleDensity={150}
+          className="w-full h-full"
+          particleColor="#47843c"
+        />
+      </div>
+      <div className="z-10">
+        <CheckoutClient />
+      </div>
     </div>
   );
 };

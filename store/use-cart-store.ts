@@ -12,6 +12,7 @@ interface Actions {
   addOrder: (product: ProductProps) => void;
   removeFromCart: (product: ProductProps) => void;
   decreaseQuantity: (product: ProductProps) => void;
+  clearCart: () => void;
 }
 
 const INITIAL_STATE: State = {
@@ -26,6 +27,7 @@ export const useCartStore = create(
       orders: INITIAL_STATE.orders,
       totalPrice: INITIAL_STATE.totalPrice,
       totalItems: INITIAL_STATE.totalItems,
+      clearCart: () => set({ orders: [], totalPrice: 0, totalItems: 0 }),
       addOrder: (product: ProductProps) => {
         const cartOrders = get().orders;
 
