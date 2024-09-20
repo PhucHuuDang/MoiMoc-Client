@@ -12,10 +12,11 @@ import { MoreHorizontal } from "lucide-react";
 
 interface ActionsProps {
   // onEdit: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
+  id: number;
 }
 
-export const Actions = ({ onDelete }: ActionsProps) => {
+export const Actions = ({ onDelete, id }: ActionsProps) => {
   const [ConfirmDialog, confirm] = useConfirm(
     "Delete Product",
     "Are you sure you want to delete this product?",
@@ -25,7 +26,7 @@ export const Actions = ({ onDelete }: ActionsProps) => {
     const ok = await confirm();
 
     if (ok) {
-      onDelete();
+      onDelete?.();
     }
   };
 

@@ -32,7 +32,7 @@ export const CarouselCustomized = ({
           align: "start",
           loop: true,
         }}
-        plugins={[AutoPlay({ delay: 3000, stopOnInteraction: false })]}
+        plugins={[AutoPlay({ delay: 2000, stopOnInteraction: false })]}
         className="rounded-xl"
       >
         <CarouselContent>{children}</CarouselContent>

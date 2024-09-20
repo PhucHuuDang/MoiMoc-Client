@@ -14,8 +14,8 @@ export const OrderDetail = () => {
       <CardHeader>
         <CardTitle className="text-moi_moc_green">Order Detail</CardTitle>
       </CardHeader>
-      <CardContent className="h-96">
-        <div className="flex h-[150px] flex-col gap-y-1 overflow-y-auto">
+      <CardContent className="h-[250px]">
+        <div className="flex h-[250px] flex-col gap-y-1 overflow-y-auto">
           <div>1. Son duong ABC</div>
           <div>1. Son duong ABC</div>
           <div>1. Son duong ABC</div>
