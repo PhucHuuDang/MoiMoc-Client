@@ -33,14 +33,14 @@ export const CartItem: React.FC<CartItemProps> = ({ product, dashboard }) => {
 
   const discountPriceCondition = product.discountPrice! > 0;
 
-  const MAX_LENGTH = 7;
+  const MAX_LENGTH = 10;
 
   return (
     <Tooltip>
       <TooltipTrigger>
         <li
           className={
-            "flex cursor-pointer items-center gap-4 duration-200 hover:scale-105"
+            "flex cursor-pointer gap-4 duration-200 hover:scale-105 xl:w-[42vw] "
           }
         >
           <Image
@@ -51,7 +51,7 @@ export const CartItem: React.FC<CartItemProps> = ({ product, dashboard }) => {
             className="size-16 rounded object-cover"
           />
 
-          <div>
+          <div className="w-28 flex flex-col items-start">
             <h3 className="text-sm text-gray-900 dark:text-foreground">
               {/* {product.productName.length > MAX_LENGTH
             ? product.productName.slice(0, MAX_LENGTH)
@@ -65,18 +65,18 @@ export const CartItem: React.FC<CartItemProps> = ({ product, dashboard }) => {
 
             <dl className="mt-0.5 space-y-px text-[10px] text-gray-600 dark:text-foreground">
               <div>
-                <dt className="inline">Size:</dt>
-                <dd className="inline">XXS</dd>
+                <dt className="inline">Category:</dt>
+                <dd className="inline">Lip Balm</dd>
               </div>
 
-              <div>
+              {/* <div>
                 <dt className="inline">Color:</dt>
                 <dd className="inline">White</dd>
-              </div>
+              </div> */}
             </dl>
           </div>
 
-          <div className={`flex flex-col items-center ${dashboard && "ml-10"}`}>
+          <div className={`flex flex-col ${dashboard && "ml-10"} w-[150px]`}>
             <div className="mx-2 flex items-center gap-x-1 rounded-md p-1">
               <span className="font-bold text-slate-600">Giá: </span>
               <span className="font-bold text-sky-400">
@@ -101,7 +101,7 @@ export const CartItem: React.FC<CartItemProps> = ({ product, dashboard }) => {
           </div>
 
           {!dashboard && (
-            <div className="flex flex-1 items-center justify-end gap-2">
+            <div className="flex flex-1 items-center justify-end gap-2 w-36">
               <form className="flex items-center 2xl:gap-2">
                 <label htmlFor="Line1Qty" className="sr-only">
                   {" "}

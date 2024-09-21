@@ -9,7 +9,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useClickAway } from "react-use";
 
 export const useConfirm = (
   title: string,
@@ -18,6 +19,8 @@ export const useConfirm = (
   const [promise, setPromise] = useState<{
     resolve: (value: boolean) => void;
   } | null>(null);
+
+  const refOutside = useRef<HTMLDivElement>(null);
 
   const confirm = () => {
     return new Promise((resolve, reject) => {
@@ -39,10 +42,12 @@ export const useConfirm = (
     handleClose();
   };
 
+  useClickAway(refOutside, handleClose)
+
   const ConfirmDialog = () => {
     return (
       <Dialog open={promise != null}>
-        <DialogContent>
+        <DialogContent ref={refOutside}>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>{message}</DialogDescription>

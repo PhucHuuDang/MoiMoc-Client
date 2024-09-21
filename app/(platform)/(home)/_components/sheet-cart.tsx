@@ -51,7 +51,7 @@ export const SheetCart = ({}: SheetCartProps) => {
 
   return (
     <Sheet open={sheetCart.isOpen} onOpenChange={sheetCart.onClose}>
-      <SheetContent style={{ maxWidth: "40vw" }}>
+      <SheetContent style={{ maxWidth: "45vw" }}>
         <SheetHeader className="my-4">
           <SheetTitle className="text-center text-lg">Your cart!</SheetTitle>
           <SheetDescription className="text-center">
@@ -61,7 +61,7 @@ export const SheetCart = ({}: SheetCartProps) => {
           </SheetDescription>
         </SheetHeader>
 
-        <ul className="space-y-5">
+        <ul className="flex flex-col items-start gap-5">
           <TooltipProvider delayDuration={200}>
             {cart?.map((product) => (
               <CartItem key={product.id} product={product} />
@@ -94,7 +94,7 @@ export const SheetCart = ({}: SheetCartProps) => {
 
             <SheetClose asChild>
               <div
-                className="flex cursor-pointer items-center gap-1 text-center text-slate-400  duration-200
+                className="flex cursor-pointer items-center gap-1 text-center text-slate-400 duration-200
                   hover:text-slate-600 hover:underline"
               >
                 <ShoppingBag /> Continue shopping
