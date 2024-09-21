@@ -5,8 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useFormStatus } from "react-dom";
 import { cn } from "@/lib/utils";
-import { IconType } from "react-icons";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, LucideIcon } from "lucide-react";
 import { ControllerRenderProps } from "react-hook-form";
 
 interface FormInputProps {
@@ -16,7 +15,7 @@ interface FormInputProps {
   id: string;
   required?: boolean;
   className?: string;
-  icon?: IconType;
+  icon?: ElementType;
   error?: Record<string, string[]> | undefined;
   searchIcon?: React.ReactNode;
   defaultValue?: string;
