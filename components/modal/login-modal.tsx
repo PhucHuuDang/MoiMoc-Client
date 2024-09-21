@@ -104,12 +104,12 @@ export const LoginModal = () => {
 
   const footer = (
     <div className="flex items-center gap-x-1 text-moi_moc_green underline">
-      You don't have account?{" "}
+      You don&apos;t have account?{" "}
       <span
         onClick={toggle}
         className="cursor-pointer font-bold transition duration-200 hover:scale-110"
       >
-        Let's register!
+        Let&apos;s register!
       </span>
     </div>
   );

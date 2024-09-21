@@ -126,7 +126,7 @@ export const RegisterModal = () => {
         onClick={toggle}
         className="cursor-pointer font-bold transition duration-200 hover:scale-110"
       >
-        Let's login!
+        Let&apos;s login!
       </span>
     </div>
   );

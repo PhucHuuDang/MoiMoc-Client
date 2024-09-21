@@ -111,7 +111,7 @@ export const ContactModal = () => {
         Our mission is to help you to solve your problem and improve the
         products,{" "}
         <span className="cursor-pointer font-bold transition duration-200 hover:scale-110">
-          so don't hesitate to ask us!
+          so don&apos;t hesitate to ask us!
         </span>
       </span>
     </div>

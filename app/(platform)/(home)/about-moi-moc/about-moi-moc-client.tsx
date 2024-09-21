@@ -55,11 +55,12 @@ export const AboutMoiMocClient = () => {
       <div className="my-6 flex items-center justify-evenly">
         {Lipsticks.map((lipstick, index) => {
           return (
-            <BlurFade inView delay={0.2 + index * 0.1}>
+            <BlurFade inView delay={0.2 + index * 0.1} key={lipstick.label}>
               <div
                 // ref={lipstick.refContent === }
                 key={lipstick.refContent}
-                className="hoverAnimate w-44 rounded-xl border border-moi_moc_green p-1.5 text-center font-semibold text-moi_moc_green"
+                className="hoverAnimate w-44 rounded-xl border border-moi_moc_green p-1.5 text-center
+                  font-semibold text-moi_moc_green"
                 onClick={() => handleScrollPosition(lipstick.refContent)}
               >
                 {lipstick.label}
