@@ -82,7 +82,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           </div>
 
           <div
-            className={`flex ${checkout ? "flex-row items-start" : "flex-col"}  ${dashboard && "ml-10"}
+            className={`flex ${checkout ? "flex-row items-start" : "flex-col"} ${dashboard && "ml-10"}
               w-[150px]`}
           >
             <div className="mx-2 flex items-center gap-x-1 rounded-md p-1">
@@ -109,7 +109,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           </div>
 
           {!dashboard && (
-            <div className="flex flex-1 items-center justify-end gap-2 w-36">
+            <div className="flex flex-1 items-center justify-around 2xl:justify-end gap-2 w-28">
               <form className="flex items-center 2xl:gap-2">
                 <label htmlFor="Line1Qty" className="sr-only">
                   {" "}

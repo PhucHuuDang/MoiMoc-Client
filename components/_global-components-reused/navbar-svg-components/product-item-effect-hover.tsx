@@ -1,6 +1,7 @@
 "use client";
 
 import { truncateText } from "@/app/lodash-config/truncate";
+import StatusButton from "@/components/animata/status-button";
 import { useCartStore } from "@/store/use-cart-store";
 import { ProductProps } from "@/types";
 import { ShoppingCart } from "lucide-react";
@@ -25,7 +26,10 @@ export const ProductItemEffectHoverEffectHover = ({
   return (
     <div className="relative flex w-full cursor-pointer flex-col gap-2">
       {product?.discountPercent! > 0 && product?.discountPercent && (
-        <div className="absolute right-0 top-0 z-10 m-0 flex items-center gap-1 rounded-l-lg rounded-t-xl bg-[#489bee] p-2 text-xs font-semibold text-white">
+        <div
+          className="absolute right-0 top-0 z-10 m-0 flex items-center gap-1 rounded-l-lg
+            rounded-t-xl bg-[#489bee] p-2 text-xs font-semibold text-white"
+        >
           <span>Sale</span>
           <span>{`-${product.discountPercent}%`}</span>
         </div>
@@ -48,9 +52,6 @@ export const ProductItemEffectHoverEffectHover = ({
         {product.productName}
       </div>
       <div className="h-[65px] font-light text-neutral-500">
-        {/* {product.productDescription.length > MAX_LENGTH
-          ? product.productDescription.slice(0, MAX_LENGTH) + "..."
-          : product.productDescription} */}
         {truncateText(product.productDescription, MAX_LENGTH)}
       </div>
 
@@ -85,9 +86,14 @@ export const ProductItemEffectHoverEffectHover = ({
           )}
         </div>
 
-        <ShoppingCart
+        {/* <ShoppingCart
           onClick={(e) => handleAddToCart(e, product)}
-          className="size-10 cursor-pointer rounded-lg p-1 text-slate-600 duration-200 hover:scale-110 hover:bg-slate-200 hover:text-slate-800 hover:shadow-lg"
+          className="size-10 cursor-pointer rounded-lg p-1 text-slate-600 duration-200
+            hover:scale-110 hover:bg-slate-200 hover:text-slate-800 hover:shadow-lg"
+        /> */}
+        <StatusButton
+          handleAddToCart={(e) => handleAddToCart(e, product)}
+          className="w-10"
         />
       </div>
     </div>

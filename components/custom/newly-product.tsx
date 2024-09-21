@@ -26,8 +26,8 @@ export const NewlyProduct = () => {
         className="z-10 w-full"
       >
         <CarouselContent className="h-full p-4 px-10">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/4">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/3">
               <BlurFade delay={0.2 + index * 0.2} inView>
                 <div className="pl-1">
                   <ProductItemGlareCard />

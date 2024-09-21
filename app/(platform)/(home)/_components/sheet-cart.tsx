@@ -61,7 +61,7 @@ export const SheetCart = ({}: SheetCartProps) => {
           </SheetDescription>
         </SheetHeader>
 
-        <ul className="flex flex-col items-start gap-5">
+        <ul className="flex flex-col items-start gap-5 h-[400px] overflow-y-auto overflow-x-hidden">
           <TooltipProvider delayDuration={200}>
             {cart?.map((product) => (
               <CartItem key={product.id} product={product} />
