@@ -18,9 +18,14 @@ import {
 interface CartItemProps {
   product: ProductProps;
   dashboard?: boolean;
+  checkout?: boolean;
 }
 
-export const CartItem: React.FC<CartItemProps> = ({ product, dashboard }) => {
+export const CartItem: React.FC<CartItemProps> = ({
+  product,
+  dashboard,
+  checkout,
+}) => {
   const increaseQuantity = useCartStore((state) => state.addOrder);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
@@ -76,7 +81,10 @@ export const CartItem: React.FC<CartItemProps> = ({ product, dashboard }) => {
             </dl>
           </div>
 
-          <div className={`flex flex-col ${dashboard && "ml-10"} w-[150px]`}>
+          <div
+            className={`flex ${checkout ? "flex-row items-start" : "flex-col"}  ${dashboard && "ml-10"}
+              w-[150px]`}
+          >
             <div className="mx-2 flex items-center gap-x-1 rounded-md p-1">
               <span className="font-bold text-slate-600">Giá: </span>
               <span className="font-bold text-sky-400">

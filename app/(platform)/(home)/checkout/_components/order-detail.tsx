@@ -4,7 +4,11 @@ import { FormSubmit } from "@/components/_global-components-reused/form/form-sub
 import { RainbowButton } from "@/components/magic/rainbow-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useConfirm } from "@/hooks/use-confirm";
+import { useCartStore } from "@/store/use-cart-store";
+import { useFromStore } from "@/store/use-from-store";
 import { Separator } from "@radix-ui/react-separator";
+import { CartItem } from "../../_components/cart-item";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 interface OrderDetailProps<T> {
   onSubmit?: (data: T) => void;
@@ -15,6 +19,8 @@ export const OrderDetail = () => {
     "Payment",
     "Are you sure you want to pay?",
   );
+
+  const cart = useFromStore(useCartStore, (state) => state.orders);
 
   const handlePayment = async () => {
     const ok = await confirm();
@@ -31,17 +37,20 @@ export const OrderDetail = () => {
         <CardHeader>
           <CardTitle className="text-moi_moc_green">Order Detail</CardTitle>
         </CardHeader>
-        <CardContent className="h-[250px]">
-          <div className="flex h-[250px] flex-col gap-y-1 overflow-y-auto">
-            <div>1. Son duong ABC</div>
-            <div>1. Son duong ABC</div>
-            <div>1. Son duong ABC</div>
-            <div>1. Son duong ABC</div>
-            <div>1. Son duong ABC</div>
-            <div>1. Son duong ABC</div>
-            <div>1. Son duong ABC</div>
-            <div>1. Son duong ABC</div>
-            <div>1. Son duong ABC</div>
+        <CardContent className="h-[300px]">
+          <div className="flex h-[300px] flex-col gap-y-1 overflow-y-auto">
+            <TooltipProvider delayDuration={200}>
+              {cart?.map((product) => {
+                return (
+                  <CartItem
+                    key={product.id}
+                    product={product}
+                    dashboard
+                    checkout
+                  />
+                );
+              })}
+            </TooltipProvider>
           </div>
 
           <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
