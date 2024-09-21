@@ -82,10 +82,10 @@ export const CartItem: React.FC<CartItemProps> = ({
           </div>
 
           <div
-            className={`flex ${checkout ? "flex-row items-start" : "flex-col"} ${dashboard && "ml-10"}
-              w-[150px]`}
+            className={`flex ${checkout ? "flex-row items-start gap-x-5" : "flex-col"} ${ dashboard &&
+              "ml-10" } w-[150px]`}
           >
-            <div className="mx-2 flex items-center gap-x-1 rounded-md p-1">
+            <div className={"mx-2 flex items-center gap-x-1 rounded-md p-1"}>
               <span className="font-bold text-slate-600">Giá: </span>
               <span className="font-bold text-sky-400">
                 {formatCurrency(
@@ -96,7 +96,7 @@ export const CartItem: React.FC<CartItemProps> = ({
               </span>
             </div>
 
-            <div className="mx-2 flex items-center gap-x-1 rounded-md p-1">
+            <div className={"mx-2 flex items-center gap-x-1 rounded-md p-1"}>
               <span className="font-bold text-slate-600">Tổng: </span>
               <span className="font-bold text-[#ff6347]">
                 {formatCurrency(

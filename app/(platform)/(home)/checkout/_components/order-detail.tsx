@@ -37,8 +37,8 @@ export const OrderDetail = () => {
         <CardHeader>
           <CardTitle className="text-moi_moc_green">Order Detail</CardTitle>
         </CardHeader>
-        <CardContent className="h-[300px]">
-          <div className="flex h-[300px] flex-col gap-y-1 overflow-y-auto">
+        <CardContent className="h-[350px]">
+          <div className="flex h-[350px] flex-col gap-y-1 overflow-y-auto overflow-x-hidden">
             <TooltipProvider delayDuration={200}>
               {cart?.map((product) => {
                 return (
