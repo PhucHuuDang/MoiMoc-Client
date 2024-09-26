@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Actions } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
 
 export type AllProductsColumns = {
   id: number;
@@ -49,7 +50,7 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
   },
   {
     accessorKey: "image",
-    header: () => <div className="">Image</div>,
+    header: () => <div className="text-center">Image</div>,
     cell: ({ row }) => {
       const image = row.getValue("image");
 
@@ -78,6 +79,7 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     cell: ({ row }) => {
       return <div className="text-center">{row.getValue("name")}</div>;
     },
+    enableSorting: true,
   },
   {
     accessorKey: "status",
@@ -105,6 +107,7 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     cell: ({ row }) => {
       return <div className="text-center">{row.getValue("quantity")}</div>;
     },
+    enableSorting: true,
   },
   {
     accessorKey: "price",
@@ -118,7 +121,7 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     header: () => <div className="text-right">Discount Percent</div>,
     cell: ({ row }) => {
       return (
-        <div className="text-right">{row.getValue("discountPercent")}</div>
+        <div className="text-center">{row.getValue("discountPercent")}</div>
       );
     },
   },
@@ -126,21 +129,25 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     accessorKey: "discountPrice",
     header: () => <div className="text-right">Discount Price</div>,
     cell: ({ row }) => {
-      return <div className="text-right">{row.getValue("discountPrice")}</div>;
+      return <div className="text-center">{row.getValue("discountPrice")}</div>;
     },
   },
   {
     accessorKey: "totalSales",
     header: () => <div className="text-right">Total Sales</div>,
     cell: ({ row }) => {
-      return <div className="text-right">{row.getValue("totalSales")}</div>;
+      return <div className="text-center">{row.getValue("totalSales")}</div>;
     },
   },
   {
     accessorKey: "createdAt",
-    header: () => <div className="text-right">Created At</div>,
+    header: () => <div className="text-center">Created At</div>,
     cell: ({ row }) => {
-      return <div className="text-right">{row.getValue("createdAt")}</div>;
+      return (
+        <div className="text-center">
+          {vietnameseDate(row.getValue("createdAt"))}
+        </div>
+      );
     },
   },
 

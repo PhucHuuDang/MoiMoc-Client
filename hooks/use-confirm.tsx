@@ -42,7 +42,7 @@ export const useConfirm = (
     handleClose();
   };
 
-  useClickAway(refOutside, handleClose)
+  useClickAway(refOutside, handleClose);
 
   const ConfirmDialog = () => {
     return (
@@ -57,7 +57,7 @@ export const useConfirm = (
             <Button variant="outline" onClick={handleCancel}>
               Cancel
             </Button>
-            <Button variant="dynamic" onClick={handleConfirm}>
+            <Button variant="moiMoc" onClick={handleConfirm}>
               Confirm
             </Button>
           </DialogFooter>

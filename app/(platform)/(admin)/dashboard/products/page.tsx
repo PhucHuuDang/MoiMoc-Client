@@ -11,7 +11,7 @@ const ProductsPage = () => {
           <TabsTrigger value="add-product">Add Product</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="all-products">
+        <TabsContent value="all-products" className="z-10">
           <AllProducts />
         </TabsContent>
 

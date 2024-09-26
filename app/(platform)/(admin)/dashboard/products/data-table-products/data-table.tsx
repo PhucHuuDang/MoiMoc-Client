@@ -43,6 +43,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  "use no memo";
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -53,8 +54,8 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
@@ -65,7 +66,6 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
     },
-    enableRowSelection: true,
   });
 
   return (
@@ -173,7 +173,7 @@ export function DataTable<TData, TValue>({
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Previous
+          Next
         </Button>
       </div>
 

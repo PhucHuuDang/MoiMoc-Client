@@ -1,3 +1,4 @@
+"use client";
 import { DataTable } from "./data-table-products/data-table";
 import { columns } from "./data-table-products/columns";
 import { dataAllProducts } from "./data-table-products/data-all-products";
@@ -9,6 +10,7 @@ export function AllProducts() {
   return (
     <div className="container mx-auto py-10">
       <DataTable columns={columns} data={dataAllProducts} />
+      {/* <DataTableDemo /> */}
     </div>
   );
 }
