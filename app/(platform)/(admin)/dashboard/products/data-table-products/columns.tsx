@@ -50,7 +50,7 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
   },
   {
     accessorKey: "image",
-    header: () => <div className="text-center">Image</div>,
+    header: () => <div className="">Image</div>,
     cell: ({ row }) => {
       const image = row.getValue("image");
 
@@ -77,7 +77,9 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
       </Button>
     ),
     cell: ({ row }) => {
-      return <div className="text-center">{row.getValue("name")}</div>;
+      return (
+        <div className="text-primary font-bold">{row.getValue("name")}</div>
+      );
     },
     enableSorting: true,
   },
@@ -105,7 +107,7 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
       </Button>
     ),
     cell: ({ row }) => {
-      return <div className="text-center">{row.getValue("quantity")}</div>;
+      return <div className="">{row.getValue("quantity")}</div>;
     },
     enableSorting: true,
   },
@@ -113,40 +115,56 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     accessorKey: "price",
     header: () => <div>Price</div>,
     cell: ({ row }) => {
-      return <div>{row.getValue("price")}</div>;
+      const discountPrice = row.getValue("discountPrice");
+
+      console.log({ discountPrice });
+
+      return !discountPrice ? (
+        <div className="">{row.getValue("price")}</div>
+      ) : (
+        <del className="text-rose-500">{row.getValue("price")}</del>
+      );
     },
   },
   {
     accessorKey: "discountPercent",
-    header: () => <div className="text-right">Discount Percent</div>,
+    header: () => <div className="">Discount Percent</div>,
     cell: ({ row }) => {
+      const discountPercent = row.getValue("discountPercent") as number;
+
       return (
-        <div className="text-center">{row.getValue("discountPercent")}</div>
+        <div className="text-orange-600">
+          {discountPercent ? discountPercent + "%" : null}
+        </div>
       );
     },
   },
   {
     accessorKey: "discountPrice",
-    header: () => <div className="text-right">Discount Price</div>,
+    header: () => <div className="">Discount Price</div>,
     cell: ({ row }) => {
-      return <div className="text-center">{row.getValue("discountPrice")}</div>;
+      const discountPercent = row.getValue("discountPercent");
+
+      return (
+        <div className="text-sky-600 font-bold">
+          {row.getValue("discountPrice")}
+        </div>
+      );
     },
   },
   {
     accessorKey: "totalSales",
-    header: () => <div className="text-right">Total Sales</div>,
+    header: () => <div className="">Total Sales</div>,
     cell: ({ row }) => {
-      return <div className="text-center">{row.getValue("totalSales")}</div>;
+      return <div className="text-green-400">{row.getValue("totalSales")}</div>;
     },
   },
   {
     accessorKey: "createdAt",
-    header: () => <div className="text-center">Created At</div>,
+    header: () => <div className="">Created At</div>,
     cell: ({ row }) => {
       return (
-        <div className="text-center">
-          {vietnameseDate(row.getValue("createdAt"))}
-        </div>
+        <div className="">{vietnameseDate(row.getValue("createdAt"))}</div>
       );
     },
   },
