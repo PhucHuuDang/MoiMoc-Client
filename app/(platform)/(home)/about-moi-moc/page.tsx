@@ -21,7 +21,7 @@ const AboutMoiMocPage = () => {
 
     <div className="flex flex-col min-h-screen py-20">
       <main className="flex-grow">
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto p-4 md:p-8">
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           <div>
             <h2 className="text-2xl font-bold text-moi_moc_green mb-4">
               Câu chuyện thương hiệu
@@ -44,14 +44,23 @@ const AboutMoiMocPage = () => {
           </div>
           <div className="relative aspect-video lg:aspect-square">
             <Image
-              src="/placeholder.svg?height=384&width=512"
+              // src="/placeholder.svg?height=384&width=512"
+              src="/about-moi-moc-images/model.png"
               alt="Natural scenery"
               fill
-              style={{ objectFit: "cover" }}
-              className="rounded-lg"
+              // style={{ objectFit: "cover" }}
+              className="rounded-tl-xl rounded-tr-xl"
             />
           </div>
         </section>
+
+        <Image
+          height={229}
+          width={1000}
+          src="/about-moi-moc-images/carousel-grass.png"
+          alt="grass"
+          className="w-full h-[200px] object-cover"
+        />
 
         <section className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto p-4 md:p-8">
           <div>
@@ -85,21 +94,14 @@ const AboutMoiMocPage = () => {
           <div className="relative w-full aspect-[2/1]">
             <Image
               // src="/placeholder.svg?height=384&width=768"
-              src="/images/banner-home.jpeg"
+              src="/about-moi-moc-images/lipstick-models.png"
               alt="Close-up of lips"
               fill
               style={{ objectFit: "cover" }}
-              className="w-full"
+              className="w-full h-[700px]"
             />
-            {/* <div
-              className="absolute bottom-4 md:bottom-8 left-4 md:left-8 text-white text-2xl md:text-4xl
-                font-bold"
-            >
-              <p>tự nhiên...</p>
-              <p>như chính bạn!</p>
-            </div> */}
 
-            <div className="absolute bottom-56 left-48">
+            <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center text-white">
                 <TypewriterEffectSmooth words={words} />
               </div>
