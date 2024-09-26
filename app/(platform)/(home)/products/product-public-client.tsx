@@ -7,15 +7,15 @@ import { Lipsticks } from "@/lib/db";
 
 import BlurFade from "@/components/magic/blur-fade";
 
-import { LipBalm } from "./_components-about-moi-moc/lip-balm";
-import { OrganicLipstick } from "./_components-about-moi-moc/organic-lipstick";
-import { OrganicLipStickSolid } from "./_components-about-moi-moc/organic-lipstick-solid";
-import { GiftSet } from "./_components-about-moi-moc/gift-set";
+import { LipBalm } from "./_components-products-public/lip-balm";
+import { OrganicLipstick } from "./_components-products-public/organic-lipstick";
+import { OrganicLipStickSolid } from "./_components-products-public/organic-lipstick-solid";
+import { GiftSet } from "./_components-products-public/gift-set";
 import { Footer } from "@/components/_global-components-reused/footer";
 import { Separator } from "@/components/ui/separator";
-import { FloatArrow } from "./_components-about-moi-moc/float-arrow";
+import { FloatArrow } from "./_components-products-public/float-arrow";
 
-export const AboutMoiMocClient = () => {
+export const ProductsPublicClient = () => {
   const homeRef = useRef<ElementRef<"div">>(null);
   const lipBalmRef = useRef<ElementRef<"div">>(null);
   const organicLipstickRef = useRef<ElementRef<"div">>(null);

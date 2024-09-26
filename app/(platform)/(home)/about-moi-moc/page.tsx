@@ -1,6 +1,4 @@
 import Image from "next/image";
-import { AboutMoiMocClient } from "./about-moi-moc-client";
-import Link from "next/link";
 import { Footer } from "@/components/_global-components-reused/footer";
 import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-effect";
 
