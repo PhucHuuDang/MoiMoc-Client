@@ -26,12 +26,12 @@ const AboutMoiMocPage = () => {
             <h2 className="text-2xl font-bold text-moi_moc_green mb-4">
               Câu chuyện thương hiệu
             </h2>
-            <p className="text-moi_moc_green mb-4">
+            <span className="text-moi_moc_green mb-4">
               Mỏi Mộc bắt nguồn từ ý tưởng cung cấp sản phẩm mỹ phẩm xanh, cao
               cấp. Cái tên nhấn mạnh vào sự an toàn, chất lượng và nguồn gốc tự
               nhiên của sản phẩm.
-            </p>
-            <p className="text-moi_moc_green">
+            </span>
+            <span className="text-moi_moc_green">
               Chúng tôi mong muốn mang đến sản phẩm son hoàn toàn từ nguồn gốc
               tự nhiên và hoàn toàn từ thiên nhiên Việt Nam như quả gấc, dầu
               dừa, dầu oliu, sáp ong, hoa hồng... Điều đường nhiệt thấp là kỹ
@@ -40,7 +40,7 @@ const AboutMoiMocPage = () => {
               nứt, lành mạnh. Sản phẩm của chúng tôi đa dạng màu sắc theo nhu
               cầu và mong muốn của khách hàng: đáng thơ, đáng yêu, sang trọng,
               thanh nhã sắc tự nhiên và phù hợp với nhiều màu da.
-            </p>
+            </span>
           </div>
           <div className="relative aspect-video lg:aspect-square">
             <Image
@@ -64,21 +64,21 @@ const AboutMoiMocPage = () => {
 
         <section className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto p-4 md:p-8">
           <div>
-            <h3 className="text-xl font-bold text-moi_moc_green mb-4">
+            <h2 className="text-2xl font-bold text-moi_moc_green mb-4">
               Tầm nhìn
-            </h3>
-            <p className="text-moi_moc_green">
+            </h2>
+            <span className="text-moi_moc_green font-semibold">
               Mỏi Mộc sẽ là niềm tự hào của người Việt trên thị trường mỹ phẩm
               quốc tế. Mỏi Mộc sẽ là thương hiệu mỹ phẩm Việt hữu cơ sạch, an
               toàn và chất lượng tự tin và là sự lựa chọn hàng đầu của khách
               hàng hướng đến lối sống lành mạnh và vẻ đẹp tự nhiên.
-            </p>
+            </span>
           </div>
           <div>
-            <h3 className="text-xl font-bold text-moi_moc_green mb-4">
+            <h2 className="text-2xl font-bold text-moi_moc_green mb-4">
               Sứ mệnh
-            </h3>
-            <p className="text-green-800">
+            </h2>
+            <span className="text-green-800 font-semibold">
               Chúng tôi ra đời với sứ mệnh mang lại cho bạn một đời sống đẹp, an
               toàn và lành mạnh. Với nguồn nguyên liệu sẵn có từ thiên nhiên mà
               chúng ta vẫn sử dụng hằng ngày trong đời sống hàng ngày, phù hợp
@@ -86,7 +86,7 @@ const AboutMoiMocPage = () => {
               một đời sống lành mạnh, trong sạch và an toàn. Chúng tôi cam kết
               mang đến cho bạn những sản phẩm từ thiên nhiên, để những đôi môi
               ngọt ngào trên khuôn mặt rạng rỡ của bạn.
-            </p>
+            </span>
           </div>
         </section>
 

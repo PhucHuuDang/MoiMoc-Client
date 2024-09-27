@@ -9,12 +9,13 @@ import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-ef
 import { CircleUI } from "@/components/custom/circle-ui";
 import { NewlyProduct } from "@/components/custom/newly-product";
 import { BestSellingProducts } from "@/components/home-ui/best-selling-products";
-import { Confirm } from "@/components/home-ui/confirm";
+import { MoiMocMarquee } from "@/components/home-ui/moi-moc-marquee";
 import { DemoProducts } from "@/components/home-ui/demo-product";
 import { ProductIntroduction } from "@/components/home-ui/product-introduction";
 import BlurFade from "@/components/magic/blur-fade";
 import Image from "next/image";
 import { Banner } from "./_components-home/banner";
+import { ProductShowcase } from "./_components-home/product-showcase";
 
 export default function HomePage() {
   return (
@@ -23,10 +24,12 @@ export default function HomePage() {
 
       <Banner />
 
-      <div className="relative overflow-hidden pt-4">
+      <ProductShowcase />
+
+      {/* <div className="relative overflow-hidden pt-4">
         <NewlyProduct />
         <CircleUI className="-right-40 -top-20" />
-      </div>
+      </div> */}
 
       <div className="relative overflow-hidden px-10 py-5">
         <BlurFade inView delay={0.25}>
@@ -35,8 +38,8 @@ export default function HomePage() {
         <DemoProducts />
       </div>
 
-      <div className="mt-6">
-        <Confirm />
+      <div className="mt-4">
+        <MoiMocMarquee />
       </div>
 
       <div className="mt-6">
