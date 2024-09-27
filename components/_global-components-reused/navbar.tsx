@@ -27,11 +27,13 @@ export const Navbar = () => {
   const cart = useFromStore(useCartStore, (state) => state.orders);
 
   return (
-    <div className="fixed top-0 z-50 h-14 w-full border">
+    <div className="fixed top-0 z-50 h-14 w-full border mx-auto">
       <div className="flex items-center justify-between gap-x-4 bg-main_background_color px-20 py-2">
         <Search
           className={`${hoverAnimate} size-8 cursor-pointer text-moi_moc_text_green`}
         />
+
+        <div className="size-8" />
         <ProductNavbar height={height} className={hoverAnimate} />
         <AboutMoiMocNavbar height={height} className={hoverAnimate} />
         <Logo className={hoverAnimate} onRedirect={handleRedirect} />

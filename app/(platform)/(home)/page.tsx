@@ -33,7 +33,9 @@ export default function HomePage() {
         <CircleUI className="-right-40 -top-20" />
       </div> */}
 
-      <MessageMoiMoc />
+      <BlurFade inView delay={0.3}>
+        <MessageMoiMoc />
+      </BlurFade>
 
       <div className="relative overflow-hidden px-10 py-5">
         <BlurFade inView delay={0.25}>
@@ -42,11 +44,15 @@ export default function HomePage() {
         <DemoProducts />
       </div>
 
-      <div className="mt-4">
-        <MoiMocMarquee />
-      </div>
+      <BlurFade inView delay={0.35}>
+        <div className="mt-4">
+          <MoiMocMarquee />
+        </div>
+      </BlurFade>
 
-      <ReviewFeedback />
+      <BlurFade inView delay={0.35}>
+        <ReviewFeedback />
+      </BlurFade>
 
       {/* <div className="mb-6">
         <BlurFade inView delay={0.35}>

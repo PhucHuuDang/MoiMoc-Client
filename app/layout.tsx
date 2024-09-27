@@ -27,8 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning lang="en">
-      <Head>
-        {/* Favicon */}
+      {/* <Head>
         <link
           rel="icon"
           href="/favicon-moi-moc.ico"
@@ -37,7 +36,7 @@ export default function RootLayout({
         />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#ffffff" />
-      </Head>
+      </Head> */}
       <Toaster richColors closeButton />
       <body className={inter.className}>{children}</body>
     </html>

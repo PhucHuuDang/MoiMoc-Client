@@ -22,7 +22,7 @@ export const OrganicLipstick = forwardRef<HTMLDivElement, OrganicLipstickProps>(
     phthalates, đảm bảo an toàn tuyệt đối`;
 
     return (
-      <div className="my-6 w-full" ref={ref}>
+      <div className="my-14 w-full" ref={ref}>
         <div className="flex">
           <Image
             src="/about-moi-moc-images/model-organic-lipstick.png"

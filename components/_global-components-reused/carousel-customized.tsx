@@ -23,7 +23,7 @@ export const CarouselCustomized = ({
   return (
     <>
       {title && (
-        <h1 className="my-5 text-center text-4xl font-bold text-moi_moc_green">
+        <h1 className="my-14 text-center text-4xl font-bold text-moi_moc_green">
           {title}
         </h1>
       )}

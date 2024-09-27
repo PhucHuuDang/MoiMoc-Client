@@ -22,7 +22,7 @@ export const LipBalm = forwardRef<HTMLDivElement, LipBalmProps>(({}, ref) => {
 
   return (
     <>
-      <div className="flex items-center gap-x-2 px-6">
+      {/* <div className="flex items-center gap-x-2 px-6">
         <Image
           src="/about-moi-moc-images/son-duong-moc.png"
           width={500}
@@ -43,10 +43,42 @@ export const LipBalm = forwardRef<HTMLDivElement, LipBalmProps>(({}, ref) => {
             />
           </span>
         </div>
+      </div> */}
+
+      <div className="flex">
+        <Image
+          src="/about-moi-moc-images/model-organic-lipstick.png"
+          alt="model-organic"
+          width={800}
+          height={600}
+          className="max-h-svh w-full object-cover 2xl:h-full"
+        />
+
+        <div className="relative w-full">
+          <Image
+            src="/about-moi-moc-images/background-organic-lipstick.png"
+            alt="background-organic"
+            height={800}
+            width={800}
+            className="max-h-svh w-full object-cover 2xl:h-full"
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-bold text-white">
+              Son Môi Hữu Cơ Môi Mộc
+            </h1>
+            <div className="mt-2 p-2 px-6 text-white">
+              <TextGenerateEffect
+                words={text}
+                classNameText="text-white font-light "
+                filter={false}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="my-6" ref={ref}>
-        <div className="mt-5 overflow-hidden px-14">
+      <div className="" ref={ref}>
+        <div className="overflow-hidden px-14">
           <CarouselCustomized title="Son Dưỡng Môi Mộc">
             {products.map((product) => {
               return (
