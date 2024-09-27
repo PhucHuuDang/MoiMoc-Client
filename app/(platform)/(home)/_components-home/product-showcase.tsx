@@ -32,6 +32,7 @@ export const ProductShowcase = () => {
             <DirectionAwareHover
               imageUrl={image.url}
               backgroundOpacity="bg-black/20"
+              key={index}
             >
               <div className="flex items-start flex-col">
                 <h2 className="text-2xl font-bold mb-2">{image.alt}</h2>

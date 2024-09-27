@@ -13,12 +13,11 @@ export const metadata: Metadata = {
     template: `%s | ${config.name}`,
   },
   description: config.description,
-  icons: [
-    {
-      url: "/MOI-MOC-LOGO.svg",
-      href: "/MOI-MOC-LOGO.svg",
-    },
-  ],
+
+  icons: {
+    icon: "/favicon-moi-moc.ico", // Favicon for all browsers
+    apple: "/apple-touch-icon.png", // Apple-specific icon
+  },
 };
 
 export default function RootLayout({
@@ -28,6 +27,17 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning lang="en">
+      <Head>
+        {/* Favicon */}
+        <link
+          rel="icon"
+          href="/favicon-moi-moc.ico"
+          sizes="any"
+          type="image/x-icon"
+        />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="theme-color" content="#ffffff" />
+      </Head>
       <Toaster richColors closeButton />
       <body className={inter.className}>{children}</body>
     </html>
