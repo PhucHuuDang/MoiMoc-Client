@@ -16,6 +16,8 @@ import BlurFade from "@/components/magic/blur-fade";
 import Image from "next/image";
 import { Banner } from "./_components-home/banner";
 import { ProductShowcase } from "./_components-home/product-showcase";
+import { MessageMoiMoc } from "./_components-home/message-moi-moc";
+import { ReviewFeedback } from "./_components-home/review-feedback";
 
 export default function HomePage() {
   return (
@@ -31,6 +33,8 @@ export default function HomePage() {
         <CircleUI className="-right-40 -top-20" />
       </div> */}
 
+      <MessageMoiMoc />
+
       <div className="relative overflow-hidden px-10 py-5">
         <BlurFade inView delay={0.25}>
           <ProductIntroduction />
@@ -42,11 +46,13 @@ export default function HomePage() {
         <MoiMocMarquee />
       </div>
 
-      <div className="mt-6">
+      <ReviewFeedback />
+
+      {/* <div className="mb-6">
         <BlurFade inView delay={0.35}>
           <BestSellingProducts />
         </BlurFade>
-      </div>
+      </div> */}
 
       <div className="py-8">
         <BlurFade inView delay={0.45}>
