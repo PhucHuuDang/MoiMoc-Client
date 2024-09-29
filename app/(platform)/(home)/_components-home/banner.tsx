@@ -47,8 +47,20 @@ export const Banner = () => {
         </motion.div>
       </ImagesSlider>
 
-      <motion.div className="absolute bottom-14 left-14">
-        {/* <motion.div className="absolute inset-0 flex items-center justify-center"> */}
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: -80,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.6,
+        }}
+        className="absolute bottom-14 left-14"
+      >
         <div className="text-center text-white">
           <TypewriterEffectSmooth words={words} />
         </div>
