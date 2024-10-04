@@ -126,7 +126,6 @@ export default function DetailPage() {
 
           <ProductDetailContent />
           <RatingReviews />
-
           <Discussion />
         </Tabs>
 

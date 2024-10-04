@@ -22,6 +22,7 @@ interface FormItemsControlProps<T extends FieldValues> {
   formSubmit?: React.ReactNode;
   type?: string;
   classNameLabel?: string;
+  disabled?: boolean;
 }
 
 export const FormPassword = <T extends FieldValues>({
@@ -31,6 +32,7 @@ export const FormPassword = <T extends FieldValues>({
   label,
   type,
   classNameLabel,
+  disabled,
 }: FormItemsControlProps<T>) => {
   const [typeInput, setTypeInput] = useState<string>("password");
 
@@ -70,6 +72,7 @@ export const FormPassword = <T extends FieldValues>({
                 typeInputPassword={typeInput}
                 onToggle={onToggleType}
                 field={field}
+                disabled={disabled}
                 className="h-10"
                 placeholder={placeholder}
               />

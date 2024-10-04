@@ -52,7 +52,10 @@ export const LoginSchemaTypes = z.object({
 
 export const RegisterSchemaTypes = z
   .object({
-    phone: z
+    name: z.string().min(2, {
+      message: "Name must be at least 2 characters",
+    }),
+    phoneAuth: z
       .string({
         message: "Phone number is required",
         invalid_type_error: "Phone number must be a string",

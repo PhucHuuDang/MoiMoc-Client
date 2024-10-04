@@ -28,11 +28,15 @@ import { FormValues } from "../_global-components-reused/form/form-values";
 import { useRegisterDiaLogModal } from "@/hooks/register-dialog-modal";
 import { useMount } from "react-use";
 import { useEffect, useState } from "react";
+import { register } from "module";
+import { registerAccount } from "@/api/auth/register";
+import { toast } from "sonner";
 
 export const RegisterModal = () => {
   const loginModal = useLoginDiaLogModal();
   const registerModal = useRegisterDiaLogModal();
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const toggle = () => {
     registerModal.onClose();
@@ -42,7 +46,7 @@ export const RegisterModal = () => {
   const form = useForm<z.infer<typeof RegisterSchemaTypes>>({
     resolver: zodResolver(RegisterSchemaTypes),
     defaultValues: {
-      phone: "",
+      phoneAuth: "",
       password: "",
       confirmPassword: "",
     },
@@ -51,9 +55,22 @@ export const RegisterModal = () => {
   // console.log(form.watch());
 
   const onSubmit = async (values: z.infer<typeof RegisterSchemaTypes>) => {
-    // console.log({ values });
-    // console.log("123");
-    // console.log({ values });
+    console.log({ values });
+
+    setIsLoading(true);
+    try {
+      const result = await registerAccount(values);
+
+      console.log({ result });
+      toast.success("Registration successful!");
+      registerModal.onClose(); // Close the modal on successful registration
+    } catch (error) {
+      console.error("Registration failed:", error);
+      // You can display an error message to the user here if needed
+    } finally {
+      setIsLoading(false);
+    }
+
     registerModal.onClose();
   };
 
@@ -87,9 +104,17 @@ export const RegisterModal = () => {
     <FormValues onSubmit={onSubmit} form={form}>
       <FormItemsControl
         form={form}
-        name="phone"
+        name="name"
+        placeholder="Your name..."
+        label="Name"
+        disabled={isLoading}
+      />
+      <FormItemsControl
+        form={form}
+        name="phoneAuth"
         placeholder="*84..."
         label="Phone"
+        disabled={isLoading}
       />
 
       <FormPassword
@@ -97,6 +122,7 @@ export const RegisterModal = () => {
         name="password"
         placeholder="your password"
         label="Password"
+        disabled={isLoading}
       />
 
       <FormPassword
@@ -104,6 +130,7 @@ export const RegisterModal = () => {
         name="confirmPassword"
         placeholder="confirm your password"
         label="Confirm password"
+        disabled={isLoading}
       />
 
       <div className="flex items-center justify-end gap-x-2">
@@ -112,7 +139,11 @@ export const RegisterModal = () => {
             Cancel
           </Button>
         </DialogClose>
-        <FormSubmit className="w-24 text-end" variant="moiMoc">
+        <FormSubmit
+          disabled={isLoading}
+          className="w-24 text-end"
+          variant="moiMoc"
+        >
           Submit
         </FormSubmit>
       </div>
