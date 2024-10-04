@@ -13,7 +13,6 @@ import { LanguageNavbarSVG } from "./navbar-svg-components/language-navbar-SVG";
 import { CartNavbarSVG } from "./navbar-svg-components/cart-navbar-SVG";
 import { useFromStore } from "@/store/use-from-store";
 import { useCartStore } from "@/store/use-cart-store";
-// import { useAuthContext } from "@/provider/auth-provider";
 import { deleteTokenCookies } from "@/api/store/cookies-stored";
 import { useAuthContext } from "@/provider/auth-provider";
 import { toast } from "sonner";

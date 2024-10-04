@@ -15,7 +15,7 @@ const AuthContext = createContext<AuthPromise | null>(null);
 export function useAuthContext() {
   let authPromise = use(AuthContext);
   if (!authPromise) {
-    throw new Error("useAuth must be used within a AuthProvider");
+    throw new Error("useAuthContext must be used within a AuthProvider");
   }
   const auth = use(authPromise);
   return auth;
