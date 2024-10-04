@@ -1,9 +1,15 @@
+import { verifyAuth } from "@/api/auth/verify-auth";
+import { AuthProvider } from "@/provider/auth-provider";
 import { QueryProvider } from "@/provider/query.provider";
 
-const PlatformLayout = ({ children }: { children: React.ReactNode }) => {
+const PlatformLayout = async ({ children }: { children: React.ReactNode }) => {
+  const auth = verifyAuth();
+
   return (
     <>
-      <QueryProvider>{children}</QueryProvider>
+      <QueryProvider>
+        <AuthProvider authPromise={auth}>{children}</AuthProvider>
+      </QueryProvider>
     </>
   );
 };

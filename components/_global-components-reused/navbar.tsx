@@ -13,15 +13,27 @@ import { LanguageNavbarSVG } from "./navbar-svg-components/language-navbar-SVG";
 import { CartNavbarSVG } from "./navbar-svg-components/cart-navbar-SVG";
 import { useFromStore } from "@/store/use-from-store";
 import { useCartStore } from "@/store/use-cart-store";
+// import { useAuthContext } from "@/provider/auth-provider";
+import { deleteTokenCookies } from "@/api/store/cookies-stored";
+import { useAuthContext } from "@/provider/auth-provider";
+import { toast } from "sonner";
 
 export const Navbar = () => {
   const router = useRouter();
+  const auth = useAuthContext();
+
+  console.log({ auth });
   const height = 24;
   const hoverAnimate =
     "hover:scale-110 transition duration-200  p-0.5 rounded-lg";
 
   const handleRedirect = (path: string = "/") => {
     router.push(path);
+  };
+
+  const handleLogout = async () => {
+    const deleteToken = await deleteTokenCookies();
+    toast.success("Đăng xuất thành công");
   };
 
   const cart = useFromStore(useCartStore, (state) => state.orders);
@@ -38,7 +50,16 @@ export const Navbar = () => {
         <AboutMoiMocNavbar height={height} className={hoverAnimate} />
         <Logo className={hoverAnimate} onRedirect={handleRedirect} />
         <ContactNavbar height={height} className={hoverAnimate} />
-        <LoginNavbarSVG height={height} className={hoverAnimate} />
+        {!auth?.isAuth ? (
+          <LoginNavbarSVG height={height} className={hoverAnimate} />
+        ) : (
+          <div
+            className={`text-moi_moc_green font-light cursor-pointer ${hoverAnimate}`}
+            onClick={handleLogout}
+          >
+            Đăng xuất
+          </div>
+        )}
         <LanguageNavbarSVG height={height} className={hoverAnimate} />
         <div className="relative">
           <CartNavbarSVG height={35} className={hoverAnimate} />
