@@ -61,12 +61,12 @@ export const RegisterModal = () => {
     try {
       const result = await registerAccount(values);
 
-      console.log({ result });
+      // console.log({ result });
       toast.success("Registration successful!");
       registerModal.onClose(); // Close the modal on successful registration
     } catch (error) {
-      console.error("Registration failed:", error);
-      // You can display an error message to the user here if needed
+      toast.error("Registration failed");
+      console.log("Registration failed:", error);
     } finally {
       setIsLoading(false);
     }

@@ -18,8 +18,13 @@ import { Banner } from "./_components-home/banner";
 import { ProductShowcase } from "./_components-home/product-showcase";
 import { MessageMoiMoc } from "./_components-home/message-moi-moc";
 import { ReviewFeedback } from "./_components-home/review-feedback";
+import { verifyAuth } from "@/api/auth/verify-auth";
 
-export default function HomePage() {
+export default async function HomePage() {
+  // const test = await verifyAuth();
+
+  // console.log({ test });
+
   return (
     <div className="min-h-screen">
       {/* <Navbar /> */}

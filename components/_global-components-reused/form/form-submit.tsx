@@ -6,6 +6,7 @@ import { useFormStatus } from "react-dom";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import Spinner from "@/components/animata/spinner";
 
 interface FormSubmitProps {
   children: React.ReactNode;
@@ -38,7 +39,15 @@ export const FormSubmit = ({
       size="sm"
       className={cn("", className)}
     >
-      {children}
+      {disabled
+        ? (
+            <Spinner
+              childSize="size-6"
+              outerSize="size-8"
+              className="bg-gradient-to-bl from-moi_moc_green to-blue-400"
+            />
+          ) && children
+        : children}
     </Button>
   );
 };

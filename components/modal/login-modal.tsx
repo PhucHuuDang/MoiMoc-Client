@@ -20,11 +20,15 @@ import { Button } from "../ui/button";
 import { FormPassword } from "../_global-components-reused/form/form-password";
 import { useRegisterDiaLogModal } from "@/hooks/register-dialog-modal";
 import { FormValues } from "../_global-components-reused/form/form-values";
+import { toast } from "sonner";
+import { login } from "@/api/auth/login";
+import { storeTokenCookies } from "@/api/store/cookies-stored";
 
 export const LoginModal = () => {
   const loginModal = useLoginDiaLogModal();
   const registerModal = useRegisterDiaLogModal();
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const toggle = () => {
     loginModal.onClose();
@@ -39,9 +43,37 @@ export const LoginModal = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof LoginSchemaTypes>) => {
-    // console.log({ values });
-    // console.log("123");
-    // console.log({ values });
+    // setIsLoading(true);
+    // const result = await login(values);
+    // if (!result) {
+    //   toast.error("Login failed");
+    //   setIsLoading(false);
+
+    //   return;
+    // }
+    // console.log({ result });
+    // toast.success("Login success");
+    // setIsLoading(false);
+    // loginModal.onClose();
+
+    try {
+      setIsLoading(true);
+      const result = await login(values);
+      if (!result) {
+        toast.error("Login failed. Please check your accounts and try again.");
+      } else {
+        toast.success("Login successful!");
+        storeTokenCookies(result.token, result.refreshToken);
+        form.setValue("phone", "");
+        form.setValue("password", "");
+        loginModal.onClose();
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An error occurred during login. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -78,6 +110,7 @@ export const LoginModal = () => {
         name="phone"
         placeholder="*84..."
         label="Phone"
+        disabled={isLoading}
       />
 
       <FormPassword
@@ -85,6 +118,7 @@ export const LoginModal = () => {
         name="password"
         placeholder="your password"
         label="Password"
+        disabled={isLoading}
       />
 
       <div className="flex items-center justify-end gap-x-2">
@@ -93,7 +127,11 @@ export const LoginModal = () => {
             Cancel
           </Button>
         </DialogClose>
-        <FormSubmit className="w-24 text-end" variant="moiMoc">
+        <FormSubmit
+          disabled={isLoading}
+          className="w-24 text-end"
+          variant="moiMoc"
+        >
           Submit
         </FormSubmit>
       </div>

@@ -5,12 +5,17 @@ type LoginData = {
   password: string;
 };
 
-export const login = async (data: LoginData) => {
+export const login = async (
+  data: LoginData,
+): Promise<{ token: string; refreshToken: string } | undefined> => {
+  const { phone: phoneAuth, password } = data;
+
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
       {
-        data,
+        phoneAuth,
+        password,
       },
     );
 
