@@ -49,17 +49,6 @@ export const ProductCategory = <T extends FieldValues, K>({
       <CardContent>
         <div className="grid gap-6 sm:grid-cols-3">
           <div className="grid gap-3">
-            {/* <Label htmlFor="category">Category</Label>
-            <Select>
-              <SelectTrigger id="category" aria-label="Select category">
-                <SelectValue placeholder="Select category" />
-              </SelectTrigger>
-              <SelectContent className="relative" side="top">
-                <SelectItem value="clothing">Clothing</SelectItem>
-                <SelectItem value="electronics">Electronics</SelectItem>
-                <SelectItem value="accessories">Accessories</SelectItem>
-              </SelectContent>
-            </Select> */}
             <FormSelectControl
               form={form}
               name={name}
@@ -78,20 +67,6 @@ export const ProductCategory = <T extends FieldValues, K>({
               })}
             </FormSelectControl>
           </div>
-
-          {/* <div className="grid gap-3">
-            <Label htmlFor="subcategory">Subcategory (optional)</Label>
-            <Select>
-              <SelectTrigger id="subcategory" aria-label="Select subcategory">
-                <SelectValue placeholder="Select subcategory" />
-              </SelectTrigger>
-              <SelectContent side="top">
-                <SelectItem value="t-shirts">T-Shirts</SelectItem>
-                <SelectItem value="hoodies">Hoodies</SelectItem>
-                <SelectItem value="sweatshirts">Sweatshirts</SelectItem>
-              </SelectContent>
-            </Select>
-          </div> */}
         </div>
       </CardContent>
     </Card>

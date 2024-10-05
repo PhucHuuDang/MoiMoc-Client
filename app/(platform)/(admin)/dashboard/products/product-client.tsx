@@ -12,7 +12,7 @@ import { ProductControllerHeader } from "./_products_components/header-naviagate
 import { FormValues } from "@/components/_global-components-reused/form/form-values";
 import { Stock } from "./_products_components/stock";
 import { ProductCategory } from "./_products_components/product-category";
-import { ProductStatus } from "./_products_components/product-status";
+import { MultiSelectsIngredients } from "./_products_components/multi-select-ingredients";
 import { ProductImage } from "./_products_components/product-image";
 import { ArchiveProduct } from "./_products_components/archive-product";
 import { ImageUpload } from "@/components/_global-components-reused/image-upload";
@@ -56,6 +56,24 @@ export function ProductClient() {
     discountPercent: "discountPercent",
   };
 
+  const lipstickIngredients = [
+    { value: "1", label: "Beeswax" },
+    { value: "2", label: "Candelilla Wax" },
+    { value: "3", label: "Carnauba Wax" },
+    { value: "4", label: "Castor Oil" },
+    { value: "5", label: "Jojoba Oil" },
+    { value: "6", label: "Lanolin" },
+    { value: "7", label: "Shea Butter" },
+    { value: "8", label: "Vitamin E" },
+    { value: "9", label: "Mica" },
+    { value: "10", label: "Iron Oxide" },
+    { value: "11", label: "Titanium Dioxide" },
+    { value: "12", label: "Fragrance" },
+    { value: "13", label: "Silica" },
+    { value: "14", label: "Ozokerite" },
+    { value: "15", label: "Kaolin Clay" },
+  ];
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <FormValues
@@ -76,6 +94,13 @@ export function ProductClient() {
                   descriptionName="productDescription"
                 />
 
+                {/* TODO: fetch api to render in here */}
+                <MultiSelectsIngredients
+                  name="ingredients"
+                  form={form}
+                  ingredients={lipstickIngredients}
+                />
+
                 {/* TODO: add the name of stock  */}
                 <Stock
                   form={form}
@@ -90,7 +115,7 @@ export function ProductClient() {
                 />
               </div>
               <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-                <ProductStatus />
+                {/* <MultiSelectsIngredients /> */}
                 <FormImagesProductControl form={form} name="imagesProduct">
                   <ProductImage />
                 </FormImagesProductControl>

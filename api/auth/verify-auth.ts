@@ -1,9 +1,10 @@
 "use server";
 
+import { cache } from "react";
 import { decryptToken, getTokenCookies } from "../store/cookies-stored";
 import { cookies } from "next/headers";
 
-export const verifyAuth = async () => {
+export const verifyAuth = cache(async () => {
   try {
     const token = cookies().get("token")?.value;
 
@@ -30,4 +31,4 @@ export const verifyAuth = async () => {
     console.error("Error during authentication:", error);
     return { isAuth: false, user: null };
   }
-};
+});

@@ -75,6 +75,23 @@ export const AddProductSafeTypes = z.object({
     })
     .min(1, { message: "Images product must be at least 1" }),
   // imagesProduct: z.string().array(),
+
+  ingredients: z
+    .array(
+      z
+        .union([
+          z.string({
+            required_error: "Ingredients must be entered",
+          }),
+          z.number({
+            required_error: "Ingredients must be entered",
+          }),
+        ])
+        .transform((value) =>
+          typeof value === "string" ? parseInt(value) : value,
+        ),
+    )
+    .min(1, { message: "Ingredients must be at least 1" }),
 });
 
 export type test = z.infer<typeof AddProductSafeTypes>;
