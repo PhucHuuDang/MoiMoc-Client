@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,8 +19,22 @@ import { ProductImage } from "./_products_components/product-image";
 import { ArchiveProduct } from "./_products_components/archive-product";
 import { ImageUpload } from "@/components/_global-components-reused/image-upload";
 import { FormImagesProductControl } from "@/components/_global-components-reused/form/form-images-product-control";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { toast } from "sonner";
+import { ProductCategoryTypes } from "./types-data-fetch/product-return-types";
+import { useFormStatus } from "react-dom";
+import Loading from "@/app/(platform)/loading";
 
-export function ProductClient() {
+interface ProductClientProps {
+  ingredientsList: { value: string; label: string }[];
+  productCategories: ProductCategoryTypes[];
+}
+
+export function ProductClient({
+  ingredientsList,
+  productCategories,
+}: ProductClientProps) {
   const form = useForm<z.infer<typeof AddProductSafeTypes>>({
     resolver: zodResolver(AddProductSafeTypes),
     defaultValues: {
@@ -28,50 +42,65 @@ export function ProductClient() {
     },
   });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // const { pending } = useFormStatus();
+
   const price = form.watch("price");
-  const discountPercent = form.watch("discountPercent");
-  // console.log({ price, discountPercent });
+  const discountPercentage = form.watch("discountPercentage");
+  // console.log({ price, discountPercentage });
 
   useEffect(() => {
-    if (price && discountPercent) {
-      const discountPrice = price - (price * discountPercent) / 100;
+    if (price && discountPercentage) {
+      const discountPrice = price - (price * discountPercentage) / 100;
 
       form.setValue("discountPrice", discountPrice);
     }
-    if (discountPercent?.toString() === "") {
+    if (discountPercentage?.toString() === "") {
       form.setValue("discountPrice", undefined);
       // form.control("")
     }
-  }, [price, discountPercent, form]);
+  }, [price, discountPercentage, form]);
 
-  const onSubmit = (values: z.infer<typeof AddProductSafeTypes>) => {
+  console.log("url: ", process.env.NEXT_PUBLIC_API_URL);
+
+  const onSubmit = async (values: z.infer<typeof AddProductSafeTypes>) => {
     console.log({ values });
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/products`,
+        values,
+      );
+
+      // Check if the status is not 201 (created)
+      if (response.status !== 201) {
+        toast.error("Error creating product");
+        console.log("Error creating product");
+      }
+
+      toast.success("Product created successfully");
+
+      form.reset();
+
+      return response.data;
+    } catch (error) {
+      console.error("Submission failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const stockProps = {
     price: "price",
     discountPrice: "discountPrice",
     quantity: "quantity",
-    discountPercent: "discountPercent",
+    discountPercentage: "discountPercentage",
   };
 
-  const lipstickIngredients = [
-    { value: "1", label: "Beeswax" },
-    { value: "2", label: "Candelilla Wax" },
-    { value: "3", label: "Carnauba Wax" },
-    { value: "4", label: "Castor Oil" },
-    { value: "5", label: "Jojoba Oil" },
-    { value: "6", label: "Lanolin" },
-    { value: "7", label: "Shea Butter" },
-    { value: "8", label: "Vitamin E" },
-    { value: "9", label: "Mica" },
-    { value: "10", label: "Iron Oxide" },
-    { value: "11", label: "Titanium Dioxide" },
-    { value: "12", label: "Fragrance" },
-    { value: "13", label: "Silica" },
-    { value: "14", label: "Ozokerite" },
-    { value: "15", label: "Kaolin Clay" },
-  ];
+  if (isLoading) {
+    <Loading />;
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -92,7 +121,7 @@ export function ProductClient() {
                   productName="productName"
                   descriptionName="productDescription"
                   usage="usage"
-                  detail="detail"
+                  details="details"
                 />
 
                 {/* TODO: fetch api to render in here */}
@@ -100,7 +129,7 @@ export function ProductClient() {
                 <MultiSelectsIngredients
                   name="ingredients"
                   form={form}
-                  ingredients={lipstickIngredients}
+                  ingredients={ingredientsList}
                 />
 
                 {/* TODO: add the name of stock  */}
@@ -114,6 +143,7 @@ export function ProductClient() {
                   form={form}
                   name="productTypeId"
                   formLabel="Các loại sản phẩm..."
+                  productCategories={productCategories}
                 />
               </div>
               <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
@@ -122,19 +152,19 @@ export function ProductClient() {
                   title="Hình ảnh sản phẩm"
                   description="Hãy thêm hình ảnh sản phẩm của bạn"
                   form={form}
-                  name="imagesProduct"
+                  name="imageUrl"
                 >
                   <ProductImage />
                 </FormImagesProductControl>
                 {/* <ProductImage form={form} name="imagesProduct" /> */}
               </div>
             </div>
-            <div className="flex items-center justify-center gap-2 md:hidden">
+            {/* <div className="flex items-center justify-center gap-2 md:hidden">
               <Button variant="outline" size="sm">
                 Discard
               </Button>
               <Button size="sm">Save Product</Button>
-            </div>
+            </div> */}
           </div>
         </main>
       </FormValues>

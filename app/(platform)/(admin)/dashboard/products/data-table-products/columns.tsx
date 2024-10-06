@@ -117,7 +117,7 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     cell: ({ row }) => {
       const discountPrice = row.getValue("discountPrice");
 
-      console.log({ discountPrice });
+      // console.log({ discountPrice });
 
       return !discountPrice ? (
         <div className="">{row.getValue("price")}</div>

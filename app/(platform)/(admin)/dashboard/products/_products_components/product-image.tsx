@@ -82,7 +82,7 @@ export const ProductImage = () => {
             {imagesProductStore?.images.map((image, index) => {
               return (
                 index > 0 && (
-                  <div className="relative">
+                  <div className="relative" key={index}>
                     <Image
                       alt="Product image"
                       className="aspect-square w-full rounded-md object-cover"

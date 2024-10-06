@@ -27,7 +27,7 @@ export const AddProductSafeTypes = z.object({
     )
     .refine((val) => val > 0, { message: "Price must be a positive number" }),
 
-  discountPercent: z
+  discountPercentage: z
     .union([z.string(), z.number()])
     .optional()
     .transform((value) =>
@@ -69,7 +69,7 @@ export const AddProductSafeTypes = z.object({
     .refine((value) => value > 1, {
       message: "Product type id must be at least 1",
     }),
-  imagesProduct: z
+  imageUrl: z
     .array(z.string(), {
       required_error: "Images product must be entered",
     })
@@ -99,7 +99,7 @@ export const AddProductSafeTypes = z.object({
     })
     .min(10, { message: "Usage must be at least 10 characters" }),
 
-  detail: z
+  details: z
     .string({
       required_error: "Detail must be entered",
     })

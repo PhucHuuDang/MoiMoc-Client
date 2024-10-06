@@ -18,28 +18,34 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { ProductCategoryTypes } from "../types-data-fetch/product-return-types";
 
 interface ProductCategoryProps<T extends FieldValues, K> {
   form: UseFormReturn<T>;
   name: Path<T>;
   formLabel: string;
+
+  productCategories: ProductCategoryTypes[];
 }
 
 export const ProductCategory = <T extends FieldValues, K>({
   form,
   name,
   formLabel,
+  productCategories,
 }: ProductCategoryProps<T, K>) => {
-  const lipstickTypes = [
-    { id: "1", value: "matte", label: "Matte Lipstick" },
-    { id: "2", value: "glossy", label: "Glossy Lipstick" },
-    { id: "3", value: "sheer", label: "Sheer Lipstick" },
-    { id: "4", value: "satin", label: "Satin Lipstick" },
-    { id: "5", value: "liquid", label: "Liquid Lipstick" },
-    { id: "6", value: "cream", label: "Cream Lipstick" },
-    { id: "7", value: "tint", label: "Lip Tint" },
-    { id: "8", value: "stain", label: "Lip Stain" },
-  ];
+  // const lipstickTypes = [
+  //   { id: "1", value: "matte", label: "Matte Lipstick" },
+  //   { id: "2", value: "glossy", label: "Glossy Lipstick" },
+  //   { id: "3", value: "sheer", label: "Sheer Lipstick" },
+  //   { id: "4", value: "satin", label: "Satin Lipstick" },
+  //   { id: "5", value: "liquid", label: "Liquid Lipstick" },
+  //   { id: "6", value: "cream", label: "Cream Lipstick" },
+  //   { id: "7", value: "tint", label: "Lip Tint" },
+  //   { id: "8", value: "stain", label: "Lip Stain" },
+  // ];
+
+  // const
 
   return (
     <Card x-chunk="dashboard-07-chunk-2">
@@ -58,10 +64,12 @@ export const ProductCategory = <T extends FieldValues, K>({
               formLabel={formLabel}
               classNameFormItem="w-[200px]"
             >
-              {lipstickTypes.map((lipstick) => {
+              {productCategories.map((lipstick) => {
+                const categoryId = lipstick.id.toString();
+
                 return (
-                  <SelectItem key={lipstick.id} value={lipstick.id}>
-                    {lipstick.label}
+                  <SelectItem key={lipstick.id} value={categoryId}>
+                    {lipstick.type}
                   </SelectItem>
                 );
               })}

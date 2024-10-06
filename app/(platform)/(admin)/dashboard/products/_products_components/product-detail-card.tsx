@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { useFormStatus } from "react-dom";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 interface ProductDetailProps<T extends FieldValues, K> {
@@ -18,7 +19,7 @@ interface ProductDetailProps<T extends FieldValues, K> {
   descriptionName: Path<T>;
 
   usage: Path<T>;
-  detail: Path<T>;
+  details: Path<T>;
 }
 
 export const ProductDetailCard = <T extends FieldValues, K>({
@@ -26,8 +27,10 @@ export const ProductDetailCard = <T extends FieldValues, K>({
   productName,
   descriptionName,
   usage,
-  detail,
+  details,
 }: ProductDetailProps<T, K>) => {
+  const { pending } = useFormStatus();
+
   return (
     <Card x-chunk="dashboard-07-chunk-0">
       <CardHeader>
@@ -50,6 +53,7 @@ export const ProductDetailCard = <T extends FieldValues, K>({
               name={productName}
               placeholder="Name of product"
               label="Tên sản phẩm"
+              disabled={pending}
             />
           </div>
           <div className="grid gap-3">
@@ -65,16 +69,18 @@ export const ProductDetailCard = <T extends FieldValues, K>({
               label="Miêu tả sản phẩm"
               formDescription="Hãy miêu tả sản phẩm"
               placeholder="Let's describe the product's useful, durable, quality, etc...!"
+              disabled={pending}
             />
           </div>
 
           <div className="grid gap-3">
             <FormTextareaControl
               form={form}
-              name={detail}
+              name={details}
               label="Chi tiết sản phẩm"
               formDescription="Chi tiết của sản phẩm"
               placeholder="Let's describe the product's useful, durable, quality, etc...!"
+              disabled={pending}
             />
           </div>
 
@@ -85,6 +91,7 @@ export const ProductDetailCard = <T extends FieldValues, K>({
               label="Cách sử dung và khuyên dùng"
               formDescription="Cách sử dụng và khuyên dùng sản phẩm"
               placeholder="Let's describe the product's useful, durable, quality, etc...!"
+              disabled={pending}
             />
           </div>
         </div>

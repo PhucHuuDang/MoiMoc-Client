@@ -30,7 +30,7 @@ interface StockProps<T extends FieldValues, K> {
   name?: Path<T>;
   stockProps: {
     quantity: Path<T> | string;
-    discountPercent: Path<T> | string;
+    discountPercentage: Path<T> | string;
     price: Path<T> | string;
     discountPrice: Path<T> | string;
   };
@@ -89,7 +89,7 @@ export const Stock = <T extends FieldValues, K>({
                 <div className="h-[100px]">
                   <FormItemsControl
                     type={typeFormItemControl}
-                    name={stockProps.discountPercent as Path<T>}
+                    name={stockProps.discountPercentage as Path<T>}
                     form={form}
                     placeholder="Set discount percentage..."
                     // value={20}
