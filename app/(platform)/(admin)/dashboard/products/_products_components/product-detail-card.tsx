@@ -20,6 +20,8 @@ interface ProductDetailProps<T extends FieldValues, K> {
 
   usage: Path<T>;
   details: Path<T>;
+
+  disabled?: boolean;
 }
 
 export const ProductDetailCard = <T extends FieldValues, K>({
@@ -28,9 +30,8 @@ export const ProductDetailCard = <T extends FieldValues, K>({
   descriptionName,
   usage,
   details,
+  disabled,
 }: ProductDetailProps<T, K>) => {
-  const { pending } = useFormStatus();
-
   return (
     <Card x-chunk="dashboard-07-chunk-0">
       <CardHeader>
@@ -53,7 +54,7 @@ export const ProductDetailCard = <T extends FieldValues, K>({
               name={productName}
               placeholder="Name of product"
               label="Tên sản phẩm"
-              disabled={pending}
+              disabled={disabled}
             />
           </div>
           <div className="grid gap-3">
@@ -69,7 +70,7 @@ export const ProductDetailCard = <T extends FieldValues, K>({
               label="Miêu tả sản phẩm"
               formDescription="Hãy miêu tả sản phẩm"
               placeholder="Let's describe the product's useful, durable, quality, etc...!"
-              disabled={pending}
+              disabled={disabled}
             />
           </div>
 
@@ -80,7 +81,7 @@ export const ProductDetailCard = <T extends FieldValues, K>({
               label="Chi tiết sản phẩm"
               formDescription="Chi tiết của sản phẩm"
               placeholder="Let's describe the product's useful, durable, quality, etc...!"
-              disabled={pending}
+              disabled={disabled}
             />
           </div>
 
@@ -91,7 +92,7 @@ export const ProductDetailCard = <T extends FieldValues, K>({
               label="Cách sử dung và khuyên dùng"
               formDescription="Cách sử dụng và khuyên dùng sản phẩm"
               placeholder="Let's describe the product's useful, durable, quality, etc...!"
-              disabled={pending}
+              disabled={disabled}
             />
           </div>
         </div>

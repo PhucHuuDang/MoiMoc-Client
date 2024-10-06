@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +25,10 @@ import { toast } from "sonner";
 import { ProductCategoryTypes } from "./types-data-fetch/product-return-types";
 import { useFormStatus } from "react-dom";
 import Loading from "@/app/(platform)/loading";
+import { useWindowScroll } from "react-use";
+import { FloatArrow } from "@/app/(platform)/(home)/products/_components-products-public/float-arrow";
+import { Logo } from "@/components/_global-components-reused/logo";
+import Spinner from "@/components/animata/spinner";
 
 interface ProductClientProps {
   ingredientsList: { value: string; label: string }[];
@@ -35,12 +39,20 @@ export function ProductClient({
   ingredientsList,
   productCategories,
 }: ProductClientProps) {
+  const refHead = useRef<HTMLDivElement>(null);
+
+  const { y } = useWindowScroll();
+
   const form = useForm<z.infer<typeof AddProductSafeTypes>>({
     resolver: zodResolver(AddProductSafeTypes),
     defaultValues: {
       quantity: 1,
     },
   });
+
+  const onScrollTop = () => {
+    refHead.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -98,9 +110,26 @@ export function ProductClient({
     discountPercentage: "discountPercentage",
   };
 
-  if (isLoading) {
-    <Loading />;
-  }
+  // if (isLoading) {
+  //   <div
+  //     className="absolute inset-0 -z-10 flex h-full w-full items-center justify-center
+  //       bg-moi_moc_green/30 dark:bg-slate-200/10 backdrop-blur-2xl"
+  //   >
+  //     <div className="flex flex-col items-center justify-center gap-y-1">
+  //       <Logo height={100} width={300} />
+
+  //       <div className="flex items-center gap-x-1 justify-center">
+  //         {/* <LoaderCircle className="size-6 animate-spin" /> */}
+  //         <Spinner
+  //           childSize="size-6"
+  //           outerSize="size-8"
+  //           className="bg-gradient-to-bl from-moi_moc_green to-blue-400"
+  //         />
+  //         <span className="text-lg font-bold">Loading...</span>
+  //       </div>
+  //     </div>
+  //   </div>;
+  // }
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -112,7 +141,7 @@ export function ProductClient({
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mb-16">
           {/* <FormSubmit variant="moiMoc">Submit</FormSubmit> */}
           <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
-            <ProductControllerHeader />
+            <ProductControllerHeader isSubmitting={isLoading} />
 
             <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
               <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
@@ -122,6 +151,7 @@ export function ProductClient({
                   descriptionName="productDescription"
                   usage="usage"
                   details="details"
+                  disabled={isLoading}
                 />
 
                 {/* TODO: fetch api to render in here */}
@@ -137,6 +167,7 @@ export function ProductClient({
                   form={form}
                   name="discountPrice"
                   stockProps={stockProps}
+                  disabled={isLoading}
                 />
 
                 <ProductCategory
@@ -168,6 +199,8 @@ export function ProductClient({
           </div>
         </main>
       </FormValues>
+
+      <FloatArrow onScrollTop={onScrollTop} visible={y >= 1452} />
     </div>
   );
 }

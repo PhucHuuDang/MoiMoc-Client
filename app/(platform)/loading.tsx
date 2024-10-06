@@ -5,8 +5,8 @@ import { LoaderCircle } from "lucide-react";
 const Loading = () => {
   return (
     <div
-      className="absolute inset-0 flex h-full w-full items-center justify-center
-        bg-moi_moc_green/30"
+      className="absolute inset-0 -z-10 flex h-full w-full items-center justify-center
+        bg-moi_moc_green/30 dark:bg-slate-200/10 backdrop-blur-2xl"
     >
       <div className="flex flex-col items-center justify-center gap-y-1">
         <Logo height={100} width={300} />

@@ -34,12 +34,14 @@ interface StockProps<T extends FieldValues, K> {
     price: Path<T> | string;
     discountPrice: Path<T> | string;
   };
+  disabled?: boolean;
 }
 
 export const Stock = <T extends FieldValues, K>({
   form,
   name,
   stockProps,
+  disabled,
 }: StockProps<T, K>) => {
   const typeFormItemControl = "number";
 
@@ -69,6 +71,7 @@ export const Stock = <T extends FieldValues, K>({
                     type={typeFormItemControl}
                     name={stockProps.quantity as Path<T>}
                     form={form}
+                    disabled={disabled}
                   />
                 </div>
               </TableCell>
@@ -80,6 +83,7 @@ export const Stock = <T extends FieldValues, K>({
                     name={stockProps.price as Path<T>}
                     form={form}
                     // value={20}
+                    disabled={disabled}
                     placeholder="Enter the price for product..."
                   />
                 </div>
@@ -92,6 +96,7 @@ export const Stock = <T extends FieldValues, K>({
                     name={stockProps.discountPercentage as Path<T>}
                     form={form}
                     placeholder="Set discount percentage..."
+                    disabled={disabled}
                     // value={20}
                   />
                 </div>

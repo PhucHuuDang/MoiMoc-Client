@@ -1,11 +1,17 @@
 "use client";
 
 import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
+import Spinner from "@/components/animata/spinner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 
-export const ProductControllerHeader = () => {
+interface ProductControllerHeaderProps {
+  isSubmitting: boolean;
+}
+export const ProductControllerHeader = ({
+  isSubmitting,
+}: ProductControllerHeaderProps) => {
   return (
     <div className="flex items-center gap-4">
       <Button
@@ -35,7 +41,20 @@ export const ProductControllerHeader = () => {
           Save Product
         </Button> */}
 
-        <FormSubmit variant="dynamic">Add Product</FormSubmit>
+        <FormSubmit variant="dynamic" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Spinner
+                className="size-6 animate-spin"
+                outerSize="size-6"
+                childSize="size-4"
+              />
+              <span className="text-white">Đang tạo...</span>
+            </>
+          ) : (
+            "Tạo sản phẩm"
+          )}
+        </FormSubmit>
       </div>
     </div>
   );
