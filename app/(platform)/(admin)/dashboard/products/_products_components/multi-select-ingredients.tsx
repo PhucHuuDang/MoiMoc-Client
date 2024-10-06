@@ -27,8 +27,8 @@ export const MultiSelectsIngredients = <T extends FieldValues, K>({
   name,
 }: MultiSelectsIngredientsProps<T, K>) => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([
-    "1",
-    "2",
+    // "1",
+    // "2",
   ]);
 
   console.log({ selectedIngredients });
@@ -37,21 +37,32 @@ export const MultiSelectsIngredients = <T extends FieldValues, K>({
     if (selectedIngredients.length > 0) {
       form.setValue(name, selectedIngredients as PathValue<T, Path<T>>);
     }
-  }, [selectedIngredients]);
+  }, [selectedIngredients, form, name]);
+
+  const handleChange = (values: string[]) => {
+    setSelectedIngredients(values);
+    form.setValue(name, values as PathValue<T, Path<T>>); // Update form value
+    form.trigger(name); // Trigger validation
+  };
 
   return (
-    <FormMultiSelectControl form={form} name={name}>
+    <FormMultiSelectControl
+      form={form}
+      name={name}
+      // selectedIngredients={selectedIngredients}
+    >
       <Card x-chunk="dashboard-07-chunk-3">
         <CardHeader>
           <CardTitle>Ingredients</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col">
-            <h1>Select Ingredients</h1>
+          <div className="flex flex-col gap-1">
+            <h2>Select Ingredients</h2>
 
             <MultiSelect
               options={ingredients}
-              onValueChange={setSelectedIngredients}
+              // onValueChange={setSelectedIngredients}
+              onValueChange={handleChange}
               defaultValue={selectedIngredients}
               placeholder="Select ingredients"
               maxCount={7}
@@ -59,15 +70,6 @@ export const MultiSelectsIngredients = <T extends FieldValues, K>({
               variant="dynamic"
               // variant="inverted"
             />
-
-            {/* <div className="mt-4">
-            <h1>Selected Ingredients</h1>
-            <ul className="list-disc list-inside">
-              {selectedIngredients.map((ingredient) => (
-                <li key={ingredient}>{ingredient}</li>
-              ))}
-            </ul>
-          </div> */}
           </div>
         </CardContent>
       </Card>

@@ -57,7 +57,7 @@ export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
     // <div className="fixed bottom-4 left-1/2 -translate-x-1/2 transform">
     <div
       className={cn(
-        "fixed bottom-0 mx-auto text-center w-screen flex items-center justify-center ",
+        "fixed bottom-2.5 mx-auto text-center w-screen flex items-center justify-center ",
         className,
       )}
     >

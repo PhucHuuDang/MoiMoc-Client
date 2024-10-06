@@ -49,6 +49,8 @@ export const FormImagesProductControl = <T extends FieldValues, K>({
       render={({ field, fieldState, formState }) => {
         const errorCondition = fieldState.error?.message;
 
+        // console.log({ formState, fieldState });
+
         return (
           <FormItem>
             <Card>

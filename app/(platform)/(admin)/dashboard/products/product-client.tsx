@@ -18,6 +18,7 @@ import { ArchiveProduct } from "./_products_components/archive-product";
 import { ImageUpload } from "@/components/_global-components-reused/image-upload";
 import { FormImagesProductControl } from "@/components/_global-components-reused/form/form-images-product-control";
 import { useEffect } from "react";
+import { FormMultiSelectControl } from "@/components/_global-components-reused/form/form-multi-selects-control";
 
 export function ProductClient() {
   const form = useForm<z.infer<typeof AddProductSafeTypes>>({
@@ -29,9 +30,7 @@ export function ProductClient() {
 
   const price = form.watch("price");
   const discountPercent = form.watch("discountPercent");
-  console.log({ price, discountPercent });
-
-  // console.log(discountPercent?.toString() === "");
+  // console.log({ price, discountPercent });
 
   useEffect(() => {
     if (price && discountPercent) {
@@ -95,11 +94,14 @@ export function ProductClient() {
                 />
 
                 {/* TODO: fetch api to render in here */}
+
+                {/* <FormMultiSelectControl form={form} name="ingredients"> */}
                 <MultiSelectsIngredients
                   name="ingredients"
                   form={form}
                   ingredients={lipstickIngredients}
                 />
+                {/* </FormMultiSelectControl> */}
 
                 {/* TODO: add the name of stock  */}
                 <Stock

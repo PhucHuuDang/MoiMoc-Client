@@ -50,9 +50,9 @@ export const ProductImage = () => {
     imagesProductStore?.removeImage(index);
   };
 
-  {
-    console.log(imagesProductStore?.images);
-  }
+  // {
+  //   console.log(imagesProductStore?.images);
+  // }
 
   return (
     // <Card>
