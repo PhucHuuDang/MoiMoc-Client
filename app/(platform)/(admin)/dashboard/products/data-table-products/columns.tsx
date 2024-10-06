@@ -14,15 +14,14 @@ import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
 
 export type AllProductsColumns = {
   id: number;
+  productName: string;
   image: string;
-  name: string;
-  status: "Draft" | "Processing" | "Publish" | "Active" | "Failed";
-  quantity: number;
-  price: number;
-  discountPercent?: number;
-  discountPrice?: number;
-  totalSales: number;
+  price: string;
+  discountPercentage: string;
+  discountPrice: string;
+  quantity: string;
   createdAt: string;
+  productType: string;
 };
 
 export const columns: ColumnDef<AllProductsColumns>[] = [
@@ -66,7 +65,7 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     },
   },
   {
-    accessorKey: "name",
+    accessorKey: "productName",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -78,18 +77,20 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="text-primary font-bold">{row.getValue("name")}</div>
+        <div className="text-primary font-bold">
+          {row.getValue("productName")}
+        </div>
       );
     },
     enableSorting: true,
   },
   {
-    accessorKey: "status",
-    header: () => <div className="">Status</div>,
+    accessorKey: "productType",
+    header: () => <div className="">Category</div>,
     cell: ({ row }) => {
       return (
         <div className="">
-          <Badge variant="outline">{row.getValue("status")}</Badge>
+          <Badge variant="outline">{row.getValue("productType")}</Badge>
         </div>
       );
     },
@@ -127,10 +128,10 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     },
   },
   {
-    accessorKey: "discountPercent",
+    accessorKey: "discountPercentage",
     header: () => <div className="">Discount Percent</div>,
     cell: ({ row }) => {
-      const discountPercent = row.getValue("discountPercent") as number;
+      const discountPercent = row.getValue("discountPercentage") as number;
 
       return (
         <div className="text-orange-600">
@@ -143,7 +144,7 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     accessorKey: "discountPrice",
     header: () => <div className="">Discount Price</div>,
     cell: ({ row }) => {
-      const discountPercent = row.getValue("discountPercent");
+      const discountPercent = row.getValue("discountPercentage");
 
       return (
         <div className="text-sky-600 font-bold">
@@ -152,13 +153,13 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
       );
     },
   },
-  {
-    accessorKey: "totalSales",
-    header: () => <div className="">Total Sales</div>,
-    cell: ({ row }) => {
-      return <div className="text-green-400">{row.getValue("totalSales")}</div>;
-    },
-  },
+  // {
+  //   accessorKey: "totalSales",
+  //   header: () => <div className="">Total Sales</div>,
+  //   cell: ({ row }) => {
+  //     return <div className="text-green-400">{row.getValue("totalSales")}</div>;
+  //   },
+  // },
   {
     accessorKey: "createdAt",
     header: () => <div className="">Created At</div>,
@@ -174,7 +175,7 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     cell: ({ row }) => {
       const productId = row.original.id;
 
-      return <Actions id={productId} />;
+      return <Actions id={row.original.id} />;
     },
   },
 ];

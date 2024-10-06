@@ -1,3 +1,5 @@
+import { serverGetData } from "@/api/actions/get-data-api";
+
 type AllProductsTable = {
   id: number;
   image: string;
@@ -10,6 +12,15 @@ type AllProductsTable = {
   totalSales: number;
   createdAt: string;
 };
+
+const productsList = async () => {
+  const data = await serverGetData("/products");
+
+  console.log({ data });
+
+  return data;
+};
+
 export const dataAllProducts: AllProductsTable[] = [
   {
     id: 1,
