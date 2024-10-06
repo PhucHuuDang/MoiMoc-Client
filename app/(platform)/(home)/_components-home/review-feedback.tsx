@@ -63,13 +63,28 @@ export const ReviewFeedback = () => {
   return (
     <section className="w-full h-[600px] 2xl:h-[800px]">
       <div className="relative w-full aspect-[2/1] h-full">
-        <Image
+        {/* <Image
           alt="message-moi-moc"
           src="/background-feedback.png"
           fill
           style={{ objectFit: "cover" }}
           className="w-full"
-        />
+        /> */}
+
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-[600px]"
+          preload="auto"
+          style={{ objectFit: "cover" }}
+        >
+          <source
+            src="https://cdn.pixabay.com/video/2022/05/04/115984-706372668_large.mp4"
+            type="video/mp4"
+          />
+        </video>
 
         {/* <div
           className="text-moi_moc_green font-semibold absolute inset-0 flex items-center

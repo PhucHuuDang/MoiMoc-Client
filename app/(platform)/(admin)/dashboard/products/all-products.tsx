@@ -1,7 +1,6 @@
 "use client";
 import { DataTable } from "./data-table-products/data-table";
 import { columns } from "./data-table-products/columns";
-import { dataAllProducts } from "./data-table-products/data-all-products";
 import {
   ProductReturnedTypes,
   ProductTransformedTypes,
