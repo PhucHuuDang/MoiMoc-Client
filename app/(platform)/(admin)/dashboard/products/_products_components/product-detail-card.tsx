@@ -16,20 +16,23 @@ interface ProductDetailProps<T extends FieldValues, K> {
   form: UseFormReturn<T>;
   productName: Path<T>;
   descriptionName: Path<T>;
+
+  usage: Path<T>;
+  detail: Path<T>;
 }
 
 export const ProductDetailCard = <T extends FieldValues, K>({
   form,
   productName,
   descriptionName,
+  usage,
+  detail,
 }: ProductDetailProps<T, K>) => {
   return (
     <Card x-chunk="dashboard-07-chunk-0">
       <CardHeader>
-        <CardTitle className="text-primary">Product Details</CardTitle>
-        <CardDescription>
-          Lipsum dolor sit amet, consectetur adipiscing elit
-        </CardDescription>
+        <CardTitle className="text-primary">Chi tiết sản phẩm</CardTitle>
+        <CardDescription>Hãy miêu tả chi tiết sản phẩm của bạn</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-6">
@@ -46,7 +49,7 @@ export const ProductDetailCard = <T extends FieldValues, K>({
               form={form}
               name={productName}
               placeholder="Name of product"
-              label="Name"
+              label="Tên sản phẩm"
             />
           </div>
           <div className="grid gap-3">
@@ -59,7 +62,28 @@ export const ProductDetailCard = <T extends FieldValues, K>({
             <FormTextareaControl
               form={form}
               name={descriptionName}
-              label="Description"
+              label="Miêu tả sản phẩm"
+              formDescription="Hãy miêu tả sản phẩm"
+              placeholder="Let's describe the product's useful, durable, quality, etc...!"
+            />
+          </div>
+
+          <div className="grid gap-3">
+            <FormTextareaControl
+              form={form}
+              name={detail}
+              label="Chi tiết sản phẩm"
+              formDescription="Chi tiết của sản phẩm"
+              placeholder="Let's describe the product's useful, durable, quality, etc...!"
+            />
+          </div>
+
+          <div className="grid gap-3">
+            <FormTextareaControl
+              form={form}
+              name={usage}
+              label="Cách sử dung và khuyên dùng"
+              formDescription="Cách sử dụng và khuyên dùng sản phẩm"
               placeholder="Let's describe the product's useful, durable, quality, etc...!"
             />
           </div>

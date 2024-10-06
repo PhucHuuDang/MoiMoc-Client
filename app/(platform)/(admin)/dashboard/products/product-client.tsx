@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, Path, useForm } from "react-hook-form";
@@ -17,8 +19,6 @@ import { ProductImage } from "./_products_components/product-image";
 import { ArchiveProduct } from "./_products_components/archive-product";
 import { ImageUpload } from "@/components/_global-components-reused/image-upload";
 import { FormImagesProductControl } from "@/components/_global-components-reused/form/form-images-product-control";
-import { useEffect } from "react";
-import { FormMultiSelectControl } from "@/components/_global-components-reused/form/form-multi-selects-control";
 
 export function ProductClient() {
   const form = useForm<z.infer<typeof AddProductSafeTypes>>({
@@ -91,17 +91,17 @@ export function ProductClient() {
                   form={form}
                   productName="productName"
                   descriptionName="productDescription"
+                  usage="usage"
+                  detail="detail"
                 />
 
                 {/* TODO: fetch api to render in here */}
 
-                {/* <FormMultiSelectControl form={form} name="ingredients"> */}
                 <MultiSelectsIngredients
                   name="ingredients"
                   form={form}
                   ingredients={lipstickIngredients}
                 />
-                {/* </FormMultiSelectControl> */}
 
                 {/* TODO: add the name of stock  */}
                 <Stock
@@ -113,12 +113,17 @@ export function ProductClient() {
                 <ProductCategory
                   form={form}
                   name="productTypeId"
-                  formLabel="Category for the product"
+                  formLabel="Các loại sản phẩm..."
                 />
               </div>
               <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
                 {/* <MultiSelectsIngredients /> */}
-                <FormImagesProductControl form={form} name="imagesProduct">
+                <FormImagesProductControl
+                  title="Hình ảnh sản phẩm"
+                  description="Hãy thêm hình ảnh sản phẩm của bạn"
+                  form={form}
+                  name="imagesProduct"
+                >
                   <ProductImage />
                 </FormImagesProductControl>
                 {/* <ProductImage form={form} name="imagesProduct" /> */}

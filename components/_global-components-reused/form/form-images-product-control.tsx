@@ -24,12 +24,17 @@ interface FormImagesProductControlProps<T extends FieldValues, K> {
   form: UseFormReturn<T>;
   name: Path<T>;
   children: React.ReactNode;
+
+  title: string;
+  description?: string;
 }
 
 export const FormImagesProductControl = <T extends FieldValues, K>({
   form,
   name,
   children,
+  title,
+  description,
 }: FormImagesProductControlProps<T, K>) => {
   const imagesProductStore = useFromStoreImagesProduct(
     useImagesProductStore,
@@ -59,11 +64,9 @@ export const FormImagesProductControl = <T extends FieldValues, K>({
                   <CardTitle
                     className={`${!!errorCondition && "text-rose-700"}`}
                   >
-                    Product Images
+                    {title}
                   </CardTitle>
-                  <CardDescription>
-                    Add more product images to showcase your product
-                  </CardDescription>
+                  <CardDescription>{description}</CardDescription>
                   <FormMessage>{fieldState.error?.message}</FormMessage>
 
                   <ImageUpload />

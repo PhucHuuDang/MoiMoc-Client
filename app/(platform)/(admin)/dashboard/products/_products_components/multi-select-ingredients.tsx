@@ -53,11 +53,11 @@ export const MultiSelectsIngredients = <T extends FieldValues, K>({
     >
       <Card x-chunk="dashboard-07-chunk-3">
         <CardHeader>
-          <CardTitle>Ingredients</CardTitle>
+          <CardTitle>Thành phần sản phẩm</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-1">
-            <h2>Select Ingredients</h2>
+          <div className="flex flex-col gap-y-2">
+            <span className="text-sm font-semibold">Select Ingredients</span>
 
             <MultiSelect
               options={ingredients}

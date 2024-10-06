@@ -44,7 +44,7 @@ export const ProductCategory = <T extends FieldValues, K>({
   return (
     <Card x-chunk="dashboard-07-chunk-2">
       <CardHeader>
-        <CardTitle>Product Category</CardTitle>
+        <CardTitle>Phân loại sản phẩm</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid gap-6 sm:grid-cols-3">
@@ -53,7 +53,7 @@ export const ProductCategory = <T extends FieldValues, K>({
               form={form}
               name={name}
               placeholder="
-              Select lipstick category
+              Chọn loại sản phẩm
             "
               formLabel={formLabel}
               classNameFormItem="w-[200px]"

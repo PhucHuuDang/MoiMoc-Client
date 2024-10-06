@@ -92,6 +92,18 @@ export const AddProductSafeTypes = z.object({
         ),
     )
     .min(1, { message: "Ingredients must be at least 1" }),
+
+  usage: z
+    .string({
+      required_error: "Usage must be entered",
+    })
+    .min(10, { message: "Usage must be at least 10 characters" }),
+
+  detail: z
+    .string({
+      required_error: "Detail must be entered",
+    })
+    .min(10, { message: "Detail must be at least 10 characters" }),
 });
 
 export type test = z.infer<typeof AddProductSafeTypes>;

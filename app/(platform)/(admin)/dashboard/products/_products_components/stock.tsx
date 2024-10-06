@@ -46,10 +46,8 @@ export const Stock = <T extends FieldValues, K>({
   return (
     <Card x-chunk="dashboard-07-chunk-1">
       <CardHeader>
-        <CardTitle>Stock</CardTitle>
-        <CardDescription>
-          Lipsum dolor sit amet, consectetur adipiscing elit
-        </CardDescription>
+        <CardTitle>Số lượng sản phẩm</CardTitle>
+        <CardDescription>Số lượng sản phẩm còn trong kho</CardDescription>
       </CardHeader>
       <CardContent>
         <Table>

@@ -54,7 +54,7 @@ export const FormTextareaControl = <T extends FieldValues, K>({
               />
             </FormControl>
             <FormDescription
-              className={cn("text-moi_moc_green", classNameDescription)}
+              className={cn("text-slate-500", classNameDescription)}
             >
               {formDescription}
             </FormDescription>
