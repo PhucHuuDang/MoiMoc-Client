@@ -24,12 +24,12 @@ const ProductsPage = async () => {
     serverGetData("/products"),
   ]);
 
-  const ingredientsList = ingredients.map((ingredient: IngredientsTypes) => ({
+  const ingredientsList = ingredients?.map((ingredient: IngredientsTypes) => ({
     value: ingredient.id,
     label: capitalize(ingredient.ingredient),
   }));
 
-  const productsList: ProductTransformedTypes[] = products.map(
+  const productsList: ProductTransformedTypes[] = products?.map(
     (product: ProductReturnedTypes) => {
       return {
         id: product.productId,
