@@ -42,9 +42,9 @@ export const SheetCart = ({}: SheetCartProps) => {
     total = cart.reduce(
       (acc, product) =>
         acc +
-        (product.discountPercent! > 0
-          ? product?.discountPrice! * (product.quantityOrder as number)
-          : product.price * (product.quantityOrder as number)),
+        (Number(product.discountPercentage!) > 0
+          ? Number(product?.discountPrice) * (product.quantityOrder as number)
+          : Number(product.price) * (product.quantityOrder as number)),
       0,
     );
   }
