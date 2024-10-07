@@ -6,6 +6,8 @@ import Head from "next/head";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/provider/auth-provider";
 import { verifyAuth } from "@/api/auth/verify-auth";
+import { ParentDataProvider } from "@/provider/parent-data-provider";
+import { productsList } from "@/api/product-data/products-data";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +31,8 @@ export default function RootLayout({
 }>) {
   const auth = verifyAuth();
 
+  const productsPromise = productsList();
+
   return (
     <html suppressHydrationWarning lang="en">
       {/* <Head>
@@ -41,10 +45,12 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#ffffff" />
       </Head> */}
-      <AuthProvider authPromise={auth}>
-        <Toaster richColors closeButton />
-        <body className={inter.className}>{children}</body>
-      </AuthProvider>
+      <ParentDataProvider productPromise={productsPromise}>
+        <AuthProvider authPromise={auth}>
+          <Toaster richColors closeButton />
+          <body className={inter.className}>{children}</body>
+        </AuthProvider>
+      </ParentDataProvider>
     </html>
   );
 }

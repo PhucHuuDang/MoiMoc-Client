@@ -16,7 +16,5 @@ type AllProductsTable = {
 const productsList = async () => {
   const products = await serverGetData("/products");
 
-  console.log({ products });
-
   return products;
 };

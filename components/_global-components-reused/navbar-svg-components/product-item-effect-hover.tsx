@@ -60,19 +60,19 @@ export const ProductItemEffectHoverEffectHover = ({
           {product.discountPercent && product.discountPercent > 0 ? (
             <>
               <div className="flex flex-row items-center gap-2">
-                <del className="font-light text-[#ed9080]">
-                  {/* {formattedPrice(data?.originalPrice as number)} */}
-                  {/* {formatCurrency(product.price)} */}1
-                </del>{" "}
+                <span className="font-bold text-[#ff6347]">
+                  {/* {formatCurrency(product.discountPrice)} */}
+                  discount price
+                </span>
               </div>
 
               <h1 className="text-xl font-semibold text-neutral-500">|</h1>
 
               <div className="flex flex-row items-center gap-2">
-                <span className="font-bold text-[#ff6347]">
-                  {/* {formatCurrency(product.discountPrice)} */}
-                  discount price
-                </span>
+                <del className="font-light text-[#ed9080]">
+                  {/* {formattedPrice(data?.originalPrice as number)} */}
+                  {/* {formatCurrency(product.price)} */}
+                </del>{" "}
               </div>
             </>
           ) : (

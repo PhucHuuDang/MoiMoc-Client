@@ -21,7 +21,7 @@ export const Navbar = () => {
   const router = useRouter();
   const auth = useAuthContext();
 
-  console.log({ auth });
+  // console.log({ auth });
   const height = 24;
   const hoverAnimate =
     "hover:scale-110 transition duration-200  p-0.5 rounded-lg";

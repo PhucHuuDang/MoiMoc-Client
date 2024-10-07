@@ -7,6 +7,7 @@ import {
   ProductReturnedTypes,
   ProductTransformedTypes,
 } from "@/types/product-types";
+import { IngredientsClient } from "./ingredients-client";
 
 type IngredientsTypes = {
   id: string;
@@ -45,7 +46,7 @@ const ProductsPage = async () => {
     },
   );
 
-  console.log({ products });
+  // console.log({ products });
 
   return (
     <>
@@ -53,6 +54,7 @@ const ProductsPage = async () => {
         <TabsList>
           <TabsTrigger value="all-products">All Products</TabsTrigger>
           <TabsTrigger value="add-product">Add Product</TabsTrigger>
+          <TabsTrigger value="ingredients">Ingredients</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all-products" className="z-10">
@@ -64,6 +66,10 @@ const ProductsPage = async () => {
             ingredientsList={ingredientsList}
             productCategories={productCategories}
           />
+        </TabsContent>
+
+        <TabsContent value="ingredients">
+          <IngredientsClient />
         </TabsContent>
       </Tabs>
     </>

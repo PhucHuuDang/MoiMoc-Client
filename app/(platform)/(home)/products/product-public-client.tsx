@@ -14,6 +14,7 @@ import { GiftSet } from "./_components-products-public/gift-set";
 import { Footer } from "@/components/_global-components-reused/footer";
 import { Separator } from "@/components/ui/separator";
 import { FloatArrow } from "./_components-products-public/float-arrow";
+import { useParentDataContext } from "@/provider/parent-data-provider";
 
 export const ProductsPublicClient = () => {
   const homeRef = useRef<ElementRef<"div">>(null);
@@ -21,6 +22,10 @@ export const ProductsPublicClient = () => {
   const organicLipstickRef = useRef<ElementRef<"div">>(null);
   const lipstickRef = useRef<ElementRef<"div">>(null);
   const giftSetRef = useRef<ElementRef<"div">>(null);
+
+  const productsList = useParentDataContext();
+
+  // console.log({ productsList });
 
   const { y } = useWindowScroll();
 
