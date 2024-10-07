@@ -25,6 +25,20 @@ export const ProductsPublicClient = () => {
 
   const productsList = useParentDataContext();
 
+  const productsTransformed = productsList?.map((product) => {
+    return {
+      productId: product.productId,
+      id: product.id,
+      productName: product.productName,
+      productDescription: product.productDescription,
+      mainImage: product.productImages[0].imageUrl,
+      price: product.price,
+      discountPrice: product.discountPrice,
+      discountPercentage: product.discountPercentage,
+      quantity: product.quantity,
+    };
+  });
+
   // console.log({ productsList });
 
   const { y } = useWindowScroll();

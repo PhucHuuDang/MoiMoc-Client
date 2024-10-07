@@ -1,17 +1,18 @@
 import { ProductProps } from "@/types";
+import { ProductItemData } from "@/types/product-types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface State {
-  orders: ProductProps[];
+  orders: ProductItemData[];
   totalPrice: number;
   totalItems: number;
 }
 
 interface Actions {
-  addOrder: (product: ProductProps) => void;
-  removeFromCart: (product: ProductProps) => void;
-  decreaseQuantity: (product: ProductProps) => void;
+  addOrder: (product: ProductItemData) => void;
+  removeFromCart: (product: ProductItemData) => void;
+  decreaseQuantity: (product: ProductItemData) => void;
   clearCart: () => void;
 }
 
@@ -28,14 +29,14 @@ export const useCartStore = create(
       totalPrice: INITIAL_STATE.totalPrice,
       totalItems: INITIAL_STATE.totalItems,
       clearCart: () => set({ orders: [], totalPrice: 0, totalItems: 0 }),
-      addOrder: (product: ProductProps) => {
+      addOrder: (product: ProductItemData) => {
         const cartOrders = get().orders;
 
         const cartOrdersItems = cartOrders.find(
           (order) => order.id === product.id,
         );
 
-        const discountPriceCondition = product?.discountPrice!;
+        const discountPriceCondition = Number(product?.discountPrice!);
 
         if (cartOrdersItems) {
           const updatedCartOrders = cartOrders.map((cart) => {
@@ -48,7 +49,8 @@ export const useCartStore = create(
             orders: updatedCartOrders,
             totalItems: state.totalItems + 1,
             totalPrice:
-              state.totalPrice + discountPriceCondition ?? product.price,
+              state.totalPrice + discountPriceCondition ??
+              Number(product.price),
           }));
         } else {
           const updatedCartOrders = [
@@ -60,31 +62,32 @@ export const useCartStore = create(
             orders: updatedCartOrders,
             totalItems: state.totalItems + 1,
             totalPrice:
-              state.totalPrice + discountPriceCondition ?? product.price,
+              state.totalPrice + discountPriceCondition ??
+              Number(product.price),
           }));
         }
       },
 
-      removeFromCart: (product: ProductProps) => {
+      removeFromCart: (product: ProductItemData) => {
         const cartOrders = get().orders;
-        const discountPriceCondition = product?.discountPrice!;
+        const discountPriceCondition = Number(product?.discountPrice!);
 
         set((state) => ({
           orders: state.orders.filter((order) => order.id !== product.id),
           totalItems: state.totalItems - 1,
           totalPrice:
-            state.totalPrice - discountPriceCondition ?? product.price,
+            state.totalPrice - discountPriceCondition ?? Number(product.price),
         }));
       },
 
-      decreaseQuantity: (product: ProductProps) => {
+      decreaseQuantity: (product: ProductItemData) => {
         const cartOrders = get().orders;
 
         const cartOrderItems = cartOrders.find(
           (order) => order.id === product.id,
         );
 
-        const discountPriceCondition = product?.discountPrice!;
+        const discountPriceCondition = Number(product?.discountPrice!);
 
         if (cartOrderItems) {
           const updatedCartOrders = cartOrders.map((cart) =>

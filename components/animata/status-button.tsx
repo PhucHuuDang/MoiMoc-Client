@@ -28,16 +28,16 @@ export default function StatusButton({
     }
 
     setStatus("loading");
-    console.log("loading 1");
+    // console.log("loading 1");
     await wait(700);
     handleAddToCart(e);
-    toast.success("Added to cart");
+    // toast.success("Added to cart");
     setStatus("Added to cart");
-    console.log("Added to cart 2");
+    // console.log("Added to cart 2");
 
     await wait(500);
     setStatus("Add to cart");
-    console.log("Add to cart last 3");
+    // console.log("Add to cart last 3");
   };
 
   console.log(status === "Added to cart");

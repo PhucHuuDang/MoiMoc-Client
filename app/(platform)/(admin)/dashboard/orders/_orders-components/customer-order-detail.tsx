@@ -34,85 +34,24 @@ import { Separator } from "@/components/ui/separator";
 import { ProductProps } from "@/types";
 import { CartItem } from "@/app/(platform)/(home)/_components/cart-item";
 import { Tooltip, TooltipProvider } from "@/components/ui/tooltip";
-
-const productsDemo: ProductProps[] = [
-  {
-    id: "13",
-    name: "Smart Thermostat",
-    productName: "Thermostat",
-    price: 179.99,
-    productDescription:
-      "Smart thermostat that learns your schedule and adjusts the temperature automatically.",
-    imageUrl: "/about-moi-moc-images/son-duong-product.png",
-    quantityOrder: 4,
-  },
-  {
-    id: "6",
-    name: "Digital Camera",
-    productName: "Camera",
-    price: 749.99,
-    productDescription:
-      "24MP digital camera with 4K video recording, interchangeable lenses, and Wi-Fi connectivity.",
-    imageUrl: "/about-moi-moc-images/son-duong-product.png",
-    quantityOrder: 1,
-  },
-  {
-    id: "7",
-    name: "Wireless Charger",
-    productName: "Wireless Charger",
-    price: 29.99,
-    productDescription:
-      "Fast wireless charger compatible with all Qi-enabled devices.",
-    imageUrl: "/about-moi-moc-images/son-duong-product.png",
-    quantityOrder: 1,
-  },
-  {
-    id: "8",
-    name: "Noise-Cancelling Earbuds",
-    productName: "Earbuds",
-    price: 149.99,
-    discountPrice: 119.99,
-    discountPercent: 20,
-    productDescription:
-      "Premium noise-cancelling earbuds with superior sound quality and long battery life.",
-    imageUrl: "/about-moi-moc-images/son-duong-product.png",
-    quantityOrder: 1,
-  },
-  {
-    id: "9",
-    name: "Smart Home Hub",
-    productName: "Home Hub",
-    price: 89.99,
-    productDescription:
-      "Central hub for controlling smart home devices with voice commands and a touch screen.",
-    imageUrl: "/about-moi-moc-images/son-duong-product.png",
-    quantityOrder: 1,
-  },
-  {
-    id: "11",
-    name: "Air Purifier",
-    productName: "Air Purifier",
-    price: 129.99,
-    productDescription:
-      "High-efficiency air purifier with a HEPA filter, suitable for rooms up to 500 sq ft.",
-    imageUrl: "/about-moi-moc-images/son-duong-product.png",
-    quantityOrder: 2,
-  },
-  {
-    id: "10",
-    name: "Electric Toothbrush",
-    productName: "Toothbrush",
-    price: 59.99,
-    discountPrice: 49.99,
-    discountPercent: 17,
-    productDescription:
-      "Electric toothbrush with multiple brushing modes and a two-minute timer.",
-    imageUrl: "/about-moi-moc-images/son-duong-product.png",
-    quantityOrder: 2,
-  },
-];
+import { useParentDataContext } from "@/provider/parent-data-provider";
 
 export const CustomerOrderDetail = () => {
+  const productsList = useParentDataContext();
+
+  const productsTransformed = productsList?.map((product) => {
+    return {
+      productId: product.productId,
+      id: product.id,
+      productName: product.productName,
+      productDescription: product.productDescription,
+      mainImage: product.productImages[0].imageUrl,
+      price: product.price,
+      discountPrice: product.discountPrice,
+      discountPercentage: product.discountPercentage,
+      quantity: product.quantity,
+    };
+  });
   return (
     <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
       <CardHeader className="flex flex-row items-start bg-muted/50">
@@ -158,7 +97,7 @@ export const CustomerOrderDetail = () => {
           <div className="font-semibold">Order Details</div>
           <ul className="grid gap-3 h-[400px] overflow-y-auto overflow-x-hidden p-1">
             <TooltipProvider delayDuration={200}>
-              {productsDemo.map((product) => {
+              {productsTransformed?.map((product) => {
                 return (
                   <CartItem key={product.id} product={product} dashboard />
                 );

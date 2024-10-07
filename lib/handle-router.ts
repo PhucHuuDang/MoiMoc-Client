@@ -3,7 +3,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 
 export const handleRouter = (
   title: string,
-  id: string,
+  id: number,
   router: AppRouterInstance,
 ) => {
   const titleTransformed = removeMarks(title);

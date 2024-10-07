@@ -13,18 +13,19 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { forwardRef } from "react";
 
-import { ProductItemEffectHoverEffectHover } from "./navbar-svg-components/product-item-effect-hover";
+import { ProductItemEffectHover } from "./navbar-svg-components/product-item-effect-hover";
+import { useParentDataContext } from "@/provider/parent-data-provider";
+import { ProductItemData } from "@/types/product-types";
 
 interface CardProductProps {
   // product: Product;
-  product: ProductProps;
+  product: ProductItemData;
 }
 
 export const CardProduct = forwardRef<HTMLDivElement, CardProductProps>(
   ({ product }, ref) => {
     // const addToCart = useCartStore((state) => state.addToCart);
     const router = useRouter();
-
     const MAX_LENGTH = 54;
 
     // const handleAddToCart = (e: any, product: ProductApiProps) => {
@@ -38,7 +39,7 @@ export const CardProduct = forwardRef<HTMLDivElement, CardProductProps>(
         onClick={() => handleRouter(product.productName, product.id, router)}
         ref={ref}
       >
-        <ProductItemEffectHoverEffectHover product={product} />
+        <ProductItemEffectHover product={product} />
       </div>
     );
   },

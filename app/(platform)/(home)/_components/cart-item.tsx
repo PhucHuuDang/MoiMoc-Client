@@ -14,9 +14,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ProductItemData } from "@/types/product-types";
 
 interface CartItemProps {
-  product: ProductProps;
+  product: ProductItemData;
   dashboard?: boolean;
   checkout?: boolean;
 }
@@ -30,14 +31,15 @@ export const CartItem: React.FC<CartItemProps> = ({
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
 
-  const handleDecreaseQuantity = (product: ProductProps) => {
+  const handleDecreaseQuantity = (product: ProductItemData) => {
     if (product.quantityOrder! > 1) {
       decreaseQuantity(product);
     }
   };
 
-  const discountPriceCondition = product.discountPrice! > 0;
-
+  const discountPriceCondition = Number(product.discountPrice) > 0;
+  const discountPercentageToNumber = Number(product?.discountPercentage);
+  const discountPriceToNumber = Number(product?.discountPrice);
   const MAX_LENGTH = 10;
 
   return (
@@ -49,7 +51,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           }
         >
           <Image
-            src={product.imageUrl}
+            src={product.mainImage}
             alt="tiny"
             height={64}
             width={64}
@@ -90,8 +92,8 @@ export const CartItem: React.FC<CartItemProps> = ({
               <span className="font-bold text-sky-400">
                 {formatCurrency(
                   discountPriceCondition
-                    ? product?.discountPrice!
-                    : product.price,
+                    ? discountPriceToNumber
+                    : Number(product.price),
                 )}
               </span>
             </div>
@@ -101,8 +103,8 @@ export const CartItem: React.FC<CartItemProps> = ({
               <span className="font-bold text-[#ff6347]">
                 {formatCurrency(
                   discountPriceCondition
-                    ? product?.discountPrice! * product.quantityOrder!
-                    : product.price * product.quantityOrder!,
+                    ? Number(product?.discountPrice) * product.quantityOrder!
+                    : Number(product.price) * product.quantityOrder!,
                 )}
               </span>
             </div>

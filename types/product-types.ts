@@ -40,3 +40,16 @@ export type ProductTransformedTypes = {
   createdAt: string;
   productType: string;
 };
+
+export type ProductItemData = {
+  productId: number;
+  id: number;
+  productName: string;
+  productDescription: string;
+  price: string;
+  discountPrice: string;
+  discountPercentage: string;
+  quantity: string;
+  mainImage: string;
+  quantityOrder?: number;
+};

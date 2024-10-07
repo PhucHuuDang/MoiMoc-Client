@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import { ProductItemEffectHoverEffectHover } from "./navbar-svg-components/product-item-effect-hover";
+import { ProductItemEffectHover } from "./navbar-svg-components/product-item-effect-hover";
 import AutoPlay from "embla-carousel-autoplay";
 
 interface CarouselCustomizedProps {
