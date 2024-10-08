@@ -8,13 +8,7 @@ import {
   ProductTransformedTypes,
 } from "@/types/product-types";
 import { IngredientsClient } from "./ingredients-client";
-
-type IngredientsTypes = {
-  id: string;
-  ingredient: string;
-  createdAt: string;
-  updatedAt: string;
-};
+import { IngredientsTypes } from "./types-data-fetch/product-return-types";
 
 const ProductsPage = async () => {
   // const ingredients: IngredientsTypes[] = await serverGetData("/ingredients");
@@ -69,7 +63,7 @@ const ProductsPage = async () => {
         </TabsContent>
 
         <TabsContent value="ingredients">
-          <IngredientsClient />
+          <IngredientsClient ingredients={ingredients} />
         </TabsContent>
       </Tabs>
     </>

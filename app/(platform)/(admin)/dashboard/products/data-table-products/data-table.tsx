@@ -37,11 +37,13 @@ import { Input } from "@/components/ui/input";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  filterName: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  filterName,
 }: DataTableProps<TData, TValue>) {
   "use no memo";
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -74,10 +76,10 @@ export function DataTable<TData, TValue>({
         <Input
           placeholder="Filter name..."
           value={
-            (table.getColumn("productName")?.getFilterValue() as string) ?? ""
+            (table.getColumn(filterName)?.getFilterValue() as string) ?? ""
           }
           onChange={(event) =>
-            table.getColumn("productName")?.setFilterValue(event.target.value)
+            table.getColumn(filterName)?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

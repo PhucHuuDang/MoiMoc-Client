@@ -15,7 +15,11 @@ interface AllProductsProps {
 export function AllProducts({ productsList }: AllProductsProps) {
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={productsList} />
+      <DataTable
+        columns={columns}
+        data={productsList}
+        filterName="productName"
+      />
       {/* <DataTableDemo /> */}
     </div>
   );

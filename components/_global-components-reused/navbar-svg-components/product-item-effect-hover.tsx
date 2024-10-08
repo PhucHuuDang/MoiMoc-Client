@@ -2,11 +2,13 @@
 
 import { truncateText } from "@/app/lodash-config/truncate";
 import StatusButton from "@/components/animata/status-button";
+import { formatCurrency } from "@/handle-transform/formart-currency";
 import { useCartStore } from "@/store/use-cart-store";
 import { ProductProps } from "@/types";
 import { ProductItemData } from "@/types/product-types";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 interface ProductItemEffectHoverProps {
   product: ProductItemData;
@@ -19,6 +21,7 @@ export const ProductItemEffectHover = ({
 
   const handleAddToCart = (e: React.MouseEvent, product: ProductItemData) => {
     e.stopPropagation();
+    toast.success("Thêm sản phẩm vào giỏ hàng thành công");
     addOrder(product);
   };
 
@@ -65,7 +68,8 @@ export const ProductItemEffectHover = ({
               <div className="flex flex-row items-center gap-2">
                 <span className="font-bold text-[#ff6347]">
                   {/* {formatCurrency(product.discountPrice)} */}
-                  discount price
+                  {/* discount price */}
+                  {formatCurrency(Number(product.discountPrice))}
                 </span>
               </div>
 
@@ -73,17 +77,14 @@ export const ProductItemEffectHover = ({
 
               <div className="flex flex-row items-center gap-2">
                 <del className="font-light text-[#ed9080]">
-                  {/* {formattedPrice(data?.originalPrice as number)} */}
-                  {/* {formatCurrency(product.price)} */}
+                  {formatCurrency(Number(product.price))}
                 </del>{" "}
               </div>
             </>
           ) : (
             <div className="flex flex-row items-center gap-2">
               <div className="font-bold text-[#ff6347]">
-                {/* {formattedPrice(data?.originalPrice as number)} */}
-                {/* {formatCurrency(product.price)} */}
-                price
+                {formatCurrency(Number(product.price))}
               </div>{" "}
             </div>
           )}
