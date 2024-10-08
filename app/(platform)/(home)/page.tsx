@@ -50,7 +50,7 @@ export default async function HomePage() {
       </div>
 
       <BlurFade inView delay={0.35}>
-        <div className="mt-4">
+        <div className="my-7">
           <MoiMocMarquee />
         </div>
       </BlurFade>

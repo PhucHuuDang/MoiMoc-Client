@@ -76,7 +76,7 @@ export const ReviewFeedback = () => {
           muted
           loop
           playsInline
-          className="w-full h-[600px]"
+          className="w-full h-[600px] 2xl:h-[800px]"
           preload="auto"
           style={{ objectFit: "cover" }}
         >

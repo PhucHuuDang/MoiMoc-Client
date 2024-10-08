@@ -53,11 +53,13 @@ export const SheetCart = ({}: SheetCartProps) => {
     <Sheet open={sheetCart.isOpen} onOpenChange={sheetCart.onClose}>
       <SheetContent style={{ maxWidth: "45vw" }}>
         <SheetHeader className="my-4">
-          <SheetTitle className="text-center text-lg">Your cart!</SheetTitle>
+          <SheetTitle className="text-center text-lg">
+            Giỏ hàng của bạn!
+          </SheetTitle>
           <SheetDescription className="text-center">
             {cartCondition
-              ? `Thanks for your interest in our products! 🎉`
-              : "Your cart is empty!"}
+              ? `Cảm ơn bạn vì đã quan tâm sản phẩm của chúng tôi 🎉`
+              : "Giỏ hàng của bạn đang trống!"}
           </SheetDescription>
         </SheetHeader>
 
@@ -89,7 +91,7 @@ export const SheetCart = ({}: SheetCartProps) => {
               variant="moiMoc"
               className="w-full gap-x-1 text-base transition duration-300 hover:scale-105 hover:text-lg"
             >
-              <CreditCard className="h-6 w-6" /> Checkout
+              <CreditCard className="h-6 w-6" /> Thanh toán
             </Button>
 
             <SheetClose asChild>
@@ -97,7 +99,7 @@ export const SheetCart = ({}: SheetCartProps) => {
                 className="flex cursor-pointer items-center gap-1 text-center text-slate-400 duration-200
                   hover:text-slate-600 hover:underline"
               >
-                <ShoppingBag /> Continue shopping
+                <ShoppingBag /> Tiếp tục mua sắm
               </div>
             </SheetClose>
           </div>
@@ -112,7 +114,7 @@ export const SheetCart = ({}: SheetCartProps) => {
                 text-center text-moi_moc_green duration-1000 hover:text-slate-600
                 hover:underline"
             >
-              <ShoppingBag /> Back to shopping
+              <ShoppingBag /> Trở lại mua sắm
             </div>
           </SheetClose>
         )}
