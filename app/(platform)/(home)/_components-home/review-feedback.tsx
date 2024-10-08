@@ -78,7 +78,7 @@ export const ReviewFeedback = () => {
           playsInline
           className="w-full h-[600px] 2xl:h-[800px]"
           preload="auto"
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "fill" }}
         >
           <source
             src="https://cdn.pixabay.com/video/2022/05/04/115984-706372668_large.mp4"

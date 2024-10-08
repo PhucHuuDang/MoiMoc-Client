@@ -1,3 +1,4 @@
+import { Logo } from "@/components/_global-components-reused/logo";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -20,12 +21,13 @@ export const MessageMoiMoc = () => {
           loop
           muted
           playsInline
-          // preload="auto"
+          preload="auto"
           className="w-full h-[600px] 2xl:h-[800px]"
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "fill" }}
         >
           <source
-            src="https://cdn.pixabay.com/video/2024/02/01/198771-908874601_large.mp4"
+            // src="https://cdn.pixabay.com/video/2024/02/01/198771-908874601_large.mp4"
+            src="https://cdn.pixabay.com/video/2024/06/23/217947_large.mp4"
             // type="moimoc-meessage/mp4"
             type="video/mp4"
           />
@@ -39,10 +41,7 @@ export const MessageMoiMoc = () => {
           from-green-600 via-yellow-400 to-sky-500
           
           */}
-          <blockquote
-            className="text-xl md:text-2xl bg-gradient-to-r from-green-600 via-yellow-400 to-sky-500
-              drop-shadow-lg inline-block text-transparent bg-clip-text mb-4 italic"
-          >
+          <blockquote className="text-lg font-light md:text-2xl text-white italic">
             "Chúng tôi mong muốn mang đến sản phẩm son hoàn toàn từ nguồn gốc tự
             nhiên và hoàn toàn từ thiên nhiên Việt Nam như quả gấc, dầu dừa, dầu
             oliu, sáp ong, hoa hồng... Điều đường nhiệt thấp là kỹ thuật chúng
@@ -50,13 +49,14 @@ export const MessageMoiMoc = () => {
             bơ thực vật, giúp duy trì độ ẩm, phòng tránh khô, nứt, lành mạnh."
           </blockquote>
 
-          <Image
+          {/* <Image
             src="/marquee-moi-moc.png"
             alt="moi-moc-logo"
             width={200}
             height={100}
             className="object-cover"
-          />
+          /> */}
+          <Logo height={100} width={200} fill="#fff" />
 
           <Button variant="moiMoc" className="h-8 w-36 rounded-2xl">
             Xem thêm

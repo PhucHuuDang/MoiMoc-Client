@@ -11,7 +11,8 @@ export const ProductShowcase = () => {
 
   const images = [
     {
-      url: "/products-showcase/lipbalm-natural.png",
+      // url: "/products-showcase/lipbalm-natural.png",
+      url: "/products-showcase/lipsticks-moi-moc-delete-logo.jpg",
       alt: "Son dưỡng môi màu tự nhiên",
     },
     {

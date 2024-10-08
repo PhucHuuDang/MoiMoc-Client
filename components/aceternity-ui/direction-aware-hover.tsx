@@ -11,14 +11,14 @@ export const DirectionAwareHover = ({
   childrenClassName,
   imageClassName,
   className,
-  backgroundOpacity
+  backgroundOpacity,
 }: {
   imageUrl: string;
   children: React.ReactNode | string;
   childrenClassName?: string;
   imageClassName?: string;
   className?: string;
-  backgroundOpacity?: string
+  backgroundOpacity?: string;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -82,7 +82,9 @@ export const DirectionAwareHover = ({
         >
           <motion.div
             className={cn(
-              "group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500", backgroundOpacity
+              `group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/40 z-10
+              transition duration-500`,
+              backgroundOpacity,
             )}
           />
           <motion.div

@@ -5,11 +5,12 @@ import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-ef
 
 export const Banner = () => {
   const images = [
-    "/banner/banner-first.png",
     // "/banner/bg-3.jpg",
+    "/banner/lipsticks-banner.jpg",
     "/banner/bg-4.jpg",
     // "/banner/bg-5.jpg",
-    "/images/banner-home.jpeg",
+    // "/banner/banner-first.png",
+    // "/images/banner-home.jpeg",
     // "https://cdn.pixabay.com/photo/2016/02/28/22/32/lips-1227699_1280.jpg",
   ];
 
@@ -64,9 +65,9 @@ export const Banner = () => {
         }}
         className="absolute bottom-14 left-14"
       >
-        <div className="text-center text-white">
+        {/* <div className="text-center text-white">
           <TypewriterEffectSmooth words={words} />
-        </div>
+        </div> */}
       </motion.div>
     </div>
   );
