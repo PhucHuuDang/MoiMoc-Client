@@ -29,6 +29,7 @@ import { useWindowScroll } from "react-use";
 import { FloatArrow } from "@/app/(platform)/(home)/products/_components-products-public/float-arrow";
 import { Logo } from "@/components/_global-components-reused/logo";
 import Spinner from "@/components/animata/spinner";
+import { ExpireDateSelect } from "./_products_components/expired-date-select";
 
 interface ProductClientProps {
   ingredientsList: { value: string; label: string }[];
@@ -154,6 +155,12 @@ export function ProductClient({
                   name="productTypeId"
                   formLabel="Các loại sản phẩm..."
                   productCategories={productCategories}
+                />
+
+                <ExpireDateSelect
+                  form={form}
+                  name="expireDate"
+                  formLabel="Ngày hết hạn"
                 />
               </div>
               <div className="grid auto-rows-max items-start gap-4 lg:gap-8">

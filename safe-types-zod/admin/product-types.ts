@@ -104,6 +104,10 @@ export const AddProductSafeTypes = z.object({
       required_error: "Detail must be entered",
     })
     .min(10, { message: "Detail must be at least 10 characters" }),
+
+  expireDate: z.string({
+    message: "Expire date must be entered",
+  }),
 });
 
 export type test = z.infer<typeof AddProductSafeTypes>;
