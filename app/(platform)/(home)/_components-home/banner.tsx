@@ -5,15 +5,11 @@ import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-ef
 
 export const Banner = () => {
   const images = [
-    // "/banner/bg-3.jpg",
     "/banner/banner-home-page.jpg",
     "/banner/bg-4.jpg",
     "/banner/lipsticks-banner.jpg",
     "/banner/bg-6.jpg",
-    // "/banner/bg-5.jpg",
     "/banner/banner-first.png",
-    // "/images/banner-home.jpeg",
-    // "https://cdn.pixabay.com/photo/2016/02/28/22/32/lips-1227699_1280.jpg",
   ];
 
   const words = [

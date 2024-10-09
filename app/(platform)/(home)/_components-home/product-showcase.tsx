@@ -20,7 +20,7 @@ export const ProductShowcase = () => {
       alt: "Tẩy tế bào chết môi",
     },
     {
-      url: "/products-showcase/lipbalm-in-jar.png",
+      url: "/products-showcase/lip-balm-in-jar.jpg",
       alt: "Son dưỡng môi màu tự nhiên trong hũ",
     },
   ];
