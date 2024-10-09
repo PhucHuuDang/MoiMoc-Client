@@ -4,7 +4,7 @@ export const AddProductSafeTypes = z.object({
   productName: z
     .string()
     .min(3, { message: "Product name must be at least 3 characters" })
-    .max(50, { message: "Product name must be at most 50 characters" }),
+    .max(150, { message: "Product name must be at most 50 characters" }),
 
   productDescription: z
     .string()

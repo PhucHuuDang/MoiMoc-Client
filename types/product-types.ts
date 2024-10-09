@@ -19,6 +19,7 @@ export type ProductReturnedTypes = {
   discountPercentage: string; // You can convert this to `number` if needed
   quantity: string; // You can convert this to `number` if needed
   usage: string;
+  expireDate: string;
   details: string;
   productTypeId: number;
   createdAt: string;

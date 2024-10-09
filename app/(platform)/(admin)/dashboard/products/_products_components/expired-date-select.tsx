@@ -33,18 +33,18 @@ export const ExpireDateSelect = <T extends FieldValues, K>({
   formLabel,
 }: ExpireDateSelectProps<T, K>) => {
   const monthsArray = [
-    { value: "1", label: "1" },
-    { value: "2", label: "2" },
-    { value: "3", label: "3" },
-    { value: "4", label: "4" },
-    { value: "5", label: "5" },
-    { value: "6", label: "6" },
-    { value: "7", label: "7" },
-    { value: "8", label: "8" },
-    { value: "9", label: "9" },
-    { value: "10", label: "10" },
-    { value: "11", label: "11" },
-    { value: "12", label: "12" },
+    { value: "1", label: "1 month" },
+    { value: "2", label: "2 month" },
+    { value: "3", label: "3 month" },
+    { value: "4", label: "4 month" },
+    { value: "5", label: "5 month" },
+    { value: "6", label: "6 month" },
+    { value: "7", label: "7 month" },
+    { value: "8", label: "8 month" },
+    { value: "9", label: "9 month" },
+    { value: "10", label: "10 month" },
+    { value: "11", label: "11 month" },
+    { value: "12", label: "12 month" },
   ];
 
   return (
