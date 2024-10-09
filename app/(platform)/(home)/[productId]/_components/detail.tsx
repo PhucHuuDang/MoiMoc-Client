@@ -71,6 +71,12 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
 
   console.log({ productDetailData });
 
+  const productDetailContentData = {
+    ingredients: productDetailData.ingredients,
+    details: productDetailData.details,
+    usage: productDetailData.usage,
+  };
+
   return (
     <>
       <div className="min-h-screen bg-main_background_color pt-20 text-foreground">
@@ -130,7 +136,9 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
             })}
           </TabsList>
 
-          <ProductDetailContent />
+          <ProductDetailContent
+            productDetailContentData={productDetailContentData}
+          />
           <RatingReviews />
           <Discussion />
         </Tabs>

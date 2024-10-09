@@ -10,8 +10,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
+import { Ingredient } from "@/types/product-detail-types";
 
-export const ProductDetailContent = () => {
+interface ProductDetailContentProps {
+  productDetailContentData: {
+    ingredients: Ingredient[];
+    details: string;
+    usage: string;
+  };
+}
+
+export const ProductDetailContent = ({
+  productDetailContentData,
+}: ProductDetailContentProps) => {
   return (
     <TabsContent value="details" className="mt-6">
       <Card>
@@ -21,29 +32,25 @@ export const ProductDetailContent = () => {
               Các thành phần trong sản phẩm
             </h3>
             <ul className="list-disc pl-5 space-y-2">
-              <li>Premium quality blazer jacket</li>
-              <li>Material: 80% wool, 20% polyester</li>
-              <li>Fully lined with inner pockets</li>
-              <li>Suitable for both formal and casual occasions</li>
-              <li>Dry clean only</li>
+              {productDetailContentData.ingredients.map((ingredient) => {
+                return (
+                  <li key={ingredient.ingredientId}>
+                    {ingredient.ingredientName}
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
-          <div>
+          <div className="my-4">
             <h3 className="text-xl font-semibold mb-4">Chi tiết sản phẩm</h3>
-            <span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              aliquam, purus sit amet
-            </span>
+            <span>{productDetailContentData.details}</span>
           </div>
 
-          <div>
+          <div className="my-4">
             <h3 className="text-xl font-semibold mb-4">Cách sử dụng</h3>
 
-            <span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              aliquam, purus sit amet
-            </span>
+            <span>{productDetailContentData.usage}</span>
           </div>
         </CardContent>
       </Card>
