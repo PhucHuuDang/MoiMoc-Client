@@ -162,11 +162,11 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
                   </div>
                   <h4 className="font-semibold">{product.name}</h4>
                   <div className="flex items-center">
-                    <p className="font-bold">{product.price}</p>
+                    <span className="font-bold">{product.price}</span>
                     {product.originalPrice && (
-                      <p className="ml-2 text-sm text-gray-500 line-through">
+                      <span className="ml-2 text-sm text-gray-500 line-through">
                         {product.originalPrice}
-                      </p>
+                      </span>
                     )}
                   </div>
                 </CardContent>

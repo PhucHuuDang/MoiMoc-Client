@@ -8,8 +8,8 @@ import { Lipsticks } from "@/lib/db";
 import BlurFade from "@/components/magic/blur-fade";
 
 import { LipBalm } from "./_components-products-public/lip-balm";
-import { OrganicLipstick } from "./_components-products-public/organic-lipstick";
-import { OrganicLipStickSolid } from "./_components-products-public/organic-lipstick-solid";
+import { LipBalmInJar } from "./_components-products-public/lip-blam-in-jar";
+import { LipScrubInJar } from "./_components-products-public/lip-scrub-in-jar";
 import { GiftSet } from "./_components-products-public/gift-set";
 import { Footer } from "@/components/_global-components-reused/footer";
 import { Separator } from "@/components/ui/separator";
@@ -71,7 +71,7 @@ export const ProductsPublicClient = () => {
 
   return (
     <div className="h-full overflow-hidden pt-20" ref={homeRef}>
-      <div className="my-6 flex items-center justify-evenly">
+      {/* <div className="my-6 flex items-center justify-evenly">
         {Lipsticks.map((lipstick, index) => {
           return (
             <BlurFade inView delay={0.2 + index * 0.1} key={lipstick.label}>
@@ -87,20 +87,20 @@ export const ProductsPublicClient = () => {
             </BlurFade>
           );
         })}
-      </div>
+      </div> */}
 
       <BlurFade inView delay={delay}>
         <LipBalm ref={lipBalmRef} />
       </BlurFade>
       <BlurFade inView delay={delay}>
-        <OrganicLipstick ref={organicLipstickRef} />
+        <LipBalmInJar ref={organicLipstickRef} />
       </BlurFade>
       <BlurFade inView delay={delay}>
-        <OrganicLipStickSolid ref={lipstickRef} />
+        <LipScrubInJar ref={lipstickRef} />
       </BlurFade>
-      <BlurFade inView delay={delay}>
+      {/* <BlurFade inView delay={delay}>
         <GiftSet ref={giftSetRef} />
-      </BlurFade>
+      </BlurFade> */}
       <BlurFade inView delay={delay}>
         <Separator className="mx-1 my-16 h-0.5 bg-moi_moc_green" />
       </BlurFade>

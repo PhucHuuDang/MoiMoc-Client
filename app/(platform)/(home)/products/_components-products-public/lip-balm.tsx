@@ -41,7 +41,7 @@ export const LipBalm = forwardRef<HTMLDivElement, LipBalmProps>(({}, ref) => {
 
   return (
     <>
-      <div className="flex">
+      {/* <div className="flex">
         <Image
           src="/about-moi-moc-images/model-organic-lipstick.png"
           alt="model-organic"
@@ -71,16 +71,28 @@ export const LipBalm = forwardRef<HTMLDivElement, LipBalmProps>(({}, ref) => {
             </div>
           </div>
         </div>
+      </div> */}
+
+      {/* ** this is the technique prevent breaking the image */}
+      <div
+        className="relative h-[600px] 2xl:h-[80%] bg-no-repeat bg-cover bg-center"
+        style={{
+          backgroundImage: `url(https://images.pexels.com/photos/28851912/pexels-photo-28851912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)`,
+        }}
+      >
+        {/* make the whole background a little bit dark */}
+        {/* <div className="absolute inset-0 bg-black/10" /> */}
+        <div className="relative pt-28 h-screen"></div>
       </div>
 
       <div className="" ref={ref}>
         <div className="overflow-hidden px-14">
-          <CarouselCustomized title="Son Dưỡng Môi Mộc">
+          <CarouselCustomized title="Son Dưỡng Màu Tự nhiên">
             {productsTransformed?.map((product) => {
               return (
                 <CarouselItem
                   key={product.id}
-                  className="md:basis-1/2 lg:basis-1/5"
+                  className="md:basis-1/2 lg:basis-1/5 aspect-square"
                 >
                   <ProductItemEffectHover product={product} />
                 </CarouselItem>

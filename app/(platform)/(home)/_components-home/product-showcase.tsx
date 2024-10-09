@@ -16,7 +16,7 @@ export const ProductShowcase = () => {
       alt: "Son dưỡng môi màu tự nhiên",
     },
     {
-      url: "/products-showcase/lip-scrub.png",
+      url: "/products-showcase/lip-scrub.jpg",
       alt: "Tẩy tế bào chết môi",
     },
     {
