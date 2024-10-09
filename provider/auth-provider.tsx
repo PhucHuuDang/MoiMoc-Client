@@ -6,6 +6,7 @@ import { use } from "react";
 type Auth = {
   isAuth: boolean;
   user: any;
+  token: string;
 };
 
 type AuthPromise = Promise<Auth | null>;

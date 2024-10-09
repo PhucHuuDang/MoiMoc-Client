@@ -140,7 +140,7 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
             productDetailContentData={productDetailContentData}
           />
           <RatingReviews />
-          <Discussion />
+          <Discussion productId={productDetailData.productId} />
         </Tabs>
 
         {/* Related Products */}

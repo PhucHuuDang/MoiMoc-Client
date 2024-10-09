@@ -30,6 +30,8 @@ import { FloatArrow } from "@/app/(platform)/(home)/products/_components-product
 import { Logo } from "@/components/_global-components-reused/logo";
 import Spinner from "@/components/animata/spinner";
 import { ExpireDateSelect } from "./_products_components/expired-date-select";
+import { useImagesProductStore } from "@/store/use-images-product-store";
+import { useRouter } from "next/navigation";
 
 interface ProductClientProps {
   ingredientsList: { value: string; label: string }[];
@@ -41,6 +43,9 @@ export function ProductClient({
   productCategories,
 }: ProductClientProps) {
   const refHead = useRef<HTMLDivElement>(null);
+  const clearAllImages = useImagesProductStore((state) => state.clearImages);
+
+  const router = useRouter();
 
   const { y } = useWindowScroll();
 
@@ -94,7 +99,9 @@ export function ProductClient({
 
       toast.success("Product created successfully");
 
+      clearAllImages();
       form.reset();
+      router.refresh();
 
       return response.data;
     } catch (error) {

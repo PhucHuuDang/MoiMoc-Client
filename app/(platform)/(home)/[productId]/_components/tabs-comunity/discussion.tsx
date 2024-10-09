@@ -8,13 +8,74 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
+import { useAuthContext } from "@/provider/auth-provider";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { DiscussionSafeTypes } from "@/safe-types-zod/client/discussion";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormValues } from "@/components/_global-components-reused/form/form-values";
+import { FormTextareaControl } from "@/components/_global-components-reused/form/form-textarea-control";
+import { toast } from "sonner";
+import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
+import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
+import axios from "axios";
 
-export const Discussion = () => {
+interface DiscussionProps {
+  productId: number;
+}
+export const Discussion = ({ productId }: DiscussionProps) => {
+  const auth = useAuthContext();
+
+  const form = useForm<z.infer<typeof DiscussionSafeTypes>>({
+    resolver: zodResolver(DiscussionSafeTypes),
+  });
+
+  const loginModal = useLoginDiaLogModal();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const onSubmit = async (content: z.infer<typeof DiscussionSafeTypes>) => {
+    setIsLoading(true);
+    if (!auth?.isAuth) {
+      toast.error("Bạn cần đăng nhập để bình luận");
+      loginModal.onOpen();
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/discussions`,
+        {
+          content,
+          productId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${auth?.token}`,
+          },
+        },
+      );
+
+      if (response.status === 201) {
+        toast.success("Bình luận thành công");
+        form.reset();
+      } else {
+        toast.error("Bình luận thất bại");
+      }
+    } catch (error) {
+      console.log({ error });
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+
+    // console.log({ content, productId });
+  };
+
   return (
     <TabsContent value="discussion" className="mt-6">
       <Card>
         <CardContent className="p-6">
-          <h3 className="text-xl font-semibold mb-4">Product Discussion</h3>
+          <h3 className="text-xl font-semibold mb-4">Tìm hiểu sản phẩm</h3>
           {/* <div className="mt-6">
                 <div className="flex items-start space-x-4">
                   <Avatar>
@@ -84,11 +145,13 @@ export const Discussion = () => {
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-semibold">{comment.name}</p>
-                      <p className="text-sm text-gray-500">{comment.time}</p>
+                      <span className="font-semibold">{comment.name}</span>
+                      <span className="text-sm text-gray-500">
+                        {comment.time}
+                      </span>
                     </div>
                   </div>
-                  <p className="mb-2">{comment.comment}</p>
+                  <span className="mb-2">{comment.comment}</span>
                   <div className="flex items-center text-sm text-gray-500">
                     <Button
                       variant="ghost"
@@ -112,12 +175,25 @@ export const Discussion = () => {
             ))}
           </div>
           <div className="mt-6">
-            <h4 className="text-lg font-semibold mb-2">Join the Discussion</h4>
-            <Textarea
-              placeholder="Share your thoughts or ask a question..."
-              className="mb-2"
-            />
-            <Button>Post Comment</Button>
+            <FormValues form={form} onSubmit={onSubmit}>
+              <FormTextareaControl
+                form={form}
+                name="content"
+                label="Bình luận về sản phẩm"
+                placeholder="Chia sẽ những thứ bạn nghĩ về sản phẩm này"
+                formDescription="Hãy tự tin chia sẽ những suy nghĩ của bạn về sản phẩm này"
+                disabled={isLoading}
+              />
+
+              <FormSubmit
+                disabled={isLoading}
+                variant="moiMoc"
+                className="w-40"
+              >
+                Gửi
+              </FormSubmit>
+            </FormValues>
+            {/* <Button>Post Comment</Button> */}
           </div>
         </CardContent>
 

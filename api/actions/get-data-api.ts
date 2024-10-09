@@ -8,6 +8,7 @@ export const clientGetData = async (endpoint: string, accessToken?: string) => {
       `${process.env.NEXT_PUBLIC_API_URL}${endpoint}`,
       {
         headers,
+        cache: "no-store",
       },
     );
 
@@ -31,6 +32,7 @@ export const serverGetData = async (endpoint: string, accessToken?: string) => {
       `${process.env.NEXT_PUBLIC_API_URL}${endpoint}`,
       {
         headers,
+        cache: "no-store",
       },
     );
 

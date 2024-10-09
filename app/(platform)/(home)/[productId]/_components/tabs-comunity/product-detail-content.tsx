@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { Ingredient } from "@/types/product-detail-types";
+import { capitalize } from "lodash";
 
 interface ProductDetailContentProps {
   productDetailContentData: {
@@ -35,7 +36,7 @@ export const ProductDetailContent = ({
               {productDetailContentData.ingredients.map((ingredient) => {
                 return (
                   <li key={ingredient.ingredientId}>
-                    {ingredient.ingredientName}
+                    {capitalize(ingredient.ingredientName)}
                   </li>
                 );
               })}

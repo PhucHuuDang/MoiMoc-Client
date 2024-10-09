@@ -9,6 +9,7 @@ import { useFromStore } from "@/store/use-from-store";
 import { Separator } from "@radix-ui/react-separator";
 import { CartItem } from "../../_components/cart-item";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { formatCurrency } from "@/handle-transform/formart-currency";
 
 interface OrderDetailProps<T> {
   onSubmit?: (data: T) => void;
@@ -21,6 +22,19 @@ export const OrderDetail = () => {
   );
 
   const cart = useFromStore(useCartStore, (state) => state.orders);
+
+  let total = 0;
+
+  if (cart) {
+    total = cart.reduce(
+      (acc, product) =>
+        acc +
+        (Number(product.discountPercentage!) > 0
+          ? Number(product?.discountPrice) * (product.quantityOrder as number)
+          : Number(product.price) * (product.quantityOrder as number)),
+      0,
+    );
+  }
 
   const handlePayment = async () => {
     const ok = await confirm();
@@ -73,8 +87,8 @@ export const OrderDetail = () => {
           <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
 
           <div className="flex justify-between">
-            <div>Total</div>
-            <div>$120</div>
+            <div>Tổng đơn hàng</div>
+            <div>{formatCurrency(total)}</div>
           </div>
 
           <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />

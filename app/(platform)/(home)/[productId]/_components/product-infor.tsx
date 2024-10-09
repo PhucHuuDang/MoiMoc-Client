@@ -34,6 +34,7 @@ import { useCartStore } from "@/store/use-cart-store";
 import StatusButton from "@/components/animata/status-button";
 import { toast } from "sonner";
 import { ProductItemData } from "@/types/product-types";
+import { capitalize } from "lodash";
 
 interface ProductDetailContentProps {
   productDetailData: ProductDetailTypes;
@@ -187,10 +188,12 @@ export const ProductInfo = ({
                     >
                       {size}
                     </Button> */}
-                    <Badge variant="moiMoc">{item.ingredientName}</Badge>
+                    <Badge variant="moiMoc">
+                      {capitalize(item.ingredientName)}
+                    </Badge>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <span>Size {item.ingredientName}</span>
+                    <span className="font-semibold">{item.ingredientName}</span>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>

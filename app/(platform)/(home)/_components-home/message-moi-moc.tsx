@@ -15,16 +15,6 @@ export const MessageMoiMoc = () => {
   return (
     <section className="w-full h-[600px] 2xl:h-[800px]">
       <div className="relative w-full aspect-[2/1] h-full">
-        {/* <Image
-          alt="message-moi-moc"
-          src="/background-message.png"
-          fill
-          style={{ objectFit: "cover" }}
-          className="w-full"
-        /> */}
-
-        {/* https://cdn.pixabay.com/video/2024/02/01/198771-908874601_large.mp4 */}
-
         <video
           autoPlay
           loop
