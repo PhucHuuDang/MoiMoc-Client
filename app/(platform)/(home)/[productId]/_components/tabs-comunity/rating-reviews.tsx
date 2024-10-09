@@ -66,6 +66,7 @@ export const RatingReviews = () => {
               </div>
               <p className="text-sm text-gray-500">Based on 128 reviews</p>
             </div>
+
             <div className="w-2/3">
               {[5, 4, 3, 2, 1].map((rating) => (
                 <div key={rating} className="flex items-center mb-2">
@@ -82,6 +83,7 @@ export const RatingReviews = () => {
               ))}
             </div>
           </div>
+
           <div className="space-y-6">
             {feedbacks.map((review, index) => (
               <Card key={index}>
@@ -98,6 +100,8 @@ export const RatingReviews = () => {
                           .join("")}
                       </AvatarFallback>
                     </Avatar>
+
+                    {/* Rating stars */}
                     <div>
                       <p className="font-semibold">{review.name}</p>
                       <div className="flex">

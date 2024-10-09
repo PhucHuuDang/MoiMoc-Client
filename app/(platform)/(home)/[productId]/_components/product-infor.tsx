@@ -41,17 +41,59 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Footer } from "@/components/_global-components-reused/footer";
+import { ProductDetailTypes } from "@/types/product-detail-types";
+import { formatCurrency } from "@/handle-transform/formart-currency";
+import { useCartStore } from "@/store/use-cart-store";
+import StatusButton from "@/components/animata/status-button";
+import { toast } from "sonner";
+import { ProductItemData } from "@/types/product-types";
 
-export const ProductInfo = () => {
+interface ProductDetailContentProps {
+  productDetailData: ProductDetailTypes;
+}
+export const ProductInfo = ({
+  productDetailData,
+}: ProductDetailContentProps) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  const productImages = [
-    "/images/alchemistry.png",
-    "/images/demo-product-1.png",
-    "/images/demo-product-2.png",
-    "/images/demo-product-3.png",
-  ];
+  const addOrder = useCartStore((state) => state.addOrder);
+
+  // const productImages = [
+  //   "/images/alchemistry.png",
+  //   "/images/demo-product-1.png",
+  //   "/images/demo-product-2.png",
+  //   "/images/demo-product-3.png",
+  // ];
+
+  const productOrder: ProductItemData = {
+    id: productDetailData.productId,
+    productId: productDetailData.productId,
+    productName: productDetailData.productName,
+    productDescription: productDetailData.description,
+    price: productDetailData.price,
+    discountPrice: productDetailData.discountPrice,
+    discountPercentage: productDetailData.discountPercentage,
+    mainImage: productDetailData.productImages[0].imageUrl,
+    quantity: productDetailData.quantity,
+    quantityOrder: quantity,
+  };
+
+  const productImages = productDetailData.productImages.map(
+    (image) => image.imageUrl,
+  );
+
+  const discountPercentageToNumber = Number(
+    productDetailData.discountPercentage,
+  );
+
+  const handleAddToCart = (e: React.MouseEvent, product: ProductItemData) => {
+    e.stopPropagation();
+    toast.success("Thêm sản phẩm vào giỏ hàng thành công");
+
+    addOrder(product);
+  };
+
   return (
     <div className="flex flex-col md:flex-row p-4 gap-8 max-w-7xl mx-auto">
       {/* Product images */}
@@ -107,61 +149,67 @@ export const ProductInfo = () => {
 
       {/* Product info */}
       <div className="md:w-1/2">
-        <h2 className="text-3xl font-bold mb-2">Blazer Jacket</h2>
+        <h2 className="text-3xl font-bold mb-2">
+          {productDetailData.productName}
+        </h2>
         <div className="flex items-center mb-2">
           {[...Array(5)].map((_, i) => (
             <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
           ))}
           <span className="ml-2 text-sm">(4.9)</span>
         </div>
-        <p className="text-3xl font-bold mb-4">$2500</p>
+
+        <div className="text-md mt-3 flex flex-row items-center gap-1">
+          {discountPercentageToNumber && discountPercentageToNumber > 0 ? (
+            <>
+              <div className="flex flex-row items-center gap-2">
+                <span className="font-bold text-[#ff6347]">
+                  {/* {formatCurrency(product.discountPrice)} */}
+                  {/* discount price */}
+                  {formatCurrency(Number(productDetailData.discountPrice))}
+                </span>
+              </div>
+
+              <h1 className="text-xl font-semibold text-neutral-500">|</h1>
+
+              <div className="flex flex-row items-center gap-2">
+                <del className="font-light text-[#ed9080]">
+                  {formatCurrency(Number(productDetailData.price))}
+                </del>{" "}
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-row items-center gap-2">
+              <div className="font-bold text-[#ff6347]">
+                {formatCurrency(Number(productDetailData.price))}
+              </div>{" "}
+            </div>
+          )}
+        </div>
 
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">Available Size</h3>
+          <h3 className="font-semibold mb-2">Các thành phần của sản phẩm</h3>
           <div className="flex space-x-2">
-            {["XS", "S", "M", "L", "XL"].map((size) => (
-              <TooltipProvider key={size}>
+            {productDetailData.ingredients.map((item) => (
+              <TooltipProvider key={item.ingredientId}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button
+                    {/* <Button
                       variant="outline"
                       className="w-10 h-10 rounded-full"
                     >
                       {size}
-                    </Button>
+                    </Button> */}
+                    <Badge className="bg-moi_moc_green text-slate-100">
+                      {item.ingredientName}
+                    </Badge>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Size {size}</p>
+                    <span>Size {item.ingredientName}</span>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             ))}
-          </div>
-        </div>
-
-        <div className="mb-6">
-          <h3 className="font-semibold mb-2">Available Color</h3>
-          <div className="flex space-x-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button className="w-10 h-10 rounded-full bg-gray-800" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Black</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button className="w-10 h-10 rounded-full bg-gray-400" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Gray</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
           </div>
         </div>
 
@@ -179,9 +227,17 @@ export const ProductInfo = () => {
         </div>
 
         <div className="flex space-x-4 mb-6">
-          <Button variant="moiMoc" className="flex-1 py-6">
+          {/* <Button variant="moiMoc" className="flex-1 py-6">
             Add to cart
-          </Button>
+          </Button> */}
+
+          <StatusButton
+            handleAddToCart={(e) => handleAddToCart(e, productOrder)}
+            className="w-full bg-[#438a60] transition duration-200 hover:scale-110 hover:bg-[#326a49]
+              text-white"
+            label="Thêm vào giỏ hàng"
+          />
+
           <Button variant="outline" className="py-6">
             <Heart className="w-6 h-6" />
           </Button>
@@ -192,13 +248,8 @@ export const ProductInfo = () => {
         </Badge>
 
         <div className="mt-8">
-          <h3 className="font-semibold mb-2">Product Description</h3>
-          <p className="text-gray-600">
-            Elevate your style with our premium Blazer Jacket. Crafted from
-            high-quality materials, this versatile piece seamlessly transitions
-            from office to evening wear. Its tailored fit and classic design
-            make it a timeless addition to any wardrobe.
-          </p>
+          <h3 className="font-semibold mb-2">Miêu tả</h3>
+          <span className="text-gray-600">{productDetailData.description}</span>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import { ProductProps } from "@/types";
 import { ProductItemData } from "@/types/product-types";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 interface ProductItemEffectHoverProps {
@@ -18,6 +19,8 @@ export const ProductItemEffectHover = ({
   product,
 }: ProductItemEffectHoverProps) => {
   const addOrder = useCartStore((state) => state.addOrder);
+
+  const router = useRouter();
 
   const handleAddToCart = (e: React.MouseEvent, product: ProductItemData) => {
     e.stopPropagation();
@@ -40,7 +43,10 @@ export const ProductItemEffectHover = ({
           <span>{`-${discountPercentageToNumber}%`}</span>
         </div>
       )}
-      <div className="group relative aspect-square h-full w-full overflow-hidden rounded-xl">
+      <div
+        className="group relative aspect-square h-full w-full overflow-hidden rounded-xl"
+        onClick={() => router.push(`/${product.productId}`)}
+      >
         {/* <GlareCard className="flex flex-col items-center justify-center"> */}
         <Image
           fill

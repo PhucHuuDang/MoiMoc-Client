@@ -11,11 +11,13 @@ const wait = async (ms: number) =>
 interface StatusButtonProps {
   handleAddToCart: (e: React.MouseEvent) => void;
   className?: string;
+  label?: string;
 }
 
 export default function StatusButton({
   handleAddToCart,
   className,
+  label,
 }: StatusButtonProps) {
   const [status, setStatus] = useState<
     "loading" | "Add to cart" | "Added to cart"
@@ -82,10 +84,13 @@ export default function StatusButton({
             <CircleDashed className="size-8 animate-spin" />
           ) : (
             (status === "Add to cart" || !status) && (
-              <ShoppingCart
-                className={`size-10 cursor-pointer rounded-lg p-1 text-slate-600 duration-200
-                  hover:scale-110 hover:bg-slate-200 hover:text-slate-800 hover:shadow-lg`}
-              />
+              <div className="flex items-center gap-x-1">
+                <ShoppingCart
+                  className={`size-10 cursor-pointer rounded-lg p-1 text-slate-600 duration-200
+                    hover:scale-110 hover:bg-slate-200 hover:text-slate-800 hover:shadow-lg`}
+                />
+                <span className="text-slate-300 text-base">{label}</span>
+              </div>
             )
             // (status ?? (
             //   <ShoppingCart className="size-10 text-red-500 bg-red-500 z-50 flex items-center" />

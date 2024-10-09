@@ -3,6 +3,15 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export const MessageMoiMoc = () => {
+  // useEffect(() => {
+  //   const videoElement = document.querySelector("video");
+  //   setTimeout(() => {
+  //     if (videoElement) {
+  //       videoElement.play();
+  //     }
+  //   }, 300);
+  // }, []);
+
   return (
     <section className="w-full h-[600px] 2xl:h-[800px]">
       <div className="relative w-full aspect-[2/1] h-full">
@@ -21,7 +30,7 @@ export const MessageMoiMoc = () => {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="none"
           className="w-full h-[600px] 2xl:h-[800px]"
           style={{ objectFit: "fill" }}
         >
@@ -32,6 +41,18 @@ export const MessageMoiMoc = () => {
             type="video/mp4"
           />
         </video>
+
+        {/* <CldVideoPlayer
+          id="moimoc-message"
+          src="https://cdn.pixabay.com/video/2024/06/23/217947_large.mp4"
+          // className="w-full h-[600px] 2xl:h-[800px] absolute"
+          height={600}
+          width={800}
+          autoPlay
+          muted
+          playsinline
+          preload="none"
+        /> */}
 
         <div
           className="font-semibold absolute inset-0 flex items-center justify-center max-w-3xl

@@ -77,7 +77,7 @@ export const ReviewFeedback = () => {
           loop
           playsInline
           className="w-full h-[600px] 2xl:h-[800px]"
-          preload="auto"
+          preload="none"
           style={{ objectFit: "fill" }}
         >
           <source

@@ -45,8 +45,12 @@ import { ProductInfo } from "./product-infor";
 import { Discussion } from "./tabs-comunity/discussion";
 import { ProductDetailContent } from "./tabs-comunity/product-detail-content";
 import { RatingReviews } from "./tabs-comunity/rating-reviews";
+import { ProductDetailTypes } from "@/types/product-detail-types";
 
-export default function DetailPage() {
+interface DetailPageProps {
+  productDetailData: ProductDetailTypes;
+}
+export default function DetailPage({ productDetailData }: DetailPageProps) {
   const TABS_TRIGGER = [
     {
       value: "details",
@@ -64,6 +68,8 @@ export default function DetailPage() {
       icon: <MessageCircle className="w-4 h-4 mr-2" />,
     },
   ];
+
+  console.log({ productDetailData });
 
   return (
     <>
@@ -106,7 +112,7 @@ export default function DetailPage() {
         </div>
 
         {/* Improved Product details */}
-        <ProductInfo />
+        <ProductInfo productDetailData={productDetailData} />
 
         {/* Tabs */}
         <Tabs defaultValue="details" className="p-4 max-w-7xl mx-auto">
