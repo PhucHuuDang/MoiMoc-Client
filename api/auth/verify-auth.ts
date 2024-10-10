@@ -29,6 +29,6 @@ export const verifyAuth = cache(async () => {
     return { isAuth: true, user: sub, token };
   } catch (error) {
     console.error("Error during authentication:", error);
-    return { isAuth: false, user: null, token: null };
+    return { isAuth: false, user: null, token: undefined };
   }
 });
