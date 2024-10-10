@@ -33,7 +33,7 @@ export const Discussion = ({ productId }: DiscussionProps) => {
   const loginModal = useLoginDiaLogModal();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const onSubmit = async (content: z.infer<typeof DiscussionSafeTypes>) => {
+  const onSubmit = async (values: z.infer<typeof DiscussionSafeTypes>) => {
     setIsLoading(true);
     if (!auth?.isAuth) {
       toast.error("Bạn cần đăng nhập để bình luận");
@@ -41,9 +41,13 @@ export const Discussion = ({ productId }: DiscussionProps) => {
       return;
     }
 
+    const { content } = values;
+
+    console.log({ values, productId });
+
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/discussions`,
+        `${process.env.NEXT_PUBLIC_API_URL}/discussion`,
         {
           content,
           productId,
@@ -54,6 +58,8 @@ export const Discussion = ({ productId }: DiscussionProps) => {
           },
         },
       );
+
+      console.log({ response });
 
       if (response.status === 201) {
         toast.success("Bình luận thành công");
