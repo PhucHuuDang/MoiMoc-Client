@@ -19,11 +19,14 @@ import { toast } from "sonner";
 import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
 import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
 import axios from "axios";
+import { Discussion as DiscussionTypes } from "@/types/product-detail-types";
+import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
 
 interface DiscussionProps {
   productId: number;
+  discussions: DiscussionTypes[];
 }
-export const Discussion = ({ productId }: DiscussionProps) => {
+export const Discussion = ({ productId, discussions }: DiscussionProps) => {
   const auth = useAuthContext();
 
   const form = useForm<z.infer<typeof DiscussionSafeTypes>>({
@@ -38,6 +41,7 @@ export const Discussion = ({ productId }: DiscussionProps) => {
     if (!auth?.isAuth) {
       toast.error("Bạn cần đăng nhập để bình luận");
       loginModal.onOpen();
+      setIsLoading(false);
       return;
     }
 
@@ -63,7 +67,7 @@ export const Discussion = ({ productId }: DiscussionProps) => {
 
       if (response.status === 201) {
         toast.success("Bình luận thành công");
-        form.reset();
+        form.setValue("content", "");
       } else {
         toast.error("Bình luận thất bại");
       }
@@ -103,61 +107,34 @@ export const Discussion = ({ productId }: DiscussionProps) => {
                 </div>
               </div> */}
           <div className="space-y-6">
-            {[
-              {
-                name: "Kathryn Murphy",
-                comment: "This fit is perfect, and the quality is top-notch.",
-                time: "1 week ago",
-                likes: 12,
-                replies: 2,
-              },
-              {
-                name: "Esther Howard",
-                comment:
-                  "I recently purchased the gray blazer jacket for women, and I couldn't be happier with my purchase!",
-                time: "2 weeks ago",
-                likes: 8,
-                replies: 1,
-              },
-              {
-                name: "Kristin Watson",
-                comment:
-                  "I highly recommend this blazer to any woman looking for a timeless and chic addition to their wardrobe.",
-                time: "2 weeks ago",
-                likes: 15,
-                replies: 3,
-              },
-              {
-                name: "Dianne Russell",
-                comment:
-                  "It provides just the right amount of warmth without making me too hot.",
-                time: "1 month ago",
-                likes: 6,
-                replies: 0,
-              },
-            ].map((comment, index) => (
+            {discussions.map((discussion, index) => (
               <Card key={index}>
                 <CardContent className="p-4">
                   <div className="flex items-center mb-2">
                     <Avatar className="w-10 h-10 mr-3">
                       <AvatarImage
-                        src={`https://i.pravatar.cc/40?img=${index + 10}`}
+                        src={
+                          discussion.user.avatar ??
+                          "/about-moi-moc-images/avatar-placeholder.gif"
+                        }
                       />
                       <AvatarFallback>
-                        {comment.name
+                        {discussion.user.username
                           .split(" ")
                           .map((n) => n[0])
                           .join("")}
                       </AvatarFallback>
                     </Avatar>
-                    <div>
-                      <span className="font-semibold">{comment.name}</span>
+                    <div className="flex flex-col items-start gap-x-2">
+                      <span className="font-semibold">
+                        {discussion.user.username}
+                      </span>
                       <span className="text-sm text-gray-500">
-                        {comment.time}
+                        {vietnameseDate(discussion.createdAt as Date)}
                       </span>
                     </div>
                   </div>
-                  <span className="mb-2">{comment.comment}</span>
+                  <span className="mb-2">{discussion.discussionContent}</span>
                   <div className="flex items-center text-sm text-gray-500">
                     <Button
                       variant="ghost"
@@ -165,7 +142,7 @@ export const Discussion = ({ productId }: DiscussionProps) => {
                       className="flex items-center mr-4"
                     >
                       <ThumbsUp className="w-4 h-4 mr-1" />
-                      Like ({comment.likes})
+                      Like (2)
                     </Button>
                     <Button
                       variant="ghost"
@@ -173,7 +150,7 @@ export const Discussion = ({ productId }: DiscussionProps) => {
                       className="flex items-center"
                     >
                       <MessageCircle className="w-4 h-4 mr-1" />
-                      Reply ({comment.replies})
+                      Reply (2)
                     </Button>
                   </div>
                 </CardContent>

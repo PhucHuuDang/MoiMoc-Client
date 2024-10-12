@@ -151,7 +151,7 @@ export const ProductInfo = ({
           {discountPercentageToNumber && discountPercentageToNumber > 0 ? (
             <>
               <div className="flex flex-row items-center gap-2">
-                <span className="font-bold text-[#ff6347]">
+                <span className="font-bold text-[#ff6347] text-2xl">
                   {/* {formatCurrency(product.discountPrice)} */}
                   {/* discount price */}
                   {formatCurrency(Number(productDetailData.discountPrice))}
@@ -161,14 +161,14 @@ export const ProductInfo = ({
               <h1 className="text-xl font-semibold text-neutral-500">|</h1>
 
               <div className="flex flex-row items-center gap-2">
-                <del className="font-light text-[#ed9080]">
+                <del className="font-light text-[#ed9080] text-xl">
                   {formatCurrency(Number(productDetailData.price))}
                 </del>{" "}
               </div>
             </>
           ) : (
             <div className="flex flex-row items-center gap-2">
-              <div className="font-bold text-[#ff6347]">
+              <div className="font-bold text-[#ff6347] text-2xl">
                 {formatCurrency(Number(productDetailData.price))}
               </div>{" "}
             </div>

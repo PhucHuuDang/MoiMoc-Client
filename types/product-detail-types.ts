@@ -21,6 +21,14 @@ export interface Comment {
   user: User;
 }
 
+export interface Discussion {
+  id: number;
+  discussionContent: string;
+  createdAt: Date;
+  updatedAt: Date;
+  user: Omit<User, "createdAt">;
+}
+
 export interface Ingredient {
   ingredientId: number;
   ingredientName: string;
@@ -40,7 +48,7 @@ export interface ProductDetailTypes {
   updatedAt: string;
   productImages: ProductImage[];
   comments: Comment[];
-  discussion: any[]; // Assuming this will hold discussion data, if any
+  discussion: Discussion[]; // Assuming this will hold discussion data, if any
   ingredients: Ingredient[];
 }
 
