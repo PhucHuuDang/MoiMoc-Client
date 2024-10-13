@@ -21,22 +21,57 @@ import { z } from "zod";
 import { Checkout, CheckoutSchemaTypes } from "@/safe-types-zod/checkout";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuthContext } from "@/provider/auth-provider";
+import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
+import { useEffect } from "react";
 
 export const CheckoutClient = () => {
+  const auth = useAuthContext();
+
+  // console.log(auth?.user);
+
+  const loginModal = useLoginDiaLogModal();
+
   const form = useForm<z.infer<typeof CheckoutSchemaTypes>>({
     resolver: zodResolver(CheckoutSchemaTypes),
     defaultValues: {
       method: "standard",
       paymentMethod: "receive-order-payment",
-      address: {
-        name: "Harry Dang", //** we can set default in here
+      // address: {
+      //   name: "Harry Dang", //** we can set default in here
+      // },
+
+      user: {
+        name: auth?.user?.name,
+        phoneAuth: auth?.user?.phoneAuth,
+        email: auth?.user?.email,
+        avatar: auth?.user?.avatar,
+        role: auth?.user?.role,
       },
+
+      name: auth?.user?.name,
+      phone: auth?.user?.phoneAuth,
+
+      address: `Vinhomes Grandpark, Tòa s503, Nguyễn Xiển, phường Long Thạnh Mỹ,
+      Thành phố Thủ Đức`,
     },
   });
 
-  const onSubmit = (values: z.infer<typeof CheckoutSchemaTypes>) => {
-    // console.log({ values });
+  const onSubmit = async (values: z.infer<typeof CheckoutSchemaTypes>) => {
+    // if (!auth?.isAuth) {
+    //   loginModal.onOpen();
+    //   return;
+    // }
+
+    console.log({ values });
   };
+
+  useEffect(() => {
+    if (!auth?.isAuth) {
+      loginModal.onOpen();
+      // return;
+    }
+  }, [auth?.isAuth]);
 
   return (
     <div className="h-full overflow-x-hidden pt-20">
@@ -46,7 +81,12 @@ export const CheckoutClient = () => {
       <FormValues form={form} onSubmit={onSubmit}>
         <div className="my-5 flex justify-center gap-x-8">
           <div className="flex flex-col items-center gap-y-8">
-            <ReceivingInformation form={form} address="address" />
+            <ReceivingInformation
+              form={form}
+              address="address"
+              phone="phone"
+              name="name"
+            />
 
             <DeliveryMethod form={form} name="method" />
 

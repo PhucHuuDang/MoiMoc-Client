@@ -29,59 +29,72 @@ export const paymentMethods = [
 ];
 
 export const CheckoutSchemaTypes = z.object({
-  // phone: z
-  //   .string({
-  //     message: "Phone number is required",
-  //     invalid_type_error: "Phone number must be a string",
-  //   })
-  //   .trim()
-  //   .min(10, {
-  //     message: "Phone number must be at least 10 characters",
-  //   })
-  //   .max(12, {
-  //     message: "Phone number must be at most 10 characters",
-  //   })
-  //   .refine(isValidPhone, {
-  //     message: "Invalid phone number",
+  // address: z.object({
+  //   name: z.string({
+  //     message: "Name is required",
+  //     invalid_type_error: "Name must be a string",
   //   }),
+  //   phone: z
+  //     .string({
+  //       message: "Phone number is required",
+  //       invalid_type_error: "Phone number must be a string",
+  //     })
+  //     .trim()
+  //     .min(10, {
+  //       message: "Phone number must be at least 10 characters",
+  //     })
+  //     .max(12, {
+  //       message: "Phone number must be at most 10 characters",
+  //     })
+  //     .refine(isValidPhone, {
+  //       message: "Invalid phone number",
+  //     }),
 
-  // name: z.string({
-  //   message: "Name is required",
-  //   invalid_type_error: "Name must be a string",
+  //   addressShipping: z
+  //     .string({
+  //       message: "Address is required",
+  //       invalid_type_error: "Address must be a string",
+  //     })
+  //     .min(10, {
+  //       message: "Address must be at least 10 characters",
+  //     })
+  //     .max(100, {
+  //       message: "Address must be at most 100 characters",
+  //     }),
   // }),
-  address: z.object({
-    name: z.string({
-      message: "Name is required",
-      invalid_type_error: "Name must be a string",
-    }),
-    phone: z
-      .string({
-        message: "Phone number is required",
-        invalid_type_error: "Phone number must be a string",
-      })
-      .trim()
-      .min(10, {
-        message: "Phone number must be at least 10 characters",
-      })
-      .max(12, {
-        message: "Phone number must be at most 10 characters",
-      })
-      .refine(isValidPhone, {
-        message: "Invalid phone number",
-      }),
 
-    addressShipping: z
-      .string({
-        message: "Address is required",
-        invalid_type_error: "Address must be a string",
-      })
-      .min(10, {
-        message: "Address must be at least 10 characters",
-      })
-      .max(100, {
-        message: "Address must be at most 100 characters",
-      }),
+  user: z.object({
+    id: z.number(),
+    name: z.string(),
+    email: z.string().optional(),
+    phoneAuth: z.string(),
+    avatar: z.string(),
+    role: z.string(),
   }),
+
+  address: z.string({
+    message: "Address is required",
+  }),
+
+  name: z.string({
+    message: "Name is required",
+  }),
+
+  phone: z
+    .string({
+      message: "Phone number is required",
+      invalid_type_error: "Phone number must be a string",
+    })
+    .trim()
+    .min(10, {
+      message: "Phone number must be at least 10 characters",
+    })
+    .max(12, {
+      message: "Phone number must be at most 10 characters",
+    })
+    .refine(isValidPhone, {
+      message: "Invalid phone number",
+    }),
 
   method: z.enum(deliveryTypes, {
     required_error: "You need to select a delivery method.",

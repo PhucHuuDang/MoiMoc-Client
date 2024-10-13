@@ -11,12 +11,16 @@ interface ReceivingInformationProps<T extends FieldValues> {
   // phon: Path<T>;
   address: Path<T>;
   // name: Path<T>;
+  phone: Path<T>;
+  name: Path<T>;
 }
 
 export const ReceivingInformation = <T extends FieldValues>({
   form,
   // name,
   address,
+  phone,
+  name,
 }: ReceivingInformationProps<T>) => {
   return (
     <Card className="w-[500px] border-moi_moc_green">
@@ -31,20 +35,21 @@ export const ReceivingInformation = <T extends FieldValues>({
             Information
           </h1>
           <div className="flex flex-col space-y-1">
-            <span>Name: Dang Huu Phuc</span>
+            <span>Name: {form.getValues(name)}</span>
             <FormItemsControl
               form={form}
               type="hidden"
               // value="Dang Huu Phuc"
-              name={`${address}.name` as Path<T>}
+              // name={`${address}.name` as Path<T>}
+              name={name as Path<T>}
             />
-            <span>SDT: +84 81.459.3739</span>
+            <span>SDT: {form.getValues(phone)}</span>
 
             <FormItemsControl
               form={form}
               type="hidden"
-              value="0814593739"
-              name={`${address}.phone` as Path<T>}
+              // name={`${address}.phone` as Path<T>}
+              name={phone as Path<T>}
             />
           </div>
         </div>
@@ -55,14 +60,14 @@ export const ReceivingInformation = <T extends FieldValues>({
             Information
           </h1>
           <span>
-            Vinhomes Grandpark, Tòa s503, Nguyễn Xiển, phường Long Thạnh Mỹ,
-            Thành phố Thủ Đức
+            {form.getValues(address)}
             <FormItemsControl
               form={form}
               type="hidden"
-              value=" Vinhomes Grandpark, Tòa s503, Nguyễn Xiển, phường Long Thạnh Mỹ,
-              Thành phố Thủ Đức"
-              name={`${address}.addressShipping` as Path<T>}
+              // value=" Vinhomes Grandpark, Tòa s503, Nguyễn Xiển, phường Long Thạnh Mỹ,
+              // Thành phố Thủ Đức"
+              // name={`${address}.addressShipping` as Path<T>}
+              name={address}
             />
           </span>
         </div>

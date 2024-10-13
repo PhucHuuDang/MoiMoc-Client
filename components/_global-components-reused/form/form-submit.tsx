@@ -12,6 +12,8 @@ interface FormSubmitProps {
   children: React.ReactNode;
   disabled?: boolean;
   className?: string;
+
+  asChild?: boolean;
   variant?:
     | "default"
     | "destructive"
@@ -27,6 +29,7 @@ export const FormSubmit = ({
   children,
   disabled,
   className,
+  asChild = false,
   variant = "default",
 }: FormSubmitProps) => {
   const { pending } = useFormStatus();
@@ -38,6 +41,7 @@ export const FormSubmit = ({
       variant={variant}
       size="sm"
       className={cn("", className)}
+      asChild={asChild}
     >
       {disabled
         ? (

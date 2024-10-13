@@ -37,11 +37,10 @@ export const OrderDetail = () => {
   }
 
   const handlePayment = async () => {
-    const ok = await confirm();
-
-    if (ok) {
-      //* do success payment
-    }
+    // const ok = await confirm();
+    // if (ok) {
+    //   //* do success payment
+    // }
   };
 
   return (
@@ -95,17 +94,18 @@ export const OrderDetail = () => {
 
           <div className="flex items-center justify-center">
             <div className="flex flex-col items-center justify-center gap-y-4">
-              {/* <FormSubmit variant="moiMoc" className="h-12 w-44">
-              Payment
-            </FormSubmit> */}
-
-              <RainbowButton
-                className="hover:scale-110 transition duration-300 w-56 bg-moi_moc_green border
-                  border-moi_moc_green"
-                onClick={handlePayment}
-              >
+              <FormSubmit variant="moiMoc" className="h-12 w-44">
                 Payment
-              </RainbowButton>
+              </FormSubmit>
+              {/* <FormSubmit asChild>
+                <RainbowButton
+                  className="hover:scale-110 transition duration-300 w-56 bg-moi_moc_green border
+                    border-moi_moc_green"
+                  onClick={handlePayment}
+                >
+                  Payment
+                </RainbowButton>
+              </FormSubmit> */}
 
               <span className="w-[250px] text-sm font-light italic">
                 Nhấn “Đặt hàng” đồng nghĩa với việc bạn đồng ý tuân theo{" "}

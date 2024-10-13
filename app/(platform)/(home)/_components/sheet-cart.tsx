@@ -18,6 +18,9 @@ import { CartItem } from "./cart-item";
 import { useSheetCart } from "@/hooks/use-sheet-cart";
 import { useRouter } from "next/navigation";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { useAuthContext } from "@/provider/auth-provider";
+import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
+import { toast } from "sonner";
 
 interface SheetCartProps {
   // handleCheckout: () => void;
@@ -26,8 +29,18 @@ interface SheetCartProps {
 export const SheetCart = ({}: SheetCartProps) => {
   const router = useRouter();
   const sheetCart = useSheetCart();
+  const auth = useAuthContext();
+  const loginModal = useLoginDiaLogModal();
 
   const handleCheckout = () => {
+    if (!auth?.isAuth) {
+      // sheetCart.onClose();
+      toast.info("Vui lòng đăng nhập để tiếp tục thanh toán");
+      loginModal.onOpen();
+
+      return;
+    }
+
     router.push("/checkout");
     sheetCart.onClose();
   };
