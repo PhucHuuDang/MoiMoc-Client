@@ -10,12 +10,25 @@ import { Separator } from "@radix-ui/react-separator";
 import { CartItem } from "../../_components/cart-item";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { formatCurrency } from "@/handle-transform/formart-currency";
+import { FieldValues, Path, PathValue, UseFormReturn } from "react-hook-form";
+import { truncateText } from "@/app/lodash-config/truncate";
+import { useEffect } from "react";
+import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { ArrowBigLeftDash } from "lucide-react";
 
-interface OrderDetailProps<T> {
+interface OrderDetailProps<T extends FieldValues, K> {
   onSubmit?: (data: T) => void;
+  form: UseFormReturn<T>;
+  name: Path<T>;
 }
 
-export const OrderDetail = () => {
+export const OrderDetail = <T extends FieldValues, K>({
+  onSubmit,
+  form,
+  name,
+}: OrderDetailProps<T, K>) => {
   const [ConfirmDialog, confirm] = useConfirm(
     "Payment",
     "Are you sure you want to pay?",
@@ -43,6 +56,17 @@ export const OrderDetail = () => {
     // }
   };
 
+  // console.log({ cart });
+
+  // useEffect(() => {
+  //   if (!products) {
+  //     toast.info("Có vẻ như giỏ hàng của bạn đang trống");
+  //     return;
+  //   } else {
+  //     form.setValue(name, products as PathValue<T, Path<T>>);
+  //   }
+  // }, [form, products]);
+
   return (
     <>
       <ConfirmDialog />
@@ -53,17 +77,32 @@ export const OrderDetail = () => {
         <CardContent className="h-[350px]">
           <div className="flex h-[350px] flex-col gap-y-1 overflow-y-auto overflow-x-hidden">
             <TooltipProvider delayDuration={200}>
-              {cart?.map((product) => {
-                return (
-                  <CartItem
-                    key={product.id}
-                    product={product}
-                    dashboard
-                    checkout
-                  />
-                );
-              })}
+              {cart && cart.length > 0 ? (
+                cart.map((product) => {
+                  return (
+                    <CartItem
+                      key={product.id}
+                      product={product}
+                      dashboard
+                      checkout
+                    />
+                  );
+                })
+              ) : (
+                <Button
+                  variant="moiMoc"
+                  className="w-[90%] hover:underline transition duration-300 mx-auto group/back"
+                >
+                  <ArrowBigLeftDash className="size-6 group-hover/back:-translate-x-1 transition duration-300" />{" "}
+                  Quay lại mua hàng
+                </Button>
+              )}
+
+              {/* <div className=""> */}
+              {/* </div> */}
             </TooltipProvider>
+
+            <FormItemsControl type="hidden" name={name} form={form} />
           </div>
 
           <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
@@ -94,10 +133,10 @@ export const OrderDetail = () => {
 
           <div className="flex items-center justify-center">
             <div className="flex flex-col items-center justify-center gap-y-4">
-              <FormSubmit variant="moiMoc" className="h-12 w-44">
+              {/* <FormSubmit variant="moiMoc" className="h-12 w-44">
                 Payment
-              </FormSubmit>
-              {/* <FormSubmit asChild>
+              </FormSubmit> */}
+              <FormSubmit asChild>
                 <RainbowButton
                   className="hover:scale-110 transition duration-300 w-56 bg-moi_moc_green border
                     border-moi_moc_green"
@@ -105,7 +144,7 @@ export const OrderDetail = () => {
                 >
                   Payment
                 </RainbowButton>
-              </FormSubmit> */}
+              </FormSubmit>
 
               <span className="w-[250px] text-sm font-light italic">
                 Nhấn “Đặt hàng” đồng nghĩa với việc bạn đồng ý tuân theo{" "}

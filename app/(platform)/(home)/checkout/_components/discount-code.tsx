@@ -7,6 +7,7 @@ import { DiscountCodeSchemaTypes } from "@/safe-types-zod/checkout";
 import { FieldValues, Path, UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { BadgePercent } from "lucide-react";
 
 interface DiscountCodeProps<T extends FieldValues> {
   form: UseFormReturn<T>;
@@ -29,6 +30,8 @@ export const DiscountCode = <T extends FieldValues>({
           name={name}
           label="Add your discount code"
           placeholder="Enter your discount code"
+          classNameLabel="flex items-center gap-x-1"
+          icon={<BadgePercent className="size-5" />}
         />
         {/* </FormValues> */}
       </CardContent>

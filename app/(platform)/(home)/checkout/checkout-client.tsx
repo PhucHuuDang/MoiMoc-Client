@@ -19,11 +19,16 @@ import { DiscountCode } from "./_components/discount-code";
 import { FormValues } from "@/components/_global-components-reused/form/form-values";
 import { z } from "zod";
 import { Checkout, CheckoutSchemaTypes } from "@/safe-types-zod/checkout";
-import { useForm } from "react-hook-form";
+import { Path, PathValue, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthContext } from "@/provider/auth-provider";
 import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
 import { useEffect } from "react";
+import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
+import { truncateText } from "@/app/lodash-config/truncate";
+import { useCartStore } from "@/store/use-cart-store";
+import { useFromStore } from "@/store/use-from-store";
+import { toast } from "sonner";
 
 export const CheckoutClient = () => {
   const auth = useAuthContext();
@@ -41,15 +46,15 @@ export const CheckoutClient = () => {
       //   name: "Harry Dang", //** we can set default in here
       // },
 
-      user: {
-        name: auth?.user?.name,
-        phoneAuth: auth?.user?.phoneAuth,
-        email: auth?.user?.email,
-        avatar: auth?.user?.avatar,
-        role: auth?.user?.role,
-      },
+      // user: {
+      //   name: auth?.user?.name,
+      //   phoneAuth: auth?.user?.phoneAuth,
+      //   email: auth?.user?.email,
+      //   avatar: auth?.user?.avatar,
+      //   role: auth?.user?.role,
+      // },
 
-      name: auth?.user?.name,
+      // name: auth?.user?.name,
       phone: auth?.user?.phoneAuth,
 
       address: `Vinhomes Grandpark, Tòa s503, Nguyễn Xiển, phường Long Thạnh Mỹ,
@@ -66,12 +71,60 @@ export const CheckoutClient = () => {
     console.log({ values });
   };
 
+  const cart = useFromStore(useCartStore, (state) => state.orders);
+
+  // console.log({ products });
+  const products = cart?.map((product) => {
+    const truncateDescription = truncateText(product.productDescription, 200);
+
+    return {
+      productId: product.id,
+      productName: product.productName,
+      quantityOrder: product.quantityOrder!,
+      price: product.price,
+      discountPrice: product.discountPrice,
+      discountPercentage: product.discountPercentage,
+      imageUrl: product.mainImage,
+      productDescription: truncateDescription,
+    };
+  });
+
+  // console.log({ cart });
+
   useEffect(() => {
     if (!auth?.isAuth) {
       loginModal.onOpen();
-      // return;
+      return;
+    } else {
+      form.setValue("user", {
+        id: auth?.user?.id,
+        name: auth?.user?.name,
+        phoneAuth: auth?.user?.phoneAuth,
+        email: auth?.user?.email,
+        avatar: auth?.user?.avatar,
+        role: auth?.user?.role,
+      });
+
+      if (cart && cart.length > 0) {
+        const products = cart.map((product) => ({
+          productId: product.id,
+          productName: product.productName,
+          quantityOrder: product.quantityOrder!,
+          price: product.price,
+          discountPrice: product.discountPrice,
+          discountPercentage: product.discountPercentage,
+          imageUrl: product.mainImage,
+          productDescription: truncateText(product.productDescription, 200),
+        }));
+        form.setValue("products", products); // Correctly assign the array
+      } else {
+        toast.info("Có vẻ như giỏ hàng của bạn đang trống");
+      }
+
+      // form.setValue("name", auth?.user?.name);
+      form.setValue("phone", auth?.user?.phoneAuth);
     }
-  }, [auth?.isAuth]);
+  }, [auth?.isAuth, auth?.user, form, products]);
 
   return (
     <div className="h-full overflow-x-hidden pt-20">
@@ -85,7 +138,14 @@ export const CheckoutClient = () => {
               form={form}
               address="address"
               phone="phone"
-              name="name"
+              name="user.name"
+            />
+
+            <FormItemsControl
+              type="hidden"
+              name="user"
+              // value={auth?.user}
+              form={form}
             />
 
             <DeliveryMethod form={form} name="method" />
@@ -94,7 +154,7 @@ export const CheckoutClient = () => {
             <DiscountCode form={form} name="discountCode" />
           </div>
 
-          <OrderDetail />
+          <OrderDetail form={form} name="products" />
         </div>
       </FormValues>
       <Separator className="mx-1 my-16 h-0.5 bg-moi_moc_green" />

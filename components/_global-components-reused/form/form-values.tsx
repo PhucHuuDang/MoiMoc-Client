@@ -43,10 +43,13 @@ export const FormValues = <T extends FieldValues>({
   children,
   classNameForm,
 }: FormValuesProps<T>) => {
+  const onSubmitError = (errors: any) => {
+    console.log("Form Errors: ", errors); // This will log validation errors, if any
+  };
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit, onSubmitError)}
         className={cn("space-y-5", classNameForm)}
       >
         {children}

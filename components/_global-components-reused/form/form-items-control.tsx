@@ -24,6 +24,7 @@ interface FormItemsControlProps<T extends FieldValues, K> {
   classNameInput?: string;
   // value?: string | PathValue<T, Path<T>> | undefined;
   value?: any;
+  icon?: React.ReactElement;
 }
 
 export const FormItemsControl = <T extends FieldValues, K>({
@@ -36,6 +37,7 @@ export const FormItemsControl = <T extends FieldValues, K>({
   disabled,
   classNameInput,
   value,
+  icon,
 }: FormItemsControlProps<T, K>) => {
   // console.log({ value });
   return (
@@ -52,6 +54,7 @@ export const FormItemsControl = <T extends FieldValues, K>({
         return (
           <FormItem>
             <FormLabel className={cn("text-text-foreground", classNameLabel)}>
+              {icon}
               {label}
             </FormLabel>
             <FormControl>

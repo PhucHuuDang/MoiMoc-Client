@@ -36,13 +36,13 @@ export const ReceivingInformation = <T extends FieldValues>({
           </h1>
           <div className="flex flex-col space-y-1">
             <span>Name: {form.getValues(name)}</span>
-            <FormItemsControl
+            {/* <FormItemsControl
               form={form}
               type="hidden"
               // value="Dang Huu Phuc"
               // name={`${address}.name` as Path<T>}
               name={name as Path<T>}
-            />
+            /> */}
             <span>SDT: {form.getValues(phone)}</span>
 
             <FormItemsControl

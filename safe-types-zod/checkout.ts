@@ -76,9 +76,9 @@ export const CheckoutSchemaTypes = z.object({
     message: "Address is required",
   }),
 
-  name: z.string({
-    message: "Name is required",
-  }),
+  // name: z.string({
+  //   message: "Name is required",
+  // }),
 
   phone: z
     .string({
@@ -105,6 +105,23 @@ export const CheckoutSchemaTypes = z.object({
     invalid_type_error: "Invalid notification type.",
   }),
   discountCode: z.string().optional(),
+
+  products: z
+    .array(
+      z.object({
+        productId: z.number(),
+        price: z.string(),
+        discountPrice: z.string().optional().nullable(),
+        productName: z.string(),
+        discountPercent: z.number().optional().nullable(),
+        productDescription: z.string(),
+        imageUrl: z.string(),
+        quantityOrder: z.number().optional(),
+      }),
+    )
+    .min(1, {
+      message: "You need to add at least one product to checkout.",
+    }),
 });
 
 export const PaymentMethodSchemaTypes = z.object({
