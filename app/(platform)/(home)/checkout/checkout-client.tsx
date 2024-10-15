@@ -202,11 +202,9 @@ export const CheckoutClient = () => {
           discountPrice: product.discountPrice,
           discountPercentage: product.discountPercentage,
           imageUrl: product.mainImage,
-          productDescription: truncateText(product.productDescription, 200),
+          productDescription: truncateText(product.productDescription, 100),
         }));
         form.setValue("products", products); // Correctly assign the array
-      } else {
-        toast.info("Có vẻ như giỏ hàng của bạn đang trống");
       }
 
       // form.setValue("name", auth?.user?.name);

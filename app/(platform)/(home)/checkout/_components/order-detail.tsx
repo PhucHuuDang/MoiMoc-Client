@@ -12,7 +12,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { formatCurrency } from "@/handle-transform/formart-currency";
 import { FieldValues, Path, PathValue, UseFormReturn } from "react-hook-form";
 import { truncateText } from "@/app/lodash-config/truncate";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,8 @@ import { ArrowBigLeftDash } from "lucide-react";
 import { z } from "zod";
 import { CheckoutSchemaTypes } from "@/safe-types-zod/checkout";
 import Spinner from "@/components/animata/spinner";
+import { Skeleton } from "@/components/ui/skeleton";
+
 
 interface OrderDetailProps<T extends FieldValues, K> {
   onSubmit?: (values: any) => Promise<void>;
@@ -35,12 +37,8 @@ export const OrderDetail = <T extends FieldValues, K>({
   name,
   disabled,
 }: OrderDetailProps<T, K>) => {
-  // const [ConfirmDialog, confirm] = useConfirm(
-  //   "Payment",
-  //   "Are you sure you want to pay?",
-  // );
-
   const cart = useFromStore(useCartStore, (state) => state.orders);
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Track loading state
 
   let total = 0;
 
@@ -55,25 +53,67 @@ export const OrderDetail = <T extends FieldValues, K>({
     );
   }
 
-  // const handlePayment = async () => {
-  //   const ok = await confirm();
-  //   if (ok) {
-  //     //* do success payment
-  //     try {
-  //     } catch (error) {}
-  //   }
-  // };
+  useEffect(() => {
+    if (cart) {
+      return setIsLoading(true); // Set loading to false once cart data is available
+    }
+  }, [cart]);
 
-  // console.log({ cart });
+ 
+  const SkeletonOrderDetail = () => {
+    return (
+      <Card className="w-[700px] border-moi_moc_green">
+        <CardHeader>
+          <CardTitle className="text-moi_moc_green">Order Detail</CardTitle>
+        </CardHeader>
+        <CardContent className="h-[350px]">
+          <div className="flex h-[350px] flex-col gap-y-1 overflow-y-auto overflow-x-hidden">
+            {[...Array(3)].map((_, index) => (
+              <div key={index} className="flex items-center gap-4 p-2">
+                <Skeleton className="h-16 w-16 rounded" />
+                <div className="flex-1">
+                  <Skeleton className="h-4 w-3/4 mb-2" />
+                  <Skeleton className="h-3 w-1/2" />
+                </div>
+                <Skeleton className="h-8 w-20" />
+              </div>
+            ))}
+          </div>
 
-  // useEffect(() => {
-  //   if (!products) {
-  //     toast.info("Có vẻ như giỏ hàng của bạn đang trống");
-  //     return;
-  //   } else {
-  //     form.setValue(name, products as PathValue<T, Path<T>>);
-  //   }
-  // }, [form, products]);
+          <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
+
+          <div className="space-y-2">
+            {["Subtotal", "Shipping", "Delivery fee"].map((item, index) => (
+              <div key={index} className="flex justify-between">
+                <Skeleton className="h-4 w-20" />
+                <Skeleton className="h-4 w-16" />
+              </div>
+            ))}
+          </div>
+
+          <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
+
+          <div className="flex justify-between">
+            <Skeleton className="h-5 w-32" />
+            <Skeleton className="h-5 w-24" />
+          </div>
+
+          <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
+
+          <div className="flex items-center justify-center">
+            <div className="flex flex-col items-center justify-center gap-y-4">
+              <Skeleton className="h-12 w-56 rounded" />
+              <Skeleton className="h-4 w-[250px]" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
+  if (!isLoading) {
+    return <SkeletonOrderDetail />;
+  }
 
   return (
     <>
@@ -149,7 +189,6 @@ export const OrderDetail = <T extends FieldValues, K>({
                   className="hover:scale-110 transition duration-300 w-56 bg-moi_moc_green border
                     border-moi_moc_green"
                   // onClick={onSubmit}
-                  
                 >
                   {disabled ? (
                     <>
