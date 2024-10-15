@@ -12,6 +12,7 @@ import {
   Package2,
   Settings,
   ShoppingCart,
+  Truck,
   Users2,
 } from "lucide-react";
 import Link from "next/link";
@@ -29,6 +30,11 @@ const navItems = [
     active: true,
   },
   { href: "/dashboard/products", icon: Package, label: "Products" },
+  {
+    href: "/dashboard/delivery-methods",
+    icon: Truck,
+    label: "Delivery",
+  },
   { href: "#", icon: Users2, label: "Customers" },
   { href: "#", icon: LineChart, label: "Analytics" },
 ];

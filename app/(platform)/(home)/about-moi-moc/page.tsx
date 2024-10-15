@@ -92,18 +92,27 @@ const AboutMoiMocPage = () => {
 
         <section className="w-full">
           <div className="relative w-full aspect-[2/1]">
-            <Image
-              // src="/placeholder.svg?height=384&width=768"
-              src="/about-moi-moc-images/lipstick-models.png"
-              alt="Close-up of lips"
-              fill
-              style={{ objectFit: "cover" }}
-              className="w-full h-[700px]"
-            />
+            <div
+              className="relative h-[600px] 2xl:h-[80%] bg-no-repeat bg-cover bg-center"
+              style={{
+                backgroundImage:
+                  // "url('/about-moi-moc-images/lipstick-models.png')",
+                  "url('https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-6/463455434_122096755718575833_2284850166400960507_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeFJ3D60AssDP7QO-tHrB93yXmkw8qqjKWBeaTDyqqMpYPG2ytHKaIuqrCcrKCpT-uBoLoWFDbR4mzqe1ooiBWcx&_nc_ohc=-xBDAVsA20AQ7kNvgFeWDmD&_nc_zt=23&_nc_ht=scontent.fsgn5-10.fna&_nc_gid=AWB0jh5hv6lVYZ7e6YU_YgH&oh=00_AYA2Cqoc3oI_tye0eeUVLNeoq6lHfmgjnJcS56drY3YKrQ&oe=67145CF5')",
+              }}
+            >
+              {/* <Image
+                // src="/placeholder.svg?height=384&width=768"
+                src="/about-moi-moc-images/lipstick-models.png"
+                alt="Close-up of lips"
+                fill
+                style={{ objectFit: "cover" }}
+                className="w-full h-[700px]"
+              /> */}
 
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center text-white">
-                <TypewriterEffectSmooth words={words} />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <TypewriterEffectSmooth words={words} />
+                </div>
               </div>
             </div>
           </div>

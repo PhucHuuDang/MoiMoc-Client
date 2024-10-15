@@ -44,11 +44,11 @@ const SupportLinks = [
 
 const ContactLinks = [
   {
-    label: "Email",
-    info: "danghuuphuc001@gmail.com ",
+    label: "Email:",
+    info: "moimoc.vietnam@gmail.com",
   },
   {
-    label: "Phone number",
+    label: "Số điện thoại chúng tôi:",
     info: "+84 123 456 789",
   },
 ];
@@ -77,7 +77,7 @@ export const Footer = () => {
       <div className="mt-5 grid grid-cols-1 gap-5 px-10 md:grid-cols-3 2xl:px-20">
         <div className="flex flex-col items-start">
           <h1 className="text-lg font-semibold text-moi_moc_green">
-            Support for customers
+            Hỗ trợ khách hàng
           </h1>
           {SupportLinks.map((item, index) => {
             return (
@@ -97,38 +97,49 @@ export const Footer = () => {
             <FormItemsControl
               form={form}
               name="registerEmail"
-              placeholder="Input your email"
-              label="Register to get discount!"
+              placeholder="Nhập email của bạn"
+              label="Đăng ký để nhận ưu đãi!"
               classNameLabel="text-xl font-semibold text-moi_moc_green"
             />
           </FormValues>
 
           <div className="flex items-center gap-x-1">
             <h1 className="text-lg font-semibold text-moi_moc_green">
-              Follow us:
+              Theo dõi chúng tôi:
             </h1>
             <div className="flex items-center justify-center gap-x-2">
-              <Facebook
-                className={`size-8 cursor-pointer text-moi_moc_green ${hoverAnimate}`}
-              />
-
-              <Instagram
-                className={`size-8 cursor-pointer text-moi_moc_green ${hoverAnimate}`}
-              />
+              <a
+                href="https://www.facebook.com/moimoc.vietnam"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Facebook
+                  className={`size-8 cursor-pointer text-moi_moc_green ${hoverAnimate}`}
+                />
+              </a>
+              <a
+                href="https://www.instagram.com/moimoc.vietnam"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Instagram
+                  className={`size-8 cursor-pointer text-moi_moc_green ${hoverAnimate}`}
+                />
+              </a>
             </div>
           </div>
         </div>
 
         <div>
           <h1 className="text-lg font-semibold text-moi_moc_green">
-            Contact us
+            Liên hệ với chúng tôi
           </h1>
 
           {ContactLinks.map((contact, index) => {
             return (
-              <div className="text-moi_moc_green" key={contact.label}>
+              <div className="text-moi_moc_green space-x-2" key={contact.label}>
                 <span className="tex-lg font-semibold">{contact.label}</span>
-                <span>{contact.info}</span>
+                <span className="mr-1">{contact.info}</span>
               </div>
             );
           })}
