@@ -23,17 +23,26 @@ import { Path, PathValue, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthContext } from "@/provider/auth-provider";
 import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
 import { truncateText } from "@/app/lodash-config/truncate";
 import { useCartStore } from "@/store/use-cart-store";
 import { useFromStore } from "@/store/use-from-store";
 import { toast } from "sonner";
+import { useConfirm } from "@/hooks/use-confirm";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export const CheckoutClient = () => {
   const auth = useAuthContext();
+  const [ConfirmDialog, confirm] = useConfirm(
+    "Thanh toán",
+    "Tôi muốn tiến hành thanh toán với đơn hàng của mình?",
+  );
 
-  // console.log(auth?.user);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const loginModal = useLoginDiaLogModal();
 
@@ -63,19 +72,98 @@ export const CheckoutClient = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof CheckoutSchemaTypes>) => {
-    // if (!auth?.isAuth) {
-    //   loginModal.onOpen();
-    //   return;
-    // }
+    // Ensure the user is authenticated
+    if (!auth?.isAuth || !auth?.user || !auth?.token) {
+      loginModal.onOpen(); // Open login modal if not authenticated
+      return;
+    }
 
-    console.log({ values });
+    // Confirm the action with the user
+    const ok = await confirm();
+
+    if (ok) {
+      console.log("Submitting values:", { values });
+
+      setIsLoading(true);
+
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/stripe/payment`,
+          // `http://localhost:3002/stripe/payment`,
+          values,
+          {
+            headers: {
+              Authorization: `Bearer ${auth.token}`, // Include the token
+              // "Content-Type": "application/json", // Explicitly set content type
+            },
+          },
+        );
+
+        if (response.status === 201) {
+          toast.success("Thanh toán thành công");
+          const { paymentUrl } = await response.data;
+
+          console.log({ paymentUrl });
+
+          router.push(paymentUrl);
+        }
+      } catch (error) {
+        console.log({ error });
+        toast.error("Thanh toán thất bại");
+      } finally {
+        setIsLoading(false);
+      }
+
+      // try {
+      //   // Send the POST request to the payment endpoint
+      //   const response = await axios.post(
+      //     `${process.env.NEXT_PUBLIC_API_URL}/stripe/payment`,
+      //     values,
+      //     {
+      //       headers: {
+      //         Authorization: `Bearer ${auth.token}`, // Include the token
+      //         "Content-Type": "application/json", // Explicitly set content type
+      //       },
+      //     },
+      //   );
+
+      //   console.log("Response:", { response });
+
+      //   // Check if the payment was successful
+      //   if (response.status === 201) {
+      //     toast.success("Thanh toán thành công"); // Display success message
+      //     console.log("Payment successful:", response.data); // Log the response data
+      //   } else {
+      //     toast.error("Thanh toán thất bại"); // Display failure message
+      //   }
+      // } catch (error: any) {
+      //   // Enhanced error handling with more detailed logging
+      //   if (error.response) {
+      //     // The request was made, but the server responded with a status code outside the range of 2xx
+      //     console.error("Error response data:", error.response.data);
+      //     console.error("Error status:", error.response.status);
+      //     console.error("Error headers:", error.response.headers);
+      //     toast.error("Lỗi khi thanh toán, vui lòng thử lại.");
+      //   } else if (error.request) {
+      //     // The request was made, but no response was received
+      //     console.error("Error request:", error.request);
+      //     toast.error(
+      //       "Không có phản hồi từ máy chủ, vui lòng kiểm tra kết nối.",
+      //     );
+      //   } else {
+      //     // Something happened in setting up the request
+      //     console.error("Error message:", error.message);
+      //     toast.error("Đã xảy ra lỗi, vui lòng thử lại.");
+      //   }
+      // }
+    }
   };
 
   const cart = useFromStore(useCartStore, (state) => state.orders);
 
   // console.log({ products });
   const products = cart?.map((product) => {
-    const truncateDescription = truncateText(product.productDescription, 200);
+    const truncateDescription = truncateText(product.productDescription, 80);
 
     return {
       productId: product.id,
@@ -127,41 +215,44 @@ export const CheckoutClient = () => {
   }, [auth?.isAuth, auth?.user, form, products]);
 
   return (
-    <div className="h-full overflow-x-hidden pt-20">
-      <div className="flex items-center justify-center py-10 pt-20">
-        <CheckoutHeader />
-      </div>
-      <FormValues form={form} onSubmit={onSubmit}>
-        <div className="my-5 flex justify-center gap-x-8">
-          <div className="flex flex-col items-center gap-y-8">
-            <ReceivingInformation
-              form={form}
-              address="address"
-              phone="phone"
-              name="user.name"
-            />
-
-            <FormItemsControl
-              type="hidden"
-              name="user"
-              // value={auth?.user}
-              form={form}
-            />
-
-            <DeliveryMethod form={form} name="method" />
-
-            <PaymentMethod form={form} name="paymentMethod" />
-            <DiscountCode form={form} name="discountCode" />
-          </div>
-
-          <OrderDetail form={form} name="products" />
+    <>
+      <ConfirmDialog />
+      <div className="h-full overflow-x-hidden pt-20">
+        <div className="flex items-center justify-center py-10 pt-20">
+          <CheckoutHeader />
         </div>
-      </FormValues>
-      <Separator className="mx-1 my-16 h-0.5 bg-moi_moc_green" />
+        <FormValues form={form} onSubmit={onSubmit}>
+          <div className="my-5 flex justify-center gap-x-8">
+            <div className="flex flex-col items-center gap-y-8">
+              <ReceivingInformation
+                form={form}
+                address="address"
+                phone="phone"
+                name="user.name"
+              />
 
-      <div className="py-8">
-        <Footer />
+              <FormItemsControl
+                type="hidden"
+                name="user"
+                // value={auth?.user}
+                form={form}
+              />
+
+              <DeliveryMethod form={form} name="method" />
+
+              <PaymentMethod form={form} name="paymentMethod" />
+              <DiscountCode form={form} name="discountCode" />
+            </div>
+
+            <OrderDetail form={form} name="products" disabled={isLoading} />
+          </div>
+        </FormValues>
+        <Separator className="mx-1 my-16 h-0.5 bg-moi_moc_green" />
+
+        <div className="py-8">
+          <Footer />
+        </div>
       </div>
-    </div>
+    </>
   );
 };

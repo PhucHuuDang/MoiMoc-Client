@@ -66,7 +66,7 @@ export const CheckoutSchemaTypes = z.object({
   user: z.object({
     id: z.number(),
     name: z.string(),
-    email: z.string().optional(),
+    email: z.string().optional().nullable(),
     phoneAuth: z.string(),
     avatar: z.string(),
     role: z.string(),

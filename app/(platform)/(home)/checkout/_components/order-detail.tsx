@@ -17,22 +17,28 @@ import { FormItemsControl } from "@/components/_global-components-reused/form/fo
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ArrowBigLeftDash } from "lucide-react";
+import { z } from "zod";
+import { CheckoutSchemaTypes } from "@/safe-types-zod/checkout";
+import Spinner from "@/components/animata/spinner";
 
 interface OrderDetailProps<T extends FieldValues, K> {
-  onSubmit?: (data: T) => void;
+  onSubmit?: (values: any) => Promise<void>;
   form: UseFormReturn<T>;
   name: Path<T>;
+
+  disabled?: boolean;
 }
 
 export const OrderDetail = <T extends FieldValues, K>({
   onSubmit,
   form,
   name,
+  disabled,
 }: OrderDetailProps<T, K>) => {
-  const [ConfirmDialog, confirm] = useConfirm(
-    "Payment",
-    "Are you sure you want to pay?",
-  );
+  // const [ConfirmDialog, confirm] = useConfirm(
+  //   "Payment",
+  //   "Are you sure you want to pay?",
+  // );
 
   const cart = useFromStore(useCartStore, (state) => state.orders);
 
@@ -49,12 +55,14 @@ export const OrderDetail = <T extends FieldValues, K>({
     );
   }
 
-  const handlePayment = async () => {
-    // const ok = await confirm();
-    // if (ok) {
-    //   //* do success payment
-    // }
-  };
+  // const handlePayment = async () => {
+  //   const ok = await confirm();
+  //   if (ok) {
+  //     //* do success payment
+  //     try {
+  //     } catch (error) {}
+  //   }
+  // };
 
   // console.log({ cart });
 
@@ -69,7 +77,7 @@ export const OrderDetail = <T extends FieldValues, K>({
 
   return (
     <>
-      <ConfirmDialog />
+      {/* <ConfirmDialog /> */}
       <Card className="w-[700px] border-moi_moc_green">
         <CardHeader>
           <CardTitle className="text-moi_moc_green">Order Detail</CardTitle>
@@ -136,13 +144,21 @@ export const OrderDetail = <T extends FieldValues, K>({
               {/* <FormSubmit variant="moiMoc" className="h-12 w-44">
                 Payment
               </FormSubmit> */}
-              <FormSubmit asChild>
+              <FormSubmit asChild disabled={disabled}>
                 <RainbowButton
                   className="hover:scale-110 transition duration-300 w-56 bg-moi_moc_green border
                     border-moi_moc_green"
-                  onClick={handlePayment}
+                  // onClick={onSubmit}
+                  
                 >
-                  Payment
+                  {disabled ? (
+                    <>
+                      <Spinner className="size-5" />
+                      <span>Đang xử lý...</span>
+                    </>
+                  ) : (
+                    "Thanh toán"
+                  )}
                 </RainbowButton>
               </FormSubmit>
 

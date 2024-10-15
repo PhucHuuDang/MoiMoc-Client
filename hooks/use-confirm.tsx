@@ -1,5 +1,6 @@
 "use client";
 
+import Spinner from "@/components/animata/spinner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,10 +20,15 @@ export const useConfirm = (
   const [promise, setPromise] = useState<{
     resolve: (value: boolean) => void;
   } | null>(null);
+  const [loading, setLoading] = useState(false); // Loading state
+
+  const wait = async (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   const refOutside = useRef<HTMLDivElement>(null);
 
   const confirm = () => {
+    wait(700);
     return new Promise((resolve, reject) => {
       setPromise({ resolve });
     });
@@ -30,10 +36,14 @@ export const useConfirm = (
 
   const handleClose = () => {
     setPromise(null);
+    setLoading(false); //
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    setLoading(true); // Set loading when confirmed
+    await wait(200);
     promise?.resolve(true);
+    setLoading(false); // Set loading when confirmed
     handleClose();
   };
 
@@ -54,11 +64,27 @@ export const useConfirm = (
           </DialogHeader>
 
           <DialogFooter className="pt-2">
-            <Button variant="outline" onClick={handleCancel}>
+            <Button
+              variant="outline"
+              onClick={handleCancel}
+              className="w-28"
+              disabled={loading}
+            >
               Cancel
             </Button>
-            <Button variant="moiMoc" onClick={handleConfirm}>
-              Confirm
+            <Button
+              variant="moiMoc"
+              onClick={handleConfirm}
+              className="w-28"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Spinner className="size-4" />
+                </>
+              ) : (
+                "Confirm"
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>
