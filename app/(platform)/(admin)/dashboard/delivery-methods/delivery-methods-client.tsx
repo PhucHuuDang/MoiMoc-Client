@@ -525,7 +525,7 @@ export default function DeliveryMethodsClient() {
                   onCheckedChange={() => handleToggleActive(method.id)}
                 />
               </div>
-              <p className="text-sm text-muted-foreground mb-4">
+              <span className="text-sm text-muted-foreground mb-4">
                 Estimated delivery time:
                 <Input
                   value={method.estimatedDays}
@@ -535,7 +535,7 @@ export default function DeliveryMethodsClient() {
                   className="w-12 sm:w-16 inline-block mx-1 text-sm"
                 />
                 {parseInt(method.estimatedDays) === 1 ? "day" : "days"}
-              </p>
+              </span>
               <div className="flex justify-between text-xs sm:text-sm">
                 <div>
                   <Truck className="inline-block mr-1 h-3 w-3 sm:h-4 sm:w-4" />

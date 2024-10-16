@@ -12,6 +12,10 @@ export const deliveryMethods = [
     label: "Standard",
   },
   {
+    value: "stripe",
+    label: "Stripe",
+  },
+  {
     value: "express",
     label: "Express",
   },
@@ -68,7 +72,7 @@ export const CheckoutSchemaTypes = z.object({
     name: z.string(),
     email: z.string().optional().nullable(),
     phoneAuth: z.string(),
-    avatar: z.string(),
+    avatar: z.string().optional().nullable(),
     role: z.string(),
   }),
 

@@ -108,7 +108,7 @@ export const Footer = () => {
               Theo dõi chúng tôi:
             </h1>
             <div className="flex items-center justify-center gap-x-2">
-              <a
+              <Link
                 href="https://www.facebook.com/moimoc.vietnam"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -116,8 +116,8 @@ export const Footer = () => {
                 <Facebook
                   className={`size-8 cursor-pointer text-moi_moc_green ${hoverAnimate}`}
                 />
-              </a>
-              <a
+              </Link>
+              <Link
                 href="https://www.instagram.com/moimoc.vietnam"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -125,7 +125,8 @@ export const Footer = () => {
                 <Instagram
                   className={`size-8 cursor-pointer text-moi_moc_green ${hoverAnimate}`}
                 />
-              </a>
+              </Link>
+
             </div>
           </div>
         </div>
@@ -139,7 +140,7 @@ export const Footer = () => {
             return (
               <div className="text-moi_moc_green space-x-2" key={contact.label}>
                 <span className="tex-lg font-semibold">{contact.label}</span>
-                <span className="mr-1">{contact.info}</span>
+                <span className="underline">{contact.info}</span>
               </div>
             );
           })}
