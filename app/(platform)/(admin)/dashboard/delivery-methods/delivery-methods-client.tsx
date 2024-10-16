@@ -61,11 +61,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DeliveryNewMethod } from "./_components-delivery-methods/delivery-new-method";
-import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
+import { ActiveDialog } from "./_components-delivery-methods/active-dialog";
 
 type DeliveryMethod = {
   id: number;
-  name: string;
+  method: string;
   price: number;
   estimatedDays: string;
   active: boolean;
@@ -74,53 +75,27 @@ type DeliveryMethod = {
 };
 
 export default function DeliveryMethodsClient() {
-  const [deliveryMethods, setDeliveryMethods] = useState<DeliveryMethod[]>([
-    {
-      id: 1,
-      name: "Standard Shipping",
-      price: 137770,
-      estimatedDays: "3-5",
-      active: true,
-      ordersLastMonth: 1200,
-      revenue: 165324000,
+  const {
+    isPending,
+    isFetching,
+    data: deliveryMethodsData,
+    isError,
+    error,
+  } = useQuery<DeliveryMethod[]>({
+    queryKey: ["delivery-methods"],
+    queryFn: async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/delivery-methods`,
+      );
+      return response.json();
     },
-    {
-      id: 2,
-      name: "Express Shipping",
-      price: 344770,
-      estimatedDays: "1-2",
-      active: true,
-      ordersLastMonth: 800,
-      revenue: 275816000,
-    },
-    {
-      id: 3,
-      name: "Same Day Delivery",
-      price: 689770,
-      estimatedDays: "0",
-      active: false,
-      ordersLastMonth: 150,
-      revenue: 103465500,
-    },
-    {
-      id: 4,
-      name: "International Shipping",
-      price: 574770,
-      estimatedDays: "5-10",
-      active: true,
-      ordersLastMonth: 300,
-      revenue: 172431000,
-    },
-    {
-      id: 5,
-      name: "Economy Shipping",
-      price: 91770,
-      estimatedDays: "7-10",
-      active: true,
-      ordersLastMonth: 500,
-      revenue: 45885000,
-    },
-  ]);
+  });
+
+  const [deliveryMethods, setDeliveryMethods] = useState<DeliveryMethod[]>(
+    deliveryMethodsData || [],
+  );
+
+  console.log({ deliveryMethodsData });
 
   const [newMethod, setNewMethod] = useState<Partial<DeliveryMethod>>({});
   const [searchTerm, setSearchTerm] = useState("");
@@ -131,28 +106,28 @@ export default function DeliveryMethodsClient() {
     null,
   );
   const [activeTab, setActiveTab] = useState("all");
-  const [sortBy, setSortBy] = useState("name");
+  const [sortBy, setSortBy] = useState("method");
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     document.body.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
 
-  const handleAddMethod = () => {
-    if (newMethod.name && newMethod.price && newMethod.estimatedDays) {
-      setDeliveryMethods([
-        ...deliveryMethods,
-        {
-          ...newMethod,
-          id: Date.now(),
-          active: true,
-          ordersLastMonth: 0,
-          revenue: 0,
-        } as DeliveryMethod,
-      ]);
-      setNewMethod({});
-    }
-  };
+  // const handleAddMethod = () => {
+  //   if (newMethod.method && newMethod.price && newMethod.estimatedDays) {
+  //     setDeliveryMethods([
+  //       ...deliveryMethods,
+  //       {
+  //         ...newMethod,
+  //         id: Date.now(),
+  //         active: true,
+  //         ordersLastMonth: 0,
+  //         revenue: 0,
+  //       } as DeliveryMethod,
+  //     ]);
+  //     setNewMethod({});
+  //   }
+  // };
 
   const handleDeleteMethod = () => {
     if (deletingMethod) {
@@ -199,30 +174,32 @@ export default function DeliveryMethodsClient() {
     );
   };
 
-  const filteredMethods = deliveryMethods
-    .filter(
+  const filteredMethods = deliveryMethodsData
+    ?.filter(
       (method) =>
-        method.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        method.method.toLowerCase().includes(searchTerm.toLowerCase()) &&
         (activeTab === "all" ||
           (activeTab === "active" && method.active) ||
           (activeTab === "inactive" && !method.active)),
     )
     .sort((a, b) => {
-      if (sortBy === "name") return a.name.localeCompare(b.name);
+      if (sortBy === "name") return a.method.localeCompare(b.method);
       if (sortBy === "price") return a.price - b.price;
       if (sortBy === "orders") return b.ordersLastMonth - a.ordersLastMonth;
       return 0;
     });
 
-  const totalRevenue = deliveryMethods.reduce(
+  console.log({ filteredMethods });
+
+  const totalRevenue = deliveryMethodsData?.reduce(
     (sum, method) => sum + method.revenue,
     0,
   );
-  const totalOrders = deliveryMethods.reduce(
+  const totalOrders = deliveryMethodsData?.reduce(
     (sum, method) => sum + method.ordersLastMonth,
     0,
   );
-  const activeMethodsCount = deliveryMethods.filter(
+  const activeMethodsCount = deliveryMethodsData?.filter(
     (method) => method.active,
   ).length;
 
@@ -255,7 +232,7 @@ export default function DeliveryMethodsClient() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="flex flex-col">
               <span className="text-xl sm:text-2xl font-bold">
-                {totalRevenue.toLocaleString("vi-VN")} ₫
+                {totalRevenue?.toLocaleString("vi-VN")} ₫
               </span>
               <span className="text-sm text-muted-foreground">
                 Total Revenue
@@ -320,14 +297,14 @@ export default function DeliveryMethodsClient() {
       </Tabs>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filteredMethods.map((method) => (
+        {filteredMethods?.map((method) => (
           <Card
             key={method.id}
             className="transition-all duration-300 hover:shadow-lg"
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                {method.name}
+                {method.method}
               </CardTitle>
               <div className="flex space-x-2">
                 <DropdownMenu>
@@ -358,11 +335,11 @@ export default function DeliveryMethodsClient() {
                             </Label>
                             <Input
                               id="edit-name"
-                              value={method.name}
+                              value={method.method}
                               onChange={(e) =>
                                 setEditingMethod({
                                   ...method,
-                                  name: e.target.value,
+                                  method: e.target.value,
                                 })
                               }
                               className="col-span-3"
@@ -424,7 +401,7 @@ export default function DeliveryMethodsClient() {
                           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                           <AlertDialogDescription>
                             This action cannot be undone. This will permanently
-                            delete the delivery method "{method.name}".
+                            delete the delivery method "{method.method}".
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
@@ -457,9 +434,13 @@ export default function DeliveryMethodsClient() {
                   />
                   <span className="ml-1">₫</span>
                 </div>
-                <Switch
+                {/* <Switch
                   checked={method.active}
                   onCheckedChange={() => handleToggleActive(method.id)}
+                /> */}
+                <ActiveDialog
+                  active={method.active}
+                  deliveryMethodId={method.id}
                 />
               </div>
               <span className="text-sm text-muted-foreground mb-4">
@@ -480,7 +461,7 @@ export default function DeliveryMethodsClient() {
                 </div>
                 <div>
                   <DollarSign className="inline-block mr-1 h-3 w-3 sm:h-4 sm:w-4" />
-                  {method.revenue.toLocaleString("vi-VN")} ₫
+                  {method.revenue && method.revenue.toLocaleString("vi-VN")} ₫
                 </div>
               </div>
             </CardContent>
