@@ -15,7 +15,7 @@ const LoadingMapsPage = () => {
             outerSize="size-8"
             className="bg-gradient-to-bl from-moi_moc_green to-blue-400"
           />
-          <p className="text-lg font-bold">Loading...</p>
+          <span className="text-lg font-bold">Loading...</span>
         </div>
       </div>
     </div>

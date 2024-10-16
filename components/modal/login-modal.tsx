@@ -60,9 +60,9 @@ export const LoginModal = () => {
       setIsLoading(true);
       const result = await login(values);
       if (!result) {
-        toast.error("Login failed. Please check your accounts and try again.");
+        toast.error("Đăng nhập thất bại. Vui lòng thử lại sau.");
       } else {
-        toast.success("Login successful!");
+        toast.success("Đăng nhập thành công!");
         storeTokenCookies(result.token, result.refreshToken);
         form.setValue("phone", "");
         form.setValue("password", "");
@@ -70,7 +70,7 @@ export const LoginModal = () => {
       }
     } catch (error) {
       console.error("Login error:", error);
-      toast.error("An error occurred during login. Please try again later.");
+      toast.error("Có lỗi xảy ra vui lỏng kiểm tra lại thông tin đăng nhập.");
     } finally {
       setIsLoading(false);
     }

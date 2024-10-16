@@ -60,6 +60,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DeliveryNewMethod } from "./_components-delivery-methods/delivery-new-method";
+import { toast } from "sonner";
 
 type DeliveryMethod = {
   id: number;
@@ -229,7 +231,7 @@ export default function DeliveryMethodsClient() {
       className={`container mx-auto p-4 sm:p-6 max-w-7xl ${isDarkMode ? "dark" : ""}`}
     >
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-        <h1 className="text-2xl sm:text-3xl font-bold">
+        <h1 className="text-2xl sm:text-3xl font-bold text-primary">
           Manage Delivery Methods
         </h1>
         <Button
@@ -293,6 +295,7 @@ export default function DeliveryMethodsClient() {
               className="pl-8 w-full sm:w-[300px]"
             />
           </div>
+
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-full sm:w-[180px]">
               <SelectValue placeholder="Sort by" />
@@ -304,74 +307,8 @@ export default function DeliveryMethodsClient() {
             </SelectContent>
           </Select>
         </div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="w-full sm:w-auto">
-              <Plus className="mr-2 h-4 w-4" /> Add New Method
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Add New Delivery Method</DialogTitle>
-              <DialogDescription>
-                Create a new delivery method for your store.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  value={newMethod.name || ""}
-                  onChange={(e) =>
-                    setNewMethod({ ...newMethod, name: e.target.value })
-                  }
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="price" className="text-right">
-                  Price (₫)
-                </Label>
-                <Input
-                  id="price"
-                  type="number"
-                  value={newMethod.price || ""}
-                  onChange={(e) =>
-                    setNewMethod({
-                      ...newMethod,
-                      price: parseFloat(e.target.value),
-                    })
-                  }
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="days" className="text-right">
-                  Est. Days
-                </Label>
-                <Input
-                  id="days"
-                  value={newMethod.estimatedDays || ""}
-                  onChange={(e) =>
-                    setNewMethod({
-                      ...newMethod,
-                      estimatedDays: e.target.value,
-                    })
-                  }
-                  className="col-span-3"
-                />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button type="submit" onClick={handleAddMethod}>
-                Add Method
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+
+        <DeliveryNewMethod />
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
