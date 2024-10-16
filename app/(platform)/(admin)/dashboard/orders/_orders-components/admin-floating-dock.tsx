@@ -1,5 +1,6 @@
 "use client";
 import {
+  Banknote,
   Home,
   LineChart,
   Package,
@@ -45,6 +46,11 @@ export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
     {
       href: "/dashboard/delivery-methods",
       icon: <Truck className={`${styleDockItems}`} />,
+      title: "Delivery",
+    },
+    {
+      href: "/dashboard/payment-methods",
+      icon: <Banknote className={`${styleDockItems}`} />,
       title: "Delivery",
     },
     // {

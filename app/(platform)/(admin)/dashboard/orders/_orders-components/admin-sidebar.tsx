@@ -6,6 +6,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
+  Banknote,
+  HandCoins,
   Home,
   LineChart,
   Package,
@@ -35,8 +37,13 @@ const navItems = [
     icon: Truck,
     label: "Delivery",
   },
-  { href: "#", icon: Users2, label: "Customers" },
-  { href: "#", icon: LineChart, label: "Analytics" },
+  {
+    href: "/dashboard/payment-methods",
+    icon: Banknote,
+    label: "Payments methods",
+  },
+  // { href: "#", icon: Users2, label: "Customers" },
+  // { href: "#", icon: LineChart, label: "Analytics" },
 ];
 
 const settingsItem = { href: "#", icon: Settings, label: "Settings" };

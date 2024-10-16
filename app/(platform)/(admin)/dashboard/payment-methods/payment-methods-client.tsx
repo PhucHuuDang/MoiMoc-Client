@@ -225,7 +225,7 @@ export default function PaymentMethodsClient() {
   return (
     <div className="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">
+        <h1 className="text-3xl font-bold text-primary">
           Payment Methods Management
         </h1>
         <div className="flex items-center space-x-4">
@@ -237,7 +237,7 @@ export default function PaymentMethodsClient() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Notifications</p>
+                <span>Notifications</span>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -554,10 +554,10 @@ export default function PaymentMethodsClient() {
                   <Label className="text-base">
                     Allow Multiple Payment Methods
                   </Label>
-                  <p className="text-sm text-muted-foreground">
+                  <span className="text-sm text-muted-foreground">
                     Allow customers to use multiple payment methods in a single
                     transaction
-                  </p>
+                  </span>
                 </div>
                 <Switch
                   defaultChecked
@@ -570,9 +570,9 @@ export default function PaymentMethodsClient() {
                   <Label className="text-base">
                     Auto-activate New Payment Methods
                   </Label>
-                  <p className="text-sm text-muted-foreground">
+                  <span className="text-sm text-muted-foreground">
                     Automatically activate new payment methods when added
-                  </p>
+                  </span>
                 </div>
                 <Switch aria-label="Auto-activate new payment methods" />
               </div>
