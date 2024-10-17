@@ -82,7 +82,7 @@ export const DeliveryNewMethod = () => {
         price: 0,
         estimatedDays: "",
       });
-      client.invalidateQueries({queryKey: ["delivery-methods"]});
+      client.invalidateQueries({ queryKey: ["delivery-methods"] });
       setIsDialogOpen(false);
     },
     onError: (error: any) => {

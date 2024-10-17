@@ -5,7 +5,7 @@ import PaymentMethodsSkeleton from "./payment-skeleton";
 const PaymentMethodsPage = () => {
   return (
     <Suspense fallback={<PaymentMethodsSkeleton />}>
-      <PaymentMethodsClient />;
+      <PaymentMethodsClient />
     </Suspense>
   );
 };

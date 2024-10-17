@@ -61,8 +61,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DeliveryNewMethod } from "./_components-delivery-methods/delivery-new-method";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ActiveDialog } from "./_components-delivery-methods/active-dialog";
+import { EditDeliveryMethod } from "./_components-delivery-methods/edit-delivery-method";
+import { ConfirmModal } from "@/components/_global-components-reused/confirm-modal";
+import axios from "axios";
+import { toast } from "sonner";
 
 type DeliveryMethod = {
   id: number;
@@ -75,6 +79,8 @@ type DeliveryMethod = {
 };
 
 export default function DeliveryMethodsClient() {
+  const client = useQueryClient();
+
   const {
     isPending,
     isFetching,
@@ -90,6 +96,8 @@ export default function DeliveryMethodsClient() {
       return response.json();
     },
   });
+
+  const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false);
 
   const [deliveryMethods, setDeliveryMethods] = useState<DeliveryMethod[]>(
     deliveryMethodsData || [],
@@ -203,6 +211,30 @@ export default function DeliveryMethodsClient() {
     (method) => method.active,
   ).length;
 
+  const onDelete = async (
+    deliveryMethodId: number,
+  ): Promise<true | undefined> => {
+    setIsLoadingDelete(true);
+
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/delivery-methods/${deliveryMethodId}`,
+      );
+
+      if (response.status === 200) {
+        toast.success("Phương thức vận chuyển đã được xóa thành công");
+        client.invalidateQueries({ queryKey: ["delivery-methods"] });
+        return true;
+      }
+    } catch (error) {
+      console.error("Lỗi xóa phương thức vận chuyển", error);
+      toast.error("Đã xảy ra lỗi khi xóa phương thức vận chuyển");
+      return;
+    } finally {
+      setIsLoadingDelete(false);
+    }
+  };
+
   return (
     <div
       className={`container mx-auto p-4 sm:p-6 max-w-7xl ${isDarkMode ? "dark" : ""}`}
@@ -314,7 +346,7 @@ export default function DeliveryMethodsClient() {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <Dialog>
+                    {/* <Dialog>
                       <DialogTrigger asChild>
                         <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                           <Edit className="mr-2 h-4 w-4" />
@@ -385,38 +417,31 @@ export default function DeliveryMethodsClient() {
                           </Button>
                         </DialogFooter>
                       </DialogContent>
-                    </Dialog>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
+                    </Dialog> */}
+                    <EditDeliveryMethod
+                      defaultValues={{
+                        method: method.method,
+                        price: method.price,
+                        estimatedDays: method.estimatedDays,
+                      }}
+                      deliveryMethodId={method.id}
+                    />
+
+                    <ConfirmModal
+                      action={() => onDelete(method.id)}
+                      tittle="Bạn có chắc chắn muốn xóa phuơng thức này?"
+                      description="Nếu đồng ý, phương thức vận chuyển sẽ bị xóa vĩnh viễn!"
+                      trigger={
                         <DropdownMenuItem
                           onSelect={(e) => e.preventDefault()}
-                          className="text-red-600"
+                          className="text-red-600 w-full"
                         >
                           <Trash2 className="mr-2 h-4 w-4" />
-                          Delete
+                          Xoá vĩnh viễn
                         </DropdownMenuItem>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            This action cannot be undone. This will permanently
-                            delete the delivery method "{method.method}".
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={() => {
-                              setDeletingMethod(method);
-                              handleDeleteMethod();
-                            }}
-                          >
-                            Delete
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
+                      }
+                      isPending={isLoadingDelete}
+                    />
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>

@@ -1,28 +1,55 @@
+"use client";
+
 import { Logo } from "@/components/_global-components-reused/logo";
 import Spinner from "@/components/animata/spinner";
-import { LoaderCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
-const Loading = () => {
+export default function Loading() {
   return (
     <div
-      className="absolute inset-0 -z-10 flex h-full w-full items-center justify-center
-        bg-moi_moc_green/30 dark:bg-slate-200/10 backdrop-blur-2xl"
+      className="flex h-screen w-full items-center justify-center bg-gradient-to-br from-blue-50
+        to-pink-50"
     >
-      <div className="flex flex-col items-center justify-center gap-y-1">
-        <Logo height={100} width={300} />
+      <motion.div
+        className="flex flex-col items-center justify-center space-y-8 rounded-2xl bg-white p-12
+          shadow-lg"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.2 }}
+      >
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+        >
+          <Logo className="mb-4" />
+        </motion.div>
 
-        <div className="flex items-center gap-x-1 justify-center">
-          {/* <LoaderCircle className="size-6 animate-spin" /> */}
+        <motion.div
+          className="flex items-center justify-center space-x-4"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
           <Spinner
-            childSize="size-6"
-            outerSize="size-8"
-            className="bg-gradient-to-bl from-moi_moc_green to-blue-400"
+            outerSize="h-10 w-10"
+            childSize="h-8 w-8"
+            className="bg-gradient-to-bl from-pink-500 to-blue-600"
           />
-          <span className="text-lg font-bold">Loading...</span>
-        </div>
-      </div>
+          <span className="text-xl font-semibold text-gray-700">
+            Loading...
+          </span>
+        </motion.div>
+
+        <motion.div
+          className="mt-4 text-center text-sm text-gray-500"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          Hãy chờ trong giây lát!
+        </motion.div>
+      </motion.div>
     </div>
   );
-};
-
-export default Loading;
+}
