@@ -89,138 +89,80 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { AddPaymentMethod } from "./_components-payments-methods/add-payment-methods";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import PaymentMethodsSkeleton from "./payment-skeleton";
+import { ActionsControl } from "@/components/_global-components-reused/actions-control";
+import { EditPaymentMethod } from "./_components-payments-methods/edit.payment-method";
+import { ConfirmModal } from "@/components/_global-components-reused/confirm-modal";
+import axios from "axios";
+import { toast } from "sonner";
+import { ToggleStatusPayment } from "./_components-payments-methods/toggle-status-payment";
+import { capitalize } from "lodash";
 
 interface PaymentMethod {
-  id: string;
-  name: string;
+  id: number;
+  method: string;
   type: string;
   fee: string;
-  active: boolean;
-  transactions: number;
+  status: boolean;
+  transaction: number;
 }
 
-const initialPaymentMethods: PaymentMethod[] = [
-  {
-    id: "1",
-    name: "Credit Card",
-    type: "card",
-    fee: "2.9% + $0.30",
-    active: true,
-    transactions: 1200,
-  },
-  {
-    id: "2",
-    name: "PayPal",
-    type: "digital",
-    fee: "3.49% + $0.49",
-    active: true,
-    transactions: 800,
-  },
-  {
-    id: "3",
-    name: "Bank Transfer",
-    type: "bank",
-    fee: "$0.25 fixed",
-    active: false,
-    transactions: 300,
-  },
-  {
-    id: "4",
-    name: "Apple Pay",
-    type: "digital",
-    fee: "2.9%",
-    active: true,
-    transactions: 600,
-  },
-  {
-    id: "5",
-    name: "Google Pay",
-    type: "digital",
-    fee: "2.9%",
-    active: false,
-    transactions: 400,
-  },
-];
-
 export default function PaymentMethodsClient() {
-  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>(
-    initialPaymentMethods,
-  );
-  const [newMethod, setNewMethod] = useState<PaymentMethod>({
-    id: "",
-    name: "",
-    type: "",
-    fee: "",
-    active: true,
-    transactions: 0,
+  const client = useQueryClient();
+
+  const {
+    isFetching,
+    isLoading,
+    data: paymentMethods,
+  } = useQuery<PaymentMethod[]>({
+    queryKey: ["payment-methods"],
+    queryFn: async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/payment-methods`,
+      );
+      return response.json();
+    },
   });
-  const [showDialog, setShowDialog] = useState(false);
+
   const [keyword, setKeyword] = useState("");
   const [filterType, setFilterType] = useState("all");
-  const [confirmAction, setConfirmAction] = useState<{
-    action: string;
-    id: string;
-  } | null>(null);
-  const [showConfirmation, setShowConfirmation] = useState(false);
 
-  const addOrUpdateMethod = () => {
-    if (newMethod.id) {
-      setPaymentMethods(
-        paymentMethods.map((p) =>
-          p.id === newMethod.id ? { ...newMethod } : p,
-        ),
+  const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false);
+
+  const deleteMethod = async (id: number) => {
+    setIsLoadingDelete(true);
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/payment-methods/${id}`,
       );
-    } else {
-      const newPaymentMethod = {
-        ...newMethod,
-        id: Date.now().toString(),
-      };
-      setPaymentMethods([...paymentMethods, newPaymentMethod]);
-    }
-    setShowDialog(false);
-    setNewMethod({
-      id: "",
-      name: "",
-      type: "",
-      fee: "",
-      active: true,
-      transactions: 0,
-    });
-  };
-
-  const deleteMethod = (id: string) => {
-    setPaymentMethods(paymentMethods.filter((method) => method.id !== id));
-    setShowConfirmation(false);
-  };
-
-  const toggleStatus = (id: string) => {
-    setPaymentMethods(
-      paymentMethods.map((method) =>
-        method.id === id ? { ...method, active: !method.active } : method,
-      ),
-    );
-    setShowConfirmation(false);
-  };
-
-  const editMethod = (id: string) => {
-    const methodToEdit = paymentMethods.find((p) => p.id === id);
-    if (methodToEdit) {
-      setNewMethod({ ...methodToEdit });
-      setShowDialog(true);
+      if (response.status === 200) {
+        toast.success("Phương thức thanh toán đã được xóa thành công");
+        client.invalidateQueries({ queryKey: ["payment-methods"] });
+      }
+    } catch (error) {
+      toast.error("Đã xảy ra lỗi khi xóa phương thức thanh toán");
+      console.error({ error });
+    } finally {
+      setIsLoadingDelete(false);
     }
   };
 
-  const filteredMethods = paymentMethods.filter(
+  const filteredMethods = paymentMethods?.filter(
     (method) =>
-      (method.name.toLowerCase().includes(keyword.toLowerCase()) ||
+      (method.method.toLowerCase().includes(keyword.toLowerCase()) ||
         method.type.toLowerCase().includes(keyword.toLowerCase())) &&
       (filterType === "all" || method.type === filterType),
   );
 
-  const chartData = paymentMethods.map((method) => ({
-    name: method.name,
-    transactions: method.transactions,
+  // Todo: Chart Data
+  const chartData = paymentMethods?.map((method) => ({
+    method: method.method,
+    transactions: method.transaction,
   }));
+
+  if (isFetching || isLoading) return <PaymentMethodsSkeleton />;
 
   return (
     <div className="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
@@ -290,7 +232,8 @@ export default function PaymentMethodsClient() {
                       <SelectItem value="bank">Bank</SelectItem>
                     </SelectContent>
                   </Select>
-                  <Dialog open={showDialog} onOpenChange={setShowDialog}>
+                  <AddPaymentMethod />
+                  {/* <Dialog open={showDialog} onOpenChange={setShowDialog}>
                     <DialogTrigger asChild>
                       <Button className="bg-primary hover:bg-primary/90">
                         <Plus className="mr-2 h-4 w-4" /> Add New
@@ -367,10 +310,10 @@ export default function PaymentMethodsClient() {
                         </Button>
                       </DialogFooter>
                     </DialogContent>
-                  </Dialog>
+                  </Dialog> */}
                 </div>
               </div>
-              {filteredMethods.length === 0 ? (
+              {filteredMethods?.length === 0 ? (
                 <Alert>
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>No results found</AlertTitle>
@@ -393,62 +336,56 @@ export default function PaymentMethodsClient() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {filteredMethods.map((method) => (
+                      {filteredMethods?.map((method) => (
                         <TableRow key={method.id}>
-                          <TableCell className="font-medium">
-                            {method.name}
+                          <TableCell className="font-medium text-primary">
+                            {method.method}
                           </TableCell>
-                          <TableCell>{method.type}</TableCell>
+                          <TableCell>{capitalize(method.type)}</TableCell>
                           <TableCell>{method.fee}</TableCell>
                           <TableCell>
                             <Badge
-                              variant={method.active ? "moiMoc" : "secondary"}
+                              variant={method.status ? "moiMoc" : "secondary"}
                             >
-                              {method.active ? "Active" : "Inactive"}
+                              {method.status ? "Hoạt động" : "Không hoạt động"}
                             </Badge>
                           </TableCell>
-                          <TableCell>{method.transactions}</TableCell>
+                          <TableCell>
+                            {method.transaction ?? "loading..."}
+                          </TableCell>
                           <TableCell>
                             <div className="flex justify-end items-center space-x-2">
-                              <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                  <Button variant="ghost" size="icon">
-                                    <MoreHorizontal className="h-4 w-4" />
-                                    <span className="sr-only">Open menu</span>
-                                  </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                  <DropdownMenuItem
-                                    onSelect={() => {
-                                      setConfirmAction({
-                                        action: method.active
-                                          ? "deactivate"
-                                          : "activate",
-                                        id: method.id,
-                                      });
-                                      setShowConfirmation(true);
-                                    }}
-                                  >
-                                    {method.active ? "Deactivate" : "Activate"}
-                                  </DropdownMenuItem>
-                                  <DropdownMenuItem
-                                    onSelect={() => editMethod(method.id)}
-                                  >
-                                    Edit
-                                  </DropdownMenuItem>
-                                  <DropdownMenuItem
-                                    onSelect={() => {
-                                      setConfirmAction({
-                                        action: "delete",
-                                        id: method.id,
-                                      });
-                                      setShowConfirmation(true);
-                                    }}
-                                  >
-                                    Delete
-                                  </DropdownMenuItem>
-                                </DropdownMenuContent>
-                              </DropdownMenu>
+                              <ActionsControl>
+                                <ToggleStatusPayment
+                                  paymentMethodId={method.id}
+                                  status={method.status}
+                                />
+
+                                <EditPaymentMethod
+                                  paymentMethodId={method.id}
+                                  defaultValues={{
+                                    method: method.method,
+                                    type: method.type,
+                                    fee: method.fee,
+                                  }}
+                                />
+
+                                <ConfirmModal
+                                  action={() => deleteMethod(method.id)}
+                                  tittle="Bạn có chắc chắn muốn xóa phuơng thức này?"
+                                  description="Nếu đồng ý, phương thức vận chuyển sẽ bị xóa vĩnh viễn!"
+                                  trigger={
+                                    <DropdownMenuItem
+                                      onSelect={(e) => e.preventDefault()}
+                                      className="text-red-600 w-full"
+                                    >
+                                      <Trash2 className="mr-2 h-4 w-4" />
+                                      Xoá vĩnh viễn
+                                    </DropdownMenuItem>
+                                  }
+                                  isPending={isLoadingDelete}
+                                />
+                              </ActionsControl>
                             </div>
                           </TableCell>
                         </TableRow>
@@ -461,6 +398,7 @@ export default function PaymentMethodsClient() {
           </Card>
         </TabsContent>
 
+        {/* Todo: Chart Data UI in here */}
         <TabsContent value="statistics">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card>
@@ -472,33 +410,33 @@ export default function PaymentMethodsClient() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {paymentMethods.length}
+                  {paymentMethods?.length}
                 </div>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Active Methods
+                  status Methods
                 </CardTitle>
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {paymentMethods.filter((m) => m.active).length}
+                  {paymentMethods?.filter((m) => m.status).length}
                 </div>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Inactive Methods
+                  In Active Methods
                 </CardTitle>
                 <AlertCircle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {paymentMethods.filter((m) => !m.active).length}
+                  {paymentMethods?.filter((m) => !m.status).length}
                 </div>
               </CardContent>
             </Card>
@@ -511,10 +449,11 @@ export default function PaymentMethodsClient() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {paymentMethods.reduce(
+                  {/* {paymentMethods?.reduce(
                     (sum, method) => sum + method.transactions,
                     0,
-                  )}
+                  )} */}
+                  12
                 </div>
               </CardContent>
             </Card>
@@ -645,38 +584,6 @@ export default function PaymentMethodsClient() {
           </Card>
         </TabsContent>
       </Tabs>
-
-      <AlertDialog open={showConfirmation} onOpenChange={setShowConfirmation}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Confirm action</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to {confirmAction?.action} this payment
-              method?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setShowConfirmation(false)}>
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                if (confirmAction?.action === "delete") {
-                  deleteMethod(confirmAction.id);
-                } else if (
-                  confirmAction?.action === "deactivate" ||
-                  confirmAction?.action === "activate"
-                ) {
-                  toggleStatus(confirmAction.id);
-                }
-                setShowConfirmation(false);
-              }}
-            >
-              Confirm
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
 
       <Button
         className="fixed bottom-4 right-4 rounded-full p-4 shadow-lg"

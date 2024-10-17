@@ -67,6 +67,7 @@ import { EditDeliveryMethod } from "./_components-delivery-methods/edit-delivery
 import { ConfirmModal } from "@/components/_global-components-reused/confirm-modal";
 import axios from "axios";
 import { toast } from "sonner";
+import DeliveryMethodsSkeleton from "./delivery-skeleton";
 
 type DeliveryMethod = {
   id: number;
@@ -96,6 +97,8 @@ export default function DeliveryMethodsClient() {
       return response.json();
     },
   });
+
+  console.log({ isPending, isFetching });
 
   const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false);
 
@@ -234,6 +237,9 @@ export default function DeliveryMethodsClient() {
       setIsLoadingDelete(false);
     }
   };
+
+
+  if(isFetching) return <DeliveryMethodsSkeleton />
 
   return (
     <div
