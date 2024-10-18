@@ -5,7 +5,7 @@ import { Actions } from "../data-table-products/actions";
 import { capitalize } from "lodash";
 
 export type IngredientsColumns = {
-  id: string;
+  id: number;
   ingredient: string;
   createdAt: string;
   updatedAt: string;
