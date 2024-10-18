@@ -57,7 +57,7 @@ export const ProductImage = () => {
   return (
     // <Card>
     // <CardContent>
-    <div className="grid gap-2 h-[392px] overflow-y-auto pr-1">
+    <div className="grid gap-2 h-[457px] 2xl:h-[70%] overflow-y-auto pr-1">
       {imagesProductStore?.images.length === 0 ? (
         <ImageLoading />
       ) : (

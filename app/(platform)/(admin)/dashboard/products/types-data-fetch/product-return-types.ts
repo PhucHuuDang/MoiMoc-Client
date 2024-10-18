@@ -3,9 +3,8 @@ export type ProductCategoryTypes = {
   type: string;
 };
 
-
 export type IngredientsTypes = {
-  id: string;
+  id: number;
   ingredient: string;
   createdAt: string;
   updatedAt: string;

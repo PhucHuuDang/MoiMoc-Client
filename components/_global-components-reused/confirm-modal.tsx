@@ -25,7 +25,7 @@ interface ConfirmModalProps {
 
   trigger: React.ReactNode;
 
-  tittle: string;
+  title: string;
   description: string;
 }
 
@@ -33,53 +33,18 @@ export const ConfirmModal = ({
   action,
   isPending,
   trigger,
-  tittle,
+  title,
   description,
 }: ConfirmModalProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const client = useQueryClient();
-
-  // const handleIsActive = async () => {
-  //   const response = await axios.put(
-  //     `${process.env.NEXT_PUBLIC_API_URL}/delivery-methods/active/${deliveryMethodId}`,
-
-  //     { active: !active },
-  //   );
-
-  //   console.log({ response });
-
-  //   return response.status === 200;
-  // };
-  // const {
-  //   mutate: toggleActive,
-  //   isPending,
-  //   isError,
-  //   error,
-  // } = useMutation({
-  //   mutationFn: handleIsActive,
-  //   onSuccess: () => {
-  //     toast.success("Thay đổi trạng thái thành công");
-  //     client.invalidateQueries({ queryKey: ["delivery-methods"] });
-  //     setIsOpen(false);
-  //   },
-  //   onError: (error) => {
-  //     toast.error("Thay đổi trạng thái thất bại");
-  //     console.error({ error });
-  //   },
-  // });
-
-  // console.log({ isPending, isError, error });
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-      <AlertDialogTrigger asChild>
-        {/* <Switch checked={active} className="text-primary" /> */}
-        {trigger}
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
 
       <AlertDialogContent aria-disabled={true}>
         <AlertDialogHeader>
-          <AlertTitle>{tittle}</AlertTitle>
+          <AlertTitle>{title}</AlertTitle>
           <AlertDescription>{description}</AlertDescription>
         </AlertDialogHeader>
 

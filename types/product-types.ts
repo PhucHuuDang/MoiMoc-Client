@@ -54,3 +54,10 @@ export type ProductItemData = {
   mainImage: string;
   quantityOrder?: number;
 };
+
+export type IngredientsTypes = {
+  id: number;
+  ingredient: string;
+  createdAt: Date;
+  updatedAt: Date;
+};

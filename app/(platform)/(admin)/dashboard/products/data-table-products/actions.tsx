@@ -33,33 +33,31 @@ export const Actions = ({ id }: ActionsProps) => {
     <>
       <ConfirmDialog />
       {/* <TableCell> */}
-      <>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="ghost" className="size-8 p-0">
-              <MoreHorizontal className="size-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-            // disabled={deleteMutation.isPending}
-            // onClick={() => onOpen(id)}
-            >
-              <Edit className="size-4 mr-2" />
-              Edit
-            </DropdownMenuItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="size-8 p-0">
+            <MoreHorizontal className="size-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem
+          // disabled={deleteMutation.isPending}
+          // onClick={() => onOpen(id)}
+          >
+            <Edit className="size-4 mr-2" />
+            Edit
+          </DropdownMenuItem>
 
-            <DropdownMenuItem
-              // disabled={deleteMutation.isPending}
-              onClick={handleDelete}
-            >
-              <Trash className="size-4 mr-2" />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        {/* </TableCell> */}
-      </>
+          <DropdownMenuItem
+            // disabled={deleteMutation.isPending}
+            onClick={handleDelete}
+          >
+            <Trash className="size-4 mr-2" />
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      {/* </TableCell> */}
     </>
   );
 };

@@ -11,6 +11,7 @@ import { Actions } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
+import { ActionsProduct } from "./actions-product";
 
 export type AllProductsColumns = {
   id: number;
@@ -175,7 +176,13 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     cell: ({ row }) => {
       const productId = row.original.id;
 
-      return <Actions id={row.original.id} />;
+      const productName = row.original.productName;
+      // const usage = row.original.usage
+      // const details = row.original.details
+      const imageUrl = row.original.image;
+
+      // return <Actions id={productId} />;
+      return <ActionsProduct productId={productId} />;
     },
   },
 ];

@@ -372,7 +372,7 @@ export default function PaymentMethodsClient() {
 
                                 <ConfirmModal
                                   action={() => deleteMethod(method.id)}
-                                  tittle="Bạn có chắc chắn muốn xóa phuơng thức này?"
+                                  title="Bạn có chắc chắn muốn xóa phuơng thức này?"
                                   description="Nếu đồng ý, phương thức vận chuyển sẽ bị xóa vĩnh viễn!"
                                   trigger={
                                     <DropdownMenuItem

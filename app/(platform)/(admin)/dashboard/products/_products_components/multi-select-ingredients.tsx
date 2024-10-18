@@ -26,12 +26,13 @@ export const MultiSelectsIngredients = <T extends FieldValues, K>({
   form,
   name,
 }: MultiSelectsIngredientsProps<T, K>) => {
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([
-    // "1",
-    // "2",
-  ]);
+  const values = form.getValues(name)?.map((item: number) => item.toString());
+  console.log(values.toString());
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(
+    values ?? [],
+  );
 
-  console.log({ selectedIngredients });
+  // console.log({ selectedIngredients });
 
   useEffect(() => {
     if (selectedIngredients.length > 0) {
