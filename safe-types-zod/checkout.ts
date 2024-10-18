@@ -3,7 +3,7 @@ import { z } from "zod";
 
 type DeliveryType = ["standard", "express"];
 
-const deliveryTypes = ["standard", "express"] as const;
+const deliveryTypes = ["standard", "express", "stripe"] as const;
 const paymentMethodsTypes = ["receive-order-payment", "momo"] as const;
 
 export const deliveryMethods = [

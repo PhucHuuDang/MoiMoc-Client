@@ -100,7 +100,18 @@ export function ProductClient({
       toast.success("Product created successfully");
 
       clearAllImages();
-      form.reset();
+      form.reset({
+        quantity: 1,
+        discountPercentage: 0,
+        // productTypeId: "",
+        expireDate: "",
+        ingredients: [],
+        productName: "",
+        productDescription: "",
+        usage: "",
+        details: "",
+        imageUrl: [],
+      });
       router.refresh();
 
       return response.data;

@@ -4,6 +4,7 @@ import { FormItemsControl } from "@/components/_global-components-reused/form/fo
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { MapPin, Phone } from "lucide-react";
+import { useEffect } from "react";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 interface ReceivingInformationProps<T extends FieldValues> {

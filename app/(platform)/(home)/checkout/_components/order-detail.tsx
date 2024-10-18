@@ -22,7 +22,6 @@ import { CheckoutSchemaTypes } from "@/safe-types-zod/checkout";
 import Spinner from "@/components/animata/spinner";
 import { Skeleton } from "@/components/ui/skeleton";
 
-
 interface OrderDetailProps<T extends FieldValues, K> {
   onSubmit?: (values: any) => Promise<void>;
   form: UseFormReturn<T>;
@@ -59,7 +58,6 @@ export const OrderDetail = <T extends FieldValues, K>({
     }
   }, [cart]);
 
- 
   const SkeletonOrderDetail = () => {
     return (
       <Card className="w-[700px] border-moi_moc_green">
@@ -153,7 +151,7 @@ export const OrderDetail = <T extends FieldValues, K>({
             <FormItemsControl type="hidden" name={name} form={form} />
           </div>
 
-          <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
+          {/* <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
 
           <div>
             <div className="flex justify-between">
@@ -168,7 +166,7 @@ export const OrderDetail = <T extends FieldValues, K>({
               <div>Delivery fee</div>
               <div>$10</div>
             </div>
-          </div>
+          </div> */}
 
           <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
 

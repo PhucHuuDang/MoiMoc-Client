@@ -84,18 +84,33 @@ export const CartItem: React.FC<CartItemProps> = ({
           </div>
 
           <div
-            className={`flex ${checkout ? "flex-row items-start gap-x-5" : "flex-col"} ${ dashboard &&
-              "ml-10" } w-[150px]`}
+            className={`flex ${checkout ? "flex-col items-start gap-x-5" : "flex-col"} ${ dashboard &&
+              "ml-10" } flex-1 2xl:w-full `}
           >
             <div className={"mx-2 flex items-center gap-x-1 rounded-md p-1"}>
-              <span className="font-bold text-slate-600">Giá: </span>
-              <span className="font-bold text-sky-400">
-                {formatCurrency(
-                  discountPriceCondition
-                    ? discountPriceToNumber
-                    : Number(product.price),
-                )}
-              </span>
+              <div
+                className={`flex items-center gap-x-1 rounded-md p-1 ${checkout && "w-36"}`}
+              >
+                <span className="font-bold text-slate-600">Giá: </span>
+                <span className="font-bold text-sky-400">
+                  {formatCurrency(
+                    discountPriceCondition
+                      ? discountPriceToNumber
+                      : Number(product.price),
+                  )}
+                </span>
+              </div>
+
+              <h1>|</h1>
+
+              {checkout && dashboard && (
+                <div className="font-bold text-slate-600 px-1 ml-4">
+                  Số lượng:
+                  <span className="text-blue-400 font-semibold ml-2">
+                    {product.quantityOrder}
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className={"mx-2 flex items-center gap-x-1 rounded-md p-1"}>
