@@ -133,7 +133,7 @@ export const EditProduct = ({ productId }: EditProductProps) => {
           (image: ProductImageTypes) => image.imageUrl,
         ),
         ingredients: justDataProduct.data.ingredients.map(
-          (ingredient: Ingredient) => ingredient.ingredientId,
+          (ingredient: Ingredient) => ingredient.ingredientId.toString(),
         ),
         productTypeId: justDataProduct.data.productType.id,
       };
@@ -191,6 +191,8 @@ export const EditProduct = ({ productId }: EditProductProps) => {
       label: capitalize(ingredient.ingredient),
     }),
   );
+
+  console.log({ingredientsList})
 
   return (
     <Sheet>
