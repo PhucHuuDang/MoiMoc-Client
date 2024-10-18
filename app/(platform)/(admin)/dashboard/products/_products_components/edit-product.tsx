@@ -187,7 +187,7 @@ export const EditProduct = ({ productId }: EditProductProps) => {
 
   const ingredientsList = ingredients.data?.map(
     (ingredient: IngredientsTypes) => ({
-      value: ingredient.id,
+      value: ingredient.id.toString(),
       label: capitalize(ingredient.ingredient),
     }),
   );

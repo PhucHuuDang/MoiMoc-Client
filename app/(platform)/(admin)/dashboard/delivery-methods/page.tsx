@@ -5,7 +5,7 @@ import DeliveryMethodsSkeleton from "./delivery-skeleton";
 const DeliveryMethod = () => {
   return (
     <Suspense fallback={<DeliveryMethodsSkeleton />}>
-      <DeliveryMethodsClient />;
+      <DeliveryMethodsClient />
     </Suspense>
   );
 };

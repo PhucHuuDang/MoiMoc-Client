@@ -351,78 +351,6 @@ export default function DeliveryMethodsClient() {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    {/* <Dialog>
-                      <DialogTrigger asChild>
-                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                          <Edit className="mr-2 h-4 w-4" />
-                          Edit
-                        </DropdownMenuItem>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[425px]">
-                        <DialogHeader>
-                          <DialogTitle>Edit Delivery Method</DialogTitle>
-                          <DialogDescription>
-                            Make changes to the delivery method.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                          <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="edit-name" className="text-right">
-                              Name
-                            </Label>
-                            <Input
-                              id="edit-name"
-                              value={method.method}
-                              onChange={(e) =>
-                                setEditingMethod({
-                                  ...method,
-                                  method: e.target.value,
-                                })
-                              }
-                              className="col-span-3"
-                            />
-                          </div>
-                          <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="edit-price" className="text-right">
-                              Price (₫)
-                            </Label>
-                            <Input
-                              id="edit-price"
-                              type="number"
-                              value={method.price}
-                              onChange={(e) =>
-                                setEditingMethod({
-                                  ...method,
-                                  price: parseFloat(e.target.value),
-                                })
-                              }
-                              className="col-span-3"
-                            />
-                          </div>
-                          <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="edit-days" className="text-right">
-                              Est. Days
-                            </Label>
-                            <Input
-                              id="edit-days"
-                              value={method.estimatedDays}
-                              onChange={(e) =>
-                                setEditingMethod({
-                                  ...method,
-                                  estimatedDays: e.target.value,
-                                })
-                              }
-                              className="col-span-3"
-                            />
-                          </div>
-                        </div>
-                        <DialogFooter>
-                          <Button type="submit" onClick={handleEditMethod}>
-                            Save Changes
-                          </Button>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog> */}
                     <EditDeliveryMethod
                       defaultValues={{
                         method: method.method,
@@ -464,17 +392,14 @@ export default function DeliveryMethodsClient() {
                   />
                   <span className="ml-1">₫</span>
                 </div>
-                {/* <Switch
-                  checked={method.active}
-                  onCheckedChange={() => handleToggleActive(method.id)}
-                /> */}
+
                 <ActiveDialog
                   active={method.active}
                   deliveryMethodId={method.id}
                 />
               </div>
               <span className="text-sm text-muted-foreground mb-4">
-                Estimated delivery time:
+                Ước lượng thời gian giao hàng:
                 <Input
                   value={method.estimatedDays}
                   onChange={(e) =>

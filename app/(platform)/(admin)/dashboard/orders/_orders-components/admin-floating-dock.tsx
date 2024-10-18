@@ -23,11 +23,11 @@ export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
     "size-full text-moi_moc_green dark:text-primary dark:group-hover:text-primary/80 duration-300 group-hover:scale-110";
 
   const dockItems = [
-    {
-      href: "#",
-      icon: <Package2 className={`${styleDockItems}`} />,
-      title: "Acme Inc",
-    },
+    // {
+    //   href: "#",
+    //   icon: <Package2 className={`${styleDockItems}`} />,
+    //   title: "Acme Inc",
+    // },
     {
       href: "/dashboard",
       icon: <Home className={`${styleDockItems}`} />,
