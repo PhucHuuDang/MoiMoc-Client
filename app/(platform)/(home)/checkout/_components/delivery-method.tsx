@@ -38,7 +38,9 @@ export const DeliveryMethod = <T extends FieldValues>({
   return (
     <Card className="w-[500px] border-moi_moc_green">
       <CardHeader>
-        <CardTitle className="text-moi_moc_green">Delivery Method</CardTitle>
+        <CardTitle className="text-moi_moc_green">
+          Phương thức vận chuyển
+        </CardTitle>
       </CardHeader>
       <CardContent>
         {/* <FormValues form={form} onSubmit={onSubmit}> */}

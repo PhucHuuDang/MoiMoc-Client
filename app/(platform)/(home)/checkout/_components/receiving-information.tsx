@@ -26,17 +26,17 @@ export const ReceivingInformation = <T extends FieldValues>({
   return (
     <Card className="w-[500px] border-moi_moc_green">
       <CardHeader>
-        <CardTitle className="text-moi_moc_green">Shipping Address</CardTitle>
+        <CardTitle className="text-moi_moc_green">Địa chỉ giao hàng</CardTitle>
         {/* <CardDescription></CardDescription> */}
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex flex-col gap-y-1">
           <h1 className="item-center flex gap-x-1 text-lg font-bold text-moi_moc_green">
-            <Phone className="size-6 font-bold text-moi_moc_green" /> Contact
-            Information
+            <Phone className="size-6 font-bold text-moi_moc_green" /> Thông tin
+            liên hệ
           </h1>
           <div className="flex flex-col space-y-1">
-            <span>Name: {form.getValues(name)}</span>
+            <span>Tên: {form.getValues(name)}</span>
             {/* <FormItemsControl
               form={form}
               type="hidden"
@@ -57,8 +57,8 @@ export const ReceivingInformation = <T extends FieldValues>({
 
         <div className="flex flex-col gap-y-1">
           <h1 className="item-center flex gap-x-1 text-lg font-bold text-moi_moc_green">
-            <MapPin className="size-6 font-bold text-moi_moc_green" /> Receiving
-            Information
+            <MapPin className="size-6 font-bold text-moi_moc_green" /> Địa chỉ
+            nhận hàng
           </h1>
           <span>
             {form.getValues(address)}

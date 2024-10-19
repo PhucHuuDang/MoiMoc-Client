@@ -10,7 +10,7 @@ export const CheckoutHeader = () => {
 
       <Separator className="h-12 w-0.5 bg-green-950" orientation="vertical" />
 
-      <h1 className="text-5xl font-bold text-moi_moc_green">CHECKOUT</h1>
+      <h1 className="text-5xl font-bold text-moi_moc_green">Thanh toán</h1>
     </div>
   );
 };

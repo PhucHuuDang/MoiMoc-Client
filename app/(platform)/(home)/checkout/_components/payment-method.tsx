@@ -23,12 +23,12 @@ export const PaymentMethod = <T extends FieldValues>({
   form,
   name,
 }: PaymentMethodProps<T>) => {
-  
-
   return (
     <Card className="w-[500px] border-moi_moc_green">
       <CardHeader>
-        <CardTitle className="text-moi_moc_green">Payment Method</CardTitle>
+        <CardTitle className="text-moi_moc_green">
+          Phương thức thanh toán
+        </CardTitle>
       </CardHeader>
       <CardContent>
         {/* <FormValues form={form} onSubmit={onSubmit}> */}

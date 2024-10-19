@@ -21,7 +21,7 @@ export const DiscountCode = <T extends FieldValues>({
   return (
     <Card className="w-[500px] border-moi_moc_green">
       <CardHeader>
-        <CardTitle className="text-moi_moc_green">Discount Code</CardTitle>
+        <CardTitle className="text-moi_moc_green">Mã giảm giá</CardTitle>
       </CardHeader>
       <CardContent>
         {/* <FormValues form={form} onSubmit={onSubmit}> */}
