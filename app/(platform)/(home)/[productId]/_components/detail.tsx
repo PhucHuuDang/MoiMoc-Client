@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { ElementRef, useRef, useState } from "react";
 import {
   Star,
   Minus,
@@ -46,6 +46,7 @@ import { Discussion } from "./tabs-comunity/discussion";
 import { ProductDetailContent } from "./tabs-comunity/product-detail-content";
 import { RatingReviews } from "./tabs-comunity/rating-reviews";
 import { ProductDetailTypes } from "@/types/product-detail-types";
+import { LipBalm } from "../../products/_components-products-public/lip-balm";
 
 interface DetailPageProps {
   productDetailData: ProductDetailTypes;
@@ -69,7 +70,9 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
     },
   ];
 
-  console.log({ productDetailData });
+  const lipBalmRef = useRef<ElementRef<"div">>(null);
+
+  // console.log({ productDetailData });
 
   const productDetailContentData = {
     ingredients: productDetailData.ingredients,
@@ -92,14 +95,14 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
               <BreadcrumbItem>
                 <BreadcrumbLink href="/">
                   <Home className="h-4 w-4" />
-                  <span className="sr-only">Home</span>
+                  <span className="sr-only">Trang chủ</span>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator>
                 <ChevronRightIcon className="h-4 w-4" />
               </BreadcrumbSeparator>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/products">Products</BreadcrumbLink>
+                <BreadcrumbLink href="/products">Chi tiết sản phẩm</BreadcrumbLink>
               </BreadcrumbItem>
               {/* <BreadcrumbSeparator>
                 <ChevronRightIcon className="h-4 w-4" />
@@ -140,42 +143,10 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
         {/* Related Products */}
         <div className="p-4 max-w-7xl mx-auto">
           <h3 className="text-2xl font-bold mb-4">Sản phẩm liên quan</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { name: "Autumn Dress", price: "$85", originalPrice: "$124" },
-              { name: "Casual Shirt", price: "$29", originalPrice: "$39" },
-              { name: "Leather Coat", price: "$35" },
-              { name: "Long Coat Outer", price: "$12" },
-            ].map((product, index) => (
-              <Card key={index}>
-                <CardContent className="p-4">
-                  <div className="aspect-square relative mb-2">
-                    <Image
-                      src="/placeholder.svg"
-                      alt={product.name}
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                    {index < 2 && (
-                      <span className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 text-xs">
-                        SALE
-                      </span>
-                    )}
-                  </div>
-                  <h4 className="font-semibold">{product.name}</h4>
-                  <div className="flex items-center">
-                    <span className="font-bold">{product.price}</span>
-                    {product.originalPrice && (
-                      <span className="ml-2 text-sm text-gray-500 line-through">
-                        {product.originalPrice}
-                      </span>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <LipBalm ref={lipBalmRef} productDetail />
         </div>
+
+        {/* <LipBalm ref={lipBalmRef} productDetail /> */}
 
         {/* Footer */}
         <Footer />
