@@ -54,8 +54,8 @@ export const CheckoutClient = () => {
 
       phone: auth?.user?.phoneAuth,
 
-      address: `Vinhomes Grandpark, Tòa s503, Nguyễn Xiển, phường Long Thạnh Mỹ,
-      Thành phố Thủ Đức`,
+      // address: `Vinhomes Grandpark, Tòa s503, Nguyễn Xiển, phường Long Thạnh Mỹ,
+      // Thành phố Thủ Đức`,
     },
   });
 

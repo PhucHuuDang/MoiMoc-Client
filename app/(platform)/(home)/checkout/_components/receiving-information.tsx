@@ -1,10 +1,11 @@
 "use client";
 
+import { AddAddress } from "@/app/(platform)/(admin)/dashboard/payment-methods/_components-payments-methods/add-address";
 import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { MapPin, Phone } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 interface ReceivingInformationProps<T extends FieldValues> {
@@ -23,10 +24,22 @@ export const ReceivingInformation = <T extends FieldValues>({
   phone,
   name,
 }: ReceivingInformationProps<T>) => {
+  const [updatedAddress, setUpdatedAddress] = useState(form.getValues(address));
+
+  // Use useEffect to watch for address changes and update the state
+  useEffect(() => {
+    const subscription = form.watch((value) => {
+      const newAddress = form.getValues(address);
+      setUpdatedAddress(newAddress);
+    });
+    return () => subscription.unsubscribe(); // Cleasnup on unmount
+  }, [form, address]);
+
   return (
     <Card className="w-[500px] border-moi_moc_green">
       <CardHeader>
         <CardTitle className="text-moi_moc_green">Địa chỉ giao hàng</CardTitle>
+        {/* <AddAddress /> */}
         {/* <CardDescription></CardDescription> */}
       </CardHeader>
       <CardContent className="space-y-4">
@@ -56,12 +69,15 @@ export const ReceivingInformation = <T extends FieldValues>({
         </div>
 
         <div className="flex flex-col gap-y-1">
-          <h1 className="item-center flex gap-x-1 text-lg font-bold text-moi_moc_green">
-            <MapPin className="size-6 font-bold text-moi_moc_green" /> Địa chỉ
-            nhận hàng
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="item-center flex gap-x-1 text-lg font-bold text-moi_moc_green">
+              <MapPin className="size-6 font-bold text-moi_moc_green" /> Địa chỉ
+              nhận hàng
+            </h1>
+            <AddAddress name={address} parentForm={form} />
+          </div>
           <span>
-            {form.getValues(address)}
+            {updatedAddress || "Chưa có địa chỉ được chọn"}
             <FormItemsControl
               form={form}
               type="hidden"
