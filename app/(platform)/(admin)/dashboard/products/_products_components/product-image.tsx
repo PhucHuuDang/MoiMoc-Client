@@ -31,17 +31,21 @@ export const ProductImage = () => {
 
   const ImageLoading = () => {
     return (
-      <>
-        <Skeleton className="size-[300px] rounded-md" />
-        <div className="grid grid-cols-3 gap-2">
-          <Skeleton className="size-[84px] rounded-md" />
-          <Skeleton className="size-[84px] rounded-md" />
-          <Skeleton className="size-[84px] rounded-md" />
-          <Skeleton className="size-[84px] rounded-md" />
-          <Skeleton className="size-[84px] rounded-md" />
-          <Skeleton className="size-[84px] rounded-md" />
-        </div>
-      </>
+      <div>
+        <Card className="bg-zinc-900 border-zinc-800">
+          <CardHeader>
+            <Skeleton className="h-6 w-48 bg-zinc-800" />
+          </CardHeader>
+          <CardContent>
+            <Skeleton className="h-40 w-full bg-zinc-800 mb-4" />
+            <div className="grid grid-cols-3 gap-4">
+              {[...Array(6)].map((_, i) => (
+                <Skeleton key={i} className="aspect-square bg-zinc-800" />
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     );
   };
 
