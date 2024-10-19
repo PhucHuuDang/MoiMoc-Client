@@ -65,10 +65,12 @@ export const AddProductSafeTypes = z.object({
         required_error: "Product type is must be entered",
       }),
     ])
-    .transform((value) => (typeof value === "string" ? parseInt(value) : value))
-    .refine((value) => value > 1, {
-      message: "Product type id must be at least 1",
-    }),
+    .transform((value) =>
+      typeof value === "string" ? parseInt(value) : value,
+    ),
+  // .refine((value) => value > 1, {
+  //   message: "Product type id must be at least 1",
+  // }),
   imageUrl: z
     .array(z.string(), {
       required_error: "Images product must be entered",

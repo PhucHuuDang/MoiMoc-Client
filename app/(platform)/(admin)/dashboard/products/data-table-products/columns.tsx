@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
 import { ActionsProduct } from "./actions-product";
+import { formatCurrency } from "@/handle-transform/formart-currency";
 
 export type AllProductsColumns = {
   id: number;
@@ -117,14 +118,20 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     accessorKey: "price",
     header: () => <div>Price</div>,
     cell: ({ row }) => {
-      const discountPrice = row.getValue("discountPrice");
+      const discountPrice =
+        row.getValue("discountPrice") &&
+        formatCurrency(row.getValue("discountPrice"));
 
       // console.log({ discountPrice });
 
       return !discountPrice ? (
-        <div className="">{row.getValue("price")}</div>
+        <div className="text-sky-600 font-bold">
+          {formatCurrency(Number(row.getValue("price")))}
+        </div>
       ) : (
-        <del className="text-rose-500">{row.getValue("price")}</del>
+        <del className="text-rose-500">
+          {formatCurrency(Number(row.getValue("price")))}
+        </del>
       );
     },
   },
@@ -146,10 +153,13 @@ export const columns: ColumnDef<AllProductsColumns>[] = [
     header: () => <div className="">Discount Price</div>,
     cell: ({ row }) => {
       const discountPercent = row.getValue("discountPercentage");
+      const discountPrice =
+        row.getValue("discountPrice") &&
+        formatCurrency(row.getValue("discountPrice"));
 
       return (
         <div className="text-sky-600 font-bold">
-          {row.getValue("discountPrice")}
+          {formatCurrency(Number(row.getValue("discountPrice")))}
         </div>
       );
     },

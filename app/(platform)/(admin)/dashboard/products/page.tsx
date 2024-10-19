@@ -52,7 +52,7 @@ const ProductsPage = async () => {
         </TabsList>
 
         <TabsContent value="all-products" className="z-10">
-          <AllProducts productsList={productsList} />
+          <AllProducts productsList={products} />
         </TabsContent>
 
         <TabsContent value="add-product">

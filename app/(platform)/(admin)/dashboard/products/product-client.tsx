@@ -19,7 +19,7 @@ import { ProductImage } from "./_products_components/product-image";
 import { ArchiveProduct } from "./_products_components/archive-product";
 import { ImageUpload } from "@/components/_global-components-reused/image-upload";
 import { FormImagesProductControl } from "@/components/_global-components-reused/form/form-images-product-control";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
 import { ProductCategoryTypes } from "./types-data-fetch/product-return-types";
@@ -44,6 +44,7 @@ export function ProductClient({
 }: ProductClientProps) {
   const refHead = useRef<HTMLDivElement>(null);
   const clearAllImages = useImagesProductStore((state) => state.clearImages);
+  const client = useQueryClient();
 
   const router = useRouter();
 
@@ -94,10 +95,12 @@ export function ProductClient({
       // Check if the status is not 201 (created)
       if (response.status !== 201) {
         toast.error("Error creating product");
+
         console.log("Error creating product");
       }
 
       toast.success("Product created successfully");
+      client.invalidateQueries({ queryKey: ["products"] });
 
       clearAllImages();
       form.reset({

@@ -8,23 +8,65 @@ import {
   ProductReturnedTypes,
   ProductTransformedTypes,
 } from "@/types/product-types";
-
-export const description =
-  "An products dashboard with a sidebar navigation. The sidebar has icon navigation. The content area has a breadcrumb and search in the header. It displays a list of products in a table with actions.";
+import { useQuery } from "@tanstack/react-query";
+import { serverFetching } from "@/api/actions/server-fetching";
 
 interface AllProductsProps {
-  productsList: ProductTransformedTypes[];
+  // productsList: ProductTransformedTypes[];
+  productsList: ProductReturnedTypes[];
 }
 export function AllProducts({ productsList }: AllProductsProps) {
-  // return <AllProductsSkelton />;
+  const {
+    data: products,
+    isFetching,
+    isLoading,
+    error,
+    isError,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const data = await serverFetching(`/products`);
+
+      return data;
+    },
+
+    initialData: productsList,
+    refetchOnMount: false,
+  });
+
+  console.log("all product list: ", products);
+
+  const productTransformed: ProductTransformedTypes[] = products?.map(
+    (product: ProductReturnedTypes) => {
+      return {
+        id: product.productId,
+        productName: product.productName,
+        image: product.productImages[0].imageUrl,
+        price: product.price,
+        discountPercentage: product.discountPercentage,
+        discountPrice: product.discountPrice,
+        quantity: product.quantity,
+        createdAt: product.createdAt,
+        productType: product.productType.type,
+      };
+    },
+  );
+
+  if (isLoading) {
+    return <AllProductsSkelton />;
+  }
+
+  // if (productsList.length === 0) {
+  //   return <AllProductsSkelton />;
+  // }
+
   return (
     <div className="container mx-auto py-10">
       <DataTable
         columns={columns}
-        data={productsList}
+        data={productTransformed}
         filterName="productName"
       />
-      {/* <DataTableDemo /> */}
     </div>
   );
 }
