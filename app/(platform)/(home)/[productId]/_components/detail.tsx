@@ -54,17 +54,17 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
   const TABS_TRIGGER = [
     {
       value: "details",
-      label: "The Details",
+      label: "Chi tiết sản phẩm",
       icon: <Info className="w-4 h-4 mr-2" />,
     },
     {
       value: "ratings",
-      label: "Ratings & Reviews",
+      label: "Đánh giá & Nhận xét",
       icon: <Star className="w-4 h-4 mr-2" />,
     },
     {
       value: "discussion",
-      label: "Discussion",
+      label: "Thảo luận",
       icon: <MessageCircle className="w-4 h-4 mr-2" />,
     },
   ];
@@ -81,8 +81,8 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
     <>
       <div className="min-h-screen bg-main_background_color pt-20 text-foreground">
         <div className="bg-gray-900 text-white px-2 text-center text-sm">
-          Sign up and GET 20% OFF for your first order.{" "}
-          <span className="underline">Sign up now</span>
+          Đăng ký để được giảm giá 20% ngay đơn hàng đàu tiên của bạn.{" "}
+          <span className="underline">Đăng ký ngay</span>
         </div>
 
         {/* Improved Breadcrumbs */}
@@ -101,18 +101,9 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
               <BreadcrumbItem>
                 <BreadcrumbLink href="/products">Products</BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator>
+              {/* <BreadcrumbSeparator>
                 <ChevronRightIcon className="h-4 w-4" />
-              </BreadcrumbSeparator>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/products/women">Women</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator>
-                <ChevronRightIcon className="h-4 w-4" />
-              </BreadcrumbSeparator>
-              <BreadcrumbItem>
-                <BreadcrumbPage>Blazer Jacket</BreadcrumbPage>
-              </BreadcrumbItem>
+              </BreadcrumbSeparator> */}
             </BreadcrumbList>
           </Breadcrumb>
         </div>
@@ -148,7 +139,7 @@ export default function DetailPage({ productDetailData }: DetailPageProps) {
 
         {/* Related Products */}
         <div className="p-4 max-w-7xl mx-auto">
-          <h3 className="text-2xl font-bold mb-4">Related Products</h3>
+          <h3 className="text-2xl font-bold mb-4">Sản phẩm liên quan</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { name: "Autumn Dress", price: "$85", originalPrice: "$124" },
