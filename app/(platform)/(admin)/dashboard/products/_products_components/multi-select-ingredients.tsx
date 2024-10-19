@@ -27,7 +27,7 @@ export const MultiSelectsIngredients = <T extends FieldValues, K>({
   name,
 }: MultiSelectsIngredientsProps<T, K>) => {
   const values = form.getValues(name)?.map((item: number) => item.toString());
-  console.log(values.toString());
+  // console.log(values?.toString());
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>(
     values ?? [],
   );

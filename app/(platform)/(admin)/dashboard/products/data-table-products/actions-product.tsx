@@ -7,12 +7,39 @@ import { Edit, Trash2 } from "lucide-react";
 import { Actions } from "react-use/lib/useMap";
 import { EditProduct } from "../_products_components/edit-product";
 import { SheetControlSystem } from "../../orders/_orders-components/sheet-control-system";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { toast } from "sonner";
+import { useState } from "react";
 
 interface ActionsProductProps {
   productId: number;
 }
 
 export const ActionsProduct = ({ productId }: ActionsProductProps) => {
+  const client = useQueryClient();
+  const [isPending, setIsPending] = useState<boolean>(false);
+
+  const handleDelete = async (productId: number) => {
+    setIsPending(true);
+
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`,
+      );
+
+      if (response.status === 200) {
+        toast.success("Xoá sản phẩm thành công!");
+        client.invalidateQueries({ queryKey: ["products"] });
+      }
+    } catch (error) {
+      console.log({ error });
+      toast.error("Đã xảy ra lỗi khi xoá sản phẩm");
+    } finally {
+      setIsPending(false);
+    }
+  };
+
   return (
     <ActionsControl>
       {/* <ConfirmModal
@@ -27,7 +54,7 @@ export const ActionsProduct = ({ productId }: ActionsProductProps) => {
       {/* <SheetControlSystem /> */}
 
       <ConfirmModal
-        action={() => {}}
+        action={() => handleDelete(productId)}
         title="Xoá sản phẩm"
         description="Bạn có chắc chắn muốn xoá sản phẩm này không?"
         trigger={
@@ -39,7 +66,7 @@ export const ActionsProduct = ({ productId }: ActionsProductProps) => {
             Xoá vĩnh viễn
           </DropdownMenuItem>
         }
-        isPending={false}
+        isPending={isPending}
       />
     </ActionsControl>
   );
