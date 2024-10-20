@@ -14,6 +14,9 @@ import { ListX } from "lucide-react";
 import { IngredientsTypes } from "./types-data-fetch/product-return-types";
 import { DataTable } from "./data-table-products/data-table";
 import { columnsIngredients } from "./_ingredients-components/column-ingredients";
+import { serverFetching } from "@/api/actions/server-fetching";
+import { useQuery } from "@tanstack/react-query";
+import { IngredientsSkeleton } from "./_ingredients-components/ingredients-skeleton";
 
 interface IngredientsClientProps {
   ingredients: IngredientsTypes[];
@@ -21,13 +24,33 @@ interface IngredientsClientProps {
 export const IngredientsClient = ({ ingredients }: IngredientsClientProps) => {
   const ingredientModal = useIngredientModal();
 
+  const {
+    data: ingredientsList,
+    isFetching,
+    isLoading,
+    error,
+    isError,
+  } = useQuery({
+    queryKey: ["ingredients"],
+    queryFn: async () => {
+      const data = await serverFetching(`/ingredients`);
+
+      return data;
+    },
+
+    initialData: ingredients,
+    refetchOnMount: false,
+  });
+
+  if (isLoading) return <IngredientsSkeleton />;
+
   return (
     <>
       <IngredientModal />
 
-      <div className="flex justify-center my-10 min-h-screen">
-        <div className="h-auto">
-          <Card className="md:w-[500px] lg:w-[700px] min-h-64 max-h-full">
+      <div className="my-10 min-h-screen">
+        <div className="h-auto flex items-center justify-center">
+          <Card className="md:w-[500px] lg:w-[90%] min-h-64 max-h-full">
             <CardHeader>
               <CardTitle>Ingredient</CardTitle>
               <CardDescription>Description</CardDescription>
@@ -47,7 +70,7 @@ export const IngredientsClient = ({ ingredients }: IngredientsClientProps) => {
               <div>
                 <DataTable
                   columns={columnsIngredients}
-                  data={ingredients}
+                  data={ingredientsList}
                   filterName="ingredient"
                 />
               </div>

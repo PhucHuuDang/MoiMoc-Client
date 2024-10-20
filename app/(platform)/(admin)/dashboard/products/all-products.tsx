@@ -34,7 +34,7 @@ export function AllProducts({ productsList }: AllProductsProps) {
     refetchOnMount: false,
   });
 
-  console.log("all product list: ", products);
+  // console.log("all product list: ", products);
 
   const productTransformed: ProductTransformedTypes[] = products?.map(
     (product: ProductReturnedTypes) => {
@@ -61,7 +61,7 @@ export function AllProducts({ productsList }: AllProductsProps) {
   // }
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="mx-auto md:w-[500px] lg:w-[90%] min-h-64 py-10">
       <DataTable
         columns={columns}
         data={productTransformed}

@@ -3,6 +3,7 @@ import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
 import { ColumnDef } from "@tanstack/react-table";
 import { Actions } from "../data-table-products/actions";
 import { capitalize } from "lodash";
+import { ActionsIngredients } from "./actions-ingredients";
 
 export type IngredientsColumns = {
   id: number;
@@ -67,8 +68,14 @@ export const columnsIngredients: ColumnDef<IngredientsColumns>[] = [
     id: "actions",
     cell: ({ row }) => {
       const ingredientId = Number(row.original.id);
+      const ingredientValue = row.original.ingredient;
 
-      return <Actions id={ingredientId} />;
+      return (
+        <ActionsIngredients
+          ingredientId={ingredientId}
+          ingredient={ingredientValue}
+        />
+      );
     },
   },
 ];

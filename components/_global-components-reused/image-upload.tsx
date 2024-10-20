@@ -46,13 +46,16 @@ export const ImageUpload = ({ value, onChange, id }: ImageUploadProps) => {
           <div
             onClick={() => open?.()}
             className="relative w-50 h-5 rounded-3xl cursor-pointer hover:opacity-70 transition p-10
-              border-dashed border-slate-400 flex bg-white justify-center items-center gap-2
-              group/thumbnail hover:border-slate-200"
+              outline-primary animate-pulse flex justify-center items-center gap-2
+              group/thumbnail hover:border-slate-200 outline-dashed"
           >
-            <Upload className="text-primary size-6 group-hover/thumbnail:bg-opacity-10 transition" />
+            <Upload
+              className="text-primary font-bold size-8 group-hover/thumbnail:bg-opacity-10 transition
+                animate-pulse"
+            />
             <div
-              className="font-semibold text-primary group-hover/thumbnail:bg-opacity-10 text-lg
-                transition"
+              className="font-semibold text-primary animate-pulse group-hover/thumbnail:bg-opacity-10
+                text-lg transition"
             >
               Upload
             </div>

@@ -85,7 +85,7 @@ export const RatingReviews = () => {
           </div>
 
           <div className="space-y-6">
-            {feedbacks.map((review, index) => (
+            {/* {feedbacks.map((review, index) => (
               <Card key={index}>
                 <CardContent className="p-4">
                   <div className="flex items-center mb-2">
@@ -101,7 +101,6 @@ export const RatingReviews = () => {
                       </AvatarFallback>
                     </Avatar>
 
-                    {/* Rating stars */}
                     <div>
                       <p className="font-semibold">{review.name}</p>
                       <div className="flex">
@@ -118,7 +117,7 @@ export const RatingReviews = () => {
                   <p>{review.comment}</p>
                 </CardContent>
               </Card>
-            ))}
+            ))} */}
           </div>
           <div className="mt-6">
             <h4 className="text-lg font-semibold mb-2">Write a Review</h4>

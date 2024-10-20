@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { DirectionAwareHover } from "@/components/aceternity-ui/direction-aware-hover";
+import Link from "next/link";
 
 export const ProductShowcase = () => {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -14,14 +15,17 @@ export const ProductShowcase = () => {
       // url: "/products-showcase/lipbalm-natural.png",
       url: "/products-showcase/lipsticks-moi-moc-delete-logo.jpg",
       alt: "Son dưỡng môi màu tự nhiên",
+      href: "/products",
     },
     {
       url: "/products-showcase/lip-scrub.jpg",
       alt: "Tẩy tế bào chết môi",
+      href: "/products",
     },
     {
       url: "/products-showcase/lip-balm-in-jar.jpg",
       alt: "Son dưỡng môi màu tự nhiên trong hũ",
+      href: "/products",
     },
   ];
 
@@ -37,13 +41,15 @@ export const ProductShowcase = () => {
             >
               <div className="flex items-start flex-col">
                 <h2 className="text-2xl font-bold mb-2">{image.alt}</h2>
-                <Button
-                  variant="moiMoc"
-                  className="text-slate-100 border-moi_moc_green h-6 w-32 rounded-2xl"
+                <Link
+                  href={image.href}
+                  // variant="moiMoc"
+                  className="text-slate-100 border-moi_moc_green h-6 w-32 rounded-2xl bg-[#438a60] transition
+                    duration-200 hover:scale-110 hover:bg-[#326a49]"
                   onClick={() => {}}
                 >
                   Xem thêm
-                </Button>
+                </Link>
               </div>
             </DirectionAwareHover>
 

@@ -19,6 +19,7 @@ import { FormSubmit } from "../_global-components-reused/form/form-submit";
 import { useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const IngredientModal = () => {
   const form = useForm<z.infer<typeof IngredientSafeTypes>>({
@@ -28,6 +29,8 @@ export const IngredientModal = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const ingredientModal = useIngredientModal();
+
+  const client = useQueryClient();
 
   const onSubmit = async (values: z.infer<typeof IngredientSafeTypes>) => {
     console.log(values);
@@ -45,8 +48,10 @@ export const IngredientModal = () => {
         toast.error("Failed to add ingredient");
         return;
       }
-      toast.success("Ingredient added successfully");
+      client.invalidateQueries({ queryKey: ["ingredients"] });
+      form.reset({ ingredient: "" });
       ingredientModal.onClose();
+      toast.success("Ingredient added successfully");
     } catch (error) {
       toast.error("Failed to add ingredient");
       console.log({ error });

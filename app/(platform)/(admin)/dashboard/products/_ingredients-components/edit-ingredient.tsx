@@ -26,22 +26,21 @@ import { usePushDataActions } from "@/hooks/use-create-actions";
 import { toast } from "sonner";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { PaymentMethodsSafeTypes } from "@/safe-types-zod/admin/payment-methods-safe-types";
 import { FormSelectControl } from "@/components/_global-components-reused/form/form-select-control";
-import { typesMethod } from "./add-payment-methods";
 import { SelectItem } from "@/components/ui/select";
+import { IngredientSafeTypes } from "@/safe-types-zod/admin/ingredient-types";
 
-interface EditPaymentMethod {
-  defaultValues: z.infer<typeof PaymentMethodsSafeTypes>;
-  paymentMethodId: number;
+interface EditIngredient {
+  defaultValues: z.infer<typeof IngredientSafeTypes>;
+  ingredientId: number;
 }
 
-export const EditPaymentMethod = ({
+export const EditIngredient = ({
   defaultValues,
-  paymentMethodId,
-}: EditPaymentMethod) => {
-  const form = useForm<z.infer<typeof PaymentMethodsSafeTypes>>({
-    resolver: zodResolver(PaymentMethodsSafeTypes),
+  ingredientId,
+}: EditIngredient) => {
+  const form = useForm<z.infer<typeof IngredientSafeTypes>>({
+    resolver: zodResolver(IngredientSafeTypes),
     defaultValues,
   });
 
@@ -49,12 +48,9 @@ export const EditPaymentMethod = ({
   const client = useQueryClient();
 
   const editInfoMethod = async (
-    values: z.infer<typeof PaymentMethodsSafeTypes>,
+    values: z.infer<typeof IngredientSafeTypes>,
   ) => {
-    const hasChanged =
-      values.method === defaultValues.method &&
-      values.fee === defaultValues.fee &&
-      values.type === defaultValues.type;
+    const hasChanged = values.ingredient.toLowerCase() === defaultValues.ingredient.toLowerCase();
 
     if (hasChanged) {
       toast.info("Không có thông tin nào thay đổi");
@@ -64,17 +60,17 @@ export const EditPaymentMethod = ({
 
     try {
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/payment-methods/${paymentMethodId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/ingredients/${ingredientId}`,
         values,
       );
 
       if (response.status === 200) {
-        toast.success("Phương thức thanh toán đã được chỉnh sửa thành công");
+        toast.success("Thành phần đã được chỉnh sửa thành công");
         return true;
       }
     } catch (error) {
-      console.error("Lỗi cập nhật phương thức thanh toán", error);
-      // toast.error("Đã xảy ra lỗi khi chỉnh sửa phương thức thanh toán");
+      console.error("Lỗi cập nhật thành phần", error);
+      // toast.error("Đã xảy ra lỗi khi chỉnh sửa thành phần");
       return false;
     } finally {
       setIsOpen(false);
@@ -84,21 +80,21 @@ export const EditPaymentMethod = ({
   const { pushDataAction, isPending, isSuccess } = usePushDataActions(
     editInfoMethod,
     form,
-    { method: "", fee: "", type: "" },
+    { ingredient: "" },
     {
       onSuccess: () => {
         // toast.success("Chỉnh sửa phương thức thanh toán thành công");
-        client.invalidateQueries({ queryKey: ["payment-methods"] });
+        client.invalidateQueries({ queryKey: ["ingredients"] });
         setIsOpen(false);
       },
       onError: (error) => {
-        console.error("Lỗi cập nhật phương thức thanh toán", error);
-        toast.error("Đã xảy ra lỗi khi chỉnh sửa phương thức thanh toán");
+        console.error("Lỗi cập nhật thành phần", error);
+        toast.error("Đã xảy ra lỗi khi chỉnh sửa thành phần");
       },
     },
   );
 
-  const onSubmit = async (values: z.infer<typeof PaymentMethodsSafeTypes>) => {
+  const onSubmit = async (values: z.infer<typeof IngredientSafeTypes>) => {
     pushDataAction(values);
   };
 
@@ -112,41 +108,20 @@ export const EditPaymentMethod = ({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Chỉnh sửa phương thức thanh toán</DialogTitle>
+          <DialogTitle>Chỉnh sửa thành phần</DialogTitle>
           <DialogDescription>
-            Thay đổi thông tin của phương thức thanh toán.
+            Thay đổi thông tin của thành phần.
           </DialogDescription>
         </DialogHeader>
         <FormValues form={form} onSubmit={onSubmit}>
           <div className="grid gap-4 py-4">
             <FormItemsControl
               form={form}
-              name="method"
-              label="Tên phương thức thanh toán"
+              name="ingredient"
+              label="Tên thành phần"
               disabled={isPending}
-              placeholder="Hãy nhập tên phương thức thanh toán"
+              placeholder="Hãy nhập tên thành phần"
             />
-            <FormItemsControl
-              form={form}
-              name="fee"
-              label="Phí của phương thức thanh toán"
-              disabled={isPending}
-              placeholder="Hãy nhập phí của phương thức thanh toán"
-            />
-
-            <FormSelectControl
-              form={form}
-              name="type"
-              placeholder="Loại phương thức thanh toán"
-            >
-              {typesMethod.map((type) => {
-                return (
-                  <SelectItem key={type.value} value={type.value}>
-                    {type.label}
-                  </SelectItem>
-                );
-              })}
-            </FormSelectControl>
           </div>
 
           <DialogFooter>
