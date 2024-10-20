@@ -4,17 +4,21 @@ import { z } from "zod";
 type DeliveryType = ["standard", "express"];
 
 const deliveryTypes = ["standard", "express", "stripe"] as const;
-const paymentMethodsTypes = ["receive-order-payment", "momo"] as const;
+const paymentMethodsTypes = [
+  "receive-order-payment",
+  "payOs",
+  "stripe",
+] as const;
 
 export const deliveryMethods = [
   {
     value: "standard",
     label: "Standard",
   },
-  {
-    value: "stripe",
-    label: "Stripe",
-  },
+  // {
+  //   value: "stripe",
+  //   label: "Stripe",
+  // },
   {
     value: "express",
     label: "Express",
@@ -22,13 +26,13 @@ export const deliveryMethods = [
 ];
 
 export const paymentMethods = [
+  // {
+  //   value: "receive-order-payment",
+  //   label: "Receive order payment",
+  // },
   {
-    value: "receive-order-payment",
-    label: "Receive order payment",
-  },
-  {
-    value: "momo",
-    label: "Momo",
+    value: "payOs",
+    label: "Banking app",
   },
 ];
 

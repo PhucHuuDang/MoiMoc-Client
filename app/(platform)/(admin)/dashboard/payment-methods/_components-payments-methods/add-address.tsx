@@ -141,11 +141,15 @@ export const AddAddress = <T extends FieldValues, K>({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <Tabs className="w-full">
-          <TabsList>
-            <TabsTrigger value="add">Thêm mới địa chỉ</TabsTrigger>
-            <TabsTrigger value="choose">Thêm mới địa chỉ</TabsTrigger>
+          <TabsList className="w-full">
+            <TabsTrigger className="w-full" value="add">
+              Thêm mới địa chỉ
+            </TabsTrigger>
+            <TabsTrigger className="w-full" value="choose">
+              Chọn địa chỉ
+            </TabsTrigger>
           </TabsList>
-          <TabsContent value="add">
+          <TabsContent value="add" className="h-[220px]">
             <DialogHeader>
               <DialogTitle>Thêm mới địa chỉ nhận hàng</DialogTitle>
               <DialogDescription>
@@ -194,7 +198,7 @@ export const AddAddress = <T extends FieldValues, K>({
             </FormValues>
           </TabsContent>
 
-          <TabsContent value="choose">
+          <TabsContent value="choose" className="min-h-[220px]">
             {addresses?.data.length > 0 ? (
               <Select
                 onValueChange={(value) => {
@@ -227,8 +231,10 @@ export const AddAddress = <T extends FieldValues, K>({
                 </SelectContent>
               </Select>
             ) : (
-              <div className="font-bold mx-auto">
-                Có vẻ như bạn chưa có địa chỉ nào
+              <div className="flex items-center justify-center">
+                <span className="font-bold">
+                  Có vẻ như bạn chưa có địa chỉ nào!
+                </span>
               </div>
             )}
           </TabsContent>

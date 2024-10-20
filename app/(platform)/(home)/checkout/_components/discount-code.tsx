@@ -28,8 +28,8 @@ export const DiscountCode = <T extends FieldValues>({
         <FormItemsControl
           form={form}
           name={name}
-          label="Add your discount code"
-          placeholder="Enter your discount code"
+          label="Thêm mã giảm giá của bạn"
+          placeholder="Nhập mã giảm giá của bạn"
           classNameLabel="flex items-center gap-x-1"
           icon={<BadgePercent className="size-5" />}
         />

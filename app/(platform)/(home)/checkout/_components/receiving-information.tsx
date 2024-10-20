@@ -25,6 +25,7 @@ export const ReceivingInformation = <T extends FieldValues>({
   name,
 }: ReceivingInformationProps<T>) => {
   const [updatedAddress, setUpdatedAddress] = useState(form.getValues(address));
+  const [updateName, setUpdateName] = useState(form.getValues(address));
 
   // Use useEffect to watch for address changes and update the state
   useEffect(() => {
@@ -32,8 +33,18 @@ export const ReceivingInformation = <T extends FieldValues>({
       const newAddress = form.getValues(address);
       setUpdatedAddress(newAddress);
     });
-    return () => subscription.unsubscribe(); // Cleasnup on unmount
+    const nameSubscription = form.watch((value) => {
+      const phoneValue = form.getValues(name);
+      setUpdateName(phoneValue);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+      nameSubscription.unsubscribe();
+    }; // Cleasnup on unmount
   }, [form, address]);
+
+  console.log("name: ", form.getValues(name));
 
   return (
     <Card className="w-[500px] border-moi_moc_green">
@@ -49,7 +60,12 @@ export const ReceivingInformation = <T extends FieldValues>({
             liên hệ
           </h1>
           <div className="flex flex-col space-y-1">
-            <span>Tên: {form.getValues(name)}</span>
+            <span>
+              Tên:{" "}
+              <span className="font-light text-base underline">
+                {updateName}
+              </span>
+            </span>
             {/* <FormItemsControl
               form={form}
               type="hidden"
@@ -57,7 +73,12 @@ export const ReceivingInformation = <T extends FieldValues>({
               // name={`${address}.name` as Path<T>}
               name={name as Path<T>}
             /> */}
-            <span>SDT: {form.getValues(phone)}</span>
+            <span>
+              SDT:{" "}
+              <span className="font-light text-base underline">
+                {form.getValues(phone)}
+              </span>
+            </span>
 
             <FormItemsControl
               form={form}

@@ -126,7 +126,6 @@ export const Footer = () => {
                   className={`size-8 cursor-pointer text-moi_moc_green ${hoverAnimate}`}
                 />
               </Link>
-
             </div>
           </div>
         </div>

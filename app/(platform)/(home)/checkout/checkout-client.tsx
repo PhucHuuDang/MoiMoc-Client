@@ -50,7 +50,7 @@ export const CheckoutClient = () => {
     resolver: zodResolver(CheckoutSchemaTypes),
     defaultValues: {
       method: "standard",
-      paymentMethod: "receive-order-payment",
+      paymentMethod: "payOs",
 
       phone: auth?.user?.phoneAuth,
 
@@ -75,25 +75,46 @@ export const CheckoutClient = () => {
       setIsLoading(true);
 
       try {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/stripe/payment`,
-          // `http://localhost:3002/stripe/payment`,
-          values,
-          {
-            headers: {
-              Authorization: `Bearer ${auth.token}`, // Include the token
-              // "Content-Type": "application/json", // Explicitly set content type
+        if (values.paymentMethod === "payOs") {
+          const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/payos/payment`,
+            // `http://localhost:3002/payos/payment`,
+            values,
+            // {
+            //   headers: {
+            //     Authorization: `Bearer ${auth.token}`, // Include the token
+            //     // "Content-Type": "application/json", // Explicitly set content type
+            //   },
+            // },
+          );
+
+          if (response.status === 201) {
+            toast.success("Thanh toán thành công");
+            const { paymentUrl } = await response.data;
+            console.log({ paymentUrl });
+            router.push(paymentUrl);
+          }
+        } else if (values.paymentMethod === "stripe") {
+          const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/stripe/payment`,
+            // `http://localhost:3002/stripe/payment`,
+            values,
+            {
+              headers: {
+                Authorization: `Bearer ${auth.token}`, // Include the token
+                // "Content-Type": "application/json", // Explicitly set content type
+              },
             },
-          },
-        );
+          );
 
-        if (response.status === 201) {
-          toast.success("Thanh toán thành công");
-          const { paymentUrl } = await response.data;
+          if (response.status === 201) {
+            toast.success("Thanh toán thành công");
+            const { paymentUrl } = await response.data;
 
-          console.log({ paymentUrl });
+            console.log({ paymentUrl });
 
-          router.push(paymentUrl);
+            router.push(paymentUrl);
+          }
         }
       } catch (error) {
         console.log({ error });
@@ -197,7 +218,6 @@ export const CheckoutClient = () => {
         avatar: auth?.user?.avatar,
         role: auth?.user?.role,
       });
-
     }
   }, [auth?.isAuth, auth?.user, auth?.token, form, products]);
 
