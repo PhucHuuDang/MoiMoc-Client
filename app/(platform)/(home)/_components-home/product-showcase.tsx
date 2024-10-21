@@ -45,7 +45,7 @@ export const ProductShowcase = () => {
                   href={image.href}
                   // variant="moiMoc"
                   className="text-slate-100 border-moi_moc_green h-6 w-32 rounded-2xl bg-[#438a60] transition
-                    duration-200 hover:scale-110 hover:bg-[#326a49]"
+                    duration-200 hover:scale-110 hover:bg-[#326a49] text-center"
                   onClick={() => {}}
                 >
                   Xem thêm

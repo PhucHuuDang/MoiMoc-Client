@@ -78,6 +78,7 @@ export const CheckoutSchemaTypes = z.object({
     phoneAuth: z.string(),
     avatar: z.string().optional().nullable(),
     role: z.string(),
+    designation: z.string().optional().nullable(),
   }),
 
   address: z.string({

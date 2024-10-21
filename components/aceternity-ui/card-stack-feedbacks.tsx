@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Skeleton } from "@/components/ui/skeleton";
 
 let interval: any;
 
@@ -74,3 +75,20 @@ export const CardStackFeedbacks = ({
     </div>
   );
 };
+
+export function CardStackFeedbacksSkeleton() {
+  return (
+    <div className="h-60 w-60 md:h-60 md:w-96 p-4 bg-white rounded-3xl shadow-lg">
+      <div className="space-y-4">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-5/6" />
+        <Skeleton className="h-4 w-2/3" />
+      </div>
+      <div className="mt-8 space-y-2">
+        <Skeleton className="h-5 w-1/3" />
+        <Skeleton className="h-4 w-1/4" />
+      </div>
+    </div>
+  );
+}

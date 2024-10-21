@@ -217,6 +217,7 @@ export const CheckoutClient = () => {
         email: auth?.user?.email,
         avatar: auth?.user?.avatar,
         role: auth?.user?.role,
+        designation: auth?.user?.designation,
       });
     }
   }, [auth?.isAuth, auth?.user, auth?.token, form, products]);
