@@ -83,7 +83,7 @@ export const EditProduct = ({ productId }: EditProductProps) => {
 
   console.log({ results });
 
-  console.log({ justDataProduct, ingredients, productCategories });
+  // console.log({ justDataProduct, productCategories });
 
   const form = useForm<z.infer<typeof AddProductSafeTypes>>({
     resolver: zodResolver(AddProductSafeTypes),
@@ -127,7 +127,7 @@ export const EditProduct = ({ productId }: EditProductProps) => {
         price: justDataProduct.data?.price,
         discountPrice: justDataProduct.data?.discountPrice,
         discountPercentage: justDataProduct.data?.discountPercentage,
-        expireDate: "",
+        expireDate: justDataProduct.data.expireDate,
 
         imageUrl: justDataProduct.data.productImages.map(
           (image: ProductImageTypes) => image.imageUrl,
@@ -135,7 +135,7 @@ export const EditProduct = ({ productId }: EditProductProps) => {
         ingredients: justDataProduct.data.ingredients.map(
           (ingredient: Ingredient) => ingredient.ingredientId.toString(),
         ),
-        productTypeId: justDataProduct.data.productType.id,
+        productTypeId: justDataProduct.data.productType.id.toString(),
       };
 
       if (JSON.stringify(currentValues) !== JSON.stringify(newValues)) {
@@ -191,8 +191,6 @@ export const EditProduct = ({ productId }: EditProductProps) => {
       label: capitalize(ingredient.ingredient),
     }),
   );
-
-  console.log({ingredientsList})
 
   return (
     <Sheet>
