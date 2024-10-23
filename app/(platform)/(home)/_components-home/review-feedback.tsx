@@ -110,7 +110,7 @@ export const ReviewFeedback = () => {
   const discussionsTransformed =
     discussionData &&
     discussionData?.map((discussion: Discussions) => {
-      console.log(discussion);
+      // console.log(discussion);
 
       return {
         id: discussion.id,

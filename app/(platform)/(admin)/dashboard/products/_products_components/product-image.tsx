@@ -54,13 +54,9 @@ export const ProductImage = () => {
     imagesProductStore?.removeImage(index);
   };
 
-  // {
-  //   console.log(imagesProductStore?.images);
-  // }
+  console.log(imagesProductStore?.images);
 
   return (
-    // <Card>
-    // <CardContent>
     <div className="grid gap-2 h-[457px] 2xl:h-[70%] overflow-y-auto pr-1">
       {imagesProductStore?.images.length === 0 ? (
         <ImageLoading />
@@ -109,7 +105,5 @@ export const ProductImage = () => {
         </>
       )}
     </div>
-    // </CardContent>
-    //</Card>
   );
 };

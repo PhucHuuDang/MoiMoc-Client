@@ -3,7 +3,7 @@
 import { FormValues } from "@/components/_global-components-reused/form/form-values";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { AddProductSafeTypes } from "@/safe-types-zod/admin/product-types";
+import { EditProductSafeTypes } from "@/safe-types-zod/admin/product-types";
 import { useImagesProductStore } from "@/store/use-images-product-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -46,13 +46,7 @@ export const EditProduct = ({ productId }: EditProductProps) => {
     queries: [
       {
         queryKey: ["justDataProduct", productId],
-        // queryFn: async () => {
-        //   const response = await axios.get(
-        //     `http://localhost:3002/products/search/${productId}`,
 
-        //   );
-        //   return response.data;
-        // },
         queryFn: async () =>
           await clientGetData(`/products/search/${productId}`),
         enabled: !!productId, // Only fetch if productId is available
@@ -81,12 +75,12 @@ export const EditProduct = ({ productId }: EditProductProps) => {
   const isError = results.some((result) => result.isError);
   const data = results.map((result) => result.data);
 
-  console.log({ results });
+  // console.log({ results });
 
   // console.log({ justDataProduct, productCategories });
 
-  const form = useForm<z.infer<typeof AddProductSafeTypes>>({
-    resolver: zodResolver(AddProductSafeTypes),
+  const form = useForm<z.infer<typeof EditProductSafeTypes>>({
+    resolver: zodResolver(EditProductSafeTypes),
   });
 
   const stockProps = {
@@ -99,6 +93,8 @@ export const EditProduct = ({ productId }: EditProductProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const price = form.watch("price");
+  // console.log("values images: ", form.watch("images"));
+
   const discountPercentage = form.watch("discountPercentage");
   useEffect(() => {
     if (price && discountPercentage) {
@@ -112,7 +108,7 @@ export const EditProduct = ({ productId }: EditProductProps) => {
     }
   }, [price, discountPercentage, form]);
 
-  console.log("url: ", process.env.NEXT_PUBLIC_API_URL);
+  // console.log("url: ", process.env.NEXT_PUBLIC_API_URL);
 
   useEffect(() => {
     if (justDataProduct?.data) {
@@ -125,12 +121,19 @@ export const EditProduct = ({ productId }: EditProductProps) => {
         productName: justDataProduct.data?.productName,
         productDescription: justDataProduct.data?.productDescription,
         price: justDataProduct.data?.price,
-        discountPrice: justDataProduct.data?.discountPrice,
-        discountPercentage: justDataProduct.data?.discountPercentage,
+        discountPrice: justDataProduct.data?.discountPrice ?? undefined,
+        discountPercentage:
+          justDataProduct.data?.discountPercentage ?? undefined,
         expireDate: justDataProduct.data.expireDate,
 
-        imageUrl: justDataProduct.data.productImages.map(
-          (image: ProductImageTypes) => image.imageUrl,
+        images: justDataProduct.data.productImages.map(
+          (image: ProductImageTypes) => {
+            return {
+              productId: image.productId,
+              imageId: image.id,
+              imageUrl: image.imageUrl,
+            };
+          },
         ),
         ingredients: justDataProduct.data.ingredients.map(
           (ingredient: Ingredient) => ingredient.ingredientId.toString(),
@@ -145,39 +148,37 @@ export const EditProduct = ({ productId }: EditProductProps) => {
     }
   }, [justDataProduct, form]);
 
-  const onSubmit = async (values: z.infer<typeof AddProductSafeTypes>) => {
+  const onSubmit = async (values: z.infer<typeof EditProductSafeTypes>) => {
     console.log({ values });
     setIsLoading(true);
+    // clearAllImages();
+
     try {
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`,
-        values,
-      );
-
-      // Check if the status is not 201 (created)
-      if (response.status !== 201) {
-        toast.error("Error creating product");
-        console.log("Error creating product");
-      }
-
-      toast.success("Product created successfully");
-
-      clearAllImages();
-      form.reset({
-        quantity: 1,
-        discountPercentage: 0,
-        // productTypeId: "",
-        expireDate: "",
-        ingredients: [],
-        productName: "",
-        productDescription: "",
-        usage: "",
-        details: "",
-        imageUrl: [],
-      });
-      router.refresh();
-
-      return response.data;
+      // const response = await axios.put(
+      //   `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`,
+      //   values,
+      // );
+      // // Check if the status is not 201 (created)
+      // if (response.status !== 201) {
+      //   toast.error("Error creating product");
+      //   console.log("Error creating product");
+      // }
+      // toast.success("Product created successfully");
+      // clearAllImages();
+      // form.reset({
+      //   quantity: 1,
+      //   discountPercentage: 0,
+      //   // productTypeId: "",
+      //   expireDate: "",
+      //   ingredients: [],
+      //   productName: "",
+      //   productDescription: "",
+      //   usage: "",
+      //   details: "",
+      //   images: [],
+      // });
+      // router.refresh();
+      // return response.data;
     } catch (error) {
       console.error("Submission failed:", error);
     } finally {
@@ -253,10 +254,12 @@ export const EditProduct = ({ productId }: EditProductProps) => {
                     </div>
                     <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
                       <FormImagesProductControl
+                        productId={productId}
+                        edit
                         title="Hình ảnh sản phẩm"
                         description="Hãy thêm hình ảnh sản phẩm của bạn"
                         form={form}
-                        name="imageUrl"
+                        name="images"
                       >
                         <ProductImage />
                       </FormImagesProductControl>

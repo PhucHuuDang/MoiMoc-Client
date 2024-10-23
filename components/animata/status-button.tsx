@@ -42,7 +42,7 @@ export default function StatusButton({
     // console.log("Add to cart last 3");
   };
 
-  console.log(status === "Added to cart");
+  // console.log(status === "Added to cart");
 
   const hoverAnimation =
     "group-hover:scale-110 duration-300 transition cursor-pointer";
