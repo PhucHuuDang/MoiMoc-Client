@@ -324,15 +324,7 @@ export default function SettingsClient() {
                   </TabsTrigger>
                 );
               })}
-              {/* <TabsTrigger className="w-full bg-orange-200" value="personal">
-                Personal
-              </TabsTrigger>
-              <TabsTrigger value="account">Account</TabsTrigger>
-              <TabsTrigger value="security">Security</TabsTrigger>
-              <TabsTrigger value="notifications">Notifications</TabsTrigger>
-              <TabsTrigger value="connected">Connected Accounts</TabsTrigger>
-              <TabsTrigger value="privacy">Privacy</TabsTrigger>
-              <TabsTrigger value="appearance">Appearance</TabsTrigger> */}
+             
             </TabsList>
           </Tabs>
         </div>
