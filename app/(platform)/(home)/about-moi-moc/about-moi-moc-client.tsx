@@ -9,7 +9,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Footer } from "@/components/_global-components-reused/footer";
 import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-effect";
 import { Logo } from "@/components/_global-components-reused/logo";
-import { ParallaxScroll } from "@/components/aceternity-ui/parallax-scroll";
+import {
+  ParallaxScroll,
+  ParallaxScrollSkeleton,
+} from "@/components/aceternity-ui/parallax-scroll";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { ImagesNotfound } from "../../(admin)/dashboard/about-moi-moc/_components-about-moi-moc/images-notfound";
+
+type ImageModelTypes = {
+  imageUrl: string;
+  aboutMoiMocId: number;
+  id: number;
+};
 
 export default function AboutMoiMocClient() {
   const [activeTab, setActiveTab] = useState("story");
@@ -26,54 +38,25 @@ export default function AboutMoiMocClient() {
     },
   ];
 
-  const images = [
-    "/models/model-7.jpg",
-    "/models/DNM07630.jpg",
-    "/models/DNM07644.jpg",
-    "/models/model-7.jpg",
-    "/models/model-4.jpg",
+  const {
+    data: imagesModels,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["images-models"],
+    queryFn: async () => {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/images-models`,
+      );
 
-    "/models/model-1.jpg",
-    "/models/DNM07631.jpg",
-    "/models/model-2.jpg",
-    "/models/DNM07644.jpg",
-    "/models/model-4.jpg",
+      const images = response.data?.map(
+        (item: ImageModelTypes) => item.imageUrl,
+      );
 
-    "/models/DNM07633.jpg",
-    "/models/model-3.jpg",
-    "/models/DNM07637.jpg",
-    "/models/model-4.jpg",
-    "/models/DNM07638.jpg",
-    "/models/model-5.jpg",
-    "/models/DNM07640.jpg",
-    "/models/DNM07641.jpg",
-    "/models/DNM07642.jpg",
-    "/models/model-6.jpg",
-    "/models/DNM07643.jpg",
-    "/models/DNM07644.jpg",
-    "/models/DNM07648.jpg",
-    "/models/DNM07651.jpg",
-    "/models/DNM07654.jpg",
-    "/models/DNM07657.jpg",
-    "/models/DNM07659.jpg",
-    "/models/DNM07660.jpg",
-    "/models/DNM07661.jpg",
-    "/models/DNM07662.jpg",
-    "/models/DNM07666.jpg",
-    "/models/DNM07667.jpg",
-    "/models/DNM07669.jpg",
-    "/models/DNM07670.jpg",
-    "/models/DNM07672.jpg",
-    "/models/DNM07673.jpg",
-    "/models/DNM07675.jpg",
-    "/models/DNM07676.jpg",
-    "/models/DNM07677.jpg",
-    "/models/DNM07680.jpg",
-    "/models/model-7.jpg",
-    "/models/DNM07630.jpg",
-    "/models/model-1.jpg",
-    "/models/DNM07631.jpg",
-  ];
+      return images;
+    },
+  });
 
   return (
     <div className="min-h-screen bg-main_background_color text-green-900 mb-10">
@@ -117,13 +100,31 @@ export default function AboutMoiMocClient() {
                 cao cấp. Chúng tôi mang đến sản phẩm son hoàn toàn từ nguồn gốc
                 tự nhiên Việt Nam, an toàn và chất lượng cho làn môi của bạn"
               </article> */}
-              <ParallaxScroll
-                images={images}
-                className="h-[50rem] 2xl:h-[60rem]"
-                classNameFirstImage="h-[420px] "
-                classNameThirdImage="h-[420px]"
-                classNameSecondImage="h-[420px]"
-              />
+
+              {/* {isLoading ? (
+                <ParallaxScrollSkeleton className="h-[55rem]" />
+              ) : (
+                <ParallaxScroll
+                  images={imagesModels}
+                  className="h-[50rem] 2xl:h-[60rem]"
+                  classNameFirstImage="h-[420px] "
+                  classNameThirdImage="h-[420px]"
+                  classNameSecondImage="h-[420px]"
+                />
+              )} */}
+              {imagesModels?.length > 0 ? (
+                <ParallaxScroll
+                  images={imagesModels}
+                  className="h-[50rem] 2xl:h-[60rem]"
+                  classNameFirstImage="h-[420px] "
+                  classNameThirdImage="h-[420px]"
+                  classNameSecondImage="h-[420px]"
+                />
+              ) : isError ? (
+                <ImagesNotfound />
+              ) : (
+                <ParallaxScrollSkeleton className="h-[55rem]" />
+              )}
             </div>
           </div>
         </motion.section>

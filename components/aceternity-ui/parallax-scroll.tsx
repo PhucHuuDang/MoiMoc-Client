@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "../ui/skeleton";
 
 export const ParallaxScroll = ({
   images,
@@ -100,3 +101,41 @@ export const ParallaxScroll = ({
     </div>
   );
 };
+
+export function ParallaxScrollSkeleton({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn("h-[40rem] items-start overflow-y-auto w-full", className)}
+    >
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start max-w-5xl mx-auto
+          gap-10 py-40 px-10"
+      >
+        <div className="grid gap-10">
+          {[...Array(3)].map((_, idx) => (
+            <Skeleton
+              key={`skeleton-1-${idx}`}
+              className="h-80 w-full rounded-lg"
+            />
+          ))}
+        </div>
+        <div className="grid gap-10">
+          {[...Array(3)].map((_, idx) => (
+            <Skeleton
+              key={`skeleton-2-${idx}`}
+              className="h-80 w-full rounded-lg"
+            />
+          ))}
+        </div>
+        <div className="grid gap-10">
+          {[...Array(3)].map((_, idx) => (
+            <Skeleton
+              key={`skeleton-3-${idx}`}
+              className="h-80 w-full rounded-lg"
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

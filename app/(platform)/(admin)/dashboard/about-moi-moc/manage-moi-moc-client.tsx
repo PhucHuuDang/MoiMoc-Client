@@ -1,61 +1,15 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Label } from "@/components/ui/label";
-import {
-  PlusCircle,
-  Trash2,
-  Save,
-  Upload,
-  X,
-  Moon,
-  Sun,
-  Edit2,
-  Settings2,
-} from "lucide-react";
-// import { toast } from '@/components/ui/use-toast'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Switch } from "@/components/ui/switch";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Progress } from "@/components/ui/progress";
-import Image from "next/image";
+
 import { Path, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AboutMoiMocSafeTypes } from "@/safe-types-zod/admin/about-moi-moc-safe-types";
-import { FormValues } from "@/components/_global-components-reused/form/form-values";
-import { FormTextareaControl } from "@/components/_global-components-reused/form/form-textarea-control";
-import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
-import { usePushDataActions } from "@/hooks/use-create-actions";
 import axios from "axios";
 import { toast } from "sonner";
-import { ImageUploadAboutMoiMoc } from "./image-upload-about-moi-moc";
 import { useQuery } from "@tanstack/react-query";
 import { ManageImagesModels } from "./_components-about-moi-moc/manage-images-models";
 import { ManageContent } from "./_components-about-moi-moc/manage-content";
