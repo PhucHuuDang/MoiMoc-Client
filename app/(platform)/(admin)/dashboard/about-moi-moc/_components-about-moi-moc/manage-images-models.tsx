@@ -50,17 +50,12 @@ import {
 } from "@/components/aceternity-ui/parallax-scroll";
 import { serverFetching } from "@/api/actions/server-fetching";
 import { ImagesNotfound } from "./images-notfound";
+import { ImageModelTypes } from "@/types";
 
 interface ManageImagesModelsProps {
   tabsContent: string;
   data: DataTypes;
 }
-
-type ImageModelTypes = {
-  imageUrl: string;
-  aboutMoiMocId: number;
-  id: number;
-};
 
 export const ManageImagesModels = ({
   tabsContent,
@@ -102,22 +97,23 @@ export const ManageImagesModels = ({
         `${process.env.NEXT_PUBLIC_API_URL}/images-models`,
       );
 
-      const images = response.data?.map(
-        (item: ImageModelTypes) => item.imageUrl,
-      );
+      // const images = response.data?.map(
+      //   (item: ImageModelTypes) => item.imageUrl,
+      // );
 
-      console.log({ images });
+      // console.log({ images });
 
-      return images;
+      if (response.status !== 200 && !response.data) {
+        return [];
+      }
+
+      return response.data as ImageModelTypes[];
     },
   });
-
-  console.log({ imagesModels });
 
   const handleAddImagesModels = async () => {
     setIsPending(true);
 
-    // const
 
     const ok = await confirm();
 
@@ -259,7 +255,7 @@ export const ManageImagesModels = ({
               <ResizableHandle withHandle />
 
               <ResizablePanel defaultSize={40} className="w-full">
-                {imagesModels?.length > 0 ? (
+                {imagesModels && imagesModels.length > 0 ? (
                   <ParallaxScroll
                     images={imagesModels}
                     className="h-[50rem] 2xl:h-[60rem]"

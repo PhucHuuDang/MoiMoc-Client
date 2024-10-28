@@ -10,6 +10,8 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { useConfirm } from "@/hooks/use-confirm";
+import { ImageModelTypes } from "@/types";
+import { ImageCoordinator } from "../_global-components-reused/image-cordinator";
 
 export const ParallaxScroll = ({
   images,
@@ -19,7 +21,8 @@ export const ParallaxScroll = ({
   classNameThirdImage,
   admin,
 }: {
-  images: string[];
+  // images: string[];
+  images: ImageModelTypes[];
   classNameFirstImage?: string;
   classNameSecondImage?: string;
   classNameThirdImage?: string;
@@ -53,7 +56,7 @@ export const ParallaxScroll = ({
 
   // delete
 
-  const onDelete = async (index: number) => {
+  const onDelete = async (imageModelId: number) => {
     setIsPending(true);
 
     const ok = await confirm();
@@ -61,7 +64,7 @@ export const ParallaxScroll = ({
     try {
       if (ok) {
         const response = await axios.delete(
-          `${process.env.NEXT_PUBLIC_API_URL}/images-models/${index}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/images-models/${imageModelId}`,
         );
 
         if (response.status === 200) {
@@ -90,71 +93,96 @@ export const ParallaxScroll = ({
         )}
         ref={gridRef}
       >
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start max-w-5xl mx-auto
-            gap-10 py-40 px-10"
-          ref={gridRef}
-        >
-          <div className="grid gap-10">
-            {firstPart.map((el, idx) => (
-              <motion.div
-                style={{ y: translateFirst }} // Apply the translateY motion value here
-                key={"grid-1" + idx}
-                className="relative"
-              >
-                <Image
-                  src={el}
-                  className={cn(
-                    "h-80 w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0",
-                    classNameFirstImage,
-                  )}
-                  height="400"
-                  width="400"
-                  alt="thumbnail"
-                />
-                {admin && (
-                  <Trash
-                    // onClick={() => onDelete(idx)}
-                    className="absolute top-2 right-2 size-5 p-0.5 bg-red-500 rounded-md hover:bg-green-100
-                      transition duration-300 cursor-pointer"
+        <ImageCoordinator>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start max-w-5xl mx-auto
+              gap-10 py-40 px-10"
+            ref={gridRef}
+          >
+            <div className="grid gap-10">
+              {firstPart.map((el, idx) => (
+                <motion.div
+                  style={{ y: translateFirst }} // Apply the translateY motion value here
+                  key={"grid-1" + idx}
+                  className="relative"
+                >
+                  <Image
+                    src={el.imageUrl}
+                    className={cn(
+                      "h-80 w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0",
+                      classNameFirstImage,
+                    )}
+                    height="400"
+                    width="400"
+                    alt="thumbnail"
                   />
-                )}
-              </motion.div>
-            ))}
-          </div>
-          <div className="grid gap-10">
-            {secondPart.map((el, idx) => (
-              <motion.div style={{ y: translateSecond }} key={"grid-2" + idx}>
-                <Image
-                  src={el}
-                  className={cn(
-                    "h-80 w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0",
-                    classNameSecondImage,
+                  {admin && (
+                    <Trash
+                      onClick={() => onDelete(el.id)}
+                      className="absolute top-2 right-2 size-5 p-0.5 bg-red-500 rounded-md hover:bg-green-100
+                        transition duration-300 cursor-pointer"
+                    />
                   )}
-                  height="400"
-                  width="400"
-                  alt="thumbnail"
-                />
-              </motion.div>
-            ))}
-          </div>
-          <div className="grid gap-10">
-            {thirdPart.map((el, idx) => (
-              <motion.div style={{ y: translateThird }} key={"grid-3" + idx}>
-                <Image
-                  src={el}
-                  className={cn(
-                    "h-80 w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0",
-                    classNameThirdImage,
+                </motion.div>
+              ))}
+            </div>
+            <div className="grid gap-10">
+              {secondPart.map((el, idx) => (
+                <motion.div
+                  style={{ y: translateSecond }}
+                  key={"grid-2" + idx}
+                  className="relative"
+                >
+                  <Image
+                    src={el.imageUrl}
+                    className={cn(
+                      "h-80 w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0",
+                      classNameSecondImage,
+                    )}
+                    height="400"
+                    width="400"
+                    alt="thumbnail"
+                  />
+                  {admin && (
+                    <Trash
+                      onClick={() => onDelete(el.id)}
+                      className="absolute top-2 right-2 size-5 p-0.5 bg-red-500 rounded-md hover:bg-green-100
+                        transition duration-300 cursor-pointer"
+                    />
                   )}
-                  height="400"
-                  width="400"
-                  alt="thumbnail"
-                />
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
+            <div className="grid gap-10">
+              {thirdPart.map((el, idx) => (
+                <motion.div
+                  style={{ y: translateThird }}
+                  key={"grid-3" + idx}
+                  className="relative"
+                >
+                  <Image
+                    src={el.imageUrl}
+                    className={cn(
+                      "h-80 w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0",
+                      classNameThirdImage,
+                    )}
+                    height="400"
+                    width="400"
+                    alt="thumbnail"
+                  />
+
+                  {admin && (
+                    <Trash
+                      onClick={() => onDelete(el.id)}
+                      className="absolute top-2 right-2 size-5 p-0.5 bg-red-500 rounded-md hover:bg-green-100
+                        transition duration-300 cursor-pointer"
+                    />
+                  )}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
+        </ImageCoordinator>
       </div>
     </>
   );

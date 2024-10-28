@@ -10,13 +10,8 @@ export type ProductProps = {
   quantityOrder?: number;
 };
 
-export type UserType = {
+export type ImageModelTypes = {
+  imageUrl: string;
+  aboutMoiMocId: number;
   id: number;
-  name: string;
-  email: string;
-  phoneAuth: string;
-  avatar: string;
-  role: string;
-  createdAt: string;
-  updatedAt: string;
 };

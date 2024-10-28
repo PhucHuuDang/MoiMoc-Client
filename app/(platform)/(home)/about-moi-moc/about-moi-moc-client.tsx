@@ -16,12 +16,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ImagesNotfound } from "../../(admin)/dashboard/about-moi-moc/_components-about-moi-moc/images-notfound";
-
-type ImageModelTypes = {
-  imageUrl: string;
-  aboutMoiMocId: number;
-  id: number;
-};
+import { ImageModelTypes } from "@/types";
 
 export default function AboutMoiMocClient() {
   const [activeTab, setActiveTab] = useState("story");
@@ -50,11 +45,16 @@ export default function AboutMoiMocClient() {
         `${process.env.NEXT_PUBLIC_API_URL}/images-models`,
       );
 
-      const images = response.data?.map(
-        (item: ImageModelTypes) => item.imageUrl,
-      );
+      // const images = response.data?.map(
+      //   (item: ImageModelTypes) => item.imageUrl,
+      // );
 
-      return images;
+      // return images;
+      if (response.status !== 200 && !response.data) {
+        return [];
+      }
+
+      return response.data as ImageModelTypes[];
     },
   });
 
@@ -112,7 +112,7 @@ export default function AboutMoiMocClient() {
                   classNameSecondImage="h-[420px]"
                 />
               )} */}
-              {imagesModels?.length > 0 ? (
+              {imagesModels && imagesModels?.length > 0 ? (
                 <ParallaxScroll
                   images={imagesModels}
                   className="h-[50rem] 2xl:h-[60rem]"
