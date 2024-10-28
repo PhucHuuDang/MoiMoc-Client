@@ -112,7 +112,7 @@ export function ManageAboutMoiMocClient({
   // };
 
   return (
-    <div className={"min-h-screen w-full }"}>
+    <div className={"min-h-screen w-full "}>
       <div className="w-full p-4 space-y-8 transition-colors duration-200">
         <header className="flex justify-between items-center border-b pb-4">
           <div>
