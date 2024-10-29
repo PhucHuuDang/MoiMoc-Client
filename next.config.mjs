@@ -26,10 +26,10 @@ const nextConfig = {
   },
 
   compiler: {
-    // removeConsole: process.env.NODE_ENV === "production",
-    removeConsole: {
-      exclude: ["error"],
-    },
+    removeConsole: process.env.NODE_ENV === "production",
+    // removeConsole: {
+    //   exclude: ["error"],
+    // },
   },
 };
 

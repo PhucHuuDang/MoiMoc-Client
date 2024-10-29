@@ -1,6 +1,7 @@
 "use client";
 import {
   Banknote,
+  BookImage,
   Home,
   LineChart,
   Package,
@@ -46,12 +47,17 @@ export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
     {
       href: "/dashboard/delivery-methods",
       icon: <Truck className={`${styleDockItems}`} />,
-      title: "Delivery",
+      title: "Delivery Management",
     },
     {
       href: "/dashboard/payment-methods",
       icon: <Banknote className={`${styleDockItems}`} />,
-      title: "Delivery",
+      title: "Payment Methods Management",
+    },
+    {
+      href: "/dashboard/about-moi-moc",
+      icon: <BookImage className={`${styleDockItems}`} />,
+      title: "About Moi Moc Management",
     },
     // {
     //   href: "#",

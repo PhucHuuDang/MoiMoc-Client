@@ -114,7 +114,6 @@ export const ManageImagesModels = ({
   const handleAddImagesModels = async () => {
     setIsPending(true);
 
-
     const ok = await confirm();
 
     const valuesImages = imageUrls.map((image) => ({

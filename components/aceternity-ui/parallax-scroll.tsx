@@ -5,13 +5,17 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
-import { Trash } from "lucide-react";
+import { Edit2, Edit3, LucideEdit2, Trash, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { useConfirm } from "@/hooks/use-confirm";
 import { ImageModelTypes } from "@/types";
 import { ImageCoordinator } from "../_global-components-reused/image-cordinator";
+import { ActionsControl } from "../_global-components-reused/actions-control";
+import { ConfirmModal } from "../_global-components-reused/confirm-modal";
+import { DropdownMenuItem } from "../ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
 export const ParallaxScroll = ({
   images,
@@ -38,6 +42,7 @@ export const ParallaxScroll = ({
 
   const [isPending, setIsPending] = useState<boolean>(false);
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure you want to delete this image?",
@@ -66,10 +71,10 @@ export const ParallaxScroll = ({
         const response = await axios.delete(
           `${process.env.NEXT_PUBLIC_API_URL}/images-models/${imageModelId}`,
         );
-
+        console.log(response.status);
         if (response.status === 200) {
-          queryClient.invalidateQueries({ queryKey: [["about-moi-moc"]] });
-          queryClient.invalidateQueries({ queryKey: [["images-models"]] });
+          queryClient.invalidateQueries({ queryKey: ["about-moi-moc"] });
+          queryClient.invalidateQueries({ queryKey: ["images-models"] });
           toast.success("The image has been deleted successfully.");
           return;
         }
@@ -117,11 +122,28 @@ export const ParallaxScroll = ({
                     alt="thumbnail"
                   />
                   {admin && (
-                    <Trash
-                      onClick={() => onDelete(el.id)}
-                      className="absolute top-2 right-2 size-5 p-0.5 bg-red-500 rounded-md hover:bg-green-100
-                        transition duration-300 cursor-pointer"
-                    />
+                    <div className="absolute top-2 right-2">
+                      <ActionsControl>
+                        <DropdownMenuItem
+                          className="cursor-pointer hover:scale-105 transition duration-300"
+                          // onClick={() => onReplace(el.id)}
+                        >
+                          <Edit2 className="size-5 p-0.5 mr-1 rounded-md transition duration-300 cursor-pointer" />
+                          Replace image
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem
+                          className="cursor-pointer hover:scale-105 transition duration-300"
+                          onClick={() => onDelete(el.id)}
+                        >
+                          <Trash2
+                            // onClick={() => console.log("clicked delete image")}
+                            className="size-5 p-0.5 mr-1 rounded-md transition duration-300 cursor-pointer"
+                          />
+                          Delete image
+                        </DropdownMenuItem>
+                      </ActionsControl>
+                    </div>
                   )}
                 </motion.div>
               ))}
@@ -144,11 +166,28 @@ export const ParallaxScroll = ({
                     alt="thumbnail"
                   />
                   {admin && (
-                    <Trash
-                      onClick={() => onDelete(el.id)}
-                      className="absolute top-2 right-2 size-5 p-0.5 bg-red-500 rounded-md hover:bg-green-100
-                        transition duration-300 cursor-pointer"
-                    />
+                    <div className="absolute top-2 right-2">
+                      <ActionsControl>
+                        <DropdownMenuItem
+                          className="cursor-pointer hover:scale-105 transition duration-300"
+                          // onClick={() => onReplace(el.id)}
+                        >
+                          <Edit2 className="size-5 p-0.5 mr-1 rounded-md transition duration-300 cursor-pointer" />
+                          Replace image
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem
+                          className="cursor-pointer hover:scale-105 transition duration-300"
+                          onClick={() => onDelete(el.id)}
+                        >
+                          <Trash2
+                            // onClick={() => console.log("clicked delete image")}
+                            className="size-5 p-0.5 mr-1 rounded-md transition duration-300 cursor-pointer"
+                          />
+                          Delete image
+                        </DropdownMenuItem>
+                      </ActionsControl>
+                    </div>
                   )}
                 </motion.div>
               ))}
@@ -172,11 +211,47 @@ export const ParallaxScroll = ({
                   />
 
                   {admin && (
-                    <Trash
-                      onClick={() => onDelete(el.id)}
-                      className="absolute top-2 right-2 size-5 p-0.5 bg-red-500 rounded-md hover:bg-green-100
-                        transition duration-300 cursor-pointer"
-                    />
+                    // <div className="absolute top-2 right-2">
+                    //   <ActionsControl>
+                    //     <ConfirmModal
+                    //       isPending={isPending}
+                    //       action={() => onDelete(el.id)}
+                    //       title="Are you sure you want to delete this image?"
+                    //       description="If you delete this image, it will be gone forever. This action cannot be undone."
+                    //       trigger={
+                    //         <DropdownMenuItem>
+                    //           <Trash2
+                    //             className="right-2 size-5 p-0.5 mr-1 bg-red-500 rounded-md hover:bg-green-100 transition
+                    //               duration-300 cursor-pointer"
+                    //           />
+                    //           Delete image
+                    //         </DropdownMenuItem>
+                    //       }
+                    //     />
+                    //   </ActionsControl>
+                    // </div>
+                    <div className="absolute top-2 right-2">
+                      <ActionsControl>
+                        <DropdownMenuItem
+                          className="cursor-pointer hover:scale-105 transition duration-300"
+                          // onClick={() => onReplace(el.id)}
+                        >
+                          <Edit2 className="size-5 p-0.5 mr-1 rounded-md transition duration-300 cursor-pointer" />
+                          Replace image
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem
+                          className="cursor-pointer hover:scale-105 transition duration-300"
+                          onClick={() => onDelete(el.id)}
+                        >
+                          <Trash2
+                            // onClick={() => console.log("clicked delete image")}
+                            className="size-5 p-0.5 mr-1 rounded-md transition duration-300 cursor-pointer"
+                          />
+                          Delete image
+                        </DropdownMenuItem>
+                      </ActionsControl>
+                    </div>
                   )}
                 </motion.div>
               ))}

@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useClickAway } from "react-use";
 
 export const useConfirm = (
@@ -53,6 +53,10 @@ export const useConfirm = (
   };
 
   useClickAway(refOutside, handleClose);
+
+  useEffect(() => {
+    return () => handleClose();
+  }, []);
 
   const ConfirmDialog = () => {
     return (
