@@ -5,6 +5,8 @@ import DetailPage from "./_components/detail";
 import { productDetail } from "@/api/product-data/products-data";
 import { ProductDetailTypes } from "@/types/product-detail-types";
 import NotFound from "./not-found";
+import { Suspense } from "react";
+import { ProductDetailSkelton } from "./_components/product-detail-skeleton";
 
 export default async function ProductDetailPage({
   params,
@@ -13,16 +15,21 @@ export default async function ProductDetailPage({
 }) {
   const { productId } = params;
 
-  const productDetailData: ProductDetailTypes = await productDetail(productId);
+  // const productDetailData: ProductDetailTypes = await productDetail(productId);
 
-  console.log({ productDetailData });
+  // console.log({ productDetailData });
 
-  return productDetailData ? (
-    <DetailPage productDetailData={productDetailData} />
-  ) : (
-    // <div className="flex items-center justify-center min-h-screen bg-red-500">
-    //   Product Not Found
-    // </div>
-    <NotFound />
+  // return productDetailData ? (
+  //   <Suspense fallback={<ProductDetailSkelton />}>
+  //     <DetailPage productDetailData={productDetailData} productId={productId} />
+  //   </Suspense>
+  // ) : (
+
+  //   <NotFound />
+  // );
+  return (
+    <Suspense fallback={<ProductDetailSkelton />}>
+      <DetailPage productId={productId} />
+    </Suspense>
   );
 }

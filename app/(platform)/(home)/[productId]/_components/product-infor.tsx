@@ -62,7 +62,7 @@ export const ProductInfo = ({
     price: productDetailData.price,
     discountPrice: productDetailData.discountPrice,
     discountPercentage: productDetailData.discountPercentage,
-    mainImage: productDetailData.productImages[0].imageUrl,
+    mainImage: productDetailData?.productImages[0].imageUrl,
     quantity: productDetailData.quantity,
     quantityOrder: quantity,
   };
@@ -226,8 +226,8 @@ export const ProductInfo = ({
             label="Thêm vào giỏ hàng"
           />
 
-          <Button variant="outline" className="py-6">
-            <Heart className="w-6 h-6" />
+          <Button variant="outline" className="py-4">
+            <Heart className="size-5" />
           </Button>
         </div>
 
