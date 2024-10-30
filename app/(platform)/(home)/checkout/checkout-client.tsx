@@ -91,7 +91,7 @@ export const CheckoutClient = () => {
           if (response.status === 201) {
             toast.success("Thanh toán thành công");
             const { paymentUrl } = await response.data;
-            console.log({ paymentUrl });
+            // console.log({ paymentUrl });
             router.push(paymentUrl);
           }
         } else if (values.paymentMethod === "stripe") {
@@ -110,8 +110,6 @@ export const CheckoutClient = () => {
           if (response.status === 201) {
             toast.success("Thanh toán thành công");
             const { paymentUrl } = await response.data;
-
-            console.log({ paymentUrl });
 
             router.push(paymentUrl);
           }

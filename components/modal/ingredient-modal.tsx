@@ -33,16 +33,12 @@ export const IngredientModal = () => {
   const client = useQueryClient();
 
   const onSubmit = async (values: z.infer<typeof IngredientSafeTypes>) => {
-    console.log(values);
-
     setIsLoading(true);
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/ingredients`,
         values,
       );
-
-      console.log({ response });
 
       if (response.status !== 201) {
         toast.error("Failed to add ingredient");

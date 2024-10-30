@@ -206,7 +206,7 @@ export const AddAddress = <T extends FieldValues, K>({
                     (address: AddressTypes) => address.id.toString() === value,
                   );
 
-                  console.log(selectedAddress.address);
+                  // console.log(selectedAddress.address);
 
                   if (selectedAddress) {
                     parentForm?.setValue(
@@ -216,7 +216,7 @@ export const AddAddress = <T extends FieldValues, K>({
 
                     toast.success("Chọn địa chỉ thành công");
                   }
-                  console.log(parentForm?.getValues(name));
+                  // console.log(parentForm?.getValues(name));
                 }}
               >
                 <SelectTrigger className="w-[300px]">

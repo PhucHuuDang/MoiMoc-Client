@@ -71,8 +71,6 @@ export const ManageImagesModels = ({
     "Do you want to add the image(s)?",
   );
 
-  console.log({ imageUrls });
-
   const handleDeleteImage = (index: number) => {
     setImageUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
   };

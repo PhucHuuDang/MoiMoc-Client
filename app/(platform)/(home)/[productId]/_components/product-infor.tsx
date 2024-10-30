@@ -47,13 +47,6 @@ export const ProductInfo = ({
 
   const addOrder = useCartStore((state) => state.addOrder);
 
-  // const productImages = [
-  //   "/images/alchemistry.png",
-  //   "/images/demo-product-1.png",
-  //   "/images/demo-product-2.png",
-  //   "/images/demo-product-3.png",
-  // ];
-
   const productOrder: ProductItemData = {
     id: productDetailData.productId,
     productId: productDetailData.productId,
@@ -182,12 +175,6 @@ export const ProductInfo = ({
               <TooltipProvider key={item.ingredientId}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    {/* <Button
-                      variant="outline"
-                      className="w-10 h-10 rounded-full"
-                    >
-                      {size}
-                    </Button> */}
                     <Badge variant="moiMoc">
                       {capitalize(item.ingredientName)}
                     </Badge>

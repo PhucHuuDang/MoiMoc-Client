@@ -8,8 +8,6 @@ type RegisterData = {
 };
 
 export const registerAccount = async (data: RegisterData) => {
-  console.log("env variable: ", process.env.NEXT_PUBLIC_API_URL);
-
   const { confirmPassword, name, phoneAuth, password } = data;
 
   try {
@@ -25,10 +23,6 @@ export const registerAccount = async (data: RegisterData) => {
     // if (response.status === 200) {
     //   return response.data;
     // }
-
-    console.log(response);
-
-    console.log(response.data);
 
     if (response.status === 201) {
       return response.data;

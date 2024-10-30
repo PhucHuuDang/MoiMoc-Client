@@ -98,15 +98,11 @@ export default function DeliveryMethodsClient() {
     },
   });
 
-  console.log({ isPending, isFetching });
-
   const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false);
 
   const [deliveryMethods, setDeliveryMethods] = useState<DeliveryMethod[]>(
     deliveryMethodsData || [],
   );
-
-  console.log({ deliveryMethodsData });
 
   const [newMethod, setNewMethod] = useState<Partial<DeliveryMethod>>({});
   const [searchTerm, setSearchTerm] = useState("");
