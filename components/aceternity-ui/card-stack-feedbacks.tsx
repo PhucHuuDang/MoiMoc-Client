@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
+import { User } from "lucide-react";
 
 let interval: any;
 
@@ -46,9 +47,10 @@ export const CardStackFeedbacks = ({
         return (
           <motion.div
             key={card.id}
-            className="absolute dark:bg-black bg-white h-60 w-60 md:h-60 md:w-96 rounded-3xl p-4
-              shadow-xl border border-neutral-200 dark:border-white/[0.1] shadow-black/[0.1]
-              dark:shadow-white/[0.05] flex flex-col justify-between"
+            className="absolute dark:bg-black bg-gradient-to-br from-lime-700 via-green-800 to-teal-800
+              h-60 w-60 md:h-60 md:w-96 rounded-3xl p-4 shadow-xl border border-neutral-200
+              dark:border-white/[0.1] shadow-black/[0.1] dark:shadow-white/[0.05] flex
+              flex-col justify-between"
             style={{
               transformOrigin: "top center",
             }}
@@ -58,13 +60,16 @@ export const CardStackFeedbacks = ({
               zIndex: cards.length - index, //  decrease z-index for the cards that are behind
             }}
           >
-            <div className="font-semibold text-moi_moc_green dark:text-neutral-200">
+            <div className="font-semibold text-slate-300 dark:text-neutral-200">
               {card.content}
             </div>
             <div>
-              <p className="text-neutral-500 font-bold dark:text-white">
-                {card.name}
-              </p>
+              <div className="flex items-center gap-x-0.5">
+                <User className="size-5 text-slate-100" />
+                <p className="text-slate-100 font-bold dark:text-white">
+                  {card.name}
+                </p>
+              </div>
               <p className="text-neutral-400 font-normal dark:text-neutral-200">
                 {card.designation}
               </p>

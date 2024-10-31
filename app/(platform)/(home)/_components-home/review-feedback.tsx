@@ -32,64 +32,6 @@ type Discussions = {
 };
 
 export const ReviewFeedback = () => {
-  const feedbacks = [
-    {
-      id: 1,
-      name: "Alice Johnson",
-      designation: "Software Engineer",
-      content: (
-        <>
-          This platform has transformed the way I manage my projects. The user
-          interface is intuitive, and the customer service is top-notch.
-        </>
-      ),
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      designation: "Project Manager",
-      content: (
-        <>
-          I appreciate the real-time collaboration features. It has
-          significantly improved our team's productivity and communication.
-        </>
-      ),
-    },
-    {
-      id: 3,
-      name: "Emily Smith",
-      designation: "UI/UX Designer",
-      content: (
-        <>
-          The design tools are incredibly powerful. As a designer, I find the
-          flexibility and customizability of the platform very useful.
-        </>
-      ),
-    },
-    {
-      id: 4,
-      name: "Michael Brown",
-      designation: "Data Analyst",
-      content: (
-        <>
-          I love how easy it is to integrate data from various sources. The
-          analytics dashboard is a game-changer for my workflow.
-        </>
-      ),
-    },
-    {
-      id: 5,
-      name: "Jessica Lee",
-      designation: "Marketing Specialist",
-      content: (
-        <>
-          The marketing automation features have helped streamline our
-          campaigns. The results speak for themselves with increased engagement.
-        </>
-      ),
-    },
-  ];
-
   const {
     data: discussionData,
     isLoading,
@@ -140,8 +82,8 @@ export const ReviewFeedback = () => {
         </video>
 
         <div className="absolute inset-0 flex items-center justify-center">
-          {!isLoading ? (
-            <CardStackFeedbacks items={discussionsTransformed} />
+          {!isLoading && discussionsTransformed?.length !== 0 ? (
+            <CardStackFeedbacks items={discussionsTransformed ?? []} />
           ) : (
             <CardStackFeedbacksSkeleton />
           )}
