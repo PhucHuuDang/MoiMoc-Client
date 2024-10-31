@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="bg-slate-800/15 pt-5">
+    <div className="bg-slate-800/15 pt-5 2xl:h-screen">
       <Navbar />
       <div className="flex flex-col items-center justify-center gap-2 h-[70vh] 2xl:h-[60vh] w-full">
         <Image

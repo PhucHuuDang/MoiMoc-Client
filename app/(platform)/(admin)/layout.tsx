@@ -4,8 +4,20 @@ import { AdminSideBar } from "@/app/(platform)/(admin)/dashboard/orders/_orders-
 import { SheetControlSystem } from "@/app/(platform)/(admin)/dashboard/orders/_orders-components/sheet-control-system";
 import { AdminFloatingDock } from "./dashboard/orders/_orders-components/admin-floating-dock";
 import { ThemeDataProvider } from "@/provider/theme-data-provider";
+import { isUserWithRole, verifyAuth } from "@/api/auth/verify-auth";
+import NotFound from "@/app/not-found";
 
-const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+const AdminLayout = async ({
+  children,
+}: Readonly<{ children: React.ReactNode }>) => {
+  const { isAuth, user, token } = await verifyAuth();
+
+  console.log({ user });
+
+  if (!isAuth || !token || !isUserWithRole(user) || user.role !== "ADMIN") {
+    return <NotFound />;
+  }
+
   return (
     <NextThemeProvider
       attribute="class"

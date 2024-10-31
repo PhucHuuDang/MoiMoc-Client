@@ -21,6 +21,8 @@ export const Navbar = () => {
   const router = useRouter();
   const auth = useAuthContext();
 
+  const role = auth?.user?.role;
+
   // console.log({ auth });
   const height = 24;
   const hoverAnimate =
@@ -59,7 +61,17 @@ export const Navbar = () => {
             Đăng xuất
           </div>
         )}
-        <LanguageNavbarSVG height={height} className={hoverAnimate} />
+
+        {role === "ADMIN" ? (
+          <div
+            className={`text-moi_moc_green font-light cursor-pointer ${hoverAnimate}`}
+            onClick={() => handleRedirect("/dashboard")}
+          >
+            Dashboard
+          </div>
+        ) : (
+          <LanguageNavbarSVG height={height} className={hoverAnimate} />
+        )}
         <div className="relative">
           <CartNavbarSVG height={35} className={hoverAnimate} />
           <div

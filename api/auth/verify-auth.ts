@@ -4,6 +4,27 @@ import { cache } from "react";
 import { decryptToken, getTokenCookies } from "../store/cookies-stored";
 import { cookies } from "next/headers";
 
+type User = {
+  id: number;
+  name: string;
+  email: string | null;
+  role: string;
+  password: string;
+  phoneAuth: string;
+  avatar: string | null;
+  designation: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+export const isUserWithRole = (user: any): user is User => {
+  return (
+    user !== null &&
+    typeof user === "object" &&
+    "role" in user &&
+    typeof user.role === "string"
+  );
+};
+
 export const verifyAuth = cache(async () => {
   try {
     const token = cookies().get("token")?.value;
