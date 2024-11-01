@@ -48,50 +48,6 @@ export const FormImagesProductControl = <T extends FieldValues, K>({
     (state) => state,
   );
 
-  // useEffect(() => {
-  //   const currentImages = form.watch(name); // Watch current form images
-
-  //   // Avoid adding default images to the store multiple times
-  //   if (currentImages?.length > 0 && imagesProductStore?.images.length === 0) {
-  //     currentImages.forEach((img: ProductImage) => {
-  //       imagesProductStore?.addImage(img?.imageUrl);
-  //     });
-  //   }
-
-  //   if (!imagesProductStore?.images.length) return; // Exit if there are no images in the store
-
-  //   if (edit && productId) {
-  //     // For edit mode: merge current form images with new images from the store
-  //     const newImages = imagesProductStore.images
-  //       .filter(
-  //         (imgUrl) =>
-  //           !currentImages.some((img: any) => img.imageUrl === imgUrl),
-  //       ) // Prevent duplicates
-  //       .map((imageUrl) => ({
-  //         productId,
-  //         imageUrl,
-  //         imageId: undefined, // Set undefined as it's a new image
-  //       }));
-
-  //     // Only update form if there are new images to add
-  //     if (newImages.length > 0) {
-  //       form.setValue(name, [...currentImages, ...newImages] as PathValue<
-  //         T,
-  //         Path<T>
-  //       >);
-  //     }
-  //   } else {
-  //     // For non-edit mode: only set images if they differ from current form value
-  //     if (
-  //       JSON.stringify(currentImages) !==
-  //       JSON.stringify(imagesProductStore.images)
-  //     ) {
-  //       form.setValue(name, imagesProductStore.images as PathValue<T, Path<T>>);
-  //     }
-  //   }
-  // }, [imagesProductStore?.images, edit, productId]); // Add other dependencies like 'edit' and 'productId'
-
-
   useEffect(() => {
     if (imagesProductStore?.images.length! > 0) {
       form.setValue(name, imagesProductStore?.images as PathValue<T, Path<T>>);

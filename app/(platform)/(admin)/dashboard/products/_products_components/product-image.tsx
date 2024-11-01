@@ -54,7 +54,7 @@ export const ProductImage = () => {
     imagesProductStore?.removeImage(index);
   };
 
-  console.log(imagesProductStore?.images);
+  // console.log(imagesProductStore?.images);
 
   return (
     <div className="grid gap-2 h-[457px] 2xl:h-[70%] overflow-y-auto pr-1">

@@ -53,14 +53,18 @@ export const IngredientsClient = ({ ingredients }: IngredientsClientProps) => {
           <Card className="md:w-[500px] lg:w-[90%] min-h-64 max-h-full">
             <CardHeader>
               <CardTitle>Ingredient</CardTitle>
-              <CardDescription>Description</CardDescription>
+              <CardDescription>
+                List of ingredients used in the products
+              </CardDescription>
             </CardHeader>
 
             <CardContent>
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-start">
                 <Button
-                  variant="moiMoc"
-                  className="w-[90%] rounded-xl"
+                  variant="outline"
+                  // variant={}
+                  className="w-52 rounded-xl bg-transparent border border-dashed text-primary
+                    border-primary/75 transition hover:scale-105 duration-300"
                   onClick={ingredientModal.onOpen}
                 >
                   Add Ingredient

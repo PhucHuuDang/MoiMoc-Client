@@ -210,6 +210,7 @@ export const ProductInfo = ({
             handleAddToCart={(e) => handleAddToCart(e, productOrder)}
             className="w-full bg-[#438a60] transition duration-200 hover:scale-110 hover:bg-[#326a49]
               text-white"
+            classNameIcon="size-8 text-slate-100"
             label="Thêm vào giỏ hàng"
           />
 
