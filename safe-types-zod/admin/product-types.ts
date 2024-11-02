@@ -176,13 +176,15 @@ export const EditProductSafeTypes = z.object({
 
   images: z
     .array(
-      z.object(
-        {
-          productId: z.number(),
-          imageUrl: z.string(),
-          imageId: z.number().optional(), // Optional field for existing images
-        },
-      ),
+      // z.union([
+      //   // z.object({
+      //   //   productId: z.number(),
+      //   //   imageUrl: z.string(),
+      //   //   imageId: z.number().optional(), // Optional field for existing images
+      //   // }),
+      //   z.string(),
+      // ]),
+      z.string(),
     )
     .min(1, { message: "At least one product image must be entered" }),
 

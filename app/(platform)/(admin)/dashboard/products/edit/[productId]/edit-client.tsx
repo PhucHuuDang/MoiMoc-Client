@@ -1,19 +1,22 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import { useMountedState } from "react-use";
+import NotFound from "@/app/(platform)/(home)/[productId]/not-found";
+import { z } from "zod";
+import { capitalize } from "lodash";
+
 import { clientGetData } from "@/api/actions/get-data-api";
-import { useQueries } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import ProductCUSkeleton from "../../_products_components/product-cu-skeleton";
 import { IngredientsTypes } from "@/types/product-types";
-import { capitalize } from "lodash";
-import { useEffect, useState } from "react";
 import {
   Ingredient,
   ProductImage as ProductImageTypes,
 } from "@/types/product-detail-types";
 import { EditProductSafeTypes } from "@/safe-types-zod/admin/product-types";
-import { useForm } from "react-hook-form";
+import { Path, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { ProductControllerHeader } from "../../_products_components/header-naviagate-product";
 import { ProductDetailCard } from "../../_products_components/product-detail-card";
 import { MultiSelectsIngredients } from "../../_products_components/multi-select-ingredients";
@@ -24,112 +27,115 @@ import { FormImagesProductControl } from "@/components/_global-components-reused
 import { ProductImage } from "../../_products_components/product-image";
 import { FormValues } from "@/components/_global-components-reused/form/form-values";
 import { useImagesProductStore } from "@/store/use-images-product-store";
+import { ProductCategoryTypes } from "../../types-data-fetch/product-return-types";
+import { ProductEditTypes } from "@/types";
 interface EditClientProps {
   productId: string;
+  productCategories: ProductCategoryTypes[];
+  editProductData: ProductEditTypes;
+  ingredientsList: { value: string; label: string }[];
 }
-export const EditClient = ({ productId }: EditClientProps) => {
+export const EditClient = ({
+  productId,
+  ingredientsList,
+  editProductData,
+  productCategories,
+}: EditClientProps) => {
   const addImage = useImagesProductStore((state) => state.addImage);
-
-  const results = useQueries({
-    queries: [
-      {
-        queryKey: ["justDataProduct", productId],
-
-        queryFn: async () =>
-          await clientGetData(`/products/search/${productId}`),
-        enabled: !!productId, // Only fetch if productId is available
-      },
-
-      {
-        queryKey: ["ingredients"],
-        queryFn: async () => await clientGetData("/ingredients"),
-        enabled: !!productId, // Only fetch if productId is available
-      },
-
-      {
-        queryKey: ["product-category"],
-        queryFn: async () => clientGetData("/product-category"),
-        enabled: !!productId, // Only fetch if productId is available
-      },
-    ],
-  });
-
-  const [justDataProduct, ingredients, productCategories] = results;
-  const isLoadingFetch = results.some((result) => result.isLoading);
-  const data = results.map((result) => result.data);
-
-  const ingredientsList = ingredients.data?.map(
-    (ingredient: IngredientsTypes) => ({
-      value: ingredient.id.toString(),
-      label: capitalize(ingredient.ingredient),
-    }),
-  );
-
+  // const clearImages = useImagesProductStore((state) => state.clearImages);
   const form = useForm<z.infer<typeof EditProductSafeTypes>>({
     resolver: zodResolver(EditProductSafeTypes),
   });
-
-  const stockProps = {
-    price: "price",
-    discountPrice: "discountPrice",
-    quantity: "quantity",
-    discountPercentage: "discountPercentage",
-  };
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const isMountedState = useMountedState();
+
+  const {
+    data: justDataProduct,
+    isLoading: isLoadingFetch,
+    isError,
+  } = useQuery({
+    queryKey: ["justDataProduct", productId],
+    queryFn: async () => await clientGetData(`/products/search/${productId}`),
+    enabled: !!productId, // Only fetch if productId is available
+    initialData: editProductData,
+    refetchOnMount: false,
+  });
 
   const price = form.watch("price");
   // console.log("values images: ", form.watch("images"));
 
   const discountPercentage = form.watch("discountPercentage");
 
-  useEffect(() => {
-    if (price && discountPercentage) {
-      const discountPrice = price - (price * discountPercentage) / 100;
+  console.log({ discountPercentage });
 
-      form.setValue("discountPrice", discountPrice);
-    }
-    if (discountPercentage?.toString() === "") {
-      form.setValue("discountPrice", undefined);
-      // form.control("")
-    }
-  }, [price, discountPercentage, form]);
+  const initializedRef = useRef(false);
 
-  // Only reset form if new product data is available
   useEffect(() => {
-    if (justDataProduct?.data) {
-      const data = justDataProduct.data;
+    if (
+      !initializedRef.current &&
+      isMountedState() &&
+      justDataProduct?.productImages
+    ) {
+      // Clear and add images only once
+      localStorage.setItem("images-product-store", JSON.stringify([]));
+      justDataProduct.productImages.forEach((image: { imageUrl: string }) =>
+        addImage(image.imageUrl),
+      );
+
+      // Set form images if they differ from product images
+      const formImages = form.getValues("images");
+      const defaultImages = justDataProduct.productImages.map(
+        (img: { imageUrl: string }) => img.imageUrl,
+      );
+      if (JSON.stringify(formImages) !== JSON.stringify(defaultImages)) {
+        form.reset({ images: defaultImages });
+      }
+
+      initializedRef.current = true; // Set as initialized
+    }
+
+    // Clear images on component unmount
+    return () =>
+      localStorage.setItem("images-product-store", JSON.stringify([]));
+  }, [isMountedState, addImage]);
+
+  // Populate form fields with justDataProduct data once when it changes
+  useEffect(() => {
+    if (justDataProduct) {
       const newValues = {
-        quantity: data?.quantity,
-        details: data?.details,
-        usage: data?.usage,
-        productName: data?.productName,
-        productDescription: data?.productDescription,
-        price: data?.price,
-        discountPrice: data?.discountPrice ?? undefined,
-        discountPercentage: data?.discountPercentage ?? undefined,
-        expireDate: data.expireDate,
-        images: data.productImages.map((image: ProductImageTypes) => {
-          // addImage(image.imageUrl);
-          return {
-            productId: image.productId,
-            imageId: image.id,
-            imageUrl: image.imageUrl,
-          };
-        }),
-        ingredients: data.ingredients.map((ingredient: Ingredient) =>
-          ingredient.ingredientId.toString(),
+        quantity: justDataProduct.quantity,
+        details: justDataProduct.details,
+        usage: justDataProduct.usage,
+        productName: justDataProduct.productName,
+        productDescription: justDataProduct.productDescription,
+        price: justDataProduct.price,
+        discountPrice: justDataProduct.discountPrice ?? undefined,
+        discountPercentage: justDataProduct.discountPercentage ?? undefined,
+        expireDate: justDataProduct.expireDate,
+        ingredients: justDataProduct.ingredients.map(
+          (ing: { ingredientId: number }) => ing.ingredientId.toString(),
         ),
-        productTypeId: justDataProduct.data.productType.id.toString(),
+        productTypeId: justDataProduct.productType?.id.toString(),
       };
 
+      // Only reset form values if they differ from current values
       const currentValues = form.getValues();
-
       if (JSON.stringify(currentValues) !== JSON.stringify(newValues)) {
         form.reset(newValues);
       }
     }
   }, [justDataProduct, form]);
+
+  // Calculate and set discount price if discountPercentage changes
+  useEffect(() => {
+    if (price && discountPercentage) {
+      const discountPrice = price - (price * discountPercentage) / 100;
+      form.setValue("discountPrice", discountPrice);
+    } else if (discountPercentage?.toString() === "") {
+      form.setValue("discountPrice", undefined);
+    }
+  }, [price, discountPercentage, form]);
 
   const onSubmit = async (values: z.infer<typeof EditProductSafeTypes>) => {
     console.log({ values });
@@ -169,9 +175,17 @@ export const EditClient = ({ productId }: EditClientProps) => {
     }
   };
 
-  console.log({ ingredientsList });
+  // console.log({ ingredientsList });
+
+  const stockProps = {
+    price: "price",
+    discountPrice: "discountPrice",
+    quantity: "quantity",
+    discountPercentage: "discountPercentage",
+  };
 
   if (isLoadingFetch) return <ProductCUSkeleton />;
+  if (isError || !justDataProduct?.productId) return <NotFound />;
 
   return (
     <div className="flex min-h-screen w-[90%] flex-col">
@@ -204,7 +218,7 @@ export const EditClient = ({ productId }: EditClientProps) => {
 
                   <Stock
                     form={form}
-                    name="discountPrice"
+                    // name="discountPrice"
                     stockProps={stockProps}
                     disabled={isLoading}
                   />
@@ -213,7 +227,7 @@ export const EditClient = ({ productId }: EditClientProps) => {
                     form={form}
                     name="productTypeId"
                     formLabel="Các loại sản phẩm..."
-                    productCategories={productCategories.data}
+                    productCategories={productCategories}
                   />
 
                   <ExpireDateSelect
@@ -224,8 +238,8 @@ export const EditClient = ({ productId }: EditClientProps) => {
                 </div>
                 <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
                   <FormImagesProductControl
-                    productId={+productId}
-                    edit
+                    // productId={+productId}
+                    // edit
                     title="Hình ảnh sản phẩm"
                     description="Hãy thêm hình ảnh sản phẩm của bạn"
                     form={form}

@@ -28,7 +28,7 @@ export const MultiSelectsIngredients = <T extends FieldValues, K>({
 }: MultiSelectsIngredientsProps<T, K>) => {
   const values = form.getValues(name)?.map((item: number) => item.toString());
 
-  // console.log({ values });
+  console.log({ values });
   // console.log(values?.toString());
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>(
     values ?? [],
@@ -39,7 +39,7 @@ export const MultiSelectsIngredients = <T extends FieldValues, K>({
   useEffect(() => {
     if (selectedIngredients.length > 0) {
       form.setValue(name, selectedIngredients as PathValue<T, Path<T>>);
-    }
+    } 
   }, [selectedIngredients, form, name]);
 
   const handleChange = (values: string[]) => {

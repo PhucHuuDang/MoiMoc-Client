@@ -34,17 +34,17 @@ export const ExpireDateSelect = <T extends FieldValues, K>({
 }: ExpireDateSelectProps<T, K>) => {
   const monthsArray = [
     { value: "1", label: "1 month" },
-    { value: "2", label: "2 month" },
-    { value: "3", label: "3 month" },
-    { value: "4", label: "4 month" },
-    { value: "5", label: "5 month" },
-    { value: "6", label: "6 month" },
-    { value: "7", label: "7 month" },
-    { value: "8", label: "8 month" },
-    { value: "9", label: "9 month" },
-    { value: "10", label: "10 month" },
-    { value: "11", label: "11 month" },
-    { value: "12", label: "12 month" },
+    { value: "2", label: "2 months" },
+    { value: "3", label: "3 months" },
+    { value: "4", label: "4 months" },
+    { value: "5", label: "5 months" },
+    { value: "6", label: "6 months" },
+    { value: "7", label: "7 months" },
+    { value: "8", label: "8 months" },
+    { value: "9", label: "9 months" },
+    { value: "10", label: "10 months" },
+    { value: "11", label: "11 months" },
+    { value: "12", label: "12 months" },
   ];
 
   return (
@@ -65,10 +65,10 @@ export const ExpireDateSelect = <T extends FieldValues, K>({
               classNameFormItem="w-[200px]"
             >
               {monthsArray.map((expired) => {
-                const categoryId = expired.value;
+                const expiredValue = expired.value;
 
                 return (
-                  <SelectItem key={expired.value} value={categoryId}>
+                  <SelectItem key={expired.value} value={expiredValue}>
                     {expired.label}
                   </SelectItem>
                 );

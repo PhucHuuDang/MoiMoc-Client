@@ -81,7 +81,8 @@ export const ProductImage = () => {
           <div className="grid grid-cols-3 gap-2">
             {imagesProductStore?.images.map((image, index) => {
               return (
-                index > 0 && (
+                index > 0 &&
+                image !== "" && (
                   <div className="relative" key={index}>
                     <Image
                       alt="Product image"
