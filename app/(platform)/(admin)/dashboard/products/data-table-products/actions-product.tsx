@@ -6,11 +6,11 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Edit, Trash2 } from "lucide-react";
 import { Actions } from "react-use/lib/useMap";
 import { EditProduct } from "../_products_components/edit-product";
-import { SheetControlSystem } from "../../orders/_orders-components/sheet-control-system";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface ActionsProductProps {
   productId: number;
@@ -19,6 +19,7 @@ interface ActionsProductProps {
 export const ActionsProduct = ({ productId }: ActionsProductProps) => {
   const client = useQueryClient();
   const [isPending, setIsPending] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleDelete = async (productId: number) => {
     setIsPending(true);
@@ -50,8 +51,14 @@ export const ActionsProduct = ({ productId }: ActionsProductProps) => {
         isPending={false}
       /> */}
 
-      <EditProduct productId={productId} />
-      {/* <SheetControlSystem /> */}
+      {/* <EditProduct productId={productId} /> */}
+      <DropdownMenuItem
+        onClick={() => router.push(`/dashboard/products/edit/${productId}`)}
+        className="text-blue-600 w-full"
+      >
+        <Edit className="mr-2 h-4 w-4" />
+        Edit
+      </DropdownMenuItem>
 
       <ConfirmModal
         action={() => handleDelete(productId)}

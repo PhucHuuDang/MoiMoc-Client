@@ -31,6 +31,7 @@ import { useEffect, useState } from "react";
 import { register } from "module";
 import { registerAccount } from "@/api/auth/register";
 import { toast } from "sonner";
+import Spinner from "../animata/spinner";
 
 export const RegisterModal = () => {
   const loginModal = useLoginDiaLogModal();
@@ -141,10 +142,17 @@ export const RegisterModal = () => {
         </DialogClose>
         <FormSubmit
           disabled={isLoading}
-          className="w-24 text-end"
+          className="min-w-24 text-end"
           variant="moiMoc"
         >
-          Submit
+          {isLoading ? (
+            <>
+              <Spinner className="size-6" />
+              Submitting...
+            </>
+          ) : (
+            "Submit"
+          )}
         </FormSubmit>
       </div>
     </FormValues>

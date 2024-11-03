@@ -78,7 +78,8 @@ export const EditClient = ({
       justDataProduct?.productImages
     ) {
       // Clear and add images only once
-      localStorage.setItem("images-product-store", JSON.stringify([]));
+      // localStorage.setItem("images-product-store", JSON.stringify([]));
+      localStorage.removeItem("images-product-store");
       justDataProduct.productImages.forEach((image: { imageUrl: string }) =>
         addImage(image.imageUrl),
       );
@@ -97,7 +98,8 @@ export const EditClient = ({
 
     // Clear images on component unmount
     return () =>
-      localStorage.setItem("images-product-store", JSON.stringify([]));
+      localStorage.removeItem("images-product-store");
+      // localStorage.setItem("images-product-store", JSON.stringify([]));
   }, [isMountedState, addImage]);
 
   // Populate form fields with justDataProduct data once when it changes

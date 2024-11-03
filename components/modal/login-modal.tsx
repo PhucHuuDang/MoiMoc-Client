@@ -23,6 +23,7 @@ import { FormValues } from "../_global-components-reused/form/form-values";
 import { toast } from "sonner";
 import { login } from "@/api/auth/login";
 import { storeTokenCookies } from "@/api/store/cookies-stored";
+import Spinner from "../animata/spinner";
 
 export const LoginModal = () => {
   const loginModal = useLoginDiaLogModal();
@@ -129,10 +130,17 @@ export const LoginModal = () => {
         </DialogClose>
         <FormSubmit
           disabled={isLoading}
-          className="w-24 text-end"
+          className="min-w-24 text-end"
           variant="moiMoc"
         >
-          Submit
+          {isLoading ? (
+            <>
+              <Spinner className="size-6" />
+              Submitting...
+            </>
+          ) : (
+            "Submit"
+          )}
         </FormSubmit>
       </div>
       {/* </form> */}
