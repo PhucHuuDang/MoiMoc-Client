@@ -12,7 +12,7 @@ const AdminLayout = async ({
 }: Readonly<{ children: React.ReactNode }>) => {
   const { isAuth, user, token } = await verifyAuth();
 
-  console.log({ user });
+  // console.log({ user });
 
   if (!isAuth || !token || !isUserWithRole(user) || user.role !== "ADMIN") {
     return <NotFound />;

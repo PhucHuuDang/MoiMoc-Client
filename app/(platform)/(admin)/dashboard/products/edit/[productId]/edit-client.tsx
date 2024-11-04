@@ -29,6 +29,7 @@ import { FormValues } from "@/components/_global-components-reused/form/form-val
 import { useImagesProductStore } from "@/store/use-images-product-store";
 import { ProductCategoryTypes } from "../../types-data-fetch/product-return-types";
 import { ProductEditTypes } from "@/types";
+import { usePathname } from "next/navigation";
 interface EditClientProps {
   productId: string;
   productCategories: ProductCategoryTypes[];
@@ -42,13 +43,14 @@ export const EditClient = ({
   productCategories,
 }: EditClientProps) => {
   const addImage = useImagesProductStore((state) => state.addImage);
-  // const clearImages = useImagesProductStore((state) => state.clearImages);
+  const initializedRef = useRef(false);
+  const isMountedState = useMountedState();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+ 
+
   const form = useForm<z.infer<typeof EditProductSafeTypes>>({
     resolver: zodResolver(EditProductSafeTypes),
   });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const isMountedState = useMountedState();
 
   const {
     data: justDataProduct,
@@ -63,13 +65,8 @@ export const EditClient = ({
   });
 
   const price = form.watch("price");
-  // console.log("values images: ", form.watch("images"));
 
   const discountPercentage = form.watch("discountPercentage");
-
-  console.log({ discountPercentage });
-
-  const initializedRef = useRef(false);
 
   useEffect(() => {
     if (
@@ -96,16 +93,22 @@ export const EditClient = ({
       initializedRef.current = true; // Set as initialized
     }
 
+    
+
     // Clear images on component unmount
-    return () =>
-      localStorage.removeItem("images-product-store");
-      // localStorage.setItem("images-product-store", JSON.stringify([]));
-  }, [isMountedState, addImage]);
+    return () => localStorage.removeItem("images-product-store");
+    // localStorage.setItem("images-product-store", JSON.stringify([]));
+  }, [isMountedState, addImage, localStorage.removeItem]);
 
   // Populate form fields with justDataProduct data once when it changes
   useEffect(() => {
     if (justDataProduct) {
       const newValues = {
+        expireDate: justDataProduct.expireDate,
+        ingredients: justDataProduct.ingredients.map(
+          (ing: { ingredientId: number }) => ing.ingredientId.toString(),
+        ),
+        productTypeId: justDataProduct.productType?.id.toString(),
         quantity: justDataProduct.quantity,
         details: justDataProduct.details,
         usage: justDataProduct.usage,
@@ -114,11 +117,6 @@ export const EditClient = ({
         price: justDataProduct.price,
         discountPrice: justDataProduct.discountPrice ?? undefined,
         discountPercentage: justDataProduct.discountPercentage ?? undefined,
-        expireDate: justDataProduct.expireDate,
-        ingredients: justDataProduct.ingredients.map(
-          (ing: { ingredientId: number }) => ing.ingredientId.toString(),
-        ),
-        productTypeId: justDataProduct.productType?.id.toString(),
       };
 
       // Only reset form values if they differ from current values
