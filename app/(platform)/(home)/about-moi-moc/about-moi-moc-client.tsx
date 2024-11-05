@@ -66,8 +66,6 @@ export default function AboutMoiMocClient() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          // className="relative h-[600px] 2xl:h-[800px] overflow-hidden"
-          // className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center container mx-auto px-4"
         >
           <video
             autoPlay
@@ -95,23 +93,7 @@ export default function AboutMoiMocClient() {
 
           <div className="absolute inset-0 bg-black/10 flex flex-col items-center justify-center">
             <div className="flex items-center justify-center flex-col">
-              {/* <article className="text-lg w-[500px] p-2 text-white font-extralight italic text-pretty">
-                "Môi Mộc bắt nguồn từ ý tưởng cung cấp sản phẩm mỹ phẩm xanh,
-                cao cấp. Chúng tôi mang đến sản phẩm son hoàn toàn từ nguồn gốc
-                tự nhiên Việt Nam, an toàn và chất lượng cho làn môi của bạn"
-              </article> */}
-
-              {/* {isLoading ? (
-                <ParallaxScrollSkeleton className="h-[55rem]" />
-              ) : (
-                <ParallaxScroll
-                  images={imagesModels}
-                  className="h-[50rem] 2xl:h-[60rem]"
-                  classNameFirstImage="h-[420px] "
-                  classNameThirdImage="h-[420px]"
-                  classNameSecondImage="h-[420px]"
-                />
-              )} */}
+             
               {imagesModels && imagesModels?.length > 0 ? (
                 <ParallaxScroll
                   images={imagesModels}
@@ -129,14 +111,6 @@ export default function AboutMoiMocClient() {
           </div>
         </motion.section>
 
-        {/* <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          // className="overflow-hidden"
-        >
-          <ParallaxScroll images={images} />
-        </motion.section> */}
 
         <motion.section
           className="relative overflow-hidden"

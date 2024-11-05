@@ -10,6 +10,11 @@ import { FormValues } from "./form/form-values";
 import { FormItemsControl } from "./form/form-items-control";
 import { Facebook, Instagram } from "lucide-react";
 
+import { DeliveryPolicy } from "../policy/delivery-policy";
+import { PaymentPolicy } from "../policy/payment-policy";
+import { PrivacyPolicy } from "../policy/privacy-policy";
+import { ReturnPolicy } from "../policy/return-policy";
+
 const SupportLinks = [
   {
     label: "Chính sách vận chuyển",
@@ -79,7 +84,7 @@ export const Footer = () => {
           <h1 className="text-lg font-semibold text-moi_moc_green">
             Hỗ trợ khách hàng
           </h1>
-          {SupportLinks.map((item, index) => {
+          {/* {SupportLinks.map((item, index) => {
             return (
               <Link
                 key={index}
@@ -89,7 +94,12 @@ export const Footer = () => {
                 {item.label}
               </Link>
             );
-          })}
+          })} */}
+          <DeliveryPolicy />
+          <PaymentPolicy />
+          <ReturnPolicy />
+          {/* <PaymentPolicy /> */}
+          <PrivacyPolicy />
         </div>
 
         <div className="flex flex-col gap-y-1">

@@ -46,7 +46,6 @@ export const EditClient = ({
   const initializedRef = useRef(false);
   const isMountedState = useMountedState();
   const [isLoading, setIsLoading] = useState<boolean>(false);
- 
 
   const form = useForm<z.infer<typeof EditProductSafeTypes>>({
     resolver: zodResolver(EditProductSafeTypes),
@@ -93,8 +92,6 @@ export const EditClient = ({
       initializedRef.current = true; // Set as initialized
     }
 
-    
-
     // Clear images on component unmount
     return () => localStorage.removeItem("images-product-store");
     // localStorage.setItem("images-product-store", JSON.stringify([]));
@@ -140,7 +137,17 @@ export const EditClient = ({
   const onSubmit = async (values: z.infer<typeof EditProductSafeTypes>) => {
     console.log({ values });
     setIsLoading(true);
+    const { images, ...rest } = values;
     // clearAllImages();
+
+    const imagesData = images
+      .filter(
+        (image) =>
+          !editProductData.productImages.some(
+            (imgObj) => imgObj.imageUrl === image,
+          ),
+      )
+      .map((imageProps) => ({ images: imageProps }));
 
     try {
       // const response = await axios.put(

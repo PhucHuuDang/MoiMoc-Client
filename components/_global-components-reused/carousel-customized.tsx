@@ -1,6 +1,5 @@
 "use client";
 
-import { products } from "@/lib/db";
 import {
   Carousel,
   CarouselContent,
