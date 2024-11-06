@@ -120,49 +120,6 @@ export const CheckoutClient = () => {
       } finally {
         setIsLoading(false);
       }
-
-      // try {
-      //   // Send the POST request to the payment endpoint
-      //   const response = await axios.post(
-      //     `${process.env.NEXT_PUBLIC_API_URL}/stripe/payment`,
-      //     values,
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ${auth.token}`, // Include the token
-      //         "Content-Type": "application/json", // Explicitly set content type
-      //       },
-      //     },
-      //   );
-
-      //   console.log("Response:", { response });
-
-      //   // Check if the payment was successful
-      //   if (response.status === 201) {
-      //     toast.success("Thanh toán thành công"); // Display success message
-      //     console.log("Payment successful:", response.data); // Log the response data
-      //   } else {
-      //     toast.error("Thanh toán thất bại"); // Display failure message
-      //   }
-      // } catch (error: any) {
-      //   // Enhanced error handling with more detailed logging
-      //   if (error.response) {
-      //     // The request was made, but the server responded with a status code outside the range of 2xx
-      //     console.error("Error response data:", error.response.data);
-      //     console.error("Error status:", error.response.status);
-      //     console.error("Error headers:", error.response.headers);
-      //     toast.error("Lỗi khi thanh toán, vui lòng thử lại.");
-      //   } else if (error.request) {
-      //     // The request was made, but no response was received
-      //     console.error("Error request:", error.request);
-      //     toast.error(
-      //       "Không có phản hồi từ máy chủ, vui lòng kiểm tra kết nối.",
-      //     );
-      //   } else {
-      //     // Something happened in setting up the request
-      //     console.error("Error message:", error.message);
-      //     toast.error("Đã xảy ra lỗi, vui lòng thử lại.");
-      //   }
-      // }
     }
   };
 
@@ -171,7 +128,6 @@ export const CheckoutClient = () => {
   // console.log({ products });
   const products = cart?.map((product) => {
     const truncateDescription = truncateText(product.productDescription, 80);
-
     return {
       productId: product.id,
       productName: product.productName,

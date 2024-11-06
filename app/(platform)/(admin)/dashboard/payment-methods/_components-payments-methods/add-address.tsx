@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormValues } from "@/components/_global-components-reused/form/form-values";
 import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Dialog,
@@ -128,6 +128,14 @@ export const AddAddress = <T extends FieldValues, K>({
 
   // console.log({ isPending, isSuccess });
 
+  useEffect(() => {
+    if (addresses?.data.length === 1) {
+      const singleAddress = addresses.data[0];
+      parentForm?.setValue(name as Path<T>, singleAddress.address); // Auto-set the address
+      toast.success("Đã chọn địa chỉ.");
+    }
+  }, [addresses, parentForm, name]);
+
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
@@ -199,7 +207,14 @@ export const AddAddress = <T extends FieldValues, K>({
           </TabsContent>
 
           <TabsContent value="choose" className="min-h-[220px]">
-            {addresses?.data.length > 0 ? (
+            {addresses?.data.length === 1 ? (
+              // <Select value={addresses.data[0].id.toString()} />
+              <div>
+                <p className="font-bold">
+                  Địa chỉ: {addresses.data[0].address}
+                </p>
+              </div>
+            ) : addresses?.data.length > 0 ? (
               <Select
                 onValueChange={(value) => {
                   const selectedAddress = addresses?.data?.find(

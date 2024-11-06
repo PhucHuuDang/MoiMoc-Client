@@ -36,7 +36,7 @@ export const ReturnPolicy = () => {
         <div className="flex items-center gap-x-1 cursor-pointer hover:scale-105 transition duration-300">
           <Package className="size-5" />
           <span className="font-semibold text-moi_moc_green">
-            Chính Sách Bảo Mật
+            Chính Sách Đổi Trả
           </span>
         </div>
       </DialogTrigger>
