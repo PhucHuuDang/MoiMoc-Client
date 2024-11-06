@@ -68,41 +68,52 @@ export const CardStackFeedbacks = ({
               {card.content}
             </div>
 
-            <Rating
-              fillColorArray={[
-                "#f14f45",
-                "#f16c45",
-                "#f18845",
-                "#f1b345",
-                "#f1d045",
-              ]}
-              // allowFraction={false}
-              // showTooltip
-              allowHover={false}
-              transition
-              disableFillHover
-              initialValue={card.rating}
-              emptyStyle={{ display: "flex" }}
-              SVGstyle={{
-                display: "inline-block",
-                marginBottom: 10,
-                // height: "40px",
-                // size
-              }}
-              // disableFillHover={pending}
-              // id="rating"
-              // name={name}
-              tooltipStyle={{
-                backgroundColor: "#338eb8",
-                width: "150px",
-                marginTop: -3,
-                marginLeft: 4,
-              }}
-              size={25}
-            />
+            <div className="flex items-start gap-x-1 flex-col">
+              <div className="flex items-center gap-x-1">
+                <span className="font-semibold text-base text-slate-100">
+                  Đã đánh giá:
+                </span>
+                <Rating
+                  fillColorArray={[
+                    "#f14f45",
+                    "#f16c45",
+                    "#f18845",
+                    "#f1b345",
+                    "#f1d045",
+                  ]}
+                  // allowFraction={false}
+                  // showTooltip
+                  allowHover={false}
+                  transition
+                  disableFillHover
+                  initialValue={card.rating}
+                  emptyStyle={{ display: "flex" }}
+                  SVGstyle={{
+                    display: "inline-block",
+                    marginBottom: 10,
+                    // height: "40px",
+                    // size
+                  }}
+                  // disableFillHover={isLoad}
+                  // id="rating"
+                  // name={name}
+                  tooltipStyle={{
+                    backgroundColor: "#338eb8",
+                    width: "150px",
+                    marginTop: -3,
+                    marginLeft: 4,
+                  }}
+                  size={20}
+                />
+              </div>
+              <span className="text-slate-100 text-sm font-semibold">
+                Vào {vietnameseDate(new Date(card.createdAt))}
+              </span>
+            </div>
+
             <div>
               <div className="flex items-center gap-x-0.5">
-                <User className="size-5 text-slate-100" />
+                <User className="size-5 text-slate-100 font-bold" />
                 <p className="text-slate-100 font-bold dark:text-white">
                   {card.name}
                 </p>
@@ -111,11 +122,6 @@ export const CardStackFeedbacks = ({
               <p className="text-neutral-400 font-normal dark:text-neutral-200">
                 {card.designation}
               </p>
-
-              <span>{/* {for÷} */}</span>
-              <span className="text-slate-100">
-                {vietnameseDate(new Date(card.createdAt))}
-              </span>
             </div>
           </motion.div>
         );

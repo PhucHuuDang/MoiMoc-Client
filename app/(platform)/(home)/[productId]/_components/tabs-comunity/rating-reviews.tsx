@@ -27,6 +27,7 @@ import { FeedbackReturnTypes } from "@/types/product-detail-types";
 import { Rating } from "react-simple-star-rating";
 import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
 import Spinner from "@/components/animata/spinner";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface RatingReviewsProps {
   productId: number;
@@ -116,43 +117,6 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
     }
   };
 
-  const feedbacks = [
-    {
-      id: 1,
-      name: "Emily Johnson",
-      rating: 5,
-      comment:
-        "This blazer is absolutely stunning! The fit is perfect, and the quality is top-notch. I've received so many compliments wearing it to work and events.",
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      rating: 4,
-      comment:
-        "Great jacket overall. The material is high-quality and it looks very professional. The only reason I'm not giving 5 stars is that it runs slightly large.",
-    },
-    {
-      id: 3,
-      name: "Sarah Thompson",
-      rating: 5,
-      comment:
-        "I'm in love with this blazer! It's versatile enough to wear to the office or dress up for a night out. The attention to detail in the stitching and buttons is impressive.",
-    },
-    {
-      id: 4,
-      name: "David Lee",
-      rating: 3,
-      comment:
-        "The blazer is decent, but I found the shoulders a bit too tight for my liking. The style is nice, but the fit could be better.",
-    },
-    {
-      id: 5,
-      name: "Jessica Brown",
-      rating: 5,
-      comment:
-        "Absolutely love this blazer! The fabric feels luxurious, and it fits perfectly. It elevates any outfit, whether for work or casual wear.",
-    },
-  ];
   return (
     <TabsContent value="ratings" className="mt-6">
       <Card>
@@ -189,65 +153,69 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
           </div>
 
           <div className="space-y-6">
-            {filterFeedbacks?.map((review: FeedbackTypes, index: number) => (
-              <Card key={index}>
-                <CardContent className="p-4">
-                  <div className="flex items-center">
-                    <div className="flex gap-1">
-                      <Avatar className="w-10 h-10 mr-3">
-                        <AvatarImage
-                          src={"/about-moi-moc-images/avatar-placeholder.gif"}
-                        />
-                        <AvatarFallback>
-                          {review.user.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex flex-col gap-y-1">
-                        <p className="font-semibold">{review.user.name}</p>
-                        <div>{vietnameseDate(new Date(review.createdAt))}</div>
-                        <Rating
-                          fillColorArray={[
-                            "#f14f45",
-                            "#f16c45",
-                            "#f18845",
-                            "#f1b345",
-                            "#f1d045",
-                          ]}
-                          // allowFraction={false}
-                          // showTooltip
-                          allowHover={false}
-                          transition
-                          disableFillHover
-                          initialValue={review.rating}
-                          emptyStyle={{ display: "flex" }}
-                          SVGstyle={{
-                            display: "inline-block",
-                            marginBottom: 10,
-                            // height: "40px",
-                            // size
-                          }}
-                          // disableFillHover={pending}
-                          // id="rating"
-                          // name={name}
-                          tooltipStyle={{
-                            backgroundColor: "#338eb8",
-                            width: "150px",
-                            marginTop: -3,
-                            marginLeft: 4,
-                          }}
-                          size={25}
-                        />
+            <ScrollArea className="h-96">
+              {filterFeedbacks?.map((review: FeedbackTypes, index: number) => (
+                <Card key={index} className="my-2 mx-4">
+                  <CardContent className="p-4">
+                    <div className="flex items-center">
+                      <div className="flex gap-1">
+                        <Avatar className="size-14 mr-3">
+                          <AvatarImage
+                            src={"/about-moi-moc-images/avatar-placeholder.gif"}
+                          />
+                          <AvatarFallback>
+                            {review.user.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col gap-y-1">
+                          <p className="font-semibold">{review.user.name}</p>
+                          <span className="text-sm font-semibold text-slate-800">
+                            {vietnameseDate(new Date(review.createdAt))}
+                          </span>
+                          <Rating
+                            fillColorArray={[
+                              "#f14f45",
+                              "#f16c45",
+                              "#f18845",
+                              "#f1b345",
+                              "#f1d045",
+                            ]}
+                            // allowFraction={false}
+                            // showTooltip
+                            allowHover={false}
+                            transition
+                            disableFillHover
+                            initialValue={review.rating}
+                            emptyStyle={{ display: "flex" }}
+                            SVGstyle={{
+                              display: "inline-block",
+                              marginBottom: 10,
+                              // height: "40px",
+                              // size
+                            }}
+                            // disableFillHover={pending}
+                            // id="rating"
+                            // name={name}
+                            tooltipStyle={{
+                              backgroundColor: "#338eb8",
+                              width: "150px",
+                              marginTop: -3,
+                              marginLeft: 4,
+                            }}
+                            size={25}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <p>{review.content}</p>
-                </CardContent>
-              </Card>
-            ))}
+                    <p>{review.content}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </ScrollArea>
           </div>
           <div className="mt-6">
             <FormValues form={form} onSubmit={onSubmit}>
