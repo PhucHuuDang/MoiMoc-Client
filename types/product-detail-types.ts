@@ -1,3 +1,12 @@
+export type FeedbackReturnTypes = {
+  id: number;
+  productId: number;
+  content: string;
+  rating: number;
+  user: User;
+  createdAt: Date
+};
+
 export interface ProductImage {
   id: number;
   imageUrl: string;
@@ -7,8 +16,10 @@ export interface ProductImage {
 export interface User {
   userId: number;
   username: string;
+  name?: string;
   email: string;
   avatar: string | null;
+  phoneAuth: string;
   designation?: string;
   createdAt: string;
 }

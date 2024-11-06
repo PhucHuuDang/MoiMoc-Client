@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "lucide-react";
+import { Rating } from "react-simple-star-rating";
+import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
 
 let interval: any;
 
@@ -10,6 +12,8 @@ type Card = {
   id: number;
   name: string;
   designation: string;
+  createdAt: Date;
+  rating: number;
   content: React.ReactNode;
 };
 
@@ -63,6 +67,39 @@ export const CardStackFeedbacks = ({
             <div className="font-semibold text-slate-300 dark:text-neutral-200">
               {card.content}
             </div>
+
+            <Rating
+              fillColorArray={[
+                "#f14f45",
+                "#f16c45",
+                "#f18845",
+                "#f1b345",
+                "#f1d045",
+              ]}
+              // allowFraction={false}
+              // showTooltip
+              allowHover={false}
+              transition
+              disableFillHover
+              initialValue={card.rating}
+              emptyStyle={{ display: "flex" }}
+              SVGstyle={{
+                display: "inline-block",
+                marginBottom: 10,
+                // height: "40px",
+                // size
+              }}
+              // disableFillHover={pending}
+              // id="rating"
+              // name={name}
+              tooltipStyle={{
+                backgroundColor: "#338eb8",
+                width: "150px",
+                marginTop: -3,
+                marginLeft: 4,
+              }}
+              size={25}
+            />
             <div>
               <div className="flex items-center gap-x-0.5">
                 <User className="size-5 text-slate-100" />
@@ -70,9 +107,15 @@ export const CardStackFeedbacks = ({
                   {card.name}
                 </p>
               </div>
+
               <p className="text-neutral-400 font-normal dark:text-neutral-200">
                 {card.designation}
               </p>
+
+              <span>{/* {for÷} */}</span>
+              <span className="text-slate-100">
+                {vietnameseDate(new Date(card.createdAt))}
+              </span>
             </div>
           </motion.div>
         );

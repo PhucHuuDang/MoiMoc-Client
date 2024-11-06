@@ -5,7 +5,7 @@ import {
   CardStackFeedbacks,
   CardStackFeedbacksSkeleton,
 } from "@/components/aceternity-ui/card-stack-feedbacks";
-import { Discussion } from "@/types/product-detail-types";
+import { Discussion, FeedbackReturnTypes } from "@/types/product-detail-types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
@@ -41,7 +41,7 @@ export const ReviewFeedback = () => {
     queryKey: ["discussions"],
     queryFn: async () => {
       const discussions = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/discussion`,
+        `${process.env.NEXT_PUBLIC_API_URL}/feedback`,
       );
       return discussions.json();
     },
@@ -51,14 +51,16 @@ export const ReviewFeedback = () => {
 
   const discussionsTransformed =
     discussionData &&
-    discussionData?.map((discussion: Discussions) => {
-      // console.log(discussion);
+    discussionData?.map((feedback: FeedbackReturnTypes) => {
+      // console.log(feedback);
 
       return {
-        id: discussion.id,
-        name: discussion.user.name,
-        designation: discussion.user.designation ?? null,
-        content: <>{discussion.content}</>,
+        id: feedback.id,
+        name: feedback.user.name,
+        designation: feedback.user.designation ?? null,
+        content: <>{feedback.content}</>,
+        createdAt: feedback.createdAt,
+        rating: feedback.rating,
       };
     });
 

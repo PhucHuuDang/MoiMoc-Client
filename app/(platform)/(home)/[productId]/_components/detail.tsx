@@ -158,7 +158,7 @@ export default function DetailPage({
         <ProductDetailContent
           productDetailContentData={productDetailContentData!}
         />
-        <RatingReviews />
+        <RatingReviews productId={productDetailData?.productId!} />
         <Discussion
           productId={productDetailData?.productId!}
           discussions={productDetailData?.discussion!}

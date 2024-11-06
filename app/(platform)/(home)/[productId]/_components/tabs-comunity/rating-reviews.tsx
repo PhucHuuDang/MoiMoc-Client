@@ -10,8 +10,112 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
+import { FormValues } from "@/components/_global-components-reused/form/form-values";
+import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
+import { FormTextareaControl } from "@/components/_global-components-reused/form/form-textarea-control";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FeedBacksSafeTypes } from "@/safe-types-zod/client/feedback";
+import { FormStars } from "@/components/_global-components-reused/form/form-stars";
+import axios from "axios";
+import { useAuthContext } from "@/provider/auth-provider";
+import { toast } from "sonner";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { clientGetData } from "@/api/actions/get-data-api";
+import { FeedbackReturnTypes } from "@/types/product-detail-types";
+import { Rating } from "react-simple-star-rating";
+import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
+import Spinner from "@/components/animata/spinner";
 
-export const RatingReviews = () => {
+interface RatingReviewsProps {
+  productId: number;
+}
+
+export type FeedbackTypes = {
+  id: number;
+  content: string;
+  rating: number;
+  createdAt: string;
+  user: {
+    name: string;
+    avatar: string;
+    designation: string;
+    phoneAuth: boolean;
+  };
+};
+export const RatingReviews = ({ productId }: RatingReviewsProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const form = useForm<z.infer<typeof FeedBacksSafeTypes>>({
+    resolver: zodResolver(FeedBacksSafeTypes),
+  });
+  const queryClient = useQueryClient();
+
+  const {
+    data: feedbacksData,
+    error,
+    isError,
+  } = useQuery({
+    queryKey: ["feedbacks", productId],
+    queryFn: async () => clientGetData("/feedback"),
+  });
+
+  const auth = useAuthContext();
+
+  console.log({ feedbacksData });
+
+  const filterFeedbacks = feedbacksData?.map(
+    (feedback: FeedbackReturnTypes) => {
+      return {
+        id: feedback.id,
+        content: feedback.content,
+        rating: feedback.rating,
+        createdAt: feedback.createdAt,
+        user: {
+          name: feedback.user?.name,
+          avatar: feedback.user.avatar,
+          designation: feedback.user.designation,
+          phoneAuth: feedback.user.phoneAuth,
+        },
+      };
+    },
+  );
+
+  console.log({ filterFeedbacks });
+
+  const onSubmit = async (values: z.infer<typeof FeedBacksSafeTypes>) => {
+    console.log({ values });
+
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/feedback`,
+        {
+          ...values,
+          productId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${auth?.token}`,
+          },
+        },
+      );
+
+      if (response.status === 201) {
+        toast.success("Cảm ơn bạn đã đánh giá sản phẩm!");
+        form.reset({
+          rating: 0,
+          content: "",
+        });
+
+        queryClient.invalidateQueries({ queryKey: ["feedbacks", productId] });
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const feedbacks = [
     {
       id: 1,
@@ -85,55 +189,94 @@ export const RatingReviews = () => {
           </div>
 
           <div className="space-y-6">
-            {/* {feedbacks.map((review, index) => (
+            {filterFeedbacks?.map((review: FeedbackTypes, index: number) => (
               <Card key={index}>
                 <CardContent className="p-4">
-                  <div className="flex items-center mb-2">
-                    <Avatar className="w-10 h-10 mr-3">
-                      <AvatarImage
-                        src={`https://i.pravatar.cc/40?img=${index}`}
-                      />
-                      <AvatarFallback>
-                        {review.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-
-                    <div>
-                      <p className="font-semibold">{review.name}</p>
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-4 h-4
-                            ${i < review.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
-                          />
-                        ))}
+                  <div className="flex items-center">
+                    <div className="flex gap-1">
+                      <Avatar className="w-10 h-10 mr-3">
+                        <AvatarImage
+                          src={"/about-moi-moc-images/avatar-placeholder.gif"}
+                        />
+                        <AvatarFallback>
+                          {review.user.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex flex-col gap-y-1">
+                        <p className="font-semibold">{review.user.name}</p>
+                        <div>{vietnameseDate(new Date(review.createdAt))}</div>
+                        <Rating
+                          fillColorArray={[
+                            "#f14f45",
+                            "#f16c45",
+                            "#f18845",
+                            "#f1b345",
+                            "#f1d045",
+                          ]}
+                          // allowFraction={false}
+                          // showTooltip
+                          allowHover={false}
+                          transition
+                          disableFillHover
+                          initialValue={review.rating}
+                          emptyStyle={{ display: "flex" }}
+                          SVGstyle={{
+                            display: "inline-block",
+                            marginBottom: 10,
+                            // height: "40px",
+                            // size
+                          }}
+                          // disableFillHover={pending}
+                          // id="rating"
+                          // name={name}
+                          tooltipStyle={{
+                            backgroundColor: "#338eb8",
+                            width: "150px",
+                            marginTop: -3,
+                            marginLeft: 4,
+                          }}
+                          size={25}
+                        />
                       </div>
                     </div>
                   </div>
-                  <p>{review.comment}</p>
+
+                  <p>{review.content}</p>
                 </CardContent>
               </Card>
-            ))} */}
+            ))}
           </div>
           <div className="mt-6">
-            <h4 className="text-lg font-semibold mb-2">Write a Review</h4>
-            <div className="flex mb-2">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-6 h-6 text-gray-300 cursor-pointer hover:text-yellow-400"
-                />
-              ))}
-            </div>
-            <Textarea
-              placeholder="Share your thoughts about the product..."
-              className="mb-2"
-            />
-            <Button>Submit Review</Button>
+            <FormValues form={form} onSubmit={onSubmit}>
+              <FormStars form={form} name="rating" label="Đánh giá của bạn" />
+
+              <FormTextareaControl
+                form={form}
+                name="content"
+                label="Nhận xét của bạn"
+                placeholder="Chia sẽ nhận xét của bạn về sản phẩm này"
+                formDescription="Hãy tự tin chia sẽ nhận xét của bạn về sản phẩm này"
+                disabled={isLoading}
+              />
+
+              <FormSubmit
+                disabled={isLoading}
+                variant="moiMoc"
+                className="w-40"
+              >
+                {isLoading ? (
+                  <div className="flex gap-x-1">
+                    <Spinner className="size-5" />
+                    <span>Đang gửi</span>
+                  </div>
+                ) : (
+                  "Gửi"
+                )}
+              </FormSubmit>
+            </FormValues>
           </div>
         </CardContent>
       </Card>
