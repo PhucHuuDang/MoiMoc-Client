@@ -117,6 +117,22 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
     }
   };
 
+  const EmptyFeedback = () => {
+    return (
+      <div className="text-center py-12">
+        <div className="flex justify-center mb-6">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} className="w-10 h-10 text-muted-foreground" />
+          ))}
+        </div>
+        <h2 className="text-3xl font-semibold mb-4">Chưa có đánh giá nào</h2>
+        <p className="text-xl text-muted-foreground mb-8">
+          Hãy là người đầu tiên đánh giá sản phẩm này!
+        </p>
+      </div>
+    );
+  };
+
   return (
     <TabsContent value="ratings" className="mt-6">
       <Card>
@@ -154,67 +170,73 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
 
           <div className="space-y-6">
             <ScrollArea className="h-96">
-              {filterFeedbacks?.map((review: FeedbackTypes, index: number) => (
-                <Card key={index} className="my-2 mx-4">
-                  <CardContent className="p-4">
-                    <div className="flex items-center">
-                      <div className="flex gap-1">
-                        <Avatar className="size-14 mr-3">
-                          <AvatarImage
-                            src={"/about-moi-moc-images/avatar-placeholder.gif"}
-                          />
-                          <AvatarFallback>
-                            {review.user.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex flex-col gap-y-1">
-                          <p className="font-semibold">{review.user.name}</p>
-                          <span className="text-sm font-semibold text-slate-800">
-                            {vietnameseDate(new Date(review.createdAt))}
-                          </span>
-                          <Rating
-                            fillColorArray={[
-                              "#f14f45",
-                              "#f16c45",
-                              "#f18845",
-                              "#f1b345",
-                              "#f1d045",
-                            ]}
-                            // allowFraction={false}
-                            // showTooltip
-                            allowHover={false}
-                            transition
-                            disableFillHover
-                            initialValue={review.rating}
-                            emptyStyle={{ display: "flex" }}
-                            SVGstyle={{
-                              display: "inline-block",
-                              marginBottom: 10,
-                              // height: "40px",
-                              // size
-                            }}
-                            // disableFillHover={pending}
-                            // id="rating"
-                            // name={name}
-                            tooltipStyle={{
-                              backgroundColor: "#338eb8",
-                              width: "150px",
-                              marginTop: -3,
-                              marginLeft: 4,
-                            }}
-                            size={25}
-                          />
+              {filterFeedbacks?.length > 0 ? (
+                filterFeedbacks?.map((review: FeedbackTypes, index: number) => (
+                  <Card key={index} className="my-2 mx-4">
+                    <CardContent className="p-4">
+                      <div className="flex items-center">
+                        <div className="flex gap-1">
+                          <Avatar className="size-14 mr-3">
+                            <AvatarImage
+                              src={
+                                "/about-moi-moc-images/avatar-placeholder.gif"
+                              }
+                            />
+                            <AvatarFallback>
+                              {review.user.name
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex flex-col gap-y-1">
+                            <p className="font-semibold">{review.user.name}</p>
+                            <span className="text-sm font-semibold text-slate-800">
+                              {vietnameseDate(new Date(review.createdAt))}
+                            </span>
+                            <Rating
+                              fillColorArray={[
+                                "#f14f45",
+                                "#f16c45",
+                                "#f18845",
+                                "#f1b345",
+                                "#f1d045",
+                              ]}
+                              // allowFraction={false}
+                              // showTooltip
+                              allowHover={false}
+                              transition
+                              disableFillHover
+                              initialValue={review.rating}
+                              emptyStyle={{ display: "flex" }}
+                              SVGstyle={{
+                                display: "inline-block",
+                                marginBottom: 10,
+                                // height: "40px",
+                                // size
+                              }}
+                              // disableFillHover={pending}
+                              // id="rating"
+                              // name={name}
+                              tooltipStyle={{
+                                backgroundColor: "#338eb8",
+                                width: "150px",
+                                marginTop: -3,
+                                marginLeft: 4,
+                              }}
+                              size={25}
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <p>{review.content}</p>
-                  </CardContent>
-                </Card>
-              ))}
+                      <p>{review.content}</p>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <EmptyFeedback />
+              )}
             </ScrollArea>
           </div>
           <div className="mt-6">
