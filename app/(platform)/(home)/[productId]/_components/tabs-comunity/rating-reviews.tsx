@@ -65,8 +65,9 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
 
   console.log({ feedbacksData });
 
-  const filterFeedbacks = feedbacksData?.map(
-    (feedback: FeedbackReturnTypes) => {
+  const filterFeedbacks = feedbacksData
+    ?.filter((item: FeedbackReturnTypes) => item.productId === productId)
+    ?.map((feedback: FeedbackReturnTypes) => {
       return {
         id: feedback.id,
         content: feedback.content,
@@ -79,8 +80,7 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
           phoneAuth: feedback.user.phoneAuth,
         },
       };
-    },
-  );
+    });
 
   console.log({ filterFeedbacks });
 
