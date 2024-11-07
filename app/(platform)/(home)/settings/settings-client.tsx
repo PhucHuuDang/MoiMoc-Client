@@ -176,7 +176,7 @@ export default function SettingsClient() {
   };
 
   return (
-    <div className="pt-28 pb-10 bg-red-500">
+    <div className="pt-28 pb-10">
       <div className="max-w-screen-2xl mx-4 2xl:mx-auto">
         <div className="sticky top-0 z-10 bg-background pb-4 mb-8 p-4 rounded-lg">
           <div className="flex items-center justify-between mb-4 rounded-lg">

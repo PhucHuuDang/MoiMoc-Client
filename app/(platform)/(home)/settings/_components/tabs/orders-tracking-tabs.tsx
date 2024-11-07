@@ -360,11 +360,11 @@ export default function OrderTrackingTabs({
     <TabsContent value={value}>
       <div
         className={`min-h-screen ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50"}
-          transition-colors duration-300 rounded-lg`}
+          transition-colors duration-300 rounded-lg border border-black`}
       >
-        <div className="container mx-auto px-4 py-8">
+        <div className="py-8 px-4 ">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-center">Order Tracking</h1>
+            <h1 className="text-2xl font-bold text-center">Order Tracking</h1>
             <div className="flex items-center space-x-4">
               <Button
                 variant="outline"
