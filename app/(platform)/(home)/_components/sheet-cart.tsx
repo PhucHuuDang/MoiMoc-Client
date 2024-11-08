@@ -21,6 +21,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAuthContext } from "@/provider/auth-provider";
 import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
 import { toast } from "sonner";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface SheetCartProps {
   // handleCheckout: () => void;
@@ -64,7 +65,7 @@ export const SheetCart = ({}: SheetCartProps) => {
 
   return (
     <Sheet open={sheetCart.isOpen} onOpenChange={sheetCart.onClose}>
-      <SheetContent style={{ maxWidth: "45vw" }}>
+      <SheetContent style={{ maxWidth: "47vw" }}>
         <SheetHeader className="my-4">
           <SheetTitle className="text-center text-lg">
             Giỏ hàng của bạn!
@@ -76,13 +77,13 @@ export const SheetCart = ({}: SheetCartProps) => {
           </SheetDescription>
         </SheetHeader>
 
-        <ul className="flex flex-col items-start gap-5 h-[400px] overflow-y-auto overflow-x-hidden">
+        <ScrollArea className="h-96 2xl:h-[80%]">
           <TooltipProvider delayDuration={200}>
             {cart?.map((product) => (
               <CartItem key={product.id} product={product} />
             ))}
           </TooltipProvider>
-        </ul>
+        </ScrollArea>
 
         {cartCondition && (
           <div className="my-5">
