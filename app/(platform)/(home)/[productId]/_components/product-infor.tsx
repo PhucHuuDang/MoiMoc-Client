@@ -82,7 +82,7 @@ export const ProductInfo = ({
         <div className="relative aspect-square mb-4 rounded-lg overflow-hidden">
           <Image
             src={productImages[currentImage]}
-            alt="Blazer Jacket"
+            alt={productImages[currentImage]}
             layout="fill"
             objectFit="cover"
           />

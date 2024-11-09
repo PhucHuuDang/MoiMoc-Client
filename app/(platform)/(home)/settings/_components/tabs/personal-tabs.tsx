@@ -9,8 +9,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TabsContent } from "@/components/ui/tabs";
+import { useAuthContext } from "@/provider/auth-provider";
+import { PersonalSafeTypes } from "@/safe-types-zod/client/settings-profile-safe-types/personal-safe-types";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, Edit2, X } from "lucide-react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 interface PersonalTabsProps {
   value: string;
@@ -23,14 +28,29 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
     bio: "A passionate developer",
     location: "HCMC, Vietnam",
     website: "https://phuchuudang.github.io/Portfolio-website/#services",
+    designation: "software engineer",
   });
+
   const [isEditing, setIsEditing] = useState({
     firstName: false,
     lastName: false,
     bio: false,
     location: false,
     website: false,
+    designation: false,
   });
+
+  const auth = useAuthContext();
+
+  const form = useForm<z.infer<typeof PersonalSafeTypes>>({
+    resolver: zodResolver(PersonalSafeTypes),
+  });
+
+  const onSubmit = (values: z.infer<typeof PersonalSafeTypes>) => {
+    console.log({ values });
+  };
+
+  // form.reig
 
   const validateField = (field: keyof typeof personalInfo, value: string) => {
     switch (field) {
@@ -43,6 +63,8 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
         return /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(
           value,
         );
+      case "designation":
+        return value.length <= 150;
       default:
         return true;
     }

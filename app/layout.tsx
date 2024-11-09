@@ -34,7 +34,7 @@ export default function RootLayout({
   const productsPromise = productsList();
 
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang="vi">
       {/* <Head>
         <link
           rel="icon"
