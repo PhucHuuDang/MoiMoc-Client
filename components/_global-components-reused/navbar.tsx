@@ -16,6 +16,7 @@ import { useCartStore } from "@/store/use-cart-store";
 import { deleteTokenCookies } from "@/api/store/cookies-stored";
 import { useAuthContext } from "@/provider/auth-provider";
 import { toast } from "sonner";
+import { UserItemsControl } from "./user-items-control";
 
 export const Navbar = () => {
   const router = useRouter();
@@ -56,12 +57,14 @@ export const Navbar = () => {
         ) : (
           <>
             {/* <User className={`size-6 ${hoverAnimate}`} /> */}
-            <div
+            {/* <div
               className={`text-moi_moc_green font-light cursor-pointer ${hoverAnimate}`}
               onClick={handleLogout}
             >
               Đăng xuất
-            </div>
+            </div> */}
+
+            <UserItemsControl />
           </>
         )}
 
