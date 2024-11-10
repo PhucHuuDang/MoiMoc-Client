@@ -93,6 +93,7 @@ import { AppearanceTabs } from "./_components/tabs/apprearance-tabs";
 import { ConnectedTabs } from "./_components/tabs/connected-tabs";
 import { NotificationsTabs } from "./_components/tabs/notifications-tabs";
 import OrderTrackingTabs from "./_components/tabs/orders-tracking-tabs";
+import { useAuthContext } from "@/provider/auth-provider";
 
 export const TABS = [
   {
@@ -130,6 +131,8 @@ export const TABS = [
 ];
 
 export default function SettingsClient() {
+  const auth = useAuthContext();
+
   const [isLoading, setIsLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState("personal");
@@ -175,6 +178,8 @@ export default function SettingsClient() {
     }
   };
 
+  // console.log(auth?.user?.avatar);
+
   return (
     <div className="pt-28 pb-10">
       <div className="max-w-screen-2xl mx-4 2xl:mx-auto">
@@ -182,13 +187,17 @@ export default function SettingsClient() {
           <div className="flex items-center justify-between mb-4 rounded-lg">
             <div className="flex items-center space-x-4">
               <Avatar className="w-20 h-20">
-                <AvatarImage src={profileImage} alt="Profile picture" />
-                <AvatarFallback>JD</AvatarFallback>
+                <AvatarImage
+                  src={
+                    auth?.user?.avatar ??
+                    "/about-moi-moc-images/avatar-placeholder.gif"
+                  }
+                  alt={auth?.user?.name}
+                />
+                <AvatarFallback>{auth?.user?.name}</AvatarFallback>
               </Avatar>
               <div>
-                <h1 className="text-3xl font-bold">
-                  {personalInfo.firstName} {personalInfo.lastName}
-                </h1>
+                <h1 className="text-3xl font-bold">{auth?.user?.name}</h1>
                 <span className="text-muted-foreground">
                   Manage your profile settings and preferences
                 </span>

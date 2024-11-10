@@ -1,3 +1,6 @@
+import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
+import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
+import { FormValues } from "@/components/_global-components-reused/form/form-values";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,8 +15,9 @@ import { TabsContent } from "@/components/ui/tabs";
 import { useAuthContext } from "@/provider/auth-provider";
 import { PersonalSafeTypes } from "@/safe-types-zod/client/settings-profile-safe-types/personal-safe-types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { capitalize } from "lodash";
 import { Check, Edit2, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,26 +25,39 @@ interface PersonalTabsProps {
   value: string;
 }
 
+type PersonalInfo = {
+  name: string;
+  phoneAuth: string;
+  bio: string;
+  address: string;
+  website: string;
+  designation: string;
+};
+
 export const PersonalTabs = ({ value }: PersonalTabsProps) => {
-  const [personalInfo, setPersonalInfo] = useState({
-    firstName: "Đặng",
-    lastName: "Hữu Phúc",
-    bio: "A passionate developer",
-    location: "HCMC, Vietnam",
-    website: "https://phuchuudang.github.io/Portfolio-website/#services",
-    designation: "software engineer",
+  const auth = useAuthContext();
+
+  const [personalInfo, setPersonalInfo] = useState<
+    z.infer<typeof PersonalSafeTypes>
+  >({
+    name: "",
+    bio: "",
+    phoneAuth: "",
+    address: "",
+    website: "",
+    designation: "",
   });
 
   const [isEditing, setIsEditing] = useState({
-    firstName: false,
-    lastName: false,
+    name: false,
+    phoneAuth: false,
     bio: false,
-    location: false,
+    address: false,
     website: false,
     designation: false,
   });
 
-  const auth = useAuthContext();
+  // console.log("auth: ", auth?.user);
 
   const form = useForm<z.infer<typeof PersonalSafeTypes>>({
     resolver: zodResolver(PersonalSafeTypes),
@@ -52,23 +69,22 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
 
   // form.reig
 
-  const validateField = (field: keyof typeof personalInfo, value: string) => {
-    switch (field) {
-      case "firstName":
-      case "lastName":
-        return value.length > 0 && value.length <= 50;
-      case "bio":
-        return value.length <= 500;
-      case "website":
-        return /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(
-          value,
-        );
-      case "designation":
-        return value.length <= 150;
-      default:
-        return true;
-    }
-  };
+  // const validateField = (field: keyof typeof personalInfo, value: string) => {
+  //   switch (field) {
+  //     case "name":
+  //       return value.length > 0 && value.length <= 50;
+  //     case "bio":
+  //       return value?.length <= 500;
+  //     case "website":
+  //       return /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(
+  //         value,
+  //       );
+  //     case "designation":
+  //       return value?.length <= 150;
+  //     default:
+  //       return true;
+  //   }
+  // };
 
   const handlePersonalInfoChange = (
     field: keyof typeof personalInfo,
@@ -84,6 +100,26 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
     }));
   };
 
+  useEffect(() => {
+    if (auth?.isAuth) {
+      setPersonalInfo({
+        name: auth.user.name,
+        phoneAuth: auth.user.phoneAuth,
+        bio: auth.user.bio,
+        address: auth.user.address,
+        website: auth.user.website,
+        designation: auth.user.designation,
+      });
+
+      form.setValue("designation", auth.user.designation);
+      form.setValue("name", auth.user.name);
+      form.setValue("phoneAuth", auth.user.phoneAuth);
+      form.setValue("address", auth.user.address ?? undefined);
+      form.setValue("bio", auth.user.bio ?? undefined);
+      form.setValue("website", auth.user.website ?? undefined);
+    }
+  }, [form, auth]);
+
   return (
     <TabsContent value={value}>
       <Card>
@@ -92,15 +128,19 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
           <CardDescription>Update your personal details here.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormValues
+            form={form}
+            onSubmit={onSubmit}
+            classNameForm="grid grid-cols-1 md:grid-cols-2 gap-4"
+          >
             {Object.entries(personalInfo).map(([key, value]) => (
               <div key={key} className="space-y-2">
                 <Label htmlFor={key}>
                   {key.charAt(0).toUpperCase() + key.slice(1)}
                 </Label>
                 {isEditing[key as keyof typeof isEditing] ? (
-                  <div className="flex items-center space-x-2">
-                    <Input
+                  <div className="flex w-full items-center justify-between gap-x-1">
+                    {/* <Input
                       id={key}
                       value={value}
                       onChange={(e) =>
@@ -110,38 +150,57 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
                         }))
                       }
                       className="flex-grow"
-                    />
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() =>
-                        handlePersonalInfoChange(
-                          key as keyof typeof personalInfo,
-                          value,
-                        )
-                      }
-                      disabled={
-                        !validateField(key as keyof typeof personalInfo, value)
-                      }
-                    >
-                      <Check className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() =>
-                        setIsEditing((prev) => ({
-                          ...prev,
-                          [key]: false,
-                        }))
-                      }
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
+                    /> */}
+                    <div className="w-full">
+                      <FormItemsControl
+                        form={form}
+                        name={key as keyof typeof personalInfo}
+                        disabled={false}
+                        // label={capitalize(key)}
+                        placeholder={`Hãy nhập ${key}`}
+                      />
+                    </div>
+
+                    <div className="flex items-center gap-x-1">
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={() =>
+                          handlePersonalInfoChange(
+                            key as keyof typeof personalInfo,
+                            value as string,
+                          )
+                        }
+                        // disabled={
+                        //   !validateField(
+                        //     key as keyof typeof personalInfo,
+                        //     value as string,
+                        //   )
+                        // }
+                      >
+                        <Check className="h-4 w-4" />
+                      </Button>
+
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={() =>
+                          setIsEditing((prev) => ({
+                            ...prev,
+                            [key]: false,
+                          }))
+                        }
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex items-center justify-between">
-                    <span>{value}</span>
+                    <span>
+                      {form.getValues(key as keyof typeof personalInfo) ??
+                        "Hãy điền thêm thông tin của bạn"}
+                    </span>
                     <Button
                       size="icon"
                       variant="ghost"
@@ -155,7 +214,9 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
                 )}
               </div>
             ))}
-          </div>
+
+            <FormSubmit>Submit</FormSubmit>
+          </FormValues>
         </CardContent>
       </Card>
     </TabsContent>

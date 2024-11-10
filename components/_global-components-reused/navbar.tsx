@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, User } from "lucide-react";
 
 import { Separator } from "../ui/separator";
 import { Logo } from "./logo";
@@ -54,12 +54,15 @@ export const Navbar = () => {
         {!auth?.isAuth ? (
           <LoginNavbarSVG height={height} className={hoverAnimate} />
         ) : (
-          <div
-            className={`text-moi_moc_green font-light cursor-pointer ${hoverAnimate}`}
-            onClick={handleLogout}
-          >
-            Đăng xuất
-          </div>
+          <>
+            {/* <User className={`size-6 ${hoverAnimate}`} /> */}
+            <div
+              className={`text-moi_moc_green font-light cursor-pointer ${hoverAnimate}`}
+              onClick={handleLogout}
+            >
+              Đăng xuất
+            </div>
+          </>
         )}
 
         {role === "ADMIN" ? (
@@ -70,7 +73,9 @@ export const Navbar = () => {
             Dashboard
           </div>
         ) : (
-          <LanguageNavbarSVG height={height} className={hoverAnimate} />
+          ""
+          // <LanguageNavbarSVG height={height} className={hoverAnimate} />
+          // <User className={`size-6 ${hoverAnimate}`} />
         )}
         <div className="relative">
           <CartNavbarSVG height={35} className={hoverAnimate} />
