@@ -24,18 +24,12 @@ export const Navbar = () => {
 
   const role = auth?.user?.role;
 
-  // console.log({ auth });
   const height = 24;
   const hoverAnimate =
     "hover:scale-110 transition duration-200  p-0.5 rounded-lg";
 
   const handleRedirect = (path: string = "/") => {
     router.push(path);
-  };
-
-  const handleLogout = async () => {
-    const deleteToken = await deleteTokenCookies();
-    toast.success("Đăng xuất thành công");
   };
 
   const cart = useFromStore(useCartStore, (state) => state.orders);
@@ -47,7 +41,7 @@ export const Navbar = () => {
           className={`${hoverAnimate} size-8 cursor-pointer text-moi_moc_text_green`}
         />
 
-        <div className="size-8" />
+        <div className="size-4" />
         <ProductNavbar height={height} className={hoverAnimate} />
         <AboutMoiMocNavbar height={height} className={hoverAnimate} />
         <Logo className={hoverAnimate} onRedirect={handleRedirect} />
@@ -56,30 +50,12 @@ export const Navbar = () => {
           <LoginNavbarSVG height={height} className={hoverAnimate} />
         ) : (
           <>
-            {/* <User className={`size-6 ${hoverAnimate}`} /> */}
-            {/* <div
-              className={`text-moi_moc_green font-light cursor-pointer ${hoverAnimate}`}
-              onClick={handleLogout}
-            >
-              Đăng xuất
-            </div> */}
-
             <UserItemsControl />
           </>
         )}
 
-        {role === "ADMIN" ? (
-          <div
-            className={`text-moi_moc_green font-light cursor-pointer ${hoverAnimate}`}
-            onClick={() => handleRedirect("/dashboard")}
-          >
-            Dashboard
-          </div>
-        ) : (
-          ""
-          // <LanguageNavbarSVG height={height} className={hoverAnimate} />
-          // <User className={`size-6 ${hoverAnimate}`} />
-        )}
+        <div className="size-6" />
+
         <div className="relative">
           <CartNavbarSVG height={35} className={hoverAnimate} />
           <div

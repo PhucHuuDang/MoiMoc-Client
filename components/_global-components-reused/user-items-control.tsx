@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, Settings, User } from "lucide-react";
+import { LayoutDashboard, LogOut, Settings, User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -27,6 +27,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "../ui/alert-dialog";
+import { useAuthContext } from "@/provider/auth-provider";
 
 const MENU_ITEMS = [
   {
@@ -38,6 +39,11 @@ const MENU_ITEMS = [
     label: "Settings",
     icon: <Settings />,
     href: "/settings",
+  },
+  {
+    label: "Dashboard",
+    icon: <LayoutDashboard />,
+    href: "/dashboard",
   },
   {
     label: "Logout",
@@ -52,12 +58,19 @@ export const UserItemsControl = () => {
     Profile: false,
     Settings: false,
     Logout: false,
+    Dashboard: false,
   });
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [isShowAlert, setIsShowAlert] = useState<boolean>(false);
 
-  console.log({ selectedItem });
+  const auth = useAuthContext();
+  const role = auth?.user?.role;
+
+  // const [ConfirmModal, confirm] = useConfirm(
+  //   "Bạn có chắc chắn muốn đăng xuất?",
+  //   "Đăng xuất",
+  // );
 
   const WaitingLogout = () => {
     return (
@@ -91,14 +104,11 @@ export const UserItemsControl = () => {
     setSelectedItem((prev) => ({ [label]: checked }));
 
     if (label === "Logout") {
-      // await handleLogout();
       setIsShowAlert(true);
     } else {
       router.push(href);
     }
   };
-
-  // return <WaitingLogout />;
 
   if (loading) {
     return <WaitingLogout />;
@@ -108,7 +118,10 @@ export const UserItemsControl = () => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <User className="size-6 hover:scale-110 transition duration-200 p-0.5 rounded-lg" />
+          <User
+            className="h-6 w-[101px] text-moi_moc_green hover:scale-110 transition duration-200 p-0.5
+              rounded-lg"
+          />
         </DropdownMenuTrigger>
 
         <DropdownMenuContent className="w-56">
@@ -117,7 +130,7 @@ export const UserItemsControl = () => {
           <DropdownMenuSeparator />
           {/* <DropdownMen */}
           {MENU_ITEMS.map((item) => {
-            return (
+            return role === "ADMIN" ? (
               <DropdownMenuCheckboxItem
                 key={item.label}
                 checked={selectedItem[item.label]}
@@ -129,12 +142,31 @@ export const UserItemsControl = () => {
                 {item.icon}
                 <span>{item.label}</span>
               </DropdownMenuCheckboxItem>
+            ) : (
+              item.label !== "Dashboard" && (
+                <DropdownMenuCheckboxItem
+                  key={item.label}
+                  checked={selectedItem[item.label]}
+                  onCheckedChange={(checked: boolean) =>
+                    handleChecked(item.label, checked, item.href)
+                  }
+                  className="gap-x-2 cursor-pointer w-full items-start"
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </DropdownMenuCheckboxItem>
+              )
             );
           })}
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <AlertDialog open={isShowAlert} onOpenChange={setIsShowAlert}>
+      <AlertDialog
+        open={isShowAlert}
+        onOpenChange={() => {
+          setTimeout(() => (document.body.style.pointerEvents = ""), 100);
+        }}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>

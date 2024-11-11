@@ -39,7 +39,12 @@ export const ConfirmModal = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+    <AlertDialog
+      open={isOpen}
+      onOpenChange={() => {
+        setTimeout(() => (document.body.style.pointerEvents = ""), 100);
+      }}
+    >
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
 
       <AlertDialogContent aria-disabled={true}>
