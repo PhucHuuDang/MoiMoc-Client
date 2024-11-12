@@ -28,7 +28,9 @@ interface PersonalTabsProps {
 type PersonalInfo = {
   name: string;
   phoneAuth: string;
+  email: string;
   bio: string;
+
   address: string;
   website: string;
   designation: string;
@@ -43,6 +45,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
     name: "",
     bio: "",
     phoneAuth: "",
+    email: "",
     address: "",
     website: "",
     designation: "",
@@ -52,6 +55,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
     name: false,
     phoneAuth: false,
     bio: false,
+    email: false,
     address: false,
     website: false,
     designation: false,
@@ -105,6 +109,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
       setPersonalInfo({
         name: auth.user.name,
         phoneAuth: auth.user.phoneAuth,
+        email: auth.user.email,
         bio: auth.user.bio,
         address: auth.user.address,
         website: auth.user.website,
@@ -114,9 +119,10 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
       form.setValue("designation", auth.user.designation);
       form.setValue("name", auth.user.name);
       form.setValue("phoneAuth", auth.user.phoneAuth);
-      form.setValue("address", auth.user.address ?? undefined);
-      form.setValue("bio", auth.user.bio ?? undefined);
-      form.setValue("website", auth.user.website ?? undefined);
+      form.setValue("email", auth.user.email);
+      form.setValue("address", auth.user.address ?? null);
+      form.setValue("bio", auth.user.bio ?? null);
+      form.setValue("website", auth.user.website ?? null);
     }
   }, [form, auth]);
 

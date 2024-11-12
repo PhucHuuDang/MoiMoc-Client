@@ -221,7 +221,7 @@ export default function SettingsClient() {
             </div>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button disabled={isLoading}>
+                <Button disabled={isLoading} variant="moiMoc" className="w-40">
                   {isLoading ? "Saving..." : "Save All Changes"}
                 </Button>
               </AlertDialogTrigger>

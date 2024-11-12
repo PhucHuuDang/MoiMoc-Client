@@ -19,7 +19,7 @@ interface ConnectedTabsProps {
 }
 export const ConnectedTabs = ({ value }: ConnectedTabsProps) => {
   return (
-    <TabsContent value="connected">
+    <TabsContent value={value}>
       <Card>
         <CardHeader>
           <CardTitle>Connected Accounts</CardTitle>
@@ -36,7 +36,9 @@ export const ConnectedTabs = ({ value }: ConnectedTabsProps) => {
                 <p className="text-sm text-muted-foreground">Not connected</p>
               </div>
             </div>
-            <Button variant="outline">Connect</Button>
+            <Button variant="outline" className="w-28">
+              Connect
+            </Button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -56,13 +58,15 @@ export const ConnectedTabs = ({ value }: ConnectedTabsProps) => {
                 <p className="text-sm text-muted-foreground">Not connected</p>
               </div>
             </div>
-            <Button variant="outline">Connect</Button>
+            <Button variant="outline" className="w-28">
+              Connect
+            </Button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Linkedin className="h-6 w-6" />
               <div>
-                <p className="font-medium">LinkedIn</p>
+                <p className="font-medium w-28">LinkedIn</p>
                 <p className="text-sm text-muted-foreground">Connected</p>
               </div>
             </div>

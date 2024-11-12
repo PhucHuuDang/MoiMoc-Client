@@ -28,6 +28,7 @@ import { Rating } from "react-simple-star-rating";
 import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
 import Spinner from "@/components/animata/spinner";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { formatActivityTime } from "@/lib/format-activity-time";
 
 interface RatingReviewsProps {
   productId: number;
@@ -192,7 +193,7 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
                           <div className="flex flex-col gap-y-1">
                             <p className="font-semibold">{review.user.name}</p>
                             <span className="text-sm font-semibold text-slate-800">
-                              {vietnameseDate(new Date(review.createdAt))}
+                              {formatActivityTime(review.createdAt)}
                             </span>
                             <Rating
                               fillColorArray={[
