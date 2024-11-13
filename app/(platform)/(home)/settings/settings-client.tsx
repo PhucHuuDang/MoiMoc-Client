@@ -136,9 +136,7 @@ export default function SettingsClient() {
   const [isLoading, setIsLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState("personal");
-  const [profileImage, setProfileImage] = useState(
-    "/placeholder.svg?height=100&width=100",
-  );
+  const [profileImage, setProfileImage] = useState<string | null>(null);
   const [profileCompletion, setProfileCompletion] = useState(65);
   const [quickSettings, setQuickSettings] = useState({
     emailNotifications: true,
@@ -178,7 +176,9 @@ export default function SettingsClient() {
     }
   };
 
-  // console.log(auth?.user?.avatar);
+  const imageUrl: string = !!profileImage
+    ? profileImage
+    : (auth?.user?.avatar ?? "/about-moi-moc-images/avatar-placeholder.gif");
 
   return (
     <div className="pt-28 pb-10">
@@ -187,13 +187,7 @@ export default function SettingsClient() {
           <div className="flex items-center justify-between mb-4 rounded-lg">
             <div className="flex items-center space-x-4">
               <Avatar className="w-20 h-20">
-                <AvatarImage
-                  src={
-                    auth?.user?.avatar ??
-                    "/about-moi-moc-images/avatar-placeholder.gif"
-                  }
-                  alt={auth?.user?.name}
-                />
+                <AvatarImage src={imageUrl} alt={auth?.user?.name} />
                 <AvatarFallback>{auth?.user?.name}</AvatarFallback>
               </Avatar>
               <div>
