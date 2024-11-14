@@ -18,31 +18,26 @@ import { ReturnPolicy } from "../policy/return-policy";
 const SupportLinks = [
   {
     label: "Chính sách vận chuyển",
-    // link: "/shipping-policy"
     link: "/",
   },
 
   {
     label: "Chính sách đổi trả",
-    // link: "/return-policy"
     link: "/",
   },
 
   {
     label: "Chính sách bảo mật",
-    // link: "/privacy-policy"
     link: "/",
   },
 
   {
     label: "Chính sách thanh toán",
-    // link: "/payment-policy"
     link: "/",
   },
 
   {
     label: "Chính sách bảo hành",
-    // link: "/warranty-policy"
     link: "/",
   },
 ];
@@ -98,7 +93,6 @@ export const Footer = () => {
           <DeliveryPolicy />
           <PaymentPolicy />
           <ReturnPolicy />
-          {/* <PaymentPolicy /> */}
           <PrivacyPolicy />
         </div>
 

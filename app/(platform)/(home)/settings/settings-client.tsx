@@ -161,6 +161,8 @@ export default function SettingsClient() {
       //   title: "Settings saved",
       //   description: "Your profile settings have been updated successfully.",
       // })
+
+      setProfileCompletion((prev) => prev + 20);
       toast.success("Settings saved");
     }, 1500);
   };
@@ -179,6 +181,8 @@ export default function SettingsClient() {
   const imageUrl: string = !!profileImage
     ? profileImage
     : (auth?.user?.avatar ?? "/about-moi-moc-images/avatar-placeholder.gif");
+
+  console.log({ profileImage });
 
   return (
     <div className="pt-28 pb-10">
@@ -200,7 +204,50 @@ export default function SettingsClient() {
 
             <AvatarImageUpload handleImageUpload={setProfileImage} />
           </div>
-          <div className="flex items-center justify-between mb-4">
+
+          {profileImage && (
+            <div className="mb-4">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Progress value={profileCompletion} className="w-full" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Profile {profileCompletion}% complete</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    disabled={isLoading}
+                    variant="moiMoc"
+                    className="w-32"
+                  >
+                    {isLoading ? "Đang lưu..." : "Lưu thay đổi"}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action will update all your profile settings. Are you
+                      sure you want to continue?
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleSave}>
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          )}
+
+          {/* <div className="flex items-start justify-between mb-4">
             <div className="flex-1 mr-4">
               <TooltipProvider>
                 <Tooltip>
@@ -235,7 +282,8 @@ export default function SettingsClient() {
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-          </div>
+          </div> */}
+
           <Tabs
             value={activeTab}
             onValueChange={setActiveTab}

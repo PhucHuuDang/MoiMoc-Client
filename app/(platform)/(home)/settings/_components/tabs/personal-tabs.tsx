@@ -71,8 +71,6 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
     console.log({ values });
   };
 
-  // form.reig
-
   // const validateField = (field: keyof typeof personalInfo, value: string) => {
   //   switch (field) {
   //     case "name":

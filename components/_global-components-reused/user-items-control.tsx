@@ -16,7 +16,6 @@ import { deleteTokenCookies } from "@/api/store/cookies-stored";
 import { toast } from "sonner";
 import Spinner from "../animata/spinner";
 import { Logo } from "./logo";
-import { useConfirm } from "@/hooks/use-confirm";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,6 +27,7 @@ import {
   AlertDialogTitle,
 } from "../ui/alert-dialog";
 import { useAuthContext } from "@/provider/auth-provider";
+import { useCartStore } from "@/store/use-cart-store";
 
 const MENU_ITEMS = [
   {
@@ -67,6 +67,8 @@ export const UserItemsControl = () => {
   const auth = useAuthContext();
   const role = auth?.user?.role;
 
+  const clearCart = useCartStore((state) => state.clearCart);
+
   // const [ConfirmModal, confirm] = useConfirm(
   //   "Bạn có chắc chắn muốn đăng xuất?",
   //   "Đăng xuất",
@@ -91,6 +93,7 @@ export const UserItemsControl = () => {
     await deleteTokenCookies();
     <WaitingLogout />;
     await new Promise((resolve) => setTimeout(resolve, 500));
+    clearCart();
     setLoading(false);
     setIsShowAlert(false);
     toast.success("Đăng xuất thành công");
@@ -177,7 +180,9 @@ export const UserItemsControl = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Huỷ bỏ</AlertDialogCancel>
+            <AlertDialogCancel onClick={() => setIsShowAlert(false)}>
+              Huỷ bỏ
+            </AlertDialogCancel>
             <AlertDialogAction onClick={handleLogout}>
               Tiếp tục
             </AlertDialogAction>

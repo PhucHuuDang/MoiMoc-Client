@@ -1,14 +1,9 @@
-import { motion } from "framer-motion";
-
 import { Footer } from "@/components/_global-components-reused/footer";
-import { Logo } from "@/components/_global-components-reused/logo";
-import { Navbar } from "@/components/_global-components-reused/navbar";
 import { Cover } from "@/components/aceternity-ui/cover";
 import { ImagesSlider } from "@/components/aceternity-ui/images-slider";
 import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-effect";
 import { CircleUI } from "@/components/custom/circle-ui";
 import { NewlyProduct } from "@/components/custom/newly-product";
-import { BestSellingProducts } from "@/components/home-ui/best-selling-products";
 import { MoiMocMarquee } from "@/components/home-ui/moi-moc-marquee";
 import { DemoProducts } from "@/components/home-ui/demo-product";
 import { ProductIntroduction } from "@/components/home-ui/product-introduction";
