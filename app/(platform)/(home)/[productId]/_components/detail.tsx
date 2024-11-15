@@ -101,8 +101,6 @@ export default function DetailPage({
   };
 
   if (isLoading) return <ProductDetailSkelton />;
-  // <ProductDetailSkelton />;
-  // <span>Loading...</span>;
 
   return productDetailData ? (
     <div className="min-h-screen bg-main_background_color py-20 text-foreground">

@@ -47,7 +47,6 @@ export const ProductItemEffectHover = ({
         className="group relative aspect-square h-full w-full overflow-hidden rounded-xl"
         onClick={() => router.push(`/${product.productId}`)}
       >
-        {/* <GlareCard className="flex flex-col items-center justify-center"> */}
         <Image
           fill
           alt={`product-${product.productName}`}
@@ -56,8 +55,6 @@ export const ProductItemEffectHover = ({
           // className="absolute size-full object-cover transition group-hover:scale-110"
         />
 
-        {/* can add here the icon cart or not */}
-        {/* </GlareCard> */}
       </div>
       <div className="min-h-[56px] text-lg font-semibold">
         {/* {data?.serviceName} */}

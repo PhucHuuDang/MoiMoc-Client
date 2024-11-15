@@ -76,11 +76,6 @@ export default function EnhancedPaymentSuccess({
             Cảm ơn bạn đã tin tưởng và quan tâm mua hàng tại MoiMoc!
           </span>
           <div className="flex justify-center space-x-4 items-start">
-            {/* <img
-              src="/placeholder.svg?height=100&width=100"
-              alt="Product"
-              className="rounded-lg shadow-md"
-            /> */}
             <div className="bg-gray-50 p-4 rounded-lg text-left flex-1">
               <h3 className="font-semibold text-gray-700 mb-2">
                 Chi tiết đơn hàng
@@ -92,12 +87,6 @@ export default function EnhancedPaymentSuccess({
                     {searchParams.get("orderCode")}
                   </span>
                 </span>
-                {/* <span className="text-sm text-gray-600">
-                  Date: <span className="font-medium">May 15, 2023</span>
-                </span>
-                <span className="text-sm text-gray-600">
-                  Total: <span className="font-medium">$99.99</span>
-                </span> */}
               </div>
             </div>
           </div>
