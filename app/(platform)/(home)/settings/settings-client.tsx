@@ -94,6 +94,9 @@ import { ConnectedTabs } from "./_components/tabs/connected-tabs";
 import { NotificationsTabs } from "./_components/tabs/notifications-tabs";
 import OrderTrackingTabs from "./_components/tabs/orders-tracking-tabs";
 import { useAuthContext } from "@/provider/auth-provider";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const TABS = [
   {
@@ -132,6 +135,8 @@ export const TABS = [
 
 export default function SettingsClient() {
   const auth = useAuthContext();
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const [isLoading, setIsLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
@@ -143,6 +148,8 @@ export default function SettingsClient() {
     twoFactor: false,
     darkMode: false,
   });
+
+  const [isPending, setIsPending] = useState<boolean>(false);
 
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "Đặng",
@@ -167,14 +174,35 @@ export default function SettingsClient() {
     }, 1500);
   };
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setProfileImage(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+  const handleAddAvatar = async () => {
+    if (!auth?.isAuth || !auth) {
+      toast.error("Bạn cần đăng nhập để thay đổi ảnh đại diện");
+      return;
+    }
+
+    if (!profileImage) {
+      return;
+    }
+    try {
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/avatar`,
+        // `localhost:3002/users/avatar`,
+        { avatar: profileImage },
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        queryClient.invalidateQueries({ queryKey: ["user-activities"] });
+        toast.success("Thay đổi ảnh đại diện thành công");
+        router.refresh();
+      }
+    } catch (error) {
+      console.log({ error });
+      toast.error("Lỗi khi thêm ảnh đại diện");
     }
   };
 
@@ -238,7 +266,7 @@ export default function SettingsClient() {
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleSave}>
+                    <AlertDialogAction onClick={handleAddAvatar}>
                       Continue
                     </AlertDialogAction>
                   </AlertDialogFooter>
