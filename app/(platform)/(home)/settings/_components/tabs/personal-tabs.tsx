@@ -1,3 +1,4 @@
+import { clientGetData } from "@/api/actions/get-data-api";
 import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
 import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
 import { FormValues } from "@/components/_global-components-reused/form/form-values";
@@ -14,7 +15,9 @@ import { Label } from "@/components/ui/label";
 import { TabsContent } from "@/components/ui/tabs";
 import { useAuthContext } from "@/provider/auth-provider";
 import { PersonalSafeTypes } from "@/safe-types-zod/client/settings-profile-safe-types/personal-safe-types";
+import { UserProfile } from "@/types/user-types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQuery } from "@tanstack/react-query";
 import { capitalize } from "lodash";
 import { Check, Edit2, X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -102,27 +105,37 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
     }));
   };
 
+  const {
+    data: userInformation,
+    isError,
+    isLoading,
+  } = useQuery({
+    queryKey: ["user-detail"],
+    queryFn: async () => await clientGetData("/users/detail", auth?.token!),
+  });
+
   useEffect(() => {
-    if (auth?.isAuth) {
+    if (!!userInformation) {
+      const user = userInformation.user as UserProfile["user"];
       setPersonalInfo({
-        name: auth.user.name,
-        phoneAuth: auth.user.phoneAuth,
-        email: auth.user.email,
-        bio: auth.user.bio,
-        address: auth.user.address,
-        website: auth.user.website,
-        designation: auth.user.designation,
+        name: user.name,
+        phoneAuth: user.phoneAuth,
+        email: user.email,
+        bio: user.bio,
+        address: userInformation.address[0].address,
+        website: user.website,
+        designation: user.designation,
       });
 
-      form.setValue("designation", auth.user.designation);
-      form.setValue("name", auth.user.name);
-      form.setValue("phoneAuth", auth.user.phoneAuth);
-      form.setValue("email", auth.user.email);
-      form.setValue("address", auth.user.address ?? null);
-      form.setValue("bio", auth.user.bio ?? null);
-      form.setValue("website", auth.user.website ?? null);
+      form.setValue("designation", user.designation);
+      form.setValue("name", user.name);
+      form.setValue("phoneAuth", user.phoneAuth);
+      form.setValue("email", user.email);
+      form.setValue("address", userInformation.address[0].address ?? null);
+      form.setValue("bio", user.bio ?? null);
+      form.setValue("website", user.website ?? null);
     }
-  }, [form, auth]);
+  }, [form, auth, isLoading]);
 
   return (
     <TabsContent value={value}>

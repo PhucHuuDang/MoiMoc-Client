@@ -97,6 +97,8 @@ import { useAuthContext } from "@/provider/auth-provider";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { UserActivity } from "./_components/user-activity";
+import { UserAvatarCard } from "./_components/user-avatar-card";
 
 export const TABS = [
   {
@@ -174,143 +176,11 @@ export default function SettingsClient() {
     }, 1500);
   };
 
-  const handleAddAvatar = async () => {
-    if (!auth?.isAuth || !auth) {
-      toast.error("Bạn cần đăng nhập để thay đổi ảnh đại diện");
-      return;
-    }
-
-    if (!profileImage) {
-      return;
-    }
-    try {
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/avatar`,
-        // `localhost:3002/users/avatar`,
-        { avatar: profileImage },
-        {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
-        },
-      );
-
-      if (response.status === 200) {
-        queryClient.invalidateQueries({ queryKey: ["user-activities"] });
-        toast.success("Thay đổi ảnh đại diện thành công");
-        router.refresh();
-      }
-    } catch (error) {
-      console.log({ error });
-      toast.error("Lỗi khi thêm ảnh đại diện");
-    }
-  };
-
-  const imageUrl: string = !!profileImage
-    ? profileImage
-    : (auth?.user?.avatar ?? "/about-moi-moc-images/avatar-placeholder.gif");
-
-  console.log({ profileImage });
-
   return (
     <div className="pt-28 pb-10">
       <div className="max-w-screen-2xl mx-4 2xl:mx-auto">
         <div className="sticky top-0 z-10 bg-background pb-4 mb-8 p-4 rounded-lg">
-          <div className="flex items-center justify-between mb-4 rounded-lg">
-            <div className="flex items-center space-x-4">
-              <Avatar className="w-20 h-20">
-                <AvatarImage src={imageUrl} alt={auth?.user?.name} />
-                <AvatarFallback>{auth?.user?.name}</AvatarFallback>
-              </Avatar>
-              <div>
-                <h1 className="text-3xl font-bold">{auth?.user?.name}</h1>
-                <span className="text-muted-foreground">
-                  Manage your profile settings and preferences
-                </span>
-              </div>
-            </div>
-
-            <AvatarImageUpload handleImageUpload={setProfileImage} />
-          </div>
-
-          {profileImage && (
-            <div className="mb-4">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Progress value={profileCompletion} className="w-full" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Profile {profileCompletion}% complete</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    disabled={isLoading}
-                    variant="moiMoc"
-                    className="w-32"
-                  >
-                    {isLoading ? "Đang lưu..." : "Lưu thay đổi"}
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This action will update all your profile settings. Are you
-                      sure you want to continue?
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleAddAvatar}>
-                      Continue
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
-          )}
-
-          {/* <div className="flex items-start justify-between mb-4">
-            <div className="flex-1 mr-4">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Progress value={profileCompletion} className="w-full" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Profile {profileCompletion}% complete</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button disabled={isLoading} variant="moiMoc" className="w-40">
-                  {isLoading ? "Saving..." : "Save All Changes"}
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action will update all your profile settings. Are you
-                    sure you want to continue?
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleSave}>
-                    Continue
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </div> */}
+          <UserAvatarCard />
 
           <Tabs
             value={activeTab}
@@ -357,7 +227,9 @@ export default function SettingsClient() {
           <AppearanceTabs value="appearance" />
         </Tabs>
 
-        <Card className="mt-8">
+        <UserActivity />
+
+        {/* <Card className="mt-8">
           <CardHeader>
             <CardTitle>Recent Activity</CardTitle>
             <CardDescription>Your recent account activity</CardDescription>
@@ -389,7 +261,7 @@ export default function SettingsClient() {
               </div>
             </ScrollArea>
           </CardContent>
-        </Card>
+        </Card> */}
 
         <Card className="mt-8">
           <CardHeader>
