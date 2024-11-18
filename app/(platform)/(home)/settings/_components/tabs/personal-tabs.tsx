@@ -2,6 +2,17 @@ import { clientGetData } from "@/api/actions/get-data-api";
 import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
 import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
 import { FormValues } from "@/components/_global-components-reused/form/form-values";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,11 +28,13 @@ import { useAuthContext } from "@/provider/auth-provider";
 import { PersonalSafeTypes } from "@/safe-types-zod/client/settings-profile-safe-types/personal-safe-types";
 import { UserProfile } from "@/types/user-types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
-import { capitalize } from "lodash";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { capitalize, isEqual } from "lodash";
 import { Check, Edit2, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 interface PersonalTabsProps {
@@ -41,6 +54,8 @@ type PersonalInfo = {
 
 export const PersonalTabs = ({ value }: PersonalTabsProps) => {
   const auth = useAuthContext();
+  const queryClient = useQueryClient();
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   const [personalInfo, setPersonalInfo] = useState<
     z.infer<typeof PersonalSafeTypes>
@@ -65,14 +80,66 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
   });
 
   // console.log("auth: ", auth?.user);
+  const {
+    data: userInformation,
+    isError,
+    isLoading,
+  } = useQuery({
+    queryKey: ["user-detail"],
+    queryFn: async () => await clientGetData("/users/detail", auth?.token!),
+  });
 
   const form = useForm<z.infer<typeof PersonalSafeTypes>>({
     resolver: zodResolver(PersonalSafeTypes),
   });
 
-  const onSubmit = (values: z.infer<typeof PersonalSafeTypes>) => {
+  const onSubmit = async (values: z.infer<typeof PersonalSafeTypes>) => {
     console.log({ values });
+
+    const { createdAt, updatedAt, id, ...user } =
+      userInformation?.user as UserProfile["user"];
+
+    let valuesChanged: Record<string, any> = {};
+
+    for (const [key, value] of Object.entries(user)) {
+      for (const [keyForm, valueForm] of Object.entries(values)) {
+        if (key === keyForm && value !== valueForm) {
+          valuesChanged[keyForm] = valueForm;
+        }
+      }
+    }
+
+    if (isEqual(valuesChanged, {})) {
+      toast.info("Không có gì thay đổi");
+      return;
+    }
+
+    try {
+      const updatePersonalInfo = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/profile`,
+        valuesChanged,
+        {
+          headers: {
+            Authorization: `Bearer ${auth?.token}`,
+          },
+        },
+      );
+
+      if (updatePersonalInfo.status === 200) {
+        toast.success("Cập nhật thông tin cá nhân thành công");
+        queryClient.invalidateQueries({ queryKey: ["user-detail"] });
+        queryClient.invalidateQueries({ queryKey: ["user-activities"] });
+      }
+    } catch (error) {
+      console.log({ error });
+      toast.error("Lỗi khi cập nhật thông tin cá nhân");
+    }
   };
+
+  const handleSubmit = useCallback(() => {
+    form.handleSubmit(onSubmit)();
+    setIsDialogOpen(false);
+  }, []);
 
   // const validateField = (field: keyof typeof personalInfo, value: string) => {
   //   switch (field) {
@@ -105,15 +172,6 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
     }));
   };
 
-  const {
-    data: userInformation,
-    isError,
-    isLoading,
-  } = useQuery({
-    queryKey: ["user-detail"],
-    queryFn: async () => await clientGetData("/users/detail", auth?.token!),
-  });
-
   useEffect(() => {
     if (!!userInformation) {
       const user = userInformation.user as UserProfile["user"];
@@ -137,27 +195,45 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
     }
   }, [form, auth, isLoading]);
 
+  // const
+
   return (
-    <TabsContent value={value}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Personal Information</CardTitle>
-          <CardDescription>Update your personal details here.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <FormValues
-            form={form}
-            onSubmit={onSubmit}
-            classNameForm="grid grid-cols-1 md:grid-cols-2 gap-4"
-          >
-            {Object.entries(personalInfo).map(([key, value]) => (
-              <div key={key} className="space-y-2">
-                <Label htmlFor={key}>
-                  {key.charAt(0).toUpperCase() + key.slice(1)}
-                </Label>
-                {isEditing[key as keyof typeof isEditing] ? (
-                  <div className="flex w-full items-center justify-between gap-x-1">
-                    {/* <Input
+    <>
+      <TabsContent value={value}>
+        <Card>
+          <CardHeader className="flex flex-row justify-between">
+            <div>
+              <CardTitle>Personal Information</CardTitle>
+              <CardDescription>
+                Update your personal details here.
+              </CardDescription>
+            </div>
+
+            <div>
+              <Button
+                variant="moiMoc"
+                className="w-36"
+                disabled={form.formState.isSubmitting}
+                onClick={() => setIsDialogOpen(true)}
+              >
+                {form.formState.isSubmitting ? "Đang lưu..." : "Lưu thay đổi"}
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <FormValues
+              form={form}
+              onSubmit={onSubmit}
+              classNameForm="grid grid-cols-1 md:grid-cols-2 gap-4"
+            >
+              {Object.entries(personalInfo).map(([key, value]) => (
+                <div key={key} className="space-y-2">
+                  <Label htmlFor={key}>
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </Label>
+                  {isEditing[key as keyof typeof isEditing] ? (
+                    <div className="flex w-full items-center justify-between gap-x-1">
+                      {/* <Input
                       id={key}
                       value={value}
                       onChange={(e) =>
@@ -168,74 +244,94 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
                       }
                       className="flex-grow"
                     /> */}
-                    <div className="w-full">
-                      <FormItemsControl
-                        form={form}
-                        name={key as keyof typeof personalInfo}
-                        disabled={false}
-                        // label={capitalize(key)}
-                        placeholder={`Hãy nhập ${key}`}
-                      />
-                    </div>
+                      <div className="w-full">
+                        <FormItemsControl
+                          form={form}
+                          name={key as keyof typeof personalInfo}
+                          disabled={false}
+                          // label={capitalize(key)}
+                          placeholder={`Hãy nhập ${key}`}
+                        />
+                      </div>
 
-                    <div className="flex items-center gap-x-1">
+                      <div className="flex items-center gap-x-1">
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() =>
+                            handlePersonalInfoChange(
+                              key as keyof typeof personalInfo,
+                              value as string,
+                            )
+                          }
+                          // disabled={
+                          //   !validateField(
+                          //     key as keyof typeof personalInfo,
+                          //     value as string,
+                          //   )
+                          // }
+                        >
+                          <Check className="h-4 w-4" />
+                        </Button>
+
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() =>
+                            setIsEditing((prev) => ({
+                              ...prev,
+                              [key]: false,
+                            }))
+                          }
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between">
+                      <span>
+                        {form.getValues(key as keyof typeof personalInfo) ??
+                          "Hãy điền thêm thông tin của bạn"}
+                      </span>
                       <Button
                         size="icon"
                         variant="ghost"
                         onClick={() =>
-                          handlePersonalInfoChange(
-                            key as keyof typeof personalInfo,
-                            value as string,
-                          )
-                        }
-                        // disabled={
-                        //   !validateField(
-                        //     key as keyof typeof personalInfo,
-                        //     value as string,
-                        //   )
-                        // }
-                      >
-                        <Check className="h-4 w-4" />
-                      </Button>
-
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        onClick={() =>
-                          setIsEditing((prev) => ({
-                            ...prev,
-                            [key]: false,
-                          }))
+                          setIsEditing((prev) => ({ ...prev, [key]: true }))
                         }
                       >
-                        <X className="h-4 w-4" />
+                        <Edit2 className="h-4 w-4" />
                       </Button>
                     </div>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-between">
-                    <span>
-                      {form.getValues(key as keyof typeof personalInfo) ??
-                        "Hãy điền thêm thông tin của bạn"}
-                    </span>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() =>
-                        setIsEditing((prev) => ({ ...prev, [key]: true }))
-                      }
-                    >
-                      <Edit2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              ))}
 
-            <FormSubmit>Submit</FormSubmit>
-          </FormValues>
-        </CardContent>
-      </Card>
-    </TabsContent>
+              {/* <FormSubmit disabled={form.formState.isSubmitting}>
+                Submit
+              </FormSubmit> */}
+            </FormValues>
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Bạn muốn thay đổi thông tin?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Hãy chắc chắn rằng bạn đã cập nhật đúng thông tin cá nhân của mình
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Huỷ</AlertDialogCancel>
+            <AlertDialogAction onClick={handleSubmit}>
+              Tiếp tục
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 };
