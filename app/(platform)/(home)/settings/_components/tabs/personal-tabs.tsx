@@ -233,17 +233,6 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
                   </Label>
                   {isEditing[key as keyof typeof isEditing] ? (
                     <div className="flex w-full items-center justify-between gap-x-1">
-                      {/* <Input
-                      id={key}
-                      value={value}
-                      onChange={(e) =>
-                        setPersonalInfo((prev) => ({
-                          ...prev,
-                          [key]: e.target.value,
-                        }))
-                      }
-                      className="flex-grow"
-                    /> */}
                       <div className="w-full">
                         <FormItemsControl
                           form={form}
