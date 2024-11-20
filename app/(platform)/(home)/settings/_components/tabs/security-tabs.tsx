@@ -1,22 +1,3 @@
-import { FormPassword } from "@/components/_global-components-reused/form/form-password";
-import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
-import { FormValues } from "@/components/_global-components-reused/form/form-values";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { TabsContent } from "@/components/ui/tabs";
-import { useConfirm } from "@/hooks/use-confirm";
-import { useAuthContext } from "@/provider/auth-provider";
-import { SecuritySafeTypes } from "@/safe-types-zod/client/settings-profile-safe-types/security.safe-types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { isEqual } from "lodash";
 import { useRouter } from "next/navigation";
@@ -24,6 +5,29 @@ import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useConfirm } from "@/hooks/use-confirm";
+import { useAuthContext } from "@/provider/auth-provider";
+import { useQueryClient } from "@tanstack/react-query";
+import { SecuritySafeTypes } from "@/safe-types-zod/client/settings-profile-safe-types/security.safe-types";
+
+import { FormValues } from "@/components/_global-components-reused/form/form-values";
+import { FormPassword } from "@/components/_global-components-reused/form/form-password";
+import { FormSubmit } from "@/components/_global-components-reused/form/form-submit";
+
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { TabsContent } from "@/components/ui/tabs";
 
 interface SecurityTabsProps {
   value: string;
@@ -45,9 +49,14 @@ export const SecurityTabs = ({ value }: SecurityTabsProps) => {
 
   const onSubmit = useCallback(
     async (values: z.infer<typeof SecuritySafeTypes>) => {
-      console.log({ values });
+      // console.log({ values });
 
       const { password, newPassword, confirmPassword } = values;
+
+      if (!password || !newPassword || !confirmPassword) {
+        toast.info("Vui lòng điền đầy đủ thông tin");
+        return;
+      }
 
       if (!isEqual(values.newPassword, values.confirmPassword)) {
         toast.info("Mật khẩu mới và mật khẩu xác nhận không khớp");
@@ -56,9 +65,9 @@ export const SecurityTabs = ({ value }: SecurityTabsProps) => {
 
       const ok = await confirm();
 
-      if(!ok) {
+      if (!ok) {
         toast.info("Hủy thay đổi mật khẩu");
-        return
+        return;
       }
 
       try {
@@ -94,9 +103,26 @@ export const SecurityTabs = ({ value }: SecurityTabsProps) => {
       <ConfirmDialog />
       <TabsContent value={value}>
         <Card>
-          <CardHeader>
-            <CardTitle>Security Settings</CardTitle>
-            <CardDescription>Manage your security preferences.</CardDescription>
+          <CardHeader className="flex flex-row justify-between">
+            <div>
+              <CardTitle>Security Settings</CardTitle>
+              <CardDescription>
+                Manage your security preferences.
+              </CardDescription>
+            </div>
+
+            <div>
+              <Button
+                variant="moiMoc"
+                className="w-36"
+                disabled={form.formState.isSubmitting}
+                // onClick={() => setIsDialogOpen(true)}
+                onClick={() => form.handleSubmit(onSubmit)()}
+              >
+                {form.formState.isSubmitting ? "Đang lưu..." : "Lưu thay đổi"}
+                {/* Lưu thay đổi */}
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormValues form={form} onSubmit={onSubmit}>
@@ -124,21 +150,8 @@ export const SecurityTabs = ({ value }: SecurityTabsProps) => {
                 label="Mật khẩu"
               />
 
-              <FormSubmit>Submit</FormSubmit>
             </FormValues>
 
-            {/* <div className="space-y-2">
-              <Label htmlFor="currentPassword">Current Password</Label>
-              <Input id="currentPassword" type="password" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="newPassword">New Password</Label>
-              <Input id="newPassword" type="password" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm New Password</Label>
-              <Input id="confirmPassword" type="password" />
-            </div> */}
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <Label htmlFor="twoFactor">Two-Factor Authentication</Label>

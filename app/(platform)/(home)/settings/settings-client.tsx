@@ -1,18 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import {
   Card,
   CardContent,
@@ -32,56 +24,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Slider } from "@/components/ui/slider";
-import {
-  Bell,
-  Lock,
-  User,
-  Mail,
-  Phone,
-  Globe,
-  Camera,
-  Key,
-  Palette,
-  Moon,
-  Sun,
-  Github,
-  Twitter,
-  Facebook,
-  Linkedin,
-  LogOut,
-  Trash2,
-  Download,
-  Activity,
-  ChevronDown,
-  Check,
-  X,
-  Edit2,
-  Eye,
-  EyeOff,
-} from "lucide-react";
+import { Trash2, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import { AvatarImageUpload } from "./_components/avatar-image-upload";
 import { PersonalTabs } from "./_components/tabs/personal-tabs";
@@ -94,8 +43,6 @@ import { ConnectedTabs } from "./_components/tabs/connected-tabs";
 import { NotificationsTabs } from "./_components/tabs/notifications-tabs";
 import OrderTrackingTabs from "./_components/tabs/orders-tracking-tabs";
 import { useAuthContext } from "@/provider/auth-provider";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { UserActivity } from "./_components/user-activity";
 import { UserAvatarCard } from "./_components/user-avatar-card";
@@ -228,40 +175,6 @@ export default function SettingsClient() {
         </Tabs>
 
         <UserActivity />
-
-        {/* <Card className="mt-8">
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>Your recent account activity</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-[200px]">
-              <div className="space-y-4">
-                <div className="flex items-center">
-                  <Activity className="mr-2 h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm">Changed password</span>
-                  <span className="ml-auto text-sm text-muted-foreground">
-                    2 days ago
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <Activity className="mr-2 h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm">Updated profile picture</span>
-                  <span className="ml-auto text-sm text-muted-foreground">
-                    1 week ago
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <Activity className="mr-2 h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm">Connected Twitter account</span>
-                  <span className="ml-auto text-sm text-muted-foreground">
-                    2 weeks ago
-                  </span>
-                </div>
-              </div>
-            </ScrollArea>
-          </CardContent>
-        </Card> */}
 
         <Card className="mt-8">
           <CardHeader>

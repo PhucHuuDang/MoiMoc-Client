@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { TabsContent } from "@/components/ui/tabs";
 import { useAuthContext } from "@/provider/auth-provider";
 import { PersonalSafeTypes } from "@/safe-types-zod/client/settings-profile-safe-types/personal-safe-types";
@@ -32,7 +33,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { capitalize, isEqual } from "lodash";
 import { Check, Edit2, X } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -62,7 +63,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
   >({
     name: "",
     bio: "",
-    phoneAuth: "",
+    // phoneAuth: "",
     email: "",
     address: "",
     website: "",
@@ -71,7 +72,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
 
   const [isEditing, setIsEditing] = useState({
     name: false,
-    phoneAuth: false,
+    // phoneAuth: false,
     bio: false,
     email: false,
     address: false,
@@ -83,6 +84,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
   const {
     data: userInformation,
     isError,
+    error,
     isLoading,
   } = useQuery({
     queryKey: ["user-detail"],
@@ -94,7 +96,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
   });
 
   const onSubmit = async (values: z.infer<typeof PersonalSafeTypes>) => {
-    console.log({ values });
+    // console.log({ values });
 
     const { createdAt, updatedAt, id, ...user } =
       userInformation?.user as UserProfile["user"];
@@ -177,7 +179,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
       const user = userInformation.user as UserProfile["user"];
       setPersonalInfo({
         name: user.name,
-        phoneAuth: user.phoneAuth,
+        // phoneAuth: user.phoneAuth,
         email: user.email,
         bio: user.bio,
         address: userInformation.address[0].address,
@@ -187,7 +189,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
 
       form.setValue("designation", user.designation);
       form.setValue("name", user.name);
-      form.setValue("phoneAuth", user.phoneAuth);
+      // form.setValue("phoneAuth", user.phoneAuth);
       form.setValue("email", user.email);
       form.setValue("address", userInformation.address[0].address ?? null);
       form.setValue("bio", user.bio ?? null);
@@ -195,7 +197,17 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
     }
   }, [form, auth, isLoading]);
 
-  // const
+  const InputFormSkeleton = () => {
+    return (
+      <div className="flex w-full items-center justify-between gap-x-1">
+        <div className="w-full">
+          <Skeleton className="w-24 rounded-lg" />
+          <Skeleton className="rounded-lg h-8 w-full" />
+        </div>
+        <Skeleton className="rounded-lg size-8" />
+      </div>
+    );
+  };
 
   return (
     <>
@@ -209,7 +221,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
               </CardDescription>
             </div>
 
-            <div>
+            <div className="relative">
               <Button
                 variant="moiMoc"
                 className="w-36"
@@ -229,77 +241,79 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
               {Object.entries(personalInfo).map(([key, value]) => (
                 <div key={key} className="space-y-2">
                   <Label htmlFor={key}>
-                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                    {/* {key.charAt(0).toUpperCase() + key.slice(1)} */}
+                    {capitalize(key)}
                   </Label>
-                  {isEditing[key as keyof typeof isEditing] ? (
-                    <div className="flex w-full items-center justify-between gap-x-1">
-                      <div className="w-full">
-                        <FormItemsControl
-                          form={form}
-                          name={key as keyof typeof personalInfo}
-                          disabled={false}
-                          // label={capitalize(key)}
-                          placeholder={`Hãy nhập ${key}`}
-                        />
-                      </div>
 
-                      <div className="flex items-center gap-x-1">
+                  {!isLoading ? (
+                    isEditing[key as keyof typeof isEditing] ? (
+                      <div className="flex w-full items-center justify-between gap-x-1">
+                        <div className="w-full">
+                          <FormItemsControl
+                            form={form}
+                            name={key as keyof typeof personalInfo}
+                            disabled={false}
+                            // label={capitalize(key)}
+                            placeholder={`Hãy nhập ${key}`}
+                          />
+                        </div>
+
+                        <div className="flex items-center gap-x-1">
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() =>
+                              handlePersonalInfoChange(
+                                key as keyof typeof personalInfo,
+                                value as string,
+                              )
+                            }
+                            // disabled={
+                            //   !validateField(
+                            //     key as keyof typeof personalInfo,
+                            //     value as string,
+                            //   )
+                            // }
+                          >
+                            <Check className="h-4 w-4" />
+                          </Button>
+
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={() =>
+                              setIsEditing((prev) => ({
+                                ...prev,
+                                [key]: false,
+                              }))
+                            }
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-between">
+                        <span>
+                          {form.getValues(key as keyof typeof personalInfo) ??
+                            "Hãy điền thêm thông tin của bạn"}
+                        </span>
                         <Button
                           size="icon"
                           variant="ghost"
                           onClick={() =>
-                            handlePersonalInfoChange(
-                              key as keyof typeof personalInfo,
-                              value as string,
-                            )
-                          }
-                          // disabled={
-                          //   !validateField(
-                          //     key as keyof typeof personalInfo,
-                          //     value as string,
-                          //   )
-                          // }
-                        >
-                          <Check className="h-4 w-4" />
-                        </Button>
-
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          onClick={() =>
-                            setIsEditing((prev) => ({
-                              ...prev,
-                              [key]: false,
-                            }))
+                            setIsEditing((prev) => ({ ...prev, [key]: true }))
                           }
                         >
-                          <X className="h-4 w-4" />
+                          <Edit2 className="h-4 w-4" />
                         </Button>
                       </div>
-                    </div>
+                    )
                   ) : (
-                    <div className="flex items-center justify-between">
-                      <span>
-                        {form.getValues(key as keyof typeof personalInfo) ??
-                          "Hãy điền thêm thông tin của bạn"}
-                      </span>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        onClick={() =>
-                          setIsEditing((prev) => ({ ...prev, [key]: true }))
-                        }
-                      >
-                        <Edit2 className="h-4 w-4" />
-                      </Button>
-                    </div>
+                    <InputFormSkeleton key={key} />
                   )}
                 </div>
               ))}
-
-              {/* <FormSubmit disabled={form.formState.isSubmitting}>
-                Submit
-              </FormSubmit> */}
             </FormValues>
           </CardContent>
         </Card>
