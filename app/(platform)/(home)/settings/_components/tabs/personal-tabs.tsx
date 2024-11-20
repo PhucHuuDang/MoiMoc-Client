@@ -98,9 +98,6 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
   const onSubmit = async (values: z.infer<typeof PersonalSafeTypes>) => {
     // console.log({ values });
 
-    // const { createdAt, updatedAt, id, ...user } =
-    //   userInformation?.user as UserProfile["user"];
-
     const { createdAt, updatedAt, id, phoneAuth, ...user } =
       (userInformation?.user as UserProfile["user"]) ?? {};
 
@@ -114,7 +111,12 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
       }
     }
 
-    if (isEqual(valuesChanged, {})) {
+    console.log({ valuesChanged });
+
+    console.log(isEqual(valuesChanged, {}));
+
+    // if (isEqual(valuesChanged, {})) {
+    if (Object.keys(valuesChanged).length === 0) {
       toast.info("Không có gì thay đổi");
       return;
     }
