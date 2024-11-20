@@ -60,9 +60,6 @@ export const CartItem: React.FC<CartItemProps> = ({
 
           <div className="w-28 flex flex-col items-start">
             <h3 className="text-sm text-gray-900 dark:text-foreground">
-              {/* {product.productName.length > MAX_LENGTH
-            ? product.productName.slice(0, MAX_LENGTH)
-          : product.productName} */}
               {truncateText(product.productName, MAX_LENGTH)}
             </h3>
 
@@ -75,11 +72,6 @@ export const CartItem: React.FC<CartItemProps> = ({
                 <dt className="inline">Category:</dt>
                 <dd className="inline">Lip Balm</dd>
               </div>
-
-              {/* <div>
-                <dt className="inline">Color:</dt>
-                <dd className="inline">White</dd>
-              </div> */}
             </dl>
           </div>
 

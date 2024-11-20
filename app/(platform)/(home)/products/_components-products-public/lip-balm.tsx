@@ -37,8 +37,6 @@ export const LipBalm = forwardRef<HTMLDivElement, LipBalmProps>(
       };
     });
 
-    console.log({ productsTransformed });
-
     return (
       <>
         {/* ** this is the technique prevent breaking the image */}

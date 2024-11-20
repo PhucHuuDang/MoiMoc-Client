@@ -63,11 +63,8 @@ export function ProductClient({
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // const { pending } = useFormStatus();
-
   const price = form.watch("price");
   const discountPercentage = form.watch("discountPercentage");
-  // console.log({ price, discountPercentage });
 
   useEffect(() => {
     if (price && discountPercentage) {
@@ -80,8 +77,6 @@ export function ProductClient({
       // form.control("")
     }
   }, [price, discountPercentage, form]);
-
-  console.log("url: ", process.env.NEXT_PUBLIC_API_URL);
 
   const onSubmit = async (values: z.infer<typeof AddProductSafeTypes>) => {
     console.log({ values });
