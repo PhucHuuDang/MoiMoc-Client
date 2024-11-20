@@ -4,6 +4,7 @@ const nextConfig = {
     reactCompiler: true,
     outputStandalone: true,
     disableStaticImages: true,
+    ppr: "incremental"
   },
   images: {
     remotePatterns: [

@@ -98,8 +98,11 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
   const onSubmit = async (values: z.infer<typeof PersonalSafeTypes>) => {
     // console.log({ values });
 
-    const { createdAt, updatedAt, id, ...user } =
-      userInformation?.user as UserProfile["user"];
+    // const { createdAt, updatedAt, id, ...user } =
+    //   userInformation?.user as UserProfile["user"];
+
+    const { createdAt, updatedAt, id, phoneAuth, ...user } =
+      (userInformation?.user as UserProfile["user"]) ?? {};
 
     let valuesChanged: Record<string, any> = {};
 
@@ -115,6 +118,8 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
       toast.info("Không có gì thay đổi");
       return;
     }
+
+    console.log({ valuesChanged });
 
     try {
       const updatePersonalInfo = await axios.put(
