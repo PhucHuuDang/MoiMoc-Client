@@ -96,35 +96,43 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
   });
 
   const onSubmit = async (values: z.infer<typeof PersonalSafeTypes>) => {
-    // console.log({ values });
-
-    const { createdAt, updatedAt, id, phoneAuth, ...user } =
-      (userInformation?.user as UserProfile["user"]) ?? {};
-
-    let valuesChanged: Record<string, any> = {};
-
-    for (const [key, value] of Object.entries(user)) {
-      for (const [keyForm, valueForm] of Object.entries(values)) {
-        if (key === keyForm && value !== valueForm) {
-          valuesChanged[keyForm] = valueForm;
-        }
-      }
-    }
-
-    console.log({ valuesChanged });
-
-    console.log(isEqual(valuesChanged, {}));
-
-    // if (isEqual(valuesChanged, {})) {
-    if (Object.keys(valuesChanged).length === 0) {
-      toast.info("Không có gì thay đổi");
-      return;
-    }
-
-    console.log({ valuesChanged });
-
     try {
-      const updatePersonalInfo = await axios.put(
+      const { createdAt, updatedAt, id, phoneAuth, ...user } =
+        (userInformation?.user as UserProfile["user"]) ?? {};
+
+      const sanitizedUser = Object.entries(user).reduce(
+        (acc, [key, value]) => {
+          acc[key] = typeof value === "string" ? value.trim() : value; // Trim strings
+          return acc;
+        },
+        {} as Record<string, any>,
+      );
+
+      const sanitizedValues = Object.entries(values).reduce(
+        (acc, [key, value]) => {
+          acc[key] = typeof value === "string" ? value.trim() : value; // Trim strings
+          return acc;
+        },
+        {} as Record<string, any>,
+      );
+
+      // Compare sanitized values
+      const valuesChanged = Object.entries(sanitizedValues).reduce(
+        (changes, [key, value]) => {
+          if (!isEqual(sanitizedUser[key as keyof typeof user], value)) {
+            changes[key] = value;
+          }
+          return changes;
+        },
+        {} as Record<string, any>,
+      );
+
+      if (Object.keys(valuesChanged).length === 0) {
+        toast.info("Không có gì thay đổi");
+        return;
+      }
+
+      const response = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/users/profile`,
         valuesChanged,
         {
@@ -134,13 +142,13 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
         },
       );
 
-      if (updatePersonalInfo.status === 200) {
+      if (response.status === 200) {
         toast.success("Cập nhật thông tin cá nhân thành công");
         queryClient.invalidateQueries({ queryKey: ["user-detail"] });
         queryClient.invalidateQueries({ queryKey: ["user-activities"] });
       }
     } catch (error) {
-      console.log({ error });
+      console.error("Error updating profile:", error);
       toast.error("Lỗi khi cập nhật thông tin cá nhân");
     }
   };
