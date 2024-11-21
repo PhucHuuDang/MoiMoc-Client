@@ -1,19 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { UserTable } from "./user-table";
-// import { AddUserForm } from "./add-user-form";
-import { EditUserDialog } from "./edit-user-dialog";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Suspense, useState } from "react";
+
 import { User } from "../types/user-types";
-import { DeleteUserDialog } from "./delete-user";
+
+import { useQuery } from "@tanstack/react-query";
+import { clientGetData } from "@/api/actions/get-data-api";
+import { DataTable } from "../../products/data-table-products/data-table";
+import { usersColumn } from "./users-column";
+import { useAuthContext } from "@/provider/auth-provider";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const initialUsers: User[] = [
   {
@@ -102,102 +98,97 @@ interface UserManagementProps {
 export function UserManagement({
   initialTab = "all-users",
 }: UserManagementProps) {
+  const auth = useAuthContext();
   const [users, setUsers] = useState<User[]>(initialUsers);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [deletingUser, setDeletingUser] = useState<User | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState<"All" | "User" | "Admin">("All");
-  const [statusFilter, setStatusFilter] = useState<
-    "All" | "Active" | "Inactive"
-  >("All");
 
-  const addUser = (user: Omit<User, "id" | "status">) => {
-    setUsers([...users, { ...user, id: users.length + 1, status: "Active" }]);
-  };
+  const { isLoading, isError, error, data } = useQuery({
+    queryKey: ["all-users"],
+    queryFn: async () => await clientGetData("/users", auth?.token),
+  });
 
-  const updateUser = (updatedUser: User) => {
-    setUsers(
-      users.map((user) => (user.id === updatedUser.id ? updatedUser : user)),
+  const UserDataTableSkeleton = () => {
+    return (
+      <div className="p-4">
+        <div className="mb-4 flex items-center gap-2">
+          <Skeleton className="h-10 w-1/3" />
+          <Skeleton className="h-10 w-20 ml-auto" />
+        </div>
+        <div className="overflow-hidden rounded-lg border border-gray-700">
+          <table className="min-w-full divide-y divide-gray-700">
+            <thead className="bg-gray-800">
+              <tr>
+                {[
+                  "Avatar",
+                  "Name",
+                  "Email",
+                  "Role",
+                  "Designation",
+                  "Created At",
+                  "Updated At",
+                ].map((header) => (
+                  <th
+                    key={header}
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="bg-gray-900 divide-y divide-gray-700">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-10 w-10 rounded-full" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-4 w-24" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-4 w-32" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-4 w-20" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-4 w-28" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-4 w-28" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-4 w-28" />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="mt-4 flex justify-between items-center">
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-10 w-20" />
+        </div>
+      </div>
     );
-    setEditingUser(null);
   };
-
-  const deleteUser = (userId: number) => {
-    setUsers(users.filter((user) => user.id !== userId));
-    setDeletingUser(null);
-  };
-
-  const filteredUsers = users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (roleFilter === "All" || user.role === roleFilter) &&
-      (statusFilter === "All" || user.status === statusFilter),
-  );
 
   return (
     <div className="space-y-4">
       {initialTab === "all-users" && (
         <>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Input
-              placeholder="Search users..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="sm:w-1/3"
-            />
-            <Select
-              value={roleFilter}
-              onValueChange={(value: "All" | "User" | "Admin") =>
-                setRoleFilter(value)
-              }
-            >
-              <SelectTrigger className="sm:w-1/3">
-                <SelectValue placeholder="Filter by role" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="All">All Roles</SelectItem>
-                <SelectItem value="User">User</SelectItem>
-                <SelectItem value="Admin">Admin</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select
-              value={statusFilter}
-              onValueChange={(value: "All" | "Active" | "Inactive") =>
-                setStatusFilter(value)
-              }
-            >
-              <SelectTrigger className="sm:w-1/3">
-                <SelectValue placeholder="Filter by status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="All">All Statuses</SelectItem>
-                <SelectItem value="Active">Active</SelectItem>
-                <SelectItem value="Inactive">Inactive</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <UserTable
-            users={filteredUsers}
-            onEdit={setEditingUser}
-            onDelete={setDeletingUser}
-          />
+          {!isLoading ? (
+            <Suspense fallback={<span>Loading...</span>}>
+              <DataTable columns={usersColumn} data={data} filterName="name" />
+            </Suspense>
+          ) : (
+            <UserDataTableSkeleton />
+          )}
         </>
       )}
-      {/* {initialTab === "add-user" && <AddUserForm onAddUser={addUser} />}
-      {editingUser && (
-        <EditUserDialog
-          user={editingUser}
-          onClose={() => setEditingUser(null)}
-          onUpdate={updateUser}
-        />
-      )}
-      {deletingUser && (
-        <DeleteUserDialog
-          user={deletingUser}
-          onClose={() => setDeletingUser(null)}
-          onDelete={deleteUser}
-        />
-      )} */}
     </div>
   );
 }

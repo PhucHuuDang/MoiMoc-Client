@@ -34,9 +34,9 @@ export default function AdminUsersPage() {
               <TabsContent value="all-users">
                 <UserManagement />
               </TabsContent>
-              <TabsContent value="add-user">
+              {/* <TabsContent value="add-user">
                 <UserManagement initialTab="add-user" />
-              </TabsContent>
+              </TabsContent> */}
             </Tabs>
           </CardContent>
         </Card>
