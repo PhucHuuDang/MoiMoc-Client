@@ -1,9 +1,16 @@
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { UserStats } from "./components_users/user-starts";
 import { UserManagement } from "./components_users/user-management";
 import { UserActivity } from "@/app/(platform)/(home)/settings/_components/user-activity";
 import { RecentUsersActivity } from "./components_users/recent-users-activity";
+import { UsersChart } from "../_components-dashboard/_customize-charts/users-chart";
 // import { UserActivity } from "@/app/(platform)/(home)/settings/_components/user-activity";
 
 export default function AdminUsersPage() {
@@ -13,6 +20,9 @@ export default function AdminUsersPage() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
         <UserStats />
       </div>
+
+      <UsersChart />
+
       <div className="grid gap-6 md:grid-cols-3">
         <Card className="md:col-span-2">
           <CardContent className="p-6">

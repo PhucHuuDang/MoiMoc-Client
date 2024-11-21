@@ -1,8 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, UserPlus, UserMinus } from "lucide-react";
-import { UserStats } from "../types/user-types";
 
-const stats: UserStats[] = [
+interface UserStatsTypes {
+  title: string;
+  value: number;
+  icon: React.ElementType;
+  change: number;
+}
+
+const stats: UserStatsTypes[] = [
   { title: "Total Users", value: 2547, icon: Users, change: 12.5 },
   { title: "New Users", value: 45, icon: UserPlus, change: 3.2 },
   { title: "Inactive Users", value: 20, icon: UserMinus, change: -2.5 },

@@ -51,6 +51,48 @@ const initialUsers: User[] = [
     role: "Admin",
     status: "Inactive",
   },
+  {
+    id: 6,
+    name: "Charlie Brown",
+    email: "charlie@example.com",
+    role: "Admin",
+    status: "Inactive",
+  },
+  {
+    id: 7,
+    name: "Charlie Brown",
+    email: "charlie@example.com",
+    role: "Admin",
+    status: "Inactive",
+  },
+  {
+    id: 8,
+    name: "Charlie Brown",
+    email: "charlie@example.com",
+    role: "Admin",
+    status: "Inactive",
+  },
+  {
+    id: 9,
+    name: "Charlie Brown",
+    email: "charlie@example.com",
+    role: "Admin",
+    status: "Inactive",
+  },
+  {
+    id: 10,
+    name: "Charlie Brown",
+    email: "charlie@example.com",
+    role: "Admin",
+    status: "Inactive",
+  },
+  {
+    id: 11,
+    name: "Charlie Brown",
+    email: "charlie@example.com",
+    role: "Admin",
+    status: "Inactive",
+  },
 ];
 
 interface UserManagementProps {
