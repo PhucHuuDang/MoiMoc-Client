@@ -46,16 +46,6 @@ export const DashboardClient = () => {
 
         <div className="px-4">
           <AreaChartTotalRevenue />
-
-          {/* <ResizablePanelGroup direction="horizontal">
-            <ResizablePanel defaultSize={100}>
-              <AreaChartTotalRevenue />
-            </ResizablePanel>
-
-            <ResizableHandle />
-
-            <ResizableHandle withHandle />
-          </ResizablePanelGroup> */}
         </div>
 
         <div className="my-8 px-4">

@@ -8,6 +8,7 @@ import {
   Settings,
   ShoppingCart,
   Truck,
+  Users,
 } from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
 import { useState } from "react";
@@ -15,6 +16,11 @@ import { useState } from "react";
 const navItems = [
   // { href: "#", icon: Package2, label: "Acme Inc" },
   { href: "/dashboard", icon: Home, label: "Dashboard" },
+  {
+    href: "/dashboard/users",
+    icon: Users,
+    label: "Users",
+  },
   {
     href: "/dashboard/orders",
     icon: ShoppingCart,

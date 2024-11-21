@@ -9,6 +9,7 @@ import {
   Settings,
   ShoppingCart,
   Truck,
+  Users,
   Users2,
 } from "lucide-react";
 
@@ -33,6 +34,11 @@ export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
       href: "/dashboard",
       icon: <Home className={`${styleDockItems}`} />,
       title: "Dashboard",
+    },
+    {
+      href: "/dashboard/users",
+      icon: <Users className={`${styleDockItems}`} />,
+      title: "Users",
     },
     {
       href: "/dashboard/orders",

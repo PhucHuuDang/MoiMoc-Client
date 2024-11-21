@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
 const chartData = [
   { date: "2024-04-01", desktop: 222, mobile: 150 },
   { date: "2024-04-02", desktop: 97, mobile: 180 },
@@ -139,15 +140,16 @@ export function AreaChartTotalRevenue() {
 
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date);
-    const now = new Date();
+    const referenceDate = new Date("2024-06-30");
     let daysToSubtract = 90;
     if (timeRange === "30d") {
       daysToSubtract = 30;
     } else if (timeRange === "7d") {
       daysToSubtract = 7;
     }
-    now.setDate(now.getDate() - daysToSubtract);
-    return date >= now;
+    const startDate = new Date(referenceDate);
+    startDate.setDate(startDate.getDate() - daysToSubtract);
+    return date >= startDate;
   });
 
   return (
@@ -220,10 +222,7 @@ export function AreaChartTotalRevenue() {
               minTickGap={32}
               tickFormatter={(value) => {
                 const date = new Date(value);
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                });
+                return vietnameseDate(date);
               }}
             />
             <ChartTooltip
