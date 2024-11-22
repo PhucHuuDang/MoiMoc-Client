@@ -94,7 +94,13 @@ export const usersColumn: ColumnDef<UserProfile["user"]>[] = [
     accessorKey: "role",
     header: () => <div className="">Role</div>,
     cell: ({ row }) => {
-      return <div className="">{capitalize(row.getValue("role"))}</div>;
+      const role = capitalize(row.getValue("role"));
+
+      return (
+        <div className={`${role === "Admin" && "text-primary font-bold"}`}>
+          {capitalize(row.getValue("role"))}
+        </div>
+      );
     },
   },
 
@@ -132,6 +138,8 @@ export const usersColumn: ColumnDef<UserProfile["user"]>[] = [
 
   {
     id: "actions",
+    header: () => <div className="">Actions</div>,
+
     cell: ({ row }) => {
       const userId = Number(row.original.id);
 

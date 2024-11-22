@@ -18,6 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { UsersChart } from "./_components-dashboard/_customize-charts/users-chart";
 
 export const DashboardClient = () => {
   return (
@@ -38,7 +39,8 @@ export const DashboardClient = () => {
               <ResizableHandle withHandle className="border-none" />
 
               <ResizablePanel defaultSize={30} minSize={30} maxSize={70}>
-                <PieChartInteractive />
+                {/* <PieChartInteractive /> */}
+                <UsersChart />
               </ResizablePanel>
             </div>
           </ResizablePanelGroup>

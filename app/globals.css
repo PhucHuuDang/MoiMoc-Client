@@ -206,6 +206,14 @@
     --chart-4: 280 65% 60%; /* [Purple] Dark mode chart color 4, a vivid pink-purple. */
     --chart-5: 340 75% 55%; /* [Purple] Dark mode chart color 5, a strong red-pink. */
 
+    --chart-6: 280 60% 65%; /* [Purple] Chart color 6, a soft purple. */
+    --chart-7: 150 60% 40%; /* [Green] Chart color 7, a forest green. */
+    --chart-8: 338 80% 55%; /* [Pink] Chart color 8, a deep pink. */
+    --chart-9: 206 63% 60%; /* [Blue] Chart color 9, a sky blue. */
+    --chart-10: 45 93% 47%; /* [Yellow] Chart color 10, a golden yellow. */
+    --chart-11: 89, 86%, 41%; /* [Red] Chart color 11, a muted red. */
+    --chart-12: 190 90% 30%; /* [Teal] Chart color 12, a dark teal. */
+
     /* --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%; */
 

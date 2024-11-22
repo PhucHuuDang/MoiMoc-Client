@@ -11,6 +11,7 @@ import { UserManagement } from "./components_users/user-management";
 import { UserActivity } from "@/app/(platform)/(home)/settings/_components/user-activity";
 import { RecentUsersActivity } from "./components_users/recent-users-activity";
 import { UsersChart } from "../_components-dashboard/_customize-charts/users-chart";
+import { UsersLineChart } from "../_components-dashboard/_customize-charts/users-line-chart";
 // import { UserActivity } from "@/app/(platform)/(home)/settings/_components/user-activity";
 
 export default function AdminUsersPage() {
@@ -21,7 +22,10 @@ export default function AdminUsersPage() {
         <UserStats />
       </div>
 
-      <UsersChart />
+      {/* <UsersChart /> */}
+      <div className="mb-6">
+        <UsersLineChart />
+      </div>
 
       <div className="grid gap-6 md:grid-cols-3">
         <Card className="md:col-span-2">

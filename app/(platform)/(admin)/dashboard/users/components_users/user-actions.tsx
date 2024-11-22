@@ -61,7 +61,7 @@ export const ActionsUser = ({
             className="text-red-600 w-full"
           >
             <Trash2 className="mr-2 h-4 w-4" />
-            Xoá vĩnh viễn
+            Block người dùng
           </DropdownMenuItem>
         }
         isPending={isPending}
