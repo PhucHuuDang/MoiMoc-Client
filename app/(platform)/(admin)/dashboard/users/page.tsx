@@ -33,7 +33,7 @@ export default function AdminUsersPage() {
             <Tabs defaultValue="all-users" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="all-users">All Users</TabsTrigger>
-                <TabsTrigger value="add-user">Add User</TabsTrigger>
+                {/* <TabsTrigger value="add-user">Add User</TabsTrigger> */}
               </TabsList>
               <TabsContent value="all-users">
                 <UserManagement />

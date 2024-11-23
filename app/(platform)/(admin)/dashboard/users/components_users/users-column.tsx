@@ -81,6 +81,15 @@ export const usersColumn: ColumnDef<UserProfile["user"]>[] = [
   },
 
   {
+    accessorKey: "phoneAuth",
+    header: () => <div className="">Phone</div>,
+    cell: ({ row }) => {
+      return (
+        <div className="">{capitalize(row.getValue("phoneAuth")) ?? null}</div>
+      );
+    },
+  },
+  {
     accessorKey: "email",
     header: () => <div className="">Email</div>,
     cell: ({ row }) => {
