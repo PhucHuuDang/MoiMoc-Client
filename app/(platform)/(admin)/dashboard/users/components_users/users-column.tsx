@@ -127,7 +127,12 @@ export const usersColumn: ColumnDef<UserProfile["user"]>[] = [
 
   {
     accessorKey: "createdAt",
-    header: () => <div className="">Created At</div>,
+    header: ({ column }) => (
+      <Button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        Created At
+        <ArrowUpDown className="ml-2 size-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
       const createdAt = vietnameseDate(row.getValue("createdAt"));
 

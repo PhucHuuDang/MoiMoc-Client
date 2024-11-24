@@ -1,95 +1,15 @@
 "use client";
 
+import { useAuthContext } from "@/provider/auth-provider";
+
 import { Suspense, useState } from "react";
-
-import { User } from "../types/user-types";
-
-import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@/components/ui/skeleton";
 import { clientGetData } from "@/api/actions/get-data-api";
+
 import { DataTable } from "../../products/data-table-products/data-table";
 import { usersColumn } from "./users-column";
-import { useAuthContext } from "@/provider/auth-provider";
-import { Skeleton } from "@/components/ui/skeleton";
 
-const initialUsers: User[] = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john@example.com",
-    role: "User",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    role: "Admin",
-    status: "Active",
-  },
-  {
-    id: 3,
-    name: "Bob Johnson",
-    email: "bob@example.com",
-    role: "User",
-    status: "Inactive",
-  },
-  {
-    id: 4,
-    name: "Alice Williams",
-    email: "alice@example.com",
-    role: "User",
-    status: "Active",
-  },
-  {
-    id: 5,
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    id: 6,
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    id: 7,
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    id: 8,
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    id: 9,
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    id: 10,
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    id: 11,
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    role: "Admin",
-    status: "Inactive",
-  },
-];
+import { useQuery } from "@tanstack/react-query";
 
 interface UserManagementProps {
   initialTab?: "all-users" | "add-user";
@@ -99,12 +19,6 @@ export function UserManagement({
   initialTab = "all-users",
 }: UserManagementProps) {
   const auth = useAuthContext();
-  const [users, setUsers] = useState<User[]>(initialUsers);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [deletingUser, setDeletingUser] = useState<User | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [roleFilter, setRoleFilter] = useState<"All" | "User" | "Admin">("All");
-
   const { isLoading, isError, error, data } = useQuery({
     queryKey: ["all-users"],
     queryFn: async () => await clientGetData("/users", auth?.token),

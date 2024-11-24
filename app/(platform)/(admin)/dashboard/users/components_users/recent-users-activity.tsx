@@ -1,5 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UserActivity } from "../types/user-types";
+
+type UserActivity = {
+  user: string;
+  action: string;
+  time: string;
+};
 
 const activities: UserActivity[] = [
   { user: "Alice Johnson", action: "Created account", time: "2 minutes ago" },
