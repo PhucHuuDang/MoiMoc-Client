@@ -128,7 +128,10 @@ export const usersColumn: ColumnDef<UserProfile["user"]>[] = [
   {
     accessorKey: "createdAt",
     header: ({ column }) => (
-      <Button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+      <Button
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        variant="ghost"
+      >
         Created At
         <ArrowUpDown className="ml-2 size-4" />
       </Button>
@@ -138,6 +141,7 @@ export const usersColumn: ColumnDef<UserProfile["user"]>[] = [
 
       return <div className="">{createdAt}</div>;
     },
+    enableSorting: true,
   },
 
   {
