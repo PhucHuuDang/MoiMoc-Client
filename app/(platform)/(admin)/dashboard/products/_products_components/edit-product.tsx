@@ -149,7 +149,6 @@ export const EditProduct = ({ productId }: EditProductProps) => {
   }, [justDataProduct, form]);
 
   const onSubmit = async (values: z.infer<typeof EditProductSafeTypes>) => {
-    console.log({ values });
     setIsLoading(true);
     // clearAllImages();
 

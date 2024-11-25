@@ -79,7 +79,6 @@ export function ProductClient({
   }, [price, discountPercentage, form]);
 
   const onSubmit = async (values: z.infer<typeof AddProductSafeTypes>) => {
-    console.log({ values });
     setIsLoading(true);
     try {
       const response = await axios.post(
@@ -195,12 +194,6 @@ export function ProductClient({
                 {/* <ProductImage form={form} name="imagesProduct" /> */}
               </div>
             </div>
-            {/* <div className="flex items-center justify-center gap-2 md:hidden">
-              <Button variant="outline" size="sm">
-                Discard
-              </Button>
-              <Button size="sm">Save Product</Button>
-            </div> */}
           </div>
         </main>
       </FormValues>

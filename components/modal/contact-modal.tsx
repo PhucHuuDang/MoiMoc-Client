@@ -36,7 +36,6 @@ export const ContactModal = () => {
 
   const onSubmit = async (values: z.infer<typeof ContactSchemaTypes>) => {
     // console.log({ values });
-    console.log("123");
     console.log({ values });
   };
 

@@ -32,15 +32,7 @@ export const FormStars = <T extends FieldValues, K>({
     "Rất tốt", // 5 stars
   ];
 
-  // const [stars, setStars] = React.useState(0);
-  // const handleRating = (value: number) => {
-  //   setStars(value);
-  // };
-
-  // console.log({ stars });
-
   const ratingValue = form.watch(name);
-  console.log({ ratingValue });
 
   useEffect(() => {
     if (ratingValue) {

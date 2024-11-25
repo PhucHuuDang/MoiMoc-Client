@@ -38,7 +38,7 @@ export const ActiveDialog = ({
       { active: !active },
     );
 
-    console.log({ response });
+    // console.log({ response });
 
     return response.status === 200;
   };
@@ -60,7 +60,6 @@ export const ActiveDialog = ({
     },
   });
 
-  console.log({ isPending, isError, error });
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>

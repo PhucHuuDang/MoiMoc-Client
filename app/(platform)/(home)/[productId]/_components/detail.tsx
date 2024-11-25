@@ -90,10 +90,6 @@ export default function DetailPage({
       await productDetail(productId),
   });
 
-  console.log({ productDetailData, isLoading, isError });
-
-  console.log({ productDetailData });
-
   const productDetailContentData = {
     ingredients: productDetailData?.ingredients!,
     details: productDetailData?.details!,

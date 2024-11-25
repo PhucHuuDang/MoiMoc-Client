@@ -34,8 +34,6 @@ export const AccountTabs = ({ value }: AccountTabsProps) => {
   });
 
   const onSubmit = async (values: z.infer<typeof AccountSafeTypes>) => {
-    console.log({ values });
-
     // const submit = await axios.post(
     //   `${process.env.NEXT_PUBLIC_API_URL}/users/profile`,
     //   values,

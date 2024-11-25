@@ -71,7 +71,6 @@ export const ParallaxScroll = ({
         const response = await axios.delete(
           `${process.env.NEXT_PUBLIC_API_URL}/images-models/${imageModelId}`,
         );
-        console.log(response.status);
         if (response.status === 200) {
           queryClient.invalidateQueries({ queryKey: ["about-moi-moc"] });
           queryClient.invalidateQueries({ queryKey: ["images-models"] });

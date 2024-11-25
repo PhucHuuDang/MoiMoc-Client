@@ -44,8 +44,6 @@ export const ReceivingInformation = <T extends FieldValues>({
     }; // Cleasnup on unmount
   }, [form, address]);
 
-  console.log("name: ", form.getValues(name));
-
   return (
     <Card className="w-[500px] border-moi_moc_green">
       <CardHeader>
@@ -99,14 +97,7 @@ export const ReceivingInformation = <T extends FieldValues>({
           </div>
           <span>
             {updatedAddress || "Chưa có địa chỉ được chọn"}
-            <FormItemsControl
-              form={form}
-              type="hidden"
-              // value=" Vinhomes Grandpark, Tòa s503, Nguyễn Xiển, phường Long Thạnh Mỹ,
-              // Thành phố Thủ Đức"
-              // name={`${address}.addressShipping` as Path<T>}
-              name={address}
-            />
+            <FormItemsControl form={form} type="hidden" name={address} />
           </span>
         </div>
       </CardContent>

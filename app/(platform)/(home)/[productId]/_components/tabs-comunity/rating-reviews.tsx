@@ -64,8 +64,6 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
 
   const auth = useAuthContext();
 
-  console.log({ feedbacksData });
-
   const filterFeedbacks = feedbacksData
     ?.filter((item: FeedbackReturnTypes) => item.productId === productId)
     ?.map((feedback: FeedbackReturnTypes) => {
@@ -83,11 +81,7 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
       };
     });
 
-  console.log({ filterFeedbacks });
-
   const onSubmit = async (values: z.infer<typeof FeedBacksSafeTypes>) => {
-    console.log({ values });
-
     setIsLoading(true);
     try {
       const response = await axios.post(
