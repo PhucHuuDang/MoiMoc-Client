@@ -1,20 +1,10 @@
 "use client";
 
-import { isValidPhone } from "@/regex-validation/phone-number";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchemaTypes, RegisterSchemaTypes } from "@/safe-types-zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components//ui/form";
+import { RegisterSchemaTypes } from "@/safe-types-zod";
 
-import { Input } from "../ui/input";
 import { FormSubmit } from "../_global-components-reused/form/form-submit";
 import { DialogModal } from "../_global-components-reused/form/dialog-modal";
 import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
@@ -26,9 +16,7 @@ import { Button } from "../ui/button";
 import { FormPassword } from "../_global-components-reused/form/form-password";
 import { FormValues } from "../_global-components-reused/form/form-values";
 import { useRegisterDiaLogModal } from "@/hooks/register-dialog-modal";
-import { useMount } from "react-use";
 import { useEffect, useState } from "react";
-import { register } from "module";
 import { registerAccount } from "@/api/auth/register";
 import { toast } from "sonner";
 import Spinner from "../animata/spinner";
@@ -53,8 +41,6 @@ export const RegisterModal = () => {
     },
   });
 
-  // console.log(form.watch());
-
   const onSubmit = async (values: z.infer<typeof RegisterSchemaTypes>) => {
     console.log({ values });
 
@@ -62,9 +48,9 @@ export const RegisterModal = () => {
     try {
       const result = await registerAccount(values);
 
-      // console.log({ result });
       toast.success("Registration successful!");
       registerModal.onClose(); // Close the modal on successful registration
+      loginModal.onOpen();
     } catch (error) {
       toast.error("Registration failed");
       console.log("Registration failed:", error);
@@ -75,7 +61,6 @@ export const RegisterModal = () => {
     registerModal.onClose();
   };
 
-  // useMount(() => null);
   useEffect(() => {
     setIsMounted(true);
   }, []);

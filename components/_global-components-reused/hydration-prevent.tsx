@@ -11,9 +11,6 @@ export const HydrationPrevent = ({
 
   useEffect(() => {
     setIsMounted(true);
-    // if (typeof window !== "undefined") {
-    //   setIsMounted(true);
-    // }
   }, []);
 
   if (!isMounted) return null;

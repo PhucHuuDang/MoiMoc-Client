@@ -44,19 +44,6 @@ export const LoginModal = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof LoginSchemaTypes>) => {
-    // setIsLoading(true);
-    // const result = await login(values);
-    // if (!result) {
-    //   toast.error("Login failed");
-    //   setIsLoading(false);
-
-    //   return;
-    // }
-    // console.log({ result });
-    // toast.success("Login success");
-    // setIsLoading(false);
-    // loginModal.onClose();
-
     try {
       setIsLoading(true);
       const result = await login(values);

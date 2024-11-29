@@ -210,25 +210,6 @@ export const ParallaxScroll = ({
                   />
 
                   {admin && (
-                    // <div className="absolute top-2 right-2">
-                    //   <ActionsControl>
-                    //     <ConfirmModal
-                    //       isPending={isPending}
-                    //       action={() => onDelete(el.id)}
-                    //       title="Are you sure you want to delete this image?"
-                    //       description="If you delete this image, it will be gone forever. This action cannot be undone."
-                    //       trigger={
-                    //         <DropdownMenuItem>
-                    //           <Trash2
-                    //             className="right-2 size-5 p-0.5 mr-1 bg-red-500 rounded-md hover:bg-green-100 transition
-                    //               duration-300 cursor-pointer"
-                    //           />
-                    //           Delete image
-                    //         </DropdownMenuItem>
-                    //       }
-                    //     />
-                    //   </ActionsControl>
-                    // </div>
                     <div className="absolute top-2 right-2">
                       <ActionsControl>
                         <DropdownMenuItem
