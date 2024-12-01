@@ -25,11 +25,6 @@ export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
     "size-full text-moi_moc_green dark:text-primary dark:group-hover:text-primary/80 duration-300 group-hover:scale-110";
 
   const dockItems = [
-    // {
-    //   href: "#",
-    //   icon: <Package2 className={`${styleDockItems}`} />,
-    //   title: "Acme Inc",
-    // },
     {
       href: "/dashboard",
       icon: <Home className={`${styleDockItems}`} />,
@@ -65,20 +60,9 @@ export const AdminFloatingDock = ({ className }: AdminFloatingDockProps) => {
       icon: <BookImage className={`${styleDockItems}`} />,
       title: "About Moi Moc Management",
     },
-    // {
-    //   href: "#",
-    //   icon: <Users2 className={`${styleDockItems}`} />,
-    //   title: "Customers",
-    // },
-    // {
-    //   href: "#",
-    //   icon: <LineChart className={`${styleDockItems}`} />,
-    //   title: "Analytics",
-    // },
   ];
 
   return (
-    // <div className="fixed bottom-4 left-1/2 -translate-x-1/2 transform">
     <div
       className={cn(
         "fixed bottom-2.5 mx-auto text-center w-screen flex items-center justify-center ",
