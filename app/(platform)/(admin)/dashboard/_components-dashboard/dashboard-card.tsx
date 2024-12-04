@@ -19,9 +19,6 @@ export const DashboardCard = ({
   description,
   title,
   statistic,
-  // value,
-  // percentageDescription,
-  // progressValue,
 }: DashboardCardProps) => {
   return (
     <Card x-chunk="dashboard-05-chunk-2 ">

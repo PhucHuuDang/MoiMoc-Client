@@ -14,7 +14,6 @@ import { SidebarItem } from "./sidebar-item";
 import { useState } from "react";
 
 const navItems = [
-  // { href: "#", icon: Package2, label: "Acme Inc" },
   { href: "/dashboard", icon: Home, label: "Dashboard" },
   {
     href: "/dashboard/users",
@@ -44,8 +43,6 @@ const navItems = [
     icon: BookImage,
     label: "About Moi Moc Management",
   },
-  // { href: "#", icon: Users2, label: "Customers" },
-  // { href: "#", icon: LineChart, label: "Analytics" },
 ];
 
 const settingsItem = { href: "#", icon: Settings, label: "Settings" };

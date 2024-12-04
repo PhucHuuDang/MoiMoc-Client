@@ -95,9 +95,7 @@ export default function StatusButton({
                 <span className="text-slate-100 text-base">{label}</span>
               </div>
             )
-            // (status ?? (
-            //   <ShoppingCart className="size-10 text-red-500 bg-red-500 z-50 flex items-center" />
-            // ))
+          
           )}
         </motion.span>
       </AnimatePresence>

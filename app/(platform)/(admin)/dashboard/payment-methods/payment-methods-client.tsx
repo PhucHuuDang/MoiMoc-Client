@@ -73,22 +73,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+
 import { AddPaymentMethod } from "./_components-payments-methods/add-payment-methods";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import PaymentMethodsSkeleton from "./payment-skeleton";
@@ -233,84 +219,6 @@ export default function PaymentMethodsClient() {
                     </SelectContent>
                   </Select>
                   <AddPaymentMethod />
-                  {/* <Dialog open={showDialog} onOpenChange={setShowDialog}>
-                    <DialogTrigger asChild>
-                      <Button className="bg-primary hover:bg-primary/90">
-                        <Plus className="mr-2 h-4 w-4" /> Add New
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
-                      <DialogHeader>
-                        <DialogTitle>
-                          {newMethod.id
-                            ? "Edit Payment Method"
-                            : "Add New Payment Method"}
-                        </DialogTitle>
-                        <DialogDescription>
-                          Enter the details of the payment method for customers.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label htmlFor="name" className="text-right">
-                            Name
-                          </Label>
-                          <Input
-                            id="name"
-                            value={newMethod.name}
-                            onChange={(e) =>
-                              setNewMethod({
-                                ...newMethod,
-                                name: e.target.value,
-                              })
-                            }
-                            className="col-span-3"
-                          />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label htmlFor="type" className="text-right">
-                            Type
-                          </Label>
-                          <Select
-                            value={newMethod.type}
-                            onValueChange={(value) =>
-                              setNewMethod({ ...newMethod, type: value })
-                            }
-                          >
-                            <SelectTrigger className="col-span-3">
-                              <SelectValue placeholder="Select type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="card">Card</SelectItem>
-                              <SelectItem value="digital">Digital</SelectItem>
-                              <SelectItem value="bank">Bank</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label htmlFor="fee" className="text-right">
-                            Fee
-                          </Label>
-                          <Input
-                            id="fee"
-                            value={newMethod.fee}
-                            onChange={(e) =>
-                              setNewMethod({
-                                ...newMethod,
-                                fee: e.target.value,
-                              })
-                            }
-                            className="col-span-3"
-                          />
-                        </div>
-                      </div>
-                      <DialogFooter>
-                        <Button type="submit" onClick={addOrUpdateMethod}>
-                          {newMethod.id ? "Update Method" : "Add Method"}
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog> */}
                 </div>
               </div>
               {filteredMethods?.length === 0 ? (

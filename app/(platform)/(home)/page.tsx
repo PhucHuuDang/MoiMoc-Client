@@ -54,12 +54,6 @@ export default async function HomePage() {
         <ReviewFeedback />
       </BlurFade>
 
-      {/* <div className="mb-6">
-        <BlurFade inView delay={0.35}>
-          <BestSellingProducts />
-        </BlurFade>
-      </div> */}
-
       <div className="py-8">
         <BlurFade inView delay={0.45}>
           <Footer />
