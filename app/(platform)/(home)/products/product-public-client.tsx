@@ -10,7 +10,6 @@ import BlurFade from "@/components/magic/blur-fade";
 import { LipBalm } from "./_components-products-public/lip-balm";
 import { LipBalmInJar } from "./_components-products-public/lip-blam-in-jar";
 import { LipScrubInJar } from "./_components-products-public/lip-scrub-in-jar";
-import { GiftSet } from "./_components-products-public/gift-set";
 import { Footer } from "@/components/_global-components-reused/footer";
 import { Separator } from "@/components/ui/separator";
 import { FloatArrow } from "./_components-products-public/float-arrow";

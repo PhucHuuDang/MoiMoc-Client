@@ -50,12 +50,9 @@ export const CheckoutClient = () => {
     resolver: zodResolver(CheckoutSchemaTypes),
     defaultValues: {
       method: "standard",
-      paymentMethod: "payOs",
+      paymentMethod: "receive-order-payment",
 
       phone: auth?.user?.phoneAuth,
-
-      // address: `Vinhomes Grandpark, Tòa s503, Nguyễn Xiển, phường Long Thạnh Mỹ,
-      // Thành phố Thủ Đức`,
     },
   });
 
@@ -65,6 +62,10 @@ export const CheckoutClient = () => {
       loginModal.onOpen(); // Open login modal if not authenticated
       return;
     }
+
+    const headers = {
+      Authorization: `Bearer ${auth.token}`,
+    };
 
     // Confirm the action with the user
     const ok = await confirm();
@@ -91,7 +92,6 @@ export const CheckoutClient = () => {
           if (response.status === 201) {
             toast.success("Thanh toán thành công");
             const { paymentUrl } = await response.data;
-            // console.log({ paymentUrl });
             router.push(paymentUrl);
           }
         } else if (values.paymentMethod === "stripe") {
@@ -102,7 +102,6 @@ export const CheckoutClient = () => {
             {
               headers: {
                 Authorization: `Bearer ${auth.token}`, // Include the token
-                // "Content-Type": "application/json", // Explicitly set content type
               },
             },
           );
@@ -125,7 +124,6 @@ export const CheckoutClient = () => {
 
   const cart = useFromStore(useCartStore, (state) => state.orders);
 
-  // console.log({ products });
   const products = cart?.map((product) => {
     const truncateDescription = truncateText(product.productDescription, 80);
     return {
@@ -139,8 +137,6 @@ export const CheckoutClient = () => {
       productDescription: truncateDescription,
     };
   });
-
-  // console.log({ cart });
 
   useEffect(() => {
     if (cart && cart.length > 0) {

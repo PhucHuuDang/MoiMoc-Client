@@ -3,7 +3,7 @@ import { z } from "zod";
 
 type DeliveryType = ["standard", "express"];
 
-const deliveryTypes = ["standard", "express", "stripe"] as const;
+const deliveryTypes = ["standard", "express"] as const;
 const paymentMethodsTypes = [
   "receive-order-payment",
   "payOs",
@@ -15,10 +15,7 @@ export const deliveryMethods = [
     value: "standard",
     label: "Standard",
   },
-  // {
-  //   value: "stripe",
-  //   label: "Stripe",
-  // },
+
   {
     value: "express",
     label: "Express",
@@ -26,51 +23,22 @@ export const deliveryMethods = [
 ];
 
 export const paymentMethods = [
-  // {
-  //   value: "receive-order-payment",
-  //   label: "Receive order payment",
-  // },
+  {
+    value: "receive-order-payment",
+    label: "Receive order payment",
+  },
   {
     value: "payOs",
     label: "Banking app",
   },
+
+  {
+    value: "stripe",
+    label: "Credit card",
+  },
 ];
 
 export const CheckoutSchemaTypes = z.object({
-  // address: z.object({
-  //   name: z.string({
-  //     message: "Name is required",
-  //     invalid_type_error: "Name must be a string",
-  //   }),
-  //   phone: z
-  //     .string({
-  //       message: "Phone number is required",
-  //       invalid_type_error: "Phone number must be a string",
-  //     })
-  //     .trim()
-  //     .min(10, {
-  //       message: "Phone number must be at least 10 characters",
-  //     })
-  //     .max(12, {
-  //       message: "Phone number must be at most 10 characters",
-  //     })
-  //     .refine(isValidPhone, {
-  //       message: "Invalid phone number",
-  //     }),
-
-  //   addressShipping: z
-  //     .string({
-  //       message: "Address is required",
-  //       invalid_type_error: "Address must be a string",
-  //     })
-  //     .min(10, {
-  //       message: "Address must be at least 10 characters",
-  //     })
-  //     .max(100, {
-  //       message: "Address must be at most 100 characters",
-  //     }),
-  // }),
-
   user: z.object({
     id: z.number(),
     name: z.string(),
@@ -84,10 +52,6 @@ export const CheckoutSchemaTypes = z.object({
   address: z.string({
     message: "Address is required",
   }),
-
-  // name: z.string({
-  //   message: "Name is required",
-  // }),
 
   phone: z
     .string({
