@@ -62,7 +62,9 @@ export const OrderDetail = <T extends FieldValues, K>({
     return (
       <Card className="w-[700px] border-moi_moc_green">
         <CardHeader>
-          <CardTitle className="text-moi_moc_green">Chi tiết đơn hàng</CardTitle>
+          <CardTitle className="text-moi_moc_green">
+            Chi tiết đơn hàng
+          </CardTitle>
         </CardHeader>
         <CardContent className="h-[350px]">
           <div className="flex h-[350px] flex-col gap-y-1 overflow-y-auto overflow-x-hidden">
@@ -118,7 +120,9 @@ export const OrderDetail = <T extends FieldValues, K>({
       {/* <ConfirmDialog /> */}
       <Card className="w-[700px] border-moi_moc_green">
         <CardHeader>
-          <CardTitle className="text-moi_moc_green">Chi tiết đơn hàng</CardTitle>
+          <CardTitle className="text-moi_moc_green">
+            Chi tiết đơn hàng
+          </CardTitle>
         </CardHeader>
         <CardContent className="h-[350px]">
           <div className="flex h-[350px] flex-col gap-y-1 overflow-y-auto overflow-x-hidden">
@@ -143,30 +147,10 @@ export const OrderDetail = <T extends FieldValues, K>({
                   Quay lại mua hàng
                 </Button>
               )}
-
-              {/* <div className=""> */}
-              {/* </div> */}
             </TooltipProvider>
 
             <FormItemsControl type="hidden" name={name} form={form} />
           </div>
-
-          {/* <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
-
-          <div>
-            <div className="flex justify-between">
-              <div>Subtotal</div>
-              <div>$100</div>
-            </div>
-            <div className="flex justify-between">
-              <div>Shipping</div>
-              <div>$10</div>
-            </div>
-            <div className="flex justify-between">
-              <div>Delivery fee</div>
-              <div>$10</div>
-            </div>
-          </div> */}
 
           <Separator className="mx-1 my-4 h-0.5 bg-moi_moc_green" />
 

@@ -39,58 +39,12 @@ export const LipBalmInJar = forwardRef<HTMLDivElement, LipBalmInJarProps>(
 
     return (
       <div className="my-14 w-full" ref={ref}>
-        {/* <div className="flex">
-          <Image
-            src="/about-moi-moc-images/model-organic-lipstick.png"
-            alt="model-organic"
-            width={800}
-            height={600}
-            className="max-h-svh w-full object-cover 2xl:h-full"
-          />
-
-          <div className="relative w-full">
-            <Image
-              src="/about-moi-moc-images/background-organic-lipstick.png"
-              alt="background-organic"
-              height={800}
-              width={800}
-              className="max-h-svh w-full object-cover 2xl:h-full"
-            />
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <h1 className="text-4xl font-bold text-white">
-                Son Môi Hữu Cơ Môi Mộc
-              </h1>
-              <div className="mt-2 p-2 px-6 text-white">
-                <TextGenerateEffect
-                  words={text}
-                  classNameText="text-white font-light "
-                  filter={false}
-                />
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-        {/* <div>
-          <Image
-            alt="lip-balm-natural-color"
-            height={700}
-            width={800}
-            // src="/product-images/lip-balm-natural-color.jpg"
-            src="https://images.pexels.com/photos/28851851/pexels-photo-28851851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            className="h-[600px] 2xl:h-[85%] w-full object-cover"
-          />
-        </div> */}
-
-        {/* ** this is the technique prevent breaking the image */}
         <div
           className="relative h-[600px] 2xl:h-[80%] bg-no-repeat bg-cover bg-center"
           style={{
             backgroundImage: `url(https://images.pexels.com/photos/28851851/pexels-photo-28851851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)`,
           }}
         >
-          {/* make the whole background a little bit dark */}
-          {/* <div className="absolute inset-0 bg-black/10" /> */}
           <div className="relative pt-28 h-screen"></div>
         </div>
 

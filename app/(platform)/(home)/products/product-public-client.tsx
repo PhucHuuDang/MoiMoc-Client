@@ -38,8 +38,6 @@ export const ProductsPublicClient = () => {
     };
   });
 
-  // console.log({ productsList });
-
   const { y } = useWindowScroll();
 
   const delay = 0.25;
@@ -64,8 +62,6 @@ export const ProductsPublicClient = () => {
     if (ref?.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-
-    // ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -97,9 +93,7 @@ export const ProductsPublicClient = () => {
       <BlurFade inView delay={delay}>
         <LipScrubInJar ref={lipstickRef} />
       </BlurFade>
-      {/* <BlurFade inView delay={delay}>
-        <GiftSet ref={giftSetRef} />
-      </BlurFade> */}
+
       <BlurFade inView delay={delay}>
         <Separator className="mx-1 my-16 h-0.5 bg-moi_moc_green" />
       </BlurFade>

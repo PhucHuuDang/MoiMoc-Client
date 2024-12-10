@@ -20,7 +20,6 @@ interface ManageContentProps {
 }
 export const ManageContent = ({ tabsContent, data }: ManageContentProps) => {
   const [content, setContent] = useState();
-  const [isUploading, setIsUploading] = useState(false);
   const [isPending, setIsPending] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof AboutMoiMocSafeTypes>>({
@@ -28,20 +27,6 @@ export const ManageContent = ({ tabsContent, data }: ManageContentProps) => {
   });
 
   const queryClient = useQueryClient();
-
-  // const { data, isError, isLoading, error } = useQuery({
-  //   queryKey: ["about-moi-moc"],
-  //   queryFn: async () => {
-  //     const response = await axios.get(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/about-moi-moc`,
-  //     );
-  //     return response.data;
-  //   },
-  // });
-
-  const handleContentChange = useCallback((section: string, value: string) => {
-    // setContent((prev) => ({ ...prev, [section]: value }));
-  }, []);
 
   const handleSaveChanges = useCallback(() => {
     form.handleSubmit(onSubmit)();
@@ -107,8 +92,6 @@ export const ManageContent = ({ tabsContent, data }: ManageContentProps) => {
                 label="Mission"
                 placeholder="Enter mission content here..."
               />
-
-              {/* <FormSubmit className="bg-red-500">Save changes</FormSubmit> */}
             </div>
           </CardContent>
         </Card>

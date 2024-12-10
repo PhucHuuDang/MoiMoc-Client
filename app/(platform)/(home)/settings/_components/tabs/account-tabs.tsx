@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -20,7 +19,6 @@ import {
 import { TabsContent } from "@/components/ui/tabs";
 import { AccountSafeTypes } from "@/safe-types-zod/client/settings-profile-safe-types/account-safe.types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -64,7 +62,6 @@ export const AccountTabs = ({ value }: AccountTabsProps) => {
                 onClick={() => form.handleSubmit(onSubmit)()}
               >
                 {form.formState.isSubmitting ? "Đang lưu..." : "Lưu thay đổi"}
-                {/* Lưu thay đổi */}
               </Button>
             </div>
           </CardHeader>
