@@ -197,7 +197,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
         // phoneAuth: user.phoneAuth,
         email: user.email,
         bio: user.bio,
-        address: userInformation.address[0].address,
+        address: userInformation?.address[0]?.address,
         website: user.website,
         designation: user.designation,
       });
@@ -206,7 +206,7 @@ export const PersonalTabs = ({ value }: PersonalTabsProps) => {
       form.setValue("name", user.name);
       // form.setValue("phoneAuth", user.phoneAuth);
       form.setValue("email", user.email);
-      form.setValue("address", userInformation.address[0].address ?? null);
+      form.setValue("address", userInformation.address[0]?.address ?? null);
       form.setValue("bio", user.bio ?? null);
       form.setValue("website", user.website ?? null);
     }
