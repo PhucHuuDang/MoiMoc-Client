@@ -1,6 +1,8 @@
 "use client";
 
-import { LayoutDashboard, LogOut, Settings, User } from "lucide-react";
+import Link from "next/link";
+
+import { HouseIcon, LayoutDashboard, LogOut, User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -11,7 +13,7 @@ import {
 } from "../ui/dropdown-menu";
 import { useState } from "react";
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { deleteTokenCookies } from "@/api/store/cookies-stored";
 import { toast } from "sonner";
 import Spinner from "../animata/spinner";
@@ -35,32 +37,23 @@ const MENU_ITEMS = [
     icon: <User />,
     href: "/settings",
   },
-  {
-    label: "Settings",
-    icon: <Settings />,
-    href: "/settings",
-  },
+
   {
     label: "Dashboard",
     icon: <LayoutDashboard />,
     href: "/dashboard",
   },
   {
-    label: "Logout",
-    icon: <LogOut />,
+    label: "Home Page",
+    icon: <HouseIcon />,
     href: "/",
   },
 ];
 
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 export const UserItemsControl = () => {
-  const [selectedItem, setSelectedItem] = useState<Record<string, Checked>>({
-    Profile: false,
-    Settings: false,
-    Logout: false,
-    Dashboard: false,
-  });
-  const router = useRouter();
+  const pathName = usePathname();
+
   const [loading, setLoading] = useState<boolean>(false);
   const [isShowAlert, setIsShowAlert] = useState<boolean>(false);
 
@@ -68,11 +61,6 @@ export const UserItemsControl = () => {
   const role = auth?.user?.role;
 
   const clearCart = useCartStore((state) => state.clearCart);
-
-  // const [ConfirmModal, confirm] = useConfirm(
-  //   "Bạn có chắc chắn muốn đăng xuất?",
-  //   "Đăng xuất",
-  // );
 
   const WaitingLogout = () => {
     return (
@@ -99,18 +87,9 @@ export const UserItemsControl = () => {
     toast.success("Đăng xuất thành công");
   };
 
-  const handleChecked = async (
-    label: string,
-    checked: Checked,
-    href: string,
-  ) => {
-    setSelectedItem((prev) => ({ [label]: checked }));
-
-    if (label === "Logout") {
-      setIsShowAlert(true);
-    } else {
-      router.push(href);
-    }
+  const handleCloseLogoutDialog = () => {
+    setTimeout(() => (document.body.style.pointerEvents = ""), 100);
+    setIsShowAlert(false);
   };
 
   if (loading) {
@@ -131,45 +110,58 @@ export const UserItemsControl = () => {
           <DropdownMenuLabel>Options</DropdownMenuLabel>
 
           <DropdownMenuSeparator />
-          {/* <DropdownMen */}
           {MENU_ITEMS.map((item) => {
             return role === "ADMIN" ? (
               <DropdownMenuCheckboxItem
-                key={item.label}
-                checked={selectedItem[item.label]}
-                onCheckedChange={(checked: boolean) =>
-                  handleChecked(item.label, checked, item.href)
-                }
-                className="gap-x-2 cursor-pointer w-full items-start"
+                key={item.href}
+                // checked={selectedItem[item.label]}
+                checked={pathName === item.href}
+                // onCheckedChange={(checked: boolean) =>
+                //   handleChecked(item.label, checked, item.href)
+                // }
               >
-                {item.icon}
-                <span>{item.label}</span>
+                <Link
+                  href={item.href}
+                  className="flex items-center gap-x-2 cursor-pointer w-full"
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </Link>
               </DropdownMenuCheckboxItem>
             ) : (
               item.label !== "Dashboard" && (
                 <DropdownMenuCheckboxItem
-                  key={item.label}
-                  checked={selectedItem[item.label]}
-                  onCheckedChange={(checked: boolean) =>
-                    handleChecked(item.label, checked, item.href)
-                  }
-                  className="gap-x-2 cursor-pointer w-full items-start"
+                  key={item.href}
+                  checked={pathName === item.href}
+
+                  // checked={selectedItem[item.label]}
+                  // onCheckedChange={(checked: boolean) =>
+                  //   handleChecked(item.label, checked, item.href)
+                  // }
                 >
-                  {item.icon}
-                  <span>{item.label}</span>
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-x-2 cursor-pointer w-full"
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </Link>
                 </DropdownMenuCheckboxItem>
               )
             );
           })}
+
+          <DropdownMenuCheckboxItem
+            className="flex items-start gap-x-2 cursor-pointer w-full"
+            onClick={() => setIsShowAlert(true)}
+          >
+            <LogOut />
+            <span>Logout</span>
+          </DropdownMenuCheckboxItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <AlertDialog
-        open={isShowAlert}
-        onOpenChange={() => {
-          setTimeout(() => (document.body.style.pointerEvents = ""), 100);
-        }}
-      >
+      <AlertDialog open={isShowAlert} onOpenChange={handleCloseLogoutDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
@@ -180,7 +172,7 @@ export const UserItemsControl = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setIsShowAlert(false)}>
+            <AlertDialogCancel onClick={handleCloseLogoutDialog}>
               Huỷ bỏ
             </AlertDialogCancel>
             <AlertDialogAction onClick={handleLogout}>

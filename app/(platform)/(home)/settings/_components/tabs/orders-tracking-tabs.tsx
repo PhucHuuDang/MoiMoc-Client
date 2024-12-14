@@ -63,8 +63,6 @@ export default function OrderTrackingTabs({
     );
   }
 
-  console.log({ data });
-
   return (
     <ScrollArea className="w-full h-[500px]">
       {!isLoading ? (

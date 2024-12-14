@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Search, User } from "lucide-react";
+import { Link, Search, User } from "lucide-react";
 
 import { Separator } from "../ui/separator";
 import { Logo } from "./logo";
@@ -40,7 +40,6 @@ export const Navbar = () => {
         <Search
           className={`${hoverAnimate} size-8 cursor-pointer text-moi_moc_text_green`}
         />
-
         <div className="size-4" />
         <ProductNavbar height={height} className={hoverAnimate} />
         <AboutMoiMocNavbar height={height} className={hoverAnimate} />
