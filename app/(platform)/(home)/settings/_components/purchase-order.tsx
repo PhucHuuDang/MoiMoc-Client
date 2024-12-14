@@ -23,29 +23,9 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { vietnameseDate } from "@/handle-transform/format-date-vietnam";
+import { PurchaseOrderProps } from "../interface/purchase.interface";
 
-interface Product {
-  id: number;
-  productName: string;
-  price: number;
-  quantity: number;
-  productImages: { imageUrl: string }[];
-}
 
-interface OrderDetail {
-  id: number;
-  totalAmount: number;
-  createdAt: string;
-  orderProducts: { product: Product; quantity: number }[];
-  deliveryMethod: { method: string; price: number; estimatedDays: string };
-  paymentMethod: { method: string };
-}
-
-interface PurchaseOrderProps {
-  userId: number;
-  orderDetailId: number;
-  orderDetail: OrderDetail;
-}
 
 export function PurchaseOrder({
   userId,
