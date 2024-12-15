@@ -43,9 +43,11 @@ export const LipBalm = forwardRef<HTMLDivElement, LipBalmProps>(
 
         {!productDetail && (
           <div
-            className="relative h-[600px] 2xl:h-[80%] bg-no-repeat bg-cover bg-center aspect-video"
+            className="relative w-full h-[400px] md:h-[600px] 2xl:h-[80%] bg-no-repeat bg-cover
+              bg-center aspect-square"
             style={{
               backgroundImage: `url(https://images.pexels.com/photos/28851912/pexels-photo-28851912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)`,
+              // width: "100%",
             }}
           >
             {/* make the whole background a little bit dark */}

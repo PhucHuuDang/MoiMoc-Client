@@ -1,7 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { Link, Search, User } from "lucide-react";
+import { Search } from "lucide-react";
 
 import { Separator } from "../ui/separator";
 import { Logo } from "./logo";
@@ -13,13 +12,10 @@ import { LanguageNavbarSVG } from "./navbar-svg-components/language-navbar-SVG";
 import { CartNavbarSVG } from "./navbar-svg-components/cart-navbar-SVG";
 import { useFromStore } from "@/store/use-from-store";
 import { useCartStore } from "@/store/use-cart-store";
-import { deleteTokenCookies } from "@/api/store/cookies-stored";
 import { useAuthContext } from "@/provider/auth-provider";
-import { toast } from "sonner";
 import { UserItemsControl } from "./user-items-control";
 
 export const Navbar = () => {
-  const router = useRouter();
   const auth = useAuthContext();
 
   const role = auth?.user?.role;
@@ -27,10 +23,6 @@ export const Navbar = () => {
   const height = 24;
   const hoverAnimate =
     "hover:scale-110 transition duration-200  p-0.5 rounded-lg";
-
-  const handleRedirect = (path: string = "/") => {
-    router.push(path);
-  };
 
   const cart = useFromStore(useCartStore, (state) => state.orders);
 
@@ -43,7 +35,7 @@ export const Navbar = () => {
         <div className="size-4" />
         <ProductNavbar height={height} className={hoverAnimate} />
         <AboutMoiMocNavbar height={height} className={hoverAnimate} />
-        <Logo className={hoverAnimate} onRedirect={handleRedirect} />
+        <Logo className={hoverAnimate} />
         <ContactNavbar height={height} className={hoverAnimate} />
         {!auth?.isAuth ? (
           <LoginNavbarSVG height={height} className={hoverAnimate} />

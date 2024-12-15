@@ -2,11 +2,9 @@
 
 import { CarouselCustomized } from "@/components/_global-components-reused/carousel-customized";
 import { ProductItemEffectHover } from "@/components/_global-components-reused/navbar-svg-components/product-item-effect-hover";
-import { TextGenerateEffect } from "@/components/aceternity-ui/text-generate-effect";
 import { CarouselItem } from "@/components/ui/carousel";
 import { useParentDataContext } from "@/provider/parent-data-provider";
 import { useCartStore } from "@/store/use-cart-store";
-import Image from "next/image";
 import { forwardRef } from "react";
 
 interface LipBalmInJarProps {}
@@ -15,11 +13,6 @@ export const LipBalmInJar = forwardRef<HTMLDivElement, LipBalmInJarProps>(
   ({}, ref) => {
     const addOrder = useCartStore((state) => state.addOrder);
     // cart.
-
-    const text = `Công thức độc đáo từ các thành phần tự nhiên như dầu cám gạo và
-    tinh dầu hạnh nhân, son kem hữu cơ Môi Mộc mang lại cảm giác mềm
-    mại và mịn màng cho đôi môi. Sản phẩm không chứa parabens,
-    phthalates, đảm bảo an toàn tuyệt đối`;
 
     const productsList = useParentDataContext();
 
@@ -40,7 +33,7 @@ export const LipBalmInJar = forwardRef<HTMLDivElement, LipBalmInJarProps>(
     return (
       <div className="my-14 w-full" ref={ref}>
         <div
-          className="relative h-[600px] 2xl:h-[80%] bg-no-repeat bg-cover bg-center"
+          className="relative h-[400px] md:h-[600px] 2xl:h-[80%] bg-no-repeat bg-cover bg-center"
           style={{
             backgroundImage: `url(https://images.pexels.com/photos/28851851/pexels-photo-28851851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)`,
           }}
