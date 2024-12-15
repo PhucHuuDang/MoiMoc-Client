@@ -1,6 +1,7 @@
+import { Metadata } from "next";
 import SettingsClient from "./settings-client";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Cài đặt",
     description:

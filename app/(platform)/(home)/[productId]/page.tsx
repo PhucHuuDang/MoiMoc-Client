@@ -7,15 +7,13 @@ import { ProductDetailTypes } from "@/types/product-detail-types";
 import NotFound from "./not-found";
 import { Suspense } from "react";
 import { ProductDetailSkelton } from "./_components/product-detail-skeleton";
+import { Metadata } from "next";
 
 interface ProductDetailPageProps {
   params: Promise<{ productId: string }>;
 }
 
-export async function generateMetadata(): Promise<{
-  title: string;
-  description: string;
-}> {
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Chi tiết sản phẩm",
     description:

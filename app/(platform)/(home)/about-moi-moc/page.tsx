@@ -3,6 +3,15 @@ import { Footer } from "@/components/_global-components-reused/footer";
 import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-effect";
 import AboutMoiMocClient from "./about-moi-moc-client";
 
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Về Môi Mộc",
+    description: "Câu chuyện về tầm nhìn và sứ mệnh của Môi Mộc",
+  };
+}
+
 const AboutMoiMocPage = () => {
   const words = [
     {
