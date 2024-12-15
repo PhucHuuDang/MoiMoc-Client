@@ -33,7 +33,7 @@ export const LipBalmInJar = forwardRef<HTMLDivElement, LipBalmInJarProps>(
     return (
       <div className="my-14 w-full" ref={ref}>
         <div
-          className="relative h-[400px] md:h-[600px] 2xl:h-[80%] bg-no-repeat bg-cover bg-center"
+          className="relative h-[400px] md:h-[600px] 2xl:h-[70%] bg-no-repeat bg-cover bg-center"
           style={{
             backgroundImage: `url(https://images.pexels.com/photos/28851851/pexels-photo-28851851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)`,
           }}

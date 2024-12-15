@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     icon: "/favicon-moi-moc.ico", // Favicon for all browsers
     apple: "/apple-touch-icon.png", // Apple-specific icon
   },
+  openGraph: config.openGraph,
+  twitter: config.twitter,
+  alternates: config.alternates,
+  robots: config.robots,
+  metadataBase: config.metadataBase,
 };
 
 export default function RootLayout({

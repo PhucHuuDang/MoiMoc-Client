@@ -53,13 +53,9 @@ import NotFound from "../not-found";
 import { ProductDetailSkelton } from "./product-detail-skeleton";
 
 interface DetailPageProps {
-  // productDetailData: ProductDetailTypes;
   productId: string;
 }
-export default function DetailPage({
-  // productDetailData,
-  productId,
-}: DetailPageProps) {
+export default function DetailPage({ productId }: DetailPageProps) {
   const lipBalmRef = useRef<ElementRef<"div">>(null);
 
   const TABS_TRIGGER = [

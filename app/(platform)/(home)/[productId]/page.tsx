@@ -8,25 +8,26 @@ import NotFound from "./not-found";
 import { Suspense } from "react";
 import { ProductDetailSkelton } from "./_components/product-detail-skeleton";
 
+interface ProductDetailPageProps {
+  params: Promise<{ productId: string }>;
+}
+
+export async function generateMetadata(): Promise<{
+  title: string;
+  description: string;
+}> {
+  return {
+    title: "Chi tiết sản phẩm",
+    description:
+      "Trang chi tiết sản phẩm giúp bạn có cái nhìn tổng quan hơn khi thảm khảo sản phẩm",
+  };
+}
+
 export default async function ProductDetailPage({
   params,
-}: {
-  params: { productId: string };
-}) {
-  const { productId } = params;
+}: ProductDetailPageProps) {
+  const { productId } = await params;
 
-  // const productDetailData: ProductDetailTypes = await productDetail(productId);
-
-  // console.log({ productDetailData });
-
-  // return productDetailData ? (
-  //   <Suspense fallback={<ProductDetailSkelton />}>
-  //     <DetailPage productDetailData={productDetailData} productId={productId} />
-  //   </Suspense>
-  // ) : (
-
-  //   <NotFound />
-  // );
   return (
     <Suspense fallback={<ProductDetailSkelton />}>
       <DetailPage productId={productId} />

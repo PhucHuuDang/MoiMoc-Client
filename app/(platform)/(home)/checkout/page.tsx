@@ -1,9 +1,13 @@
 import { CheckoutClient } from "./checkout-client";
 import { SparklesCore } from "@/components/aceternity-ui/sparkles";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<{
+  title: string;
+  description: string;
+}> {
   return {
     title: "Thanh toán",
+    description: "Thanh toán đơn hàng của bạn tại moimoc.shop",
   };
 }
 
