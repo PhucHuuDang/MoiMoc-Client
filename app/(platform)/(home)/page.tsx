@@ -29,7 +29,7 @@ export default async function HomePage() {
 
   
 
-      <BlurFade inView delay={0.3}>
+      <BlurFade inView delay={0.2}>
         <MessageMoiMoc />
       </BlurFade>
 
@@ -40,18 +40,18 @@ export default async function HomePage() {
         <DemoProducts />
       </div>
 
-      <BlurFade inView delay={0.35}>
+      <BlurFade inView delay={0.25}>
         <div className="my-7">
           <MoiMocMarquee />
         </div>
       </BlurFade>
 
-      <BlurFade inView delay={0.35}>
+      <BlurFade inView delay={0.25}>
         <ReviewFeedback />
       </BlurFade>
 
       <div className="py-8">
-        <BlurFade inView delay={0.45}>
+        <BlurFade inView delay={0.35}>
           <Footer />
         </BlurFade>
       </div>

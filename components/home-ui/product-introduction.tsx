@@ -12,7 +12,7 @@ export const ProductIntroduction = () => {
           <div className="relative w-full max-w-sm md:w-1/2 lg:w-2/5">
             <div className="overflow-hidden rounded-2xl shadow-xl">
               <Image
-                src="/images/product-introduction.png"
+                src="/best-selling-products/flaijour.png"
                 alt="son-duong-moc"
                 width={487}
                 height={665}
@@ -25,7 +25,7 @@ export const ProductIntroduction = () => {
             <h1 className="font-serif text-3xl font-bold text-moi_moc_green md:text-4xl lg:text-5xl">
               Son dưỡng Môi Mộc
             </h1>
-            <p className="text-sm leading-relaxed text-green-800 md:text-base lg:text-lg">
+            <p className="text-sm font-mono italic leading-relaxed text-green-800 md:text-base lg:text-lg">
               Mang đến cho bạn đôi môi mềm mịn và căng mọng tự nhiên, son dưỡng
               Môi Mộc được làm từ 100% nguyên liệu hữu cơ như dầu dừa, sáp ong
               và tinh dầu hoa hồng. Sản phẩm không chứa chất bảo quản và hóa

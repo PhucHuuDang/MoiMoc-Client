@@ -6,18 +6,26 @@ import { GlareCard } from "../aceternity-ui/glare-card";
 
 export const DemoProducts = () => {
   return (
-    // <div className="z-20 flex items-center justify-center px-10">
-    <div className="z-20 grid grid-cols-1 items-center justify-center gap-5 px-10 md:grid-cols-3">
-      {ImagesDemo.map((imageUrl, index) => {
+    <div
+      className="grid grid-cols-1 gap-5 px-4 sm:px-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
+        xl:px-10 w-full"
+    >
+      {ImagesDemo.map(({ imageURL }: { imageURL: string }, index: number) => {
         return (
-          <BlurFade key={imageUrl.imageURL} delay={0.25 + index * 0.05} inView>
-            <GlareCard className="flex flex-col items-center justify-center">
+          <BlurFade
+            key={imageURL}
+            delay={0.25 + index * 0.05}
+            inView
+            blur="8px"
+            className="flex items-center justify-evenly"
+          >
+            <GlareCard>
               <Image
-                src={imageUrl.imageURL}
+                src={imageURL}
                 alt={`demo-product-${index}`}
-                width={500}
-                height={500}
-                className="size-[467px] cursor-pointer rounded-3xl object-cover transition duration-200 hover:scale-105"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                className="cursor-pointer object-cover transition duration-200 hover:scale-105"
               />
             </GlareCard>
           </BlurFade>

@@ -1,8 +1,11 @@
 import { ProductProps } from "@/types";
 
-export const ImagesDemo = [
+export const ImagesDemo: Array<{ imageURL: string }> = [
   {
     imageURL: "/images/demo-product-1.png",
+  },
+  {
+    imageURL: "/best-selling-products/green-mask.png",
   },
   {
     imageURL: "/images/demo-product-2.png",
