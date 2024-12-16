@@ -1,6 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+// import Image as NextImage from "next/image";
 import React, { useEffect, useState } from "react";
 
 export const ImagesSlider = ({
@@ -138,6 +139,7 @@ export const ImagesSlider = ({
           <motion.img
             key={currentIndex}
             src={loadedImages[currentIndex]}
+            loading="lazy"
             initial="initial"
             animate="visible"
             exit={direction === "up" ? "upExit" : "downExit"}
@@ -146,6 +148,27 @@ export const ImagesSlider = ({
           />
         </AnimatePresence>
       )}
+
+      {/* {areImagesLoaded && (
+  <AnimatePresence>
+    <motion.div
+      key={currentIndex}
+      initial="initial"
+      animate="visible"
+      exit={direction === "up" ? "upExit" : "downExit"}
+      variants={slideVariants}
+      className="absolute inset-0 h-full w-full"
+    >
+      <Image
+        src={loadedImages[currentIndex]}
+        alt={`Slide ${currentIndex + 1}`}
+        fill // Makes the image fill the parent container
+        className="object-cover object-center"
+        priority={currentIndex === 0} // Priority load for the first image
+      />
+    </motion.div>
+  </AnimatePresence>
+)} */}
     </div>
   );
 };

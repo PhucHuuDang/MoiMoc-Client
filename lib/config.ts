@@ -20,7 +20,7 @@ export const config = {
     },
 
     local: "vi_VN",
-    siteName: "Môi Mộc",
+    siteName: "MoiMoc",
   },
   twitter: {
     card: "summary_large_image", // Hiển thị dạng card lớn
