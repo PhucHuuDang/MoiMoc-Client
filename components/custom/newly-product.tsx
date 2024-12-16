@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import { ProductItemGlareCard } from "./product-item";
 import AutoPlay from "embla-carousel-autoplay";
-import { CircleUI } from "./circle-ui";
 import { Header } from "../_global-components-reused/header";
 import BlurFade from "../magic/blur-fade";
 
@@ -37,7 +36,6 @@ export const NewlyProduct = () => {
           ))}
         </CarouselContent>
       </Carousel>
-      {/* <CircleUI /> */}
     </>
   );
 };

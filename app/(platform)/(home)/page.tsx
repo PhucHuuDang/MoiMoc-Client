@@ -2,7 +2,6 @@ import { Footer } from "@/components/_global-components-reused/footer";
 import { Cover } from "@/components/aceternity-ui/cover";
 import { ImagesSlider } from "@/components/aceternity-ui/images-slider";
 import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-effect";
-import { CircleUI } from "@/components/custom/circle-ui";
 import { NewlyProduct } from "@/components/custom/newly-product";
 import { MoiMocMarquee } from "@/components/home-ui/moi-moc-marquee";
 import { DemoProducts } from "@/components/home-ui/demo-product";
@@ -28,10 +27,7 @@ export default async function HomePage() {
 
       <ProductShowcase />
 
-      {/* <div className="relative overflow-hidden pt-4">
-        <NewlyProduct />
-        <CircleUI className="-right-40 -top-20" />
-      </div> */}
+  
 
       <BlurFade inView delay={0.3}>
         <MessageMoiMoc />
