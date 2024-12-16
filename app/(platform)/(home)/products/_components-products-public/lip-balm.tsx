@@ -42,17 +42,39 @@ export const LipBalm = forwardRef<HTMLDivElement, LipBalmProps>(
         {/* ** this is the technique prevent breaking the image */}
 
         {!productDetail && (
-          <div
-            className="relative w-full h-[400px] md:h-[600px] 2xl:h-[950px] bg-no-repeat bg-cover
-              bg-center aspect-square"
-            style={{
-              backgroundImage: `url(https://images.pexels.com/photos/28851912/pexels-photo-28851912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)`,
-              // width: "100%",
-            }}
-          >
-            {/* make the whole background a little bit dark */}
-            {/* <div className="absolute inset-0 bg-black/10" /> */}
-            <div className="relative pt-28 h-screen"></div>
+          // <div
+          //   className="relative w-full h-[400px] md:h-[600px] 2xl:h-[950px] bg-no-repeat bg-cover
+          //     bg-center aspect-square md:aspect-[16/9]"
+          //   style={{
+          //     backgroundImage: `url(https://images.pexels.com/photos/28851912/pexels-photo-28851912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)`,
+          //     // width: "100%",
+          //   }}
+          // >
+          //   {/* make the whole background a little bit dark */}
+          //   {/* <div className="absolute inset-0 bg-black/10" /> */}
+          //   <div className="relative pt-28 h-screen"></div>
+          // </div>
+
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+            <Image
+              src="https://images.pexels.com/photos/28851912/pexels-photo-28851912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="lipbalm-banner-image"
+              fill
+              style={{
+                objectFit: "cover",
+              }}
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, (max-width: 1280px) 75vw, 50vw"
+              // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              // loading="lazy"
+              className="rounded-lg"
+            />
+            {/* <div className="absolute inset-0 bg-black bg-opacity-30" />
+<div className="absolute inset-0 flex items-center justify-center">
+  <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl font-bold text-center px-4">
+    Discover Our Collection
+  </h2>
+</div> */}
           </div>
         )}
 

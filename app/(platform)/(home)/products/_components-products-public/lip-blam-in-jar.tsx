@@ -5,6 +5,7 @@ import { ProductItemEffectHover } from "@/components/_global-components-reused/n
 import { CarouselItem } from "@/components/ui/carousel";
 import { useParentDataContext } from "@/provider/parent-data-provider";
 import { useCartStore } from "@/store/use-cart-store";
+import Image from "next/image";
 import { forwardRef } from "react";
 
 interface LipBalmInJarProps {}
@@ -32,13 +33,34 @@ export const LipBalmInJar = forwardRef<HTMLDivElement, LipBalmInJarProps>(
 
     return (
       <div className="my-14 w-full" ref={ref}>
-        <div
-          className="relative h-[400px] md:h-[600px] 2xl:h-[70%] bg-no-repeat bg-cover bg-center"
+        {/* <div
+          className="relative w-full h-[400px] md:h-[600px] lg:h-[1000px] bg-no-repeat bg-cover
+            bg-center aspect-square md:aspect-[16/9]"
           style={{
             backgroundImage: `url(https://images.pexels.com/photos/28851851/pexels-photo-28851851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)`,
           }}
         >
-          <div className="relative pt-28 h-screen"></div>
+          <div className="relative pt-28 h-screen" />
+        </div> */}
+
+        <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+          <Image
+            src="https://images.pexels.com/photos/28851851/pexels-photo-28851851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="lipbalm-in-jar-banner-image"
+            fill
+            style={{
+              objectFit: "cover",
+            }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, (max-width: 1280px) 75vw, 50vw"
+            loading="lazy"
+            className="rounded-lg"
+          />
+          {/* <div className="absolute inset-0 bg-black bg-opacity-30" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl font-bold text-center px-4">
+              Discover Our Collection
+            </h2>
+          </div> */}
         </div>
 
         <div className="overflow-hidden px-14">
