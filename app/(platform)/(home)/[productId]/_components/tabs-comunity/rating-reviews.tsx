@@ -174,6 +174,7 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
                           <Avatar className="size-14 mr-3">
                             <AvatarImage
                               src={
+                                review.user?.avatar ??
                                 "/about-moi-moc-images/avatar-placeholder.gif"
                               }
                             />
@@ -199,6 +200,7 @@ export const RatingReviews = ({ productId }: RatingReviewsProps) => {
                               ]}
                               // allowFraction={false}
                               // showTooltip
+                              readonly
                               allowHover={false}
                               transition
                               disableFillHover

@@ -25,7 +25,7 @@ export const CardStackFeedbacks = ({
   items: Card[];
   offset?: number;
   scaleFactor?: number;
-}) => {
+}): JSX.Element => {
   const CARD_OFFSET = offset || 10;
   const SCALE_FACTOR = scaleFactor || 0.06;
   const [cards, setCards] = useState<Card[]>(items);
@@ -47,7 +47,7 @@ export const CardStackFeedbacks = ({
 
   return (
     <div className="relative h-60 w-60 md:h-60 md:w-96">
-      {cards.map((card, index) => {
+      {cards.map((card: Card, index: number): JSX.Element => {
         return (
           <motion.div
             key={card.id}
@@ -64,51 +64,50 @@ export const CardStackFeedbacks = ({
               zIndex: cards.length - index, //  decrease z-index for the cards that are behind
             }}
           >
-            <div className="font-semibold text-slate-300 dark:text-neutral-200">
-              {card.content}
-            </div>
-
-            <div className="flex items-start gap-x-1 flex-col">
-              <div className="flex items-center gap-x-1">
-                <span className="font-semibold text-base text-slate-100">
-                  Đã đánh giá:
-                </span>
-                <Rating
-                  fillColorArray={[
-                    "#f14f45",
-                    "#f16c45",
-                    "#f18845",
-                    "#f1b345",
-                    "#f1d045",
-                  ]}
-                  // allowFraction={false}
-                  // showTooltip
-                  allowHover={false}
-                  transition
-                  disableFillHover
-                  initialValue={card.rating}
-                  emptyStyle={{ display: "flex" }}
-                  SVGstyle={{
-                    display: "inline-block",
-                    marginBottom: 10,
-                    // height: "40px",
-                    // size
-                  }}
-                  // disableFillHover={isLoad}
-                  // id="rating"
-                  // name={name}
-                  tooltipStyle={{
-                    backgroundColor: "#338eb8",
-                    width: "150px",
-                    marginTop: -3,
-                    marginLeft: 4,
-                  }}
-                  size={20}
-                />
+            <div className="space-y-4">
+              <div className="font-semibold text-slate-200 dark:text-neutral-200 leading-snug line-clamp-3">
+                {card.content}
               </div>
-              <span className="text-slate-100 text-sm font-semibold">
-                Vào {vietnameseDate(new Date(card.createdAt))}
-              </span>
+
+              <div className="space-y-2">
+                <div className="flex items-center gap-x-2">
+                  <span className="font-semibold text-base text-slate-100">
+                    Đã đánh giá:
+                  </span>
+                  <Rating
+                    fillColorArray={[
+                      "#f14f45",
+                      "#f16c45",
+                      "#f18845",
+                      "#f1b345",
+                      "#f1d045",
+                    ]}
+                    allowHover={false}
+                    transition
+                    readonly
+                    initialValue={card.rating}
+                    emptyStyle={{ display: "flex" }}
+                    SVGstyle={{
+                      display: "inline-block",
+                      marginBottom: 8,
+                      // height: "40px",
+                    }}
+                    // disableFillHover={isLoad}
+                    // id="rating"
+                    // name={name}
+                    tooltipStyle={{
+                      backgroundColor: "#338eb8",
+                      width: "150px",
+                      marginTop: -3,
+                      marginLeft: 4,
+                    }}
+                    size={20}
+                  />
+                </div>
+                <span className="text-slate-100 text-sm font-semibold">
+                  Vào {vietnameseDate(new Date(card.createdAt))}
+                </span>
+              </div>
             </div>
 
             <div>
@@ -130,7 +129,7 @@ export const CardStackFeedbacks = ({
   );
 };
 
-export function CardStackFeedbacksSkeleton() {
+export function CardStackFeedbacksSkeleton(): JSX.Element {
   return (
     <div className="h-60 w-60 md:h-60 md:w-96 p-4 bg-white rounded-3xl shadow-lg">
       <div className="space-y-4">
