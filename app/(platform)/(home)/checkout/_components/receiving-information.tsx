@@ -45,7 +45,7 @@ export const ReceivingInformation = <T extends FieldValues>({
   }, [form, address]);
 
   return (
-    <Card className="w-[500px] border-moi_moc_green">
+    <Card className="w-full border-moi_moc_green">
       <CardHeader>
         <CardTitle className="text-moi_moc_green">Địa chỉ giao hàng</CardTitle>
         {/* <AddAddress /> */}

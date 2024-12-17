@@ -175,12 +175,13 @@ export const CheckoutClient = () => {
   return (
     <>
       <ConfirmDialog />
+
       <div className="h-full overflow-x-hidden pt-20">
-        <div className="flex items-center justify-center py-10 pt-20">
+        <div className="flex items-center justify-center py-5 md:py-10 pt-20">
           <CheckoutHeader />
         </div>
         <FormValues form={form} onSubmit={onSubmit}>
-          <div className="my-5 flex justify-center gap-x-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 md:gap-x-8 p-1 md:p-2">
             <div className="flex flex-col items-center gap-y-8">
               <ReceivingInformation
                 form={form}
@@ -205,9 +206,10 @@ export const CheckoutClient = () => {
             <OrderDetail form={form} name="products" disabled={isLoading} />
           </div>
         </FormValues>
+
         <Separator className="mx-1 my-16 h-0.5 bg-moi_moc_green" />
 
-        <div className="py-8">
+        <div className="py-4 md:py-8">
           <Footer />
         </div>
       </div>

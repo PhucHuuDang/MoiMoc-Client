@@ -19,7 +19,7 @@ export const DiscountCode = <T extends FieldValues>({
   name,
 }: DiscountCodeProps<T>) => {
   return (
-    <Card className="w-[500px] border-moi_moc_green">
+    <Card className="w-full border-moi_moc_green">
       <CardHeader>
         <CardTitle className="text-moi_moc_green">Mã giảm giá</CardTitle>
       </CardHeader>

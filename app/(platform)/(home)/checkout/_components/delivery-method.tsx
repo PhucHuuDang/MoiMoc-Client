@@ -24,19 +24,8 @@ export const DeliveryMethod = <T extends FieldValues>({
   name,
   // onSubmit,
 }: DeliveryMethodProps<T>) => {
-  // const form = useForm<z.infer<typeof CheckoutSchemaTypes>>({
-  //   resolver: zodResolver(CheckoutSchemaTypes),
-  //   defaultValues: {
-  //     method: "standard",
-  //   },
-  // });
-
-  // const onSubmit = (method: z.infer<typeof CheckoutSchemaTypes>) => {
-  //   console.log({ method });
-  // };
-
   return (
-    <Card className="w-[500px] border-moi_moc_green">
+    <Card className="w-full border-moi_moc_green">
       <CardHeader>
         <CardTitle className="text-moi_moc_green">
           Phương thức vận chuyển

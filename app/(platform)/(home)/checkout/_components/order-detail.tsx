@@ -118,7 +118,7 @@ export const OrderDetail = <T extends FieldValues, K>({
   return (
     <>
       {/* <ConfirmDialog /> */}
-      <Card className="w-[700px] border-moi_moc_green">
+      <Card className="w-[600px] md:w-[700px] border-moi_moc_green">
         <CardHeader>
           <CardTitle className="text-moi_moc_green">
             Chi tiết đơn hàng
@@ -163,14 +163,10 @@ export const OrderDetail = <T extends FieldValues, K>({
 
           <div className="flex items-center justify-center">
             <div className="flex flex-col items-center justify-center gap-y-4">
-              {/* <FormSubmit variant="moiMoc" className="h-12 w-44">
-                Payment
-              </FormSubmit> */}
               <FormSubmit asChild disabled={disabled}>
                 <RainbowButton
                   className="hover:scale-110 transition duration-300 w-56 bg-moi_moc_green border
                     border-moi_moc_green"
-                  // onClick={onSubmit}
                 >
                   {disabled ? (
                     <>
