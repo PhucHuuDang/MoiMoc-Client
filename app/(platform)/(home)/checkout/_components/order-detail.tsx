@@ -14,11 +14,8 @@ import { FieldValues, Path, PathValue, UseFormReturn } from "react-hook-form";
 import { truncateText } from "@/app/lodash-config/truncate";
 import { useEffect, useState } from "react";
 import { FormItemsControl } from "@/components/_global-components-reused/form/form-items-control";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ArrowBigLeftDash } from "lucide-react";
-import { z } from "zod";
-import { CheckoutSchemaTypes } from "@/safe-types-zod/checkout";
 import Spinner from "@/components/animata/spinner";
 import { Skeleton } from "@/components/ui/skeleton";
 

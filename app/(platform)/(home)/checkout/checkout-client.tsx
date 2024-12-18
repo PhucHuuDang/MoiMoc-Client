@@ -1,14 +1,7 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import { CheckoutHeader } from "./_components/checkout-header";
-import { MapPin, Phone } from "lucide-react";
 import { DeliveryMethod } from "./_components/delivery-method";
 import { ReceivingInformation } from "./_components/receiving-information";
 import { PaymentMethod } from "./_components/payment-method";
@@ -57,7 +50,6 @@ export const CheckoutClient = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof CheckoutSchemaTypes>) => {
-    // Ensure the user is authenticated
     if (!auth?.isAuth || !auth?.user || !auth?.token) {
       loginModal.onOpen(); // Open login modal if not authenticated
       return;
