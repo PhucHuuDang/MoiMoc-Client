@@ -8,9 +8,9 @@ import { IngredientsTypes } from "@/types/product-types";
 const EditProductPage = async ({
   params,
 }: {
-  params: { productId: string };
+  params: Promise<{ productId: string }>;
 }) => {
-  const { productId } = params;
+  const { productId } = await params;
 
   const [ingredients, productCategories, editProductData] = await Promise.all([
     serverGetData("/ingredients"),

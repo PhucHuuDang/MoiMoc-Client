@@ -21,6 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+export async 
+
 export default async function ProductDetailPage({
   params,
 }: ProductDetailPageProps) {

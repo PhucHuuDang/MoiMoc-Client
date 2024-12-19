@@ -9,8 +9,6 @@ export const MoiMocMarquee = () => {
           text-white"
       >
         {Array.from({ length: 4 }).map((_, index) => {
-          // console.log(index);
-
           return (
             <div
               // className={`md:hidden ${index < 2 ? "block" : "hidden md:block"}`}
@@ -30,8 +28,6 @@ export const MoiMocMarquee = () => {
     <div className="flex h-16 items-center justify-evenly">
       <Marquee pauseOnHover={false} className="[--duration:20s]">
         {Array.from({ length: 6 }).map((_, index) => {
-          // console.log(index);
-
           return (
             <div
               // className={`md:hidden ${index < 2 ? "block" : "hidden md:block"}`}

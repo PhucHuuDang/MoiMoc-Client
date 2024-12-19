@@ -1,9 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-
-import { Button } from "@/components/ui/button";
 import { DirectionAwareHover } from "@/components/aceternity-ui/direction-aware-hover";
 import Link from "next/link";
 
@@ -13,11 +9,8 @@ type ImageProps = {
   href: string;
 };
 export const ProductShowcase = () => {
-  const [hovered, setHovered] = useState<number | null>(null);
-
   const images: ImageProps[] = [
     {
-      // url: "/products-showcase/lipbalm-natural.png",
       url: "/products-showcase/lipsticks-moi-moc-delete-logo.jpg",
       title: "Son dưỡng môi màu tự nhiên",
       href: "/products",

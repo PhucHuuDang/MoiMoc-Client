@@ -27,8 +27,6 @@ export default async function HomePage() {
 
       <ProductShowcase />
 
-  
-
       <BlurFade inView delay={0.2}>
         <MessageMoiMoc />
       </BlurFade>

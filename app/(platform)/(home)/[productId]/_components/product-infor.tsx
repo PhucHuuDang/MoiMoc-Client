@@ -7,11 +7,6 @@ import {
   Plus,
   ChevronLeft,
   ChevronRight,
-  ShoppingCart,
-  User,
-  ThumbsUp,
-  MessageCircle,
-  Info,
   ChevronRight as ChevronRightIcon,
   Home,
   Heart,
@@ -202,10 +197,6 @@ export const ProductInfo = ({
         </div>
 
         <div className="flex space-x-4 mb-6">
-          {/* <Button variant="moiMoc" className="flex-1 py-6">
-            Add to cart
-          </Button> */}
-
           <StatusButton
             handleAddToCart={(e) => handleAddToCart(e, productOrder)}
             className="w-full bg-[#438a60] transition duration-200 hover:scale-110 hover:bg-[#326a49]

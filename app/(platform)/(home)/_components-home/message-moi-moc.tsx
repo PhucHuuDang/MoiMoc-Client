@@ -5,7 +5,6 @@ import Link from "next/link";
 
 export const MessageMoiMoc = () => {
   return (
-    // <section className="w-full h-[600px] 2xl:h-[800px]">
     <section>
       {/* <div className="relative w-full aspect-[2/1] h-full"> */}
       {/* <video
