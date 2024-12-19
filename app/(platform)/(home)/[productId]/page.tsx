@@ -2,12 +2,13 @@ import Image from "next/image";
 import { Star, ShoppingCart, Instagram, Facebook } from "lucide-react";
 import { Footer } from "@/components/_global-components-reused/footer";
 import DetailPage from "./_components/detail";
-import { productDetail } from "@/api/product-data/products-data";
+import { productDetail, productsList } from "@/api/product-data/products-data";
 import { ProductDetailTypes } from "@/types/product-detail-types";
 import NotFound from "./not-found";
 import { Suspense } from "react";
 import { ProductDetailSkelton } from "./_components/product-detail-skeleton";
 import { Metadata } from "next";
+import { ProductReturnedTypes } from "@/types/product-types";
 
 interface ProductDetailPageProps {
   params: Promise<{ productId: string }>;
@@ -21,7 +22,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export async 
+// export async function generateStaticParams() {
+//   const products = await productsList()
+//   return products.map((product: ProductReturnedTypes) => {
+//     return {
+//       productId: product.id
+//     }
+//   })
+// }
 
 export default async function ProductDetailPage({
   params,
