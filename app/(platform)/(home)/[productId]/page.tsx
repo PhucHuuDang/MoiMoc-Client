@@ -14,6 +14,7 @@ interface ProductDetailPageProps {
   params: Promise<{ productId: string }>;
 }
 
+export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Chi tiết sản phẩm",
@@ -31,10 +32,32 @@ export async function generateMetadata(): Promise<Metadata> {
 //   })
 // }
 
+export async function generateStaticParams() {
+  const products = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
+
+  if (!products.ok) {
+    return [];
+  }
+
+  const data = await products.json();
+
+  return data.map((product: ProductReturnedTypes) => {
+    return {
+      productId: String(product.id),
+    };
+  });
+}
+
 export default async function ProductDetailPage({
   params,
 }: ProductDetailPageProps) {
-  const { productId } = await params;
+  const productId = (await params).productId;
+
+  const productDetailData = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`,
+  );
+
+  console.log(productDetailData.json());
 
   return (
     <Suspense fallback={<ProductDetailSkelton />}>
