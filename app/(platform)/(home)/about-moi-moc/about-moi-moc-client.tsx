@@ -45,11 +45,7 @@ export default function AboutMoiMocClient() {
         `${process.env.NEXT_PUBLIC_API_URL}/images-models`,
       );
 
-      // const images = response.data?.map(
-      //   (item: ImageModelTypes) => item.imageUrl,
-      // );
-
-      // return images;
+     
       if (response.status !== 200 && !response.data) {
         return [];
       }

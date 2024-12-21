@@ -23,17 +23,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// export async function generateStaticParams() {
-//   const products = await productsList()
-//   return products.map((product: ProductReturnedTypes) => {
-//     return {
-//       productId: product.id
-//     }
-//   })
-// }
-
 export async function generateStaticParams() {
-  const products = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
+  const products = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+    next: { revalidate: 60 },
+  });
 
   if (!products.ok) {
     return [];
@@ -55,11 +48,25 @@ export default async function ProductDetailPage({
 
   const productDetailData = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`,
+    { cache: "no-store" },
   );
 
-  console.log(productDetailData.json());
+  if (!productDetailData.ok) {
+    return <div className="font-bold text-red-500 mx-auto pt-20">no data</div>;
+  }
+
+  const testData = await productDetailData.json();
+
+  console.log({ testData });
 
   return (
+    // <div className="text-red-500 pt-20 mx-auto">
+    //   <div>{testData.productId}</div>
+
+    //   <div>{testData.productName}</div>
+    //   <div>{testData.description}</div>
+    //   <div>{testData.details}</div>
+    // </div>
     <Suspense fallback={<ProductDetailSkelton />}>
       <DetailPage productId={productId} />
     </Suspense>

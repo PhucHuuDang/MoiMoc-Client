@@ -87,41 +87,7 @@ export default function SettingsClient() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState("personal");
-  const [profileImage, setProfileImage] = useState<string | null>(null);
-  const [profileCompletion, setProfileCompletion] = useState(65);
-  const [quickSettings, setQuickSettings] = useState({
-    emailNotifications: true,
-    twoFactor: false,
-    darkMode: false,
-  });
-
-  const [isPending, setIsPending] = useState<boolean>(false);
-
-  const [personalInfo, setPersonalInfo] = useState({
-    firstName: "Đặng",
-    lastName: "Hữu Phúc",
-    bio: "A passionate developer",
-    location: "HCMC, Vietnam",
-    website: "https://phuchuudang.github.io/Portfolio-website/#services",
-  });
-
-  const handleSave = () => {
-    setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      // toast.custom({
-      //   title: "Settings saved",
-      //   description: "Your profile settings have been updated successfully.",
-      // })
-
-      setProfileCompletion((prev) => prev + 20);
-      toast.success("Settings saved");
-    }, 1500);
-  };
 
   return (
     <div className="pt-28 pb-10">
