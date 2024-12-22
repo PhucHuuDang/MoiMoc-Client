@@ -78,8 +78,10 @@ export const ProductInfo = ({
           <Image
             src={productImages[currentImage]}
             alt={productImages[currentImage]}
-            layout="fill"
-            objectFit="cover"
+            // layout="fill"
+            fill
+            // objectFit="cover"
+            style={{ objectFit: "cover" }}
           />
           <button
             className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2

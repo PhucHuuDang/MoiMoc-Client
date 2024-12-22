@@ -5,7 +5,6 @@ import Image from "next/image";
 
 import { CarouselCustomized } from "@/components/_global-components-reused/carousel-customized";
 import { ProductItemEffectHover } from "@/components/_global-components-reused/navbar-svg-components/product-item-effect-hover";
-import { TextGenerateEffect } from "@/components/aceternity-ui/text-generate-effect";
 import { CarouselItem } from "@/components/ui/carousel";
 import { useParentDataContext } from "@/provider/parent-data-provider";
 

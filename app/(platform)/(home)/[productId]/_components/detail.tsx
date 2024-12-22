@@ -1,21 +1,12 @@
 "use client";
 import Image from "next/image";
-import { ElementRef, useRef, useState } from "react";
+import { ElementRef, useRef } from "react";
 import {
   Star,
-  Minus,
-  Plus,
-  ChevronLeft,
-  ChevronRight,
-  ShoppingCart,
-  User,
-  ThumbsUp,
   MessageCircle,
   Info,
   ChevronRight as ChevronRightIcon,
   Home,
-  Heart,
-  Send,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -33,13 +24,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import { Footer } from "@/components/_global-components-reused/footer";
 import { ProductInfo } from "./product-infor";
 import { Discussion } from "./tabs-comunity/discussion";
