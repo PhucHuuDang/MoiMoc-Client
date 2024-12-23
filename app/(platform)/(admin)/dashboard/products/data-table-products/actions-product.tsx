@@ -43,15 +43,6 @@ export const ActionsProduct = ({ productId }: ActionsProductProps) => {
 
   return (
     <ActionsControl>
-      {/* <ConfirmModal
-        action={() => {}}
-        title="Edit sản phẩm"
-        description="Bạn có chắc chắn muốn edit sản phẩm này không?"
-        trigger={<EditProduct />}
-        isPending={false}
-      /> */}
-
-      {/* <EditProduct productId={productId} /> */}
       <DropdownMenuItem
         onClick={() => router.push(`/dashboard/products/edit/${productId}`)}
         className="text-blue-600 w-full"

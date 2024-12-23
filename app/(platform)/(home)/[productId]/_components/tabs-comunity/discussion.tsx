@@ -77,8 +77,6 @@ export const Discussion = ({ productId, discussions }: DiscussionProps) => {
     } finally {
       setIsLoading(false);
     }
-
-    // console.log({ content, productId });
   };
 
   return (
@@ -86,26 +84,7 @@ export const Discussion = ({ productId, discussions }: DiscussionProps) => {
       <Card>
         <CardContent className="p-6">
           <h3 className="text-xl font-semibold mb-4">Tìm hiểu sản phẩm</h3>
-          {/* <div className="mt-6">
-                <div className="flex items-start space-x-4">
-                  <Avatar>
-                    <AvatarImage src="/placeholder.svg" alt="Your avatar" />
-                    <AvatarFallback>YO</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-grow">
-                    <Textarea
-                      placeholder="Share your thoughts or ask a question..."
-                      value={"newComment"}
-                      onChange={(e) => {}}
-                      className="mb-2"
-                    />
-                    <Button onClick={() => {}} className="flex items-center">
-                      <Send className="w-4 h-4 mr-2" />
-                      Post Comment
-                    </Button>
-                  </div>
-                </div>
-              </div> */}
+
           <div className="space-y-6">
             {discussions.map((discussion, index) => (
               <Card key={index}>
@@ -176,7 +155,6 @@ export const Discussion = ({ productId, discussions }: DiscussionProps) => {
                 Gửi
               </FormSubmit>
             </FormValues>
-            {/* <Button>Post Comment</Button> */}
           </div>
         </CardContent>
 
