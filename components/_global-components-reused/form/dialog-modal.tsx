@@ -28,10 +28,7 @@ export const DialogModal = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
-        {/* <DialogTitle> */}
-        {/* <Header title={title} center /> */}
         {header}
-        {/* </DialogTitle> */}
         {body}
         <DialogFooter className="mx-auto">{footer}</DialogFooter>
       </DialogContent>
