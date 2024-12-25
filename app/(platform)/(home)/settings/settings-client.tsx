@@ -83,10 +83,6 @@ export const TABS = [
 ];
 
 export default function SettingsClient() {
-  const auth = useAuthContext();
-  const router = useRouter();
-  const queryClient = useQueryClient();
-
   const [activeTab, setActiveTab] = useState("personal");
 
   return (
