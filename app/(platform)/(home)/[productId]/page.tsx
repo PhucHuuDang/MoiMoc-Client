@@ -130,9 +130,7 @@ export default async function ProductDetailPage({
                 Chi tiết sản phẩm
               </BreadcrumbLink>
             </BreadcrumbItem>
-            {/* <BreadcrumbSeparator>
-                <ChevronRightIcon className="h-4 w-4" />
-              </BreadcrumbSeparator> */}
+           
           </BreadcrumbList>
         </Breadcrumb>
       </div>
