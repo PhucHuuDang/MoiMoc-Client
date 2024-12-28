@@ -93,11 +93,7 @@ export const ProductItemEffectHover = ({
           )}
         </div>
 
-        {/* <ShoppingCart
-          onClick={(e) => handleAddToCart(e, product)}
-          className="size-10 cursor-pointer rounded-lg p-1 text-slate-600 duration-200
-            hover:scale-110 hover:bg-slate-200 hover:text-slate-800 hover:shadow-lg"
-        /> */}
+        
         <StatusButton
           handleAddToCart={(e) => handleAddToCart(e, product)}
           className="w-10"

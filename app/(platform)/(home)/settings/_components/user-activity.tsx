@@ -49,7 +49,6 @@ export const UserActivity = () => {
     );
   };
 
-  // console.log({ activities });
 
   return (
     <Card className="mt-8">

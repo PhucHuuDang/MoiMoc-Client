@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 
   icons: {
     icon: "/favicon-moi-moc.ico", // Favicon for all browsers
+
     apple: "/apple-touch-icon.png", // Apple-specific icon
   },
   openGraph: config.openGraph,

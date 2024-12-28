@@ -49,8 +49,6 @@ export const FormItemsControl = <T extends FieldValues, K>({
           form.setValue(name, value);
         }
 
-        // console.log({ field, fieldState });
-
         return (
           <FormItem>
             <FormLabel className={cn("text-text-foreground", classNameLabel)}>
