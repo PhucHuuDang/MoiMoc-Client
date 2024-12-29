@@ -130,7 +130,6 @@ export default async function ProductDetailPage({
                 Chi tiết sản phẩm
               </BreadcrumbLink>
             </BreadcrumbItem>
-           
           </BreadcrumbList>
         </Breadcrumb>
       </div>
@@ -168,15 +167,6 @@ export default async function ProductDetailPage({
       </div>
 
       <Footer />
-
-      {/* <div className="text-red-500 pt-20 mx-auto">
-        <div>{testData.productId}</div>
-
-        <div>{testData.productName}</div>
-        <div>{testData.description}</div>
-        <div>{testData.details}</div>
-        
-      </div> */}
     </div>
 
     // <Suspense fallback={<ProductDetailSkelton />}>

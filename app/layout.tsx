@@ -41,16 +41,6 @@ export default function RootLayout({
 
   return (
     <html suppressHydrationWarning lang="vi">
-      {/* <Head>
-        <link
-          rel="icon"
-          href="/favicon-moi-moc.ico"
-          sizes="any"
-          type="image/x-icon"
-        />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#ffffff" />
-      </Head> */}
       <ParentDataProvider productPromise={productsPromise}>
         <AuthProvider authPromise={auth}>
           <Toaster richColors closeButton />
