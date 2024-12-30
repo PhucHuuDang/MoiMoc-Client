@@ -21,7 +21,6 @@ const CheckoutPage = () => {
           background="transparent"
           minSize={0.6}
           maxSize={1.4}
-          // maxSize={2.4}
           particleDensity={150}
           className="w-full h-full"
           particleColor="#47843c"

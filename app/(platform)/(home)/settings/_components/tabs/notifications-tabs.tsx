@@ -39,13 +39,7 @@ export const NotificationsTabs = ({ value }: NotificationsTabsProps) => {
                 Receive notifications via email
               </p>
             </div>
-            <Switch
-              id="emailNotifications"
-              // checked={quickSettings.emailNotifications}
-              // onCheckedChange={() =>
-              //   handleQuickSettingChange("emailNotifications")
-              // }
-            />
+            <Switch id="emailNotifications" />
           </div>
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">

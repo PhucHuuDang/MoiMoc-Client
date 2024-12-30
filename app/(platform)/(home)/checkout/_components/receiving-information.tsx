@@ -10,9 +10,7 @@ import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 interface ReceivingInformationProps<T extends FieldValues> {
   form: UseFormReturn<T>;
-  // phon: Path<T>;
   address: Path<T>;
-  // name: Path<T>;
   phone: Path<T>;
   name: Path<T>;
 }
@@ -64,13 +62,7 @@ export const ReceivingInformation = <T extends FieldValues>({
                 {updateName}
               </span>
             </span>
-            {/* <FormItemsControl
-              form={form}
-              type="hidden"
-              // value="Dang Huu Phuc"
-              // name={`${address}.name` as Path<T>}
-              name={name as Path<T>}
-            /> */}
+           
             <span>
               SDT:{" "}
               <span className="font-light text-base underline">
@@ -81,7 +73,6 @@ export const ReceivingInformation = <T extends FieldValues>({
             <FormItemsControl
               form={form}
               type="hidden"
-              // name={`${address}.phone` as Path<T>}
               name={phone as Path<T>}
             />
           </div>
