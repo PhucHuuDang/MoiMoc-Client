@@ -31,12 +31,7 @@ export const AccountTabs = ({ value }: AccountTabsProps) => {
     resolver: zodResolver(AccountSafeTypes),
   });
 
-  const onSubmit = async (values: z.infer<typeof AccountSafeTypes>) => {
-    // const submit = await axios.post(
-    //   `${process.env.NEXT_PUBLIC_API_URL}/users/profile`,
-    //   values,
-    // );
-  };
+  const onSubmit = async (values: z.infer<typeof AccountSafeTypes>) => {};
 
   const handleSubmit = useCallback(() => {
     form.handleSubmit(onSubmit)();
