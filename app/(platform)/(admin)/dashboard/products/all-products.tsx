@@ -34,7 +34,6 @@ export function AllProducts({ productsList }: AllProductsProps) {
     refetchOnMount: false,
   });
 
-  // console.log("all product list: ", products);
 
   const productTransformed: ProductTransformedTypes[] = products?.map(
     (product: ProductReturnedTypes) => {
@@ -55,10 +54,6 @@ export function AllProducts({ productsList }: AllProductsProps) {
   if (isLoading) {
     return <AllProductsSkelton />;
   }
-
-  // if (productsList.length === 0) {
-  //   return <AllProductsSkelton />;
-  // }
 
   return (
     <div className="mx-auto md:w-[500px] lg:w-[90%] min-h-64 py-10">

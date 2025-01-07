@@ -62,7 +62,6 @@ export const IngredientsClient = ({ ingredients }: IngredientsClientProps) => {
               <div className="flex items-center justify-start">
                 <Button
                   variant="outline"
-                  // variant={}
                   className="w-52 rounded-xl bg-transparent border border-dashed text-primary
                     border-primary/75 transition hover:scale-105 duration-300"
                   onClick={ingredientModal.onOpen}
@@ -78,11 +77,6 @@ export const IngredientsClient = ({ ingredients }: IngredientsClientProps) => {
                   filterName="ingredient"
                 />
               </div>
-
-              {/* <div className="flex items-center justify-center gap-1 my-10 text-sm font-bold">
-                <ListX className="size-6 text-primary" />
-                Empty ingredient list!
-              </div> */}
             </CardContent>
           </Card>
         </div>

@@ -120,22 +120,6 @@ export default function DeliveryMethodsClient() {
     document.body.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
 
-  // const handleAddMethod = () => {
-  //   if (newMethod.method && newMethod.price && newMethod.estimatedDays) {
-  //     setDeliveryMethods([
-  //       ...deliveryMethods,
-  //       {
-  //         ...newMethod,
-  //         id: Date.now(),
-  //         active: true,
-  //         ordersLastMonth: 0,
-  //         revenue: 0,
-  //       } as DeliveryMethod,
-  //     ]);
-  //     setNewMethod({});
-  //   }
-  // };
-
   const handleDeleteMethod = () => {
     if (deletingMethod) {
       setDeliveryMethods(
