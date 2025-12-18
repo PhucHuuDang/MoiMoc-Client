@@ -7,7 +7,7 @@ export const config = {
 
   openGraph: {
     type: "website",
-    url: "https://www.moimoc.shop",
+    url: "https://www.moimoc.com",
     title: "Môi Mộc",
     description:
       "Sản phẩm của Môi Mộc đều được làm từ nguyên liệu thiên nhiên mang đến cho bạn cảm giác nhẹ nhàng khi sử dụng sản phẩm, hoà quyện cùng với mùi hương tự nhiên, giúp bạn thư giãn trong quá trình làm việc và sau ngày dài mệt mỏi",
@@ -31,10 +31,10 @@ export const config = {
     images: ["/og-image.jpg"], // Hình ảnh khi chia sẻ trên Twitter
   },
   alternates: {
-    canonical: "https://www.moimoc.shop", // URL chính
+    canonical: "https://www.moimoc.com", // URL chính
     languages: {
-      vi: "https://www.moimoc.shop/vi",
-      en: "https://www.moimoc.shop/en", // Nếu hỗ trợ đa ngôn ngữ
+      vi: "https://www.moimoc.com/vi",
+      en: "https://www.moimoc.com/en", // Nếu hỗ trợ đa ngôn ngữ
     },
   },
 
@@ -42,5 +42,8 @@ export const config = {
     index: true,
     follow: true,
   },
-  metadataBase: process.env.NODE_ENV === "production" ? new URL("https://www.moimoc.shop") : new URL("http://localhost:3000"),
+  metadataBase:
+    process.env.NODE_ENV === "production"
+      ? new URL("https://www.moimoc.com")
+      : new URL("http://localhost:3000"),
 };
