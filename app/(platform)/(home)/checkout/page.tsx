@@ -5,7 +5,7 @@ import { SparklesCore } from "@/components/aceternity-ui/sparkles";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Thanh toán",
-    description: "Thanh toán đơn hàng của bạn tại moimoc.shop",
+    description: "Thanh toán đơn hàng của bạn tại moimoc.com",
   };
 }
 

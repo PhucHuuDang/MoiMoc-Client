@@ -1,21 +1,10 @@
-"use server";
+// "use server";
 
 import { cache } from "react";
-import { decryptToken, getTokenCookies } from "../store/cookies-stored";
+import { decryptToken } from "../store/cookies-stored";
 import { cookies } from "next/headers";
+import { User } from "@/types/auth";
 
-type User = {
-  id: number;
-  name: string;
-  email: string | null;
-  role: string;
-  password: string;
-  phoneAuth: string;
-  avatar: string | null;
-  designation: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
 export const isUserWithRole = (user: any): user is User => {
   return (
     user !== null &&
@@ -27,29 +16,32 @@ export const isUserWithRole = (user: any): user is User => {
 
 export const verifyAuth = cache(async () => {
   try {
-    const token = cookies().get("token")?.value;
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
 
     if (!token) {
-      console.log("Token not found");
       return { isAuth: false, user: null };
     }
-
-    // console.log({ token });
 
     const dataDecoded = await decryptToken(token);
 
     if (!dataDecoded || !dataDecoded.sub) {
-      console.log("Invalid token or missing user ID in token");
       return { isAuth: false, user: null };
     }
 
-    const { sub } = dataDecoded;
+    const user = dataDecoded.sub;
 
-    // console.log("Authenticated user:", sub);
-
-    return { isAuth: true, user: sub, token };
+    return { isAuth: true, user, token };
   } catch (error) {
-    console.error("Error during authentication:", error);
+    // Don't log expected build-time errors when Next.js attempts static generation
+    // These routes will automatically be marked as dynamic
+    if (
+      process.env.NODE_ENV === "development" &&
+      error instanceof Error &&
+      !error.message.includes("Dynamic server usage")
+    ) {
+      console.error("Error during authentication:", error);
+    }
     return { isAuth: false, user: null, token: undefined };
   }
 });

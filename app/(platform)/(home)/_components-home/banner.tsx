@@ -1,5 +1,7 @@
 "use client";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
+import { motion } from "@/lib/motion";
+
 import { ImagesSlider } from "@/components/aceternity-ui/images-slider";
 import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-effect";
 

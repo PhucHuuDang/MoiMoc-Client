@@ -46,23 +46,23 @@ export const ProductsPublicClient = () => {
     homeRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const handleScrollPosition = (
-    // ref: RefObject<HTMLDivElement>,
-    refLabel: string,
-  ) => {
-    const refMap: Record<string, RefObject<HTMLDivElement>> = {
-      lipBalmRef,
-      organicLipstickRef,
-      lipstickRef,
-      giftSetRef,
-    };
+  // const handleScrollPosition = (
+  //   // ref: RefObject<HTMLDivElement>,
+  //   refLabel: string,
+  // ) => {
+  //   const refMap: Record<string, RefObject<HTMLDivElement>> = {
+  //     lipBalmRef,
+  //     organicLipstickRef,
+  //     lipstickRef,
+  //     giftSetRef,
+  //   };
 
-    const ref = refMap[refLabel as keyof typeof refMap];
+  //   const ref = refMap[refLabel as keyof typeof refMap];
 
-    if (ref?.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  //   if (ref?.current) {
+  //     ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  //   }
+  // };
 
   return (
     <div className="h-full overflow-hidden pt-20" ref={homeRef}>

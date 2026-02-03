@@ -2,6 +2,7 @@
 
 import { DirectionAwareHover } from "@/components/aceternity-ui/direction-aware-hover";
 import Link from "next/link";
+import { JSX } from "react";
 
 type ImageProps = {
   url: string;

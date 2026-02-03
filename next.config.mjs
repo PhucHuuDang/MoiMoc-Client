@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    reactCompiler: true,
-    outputStandalone: true,
-    disableStaticImages: true,
-    ppr: "incremental"
+    optimizePackageImports: [
+      "lucide-react",
+      "@radix-ui/react-icons",
+      "lodash",
+      "framer-motion",
+    ],
+    // cacheComponents: true,
   },
   images: {
     remotePatterns: [
@@ -22,15 +25,10 @@ const nextConfig = {
       },
     ],
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
-    // removeConsole: {
-    //   exclude: ["error"],
-    // },
+    removeConsole:
+      process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
   },
 };
 

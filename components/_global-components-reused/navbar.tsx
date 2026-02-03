@@ -14,9 +14,10 @@ import { useFromStore } from "@/store/use-from-store";
 import { useCartStore } from "@/store/use-cart-store";
 import { useAuthContext } from "@/provider/auth-provider";
 import { UserItemsControl } from "./user-items-control";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "@/lib/motion";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { useState } from "react";
+import { JSX, useState } from "react";
 import { Button } from "../ui/button";
 
 export const Navbar = () => {
@@ -68,16 +69,15 @@ export const Navbar = () => {
           <CartNavbarSVG height={35} className={hoverAnimate} />
 
           <AnimatePresence>
-            {cart?.length! > 0 && (
-              <motion.div
+            {cart && cart.length > 0 && (
+              <motion.span
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0 }}
-                className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full
-                  bg-moi_moc_green text-xs text-white font-bold"
+                className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-moi_moc_green text-[10px] text-white font-bold"
               >
-                {cart?.length}
-              </motion.div>
+                {cart.length}
+              </motion.span>
             )}
           </AnimatePresence>
         </div>

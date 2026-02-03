@@ -11,7 +11,9 @@ import {
 } from "@/components/ui/card";
 import { XCircle, ArrowLeft, ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
+import { motion } from "@/lib/motion";
+
 import { notFound, useSearchParams } from "next/navigation";
 
 const fadeIn = {

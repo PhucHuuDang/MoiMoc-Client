@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { ProductsPublicClient } from "./product-public-client";
+import Loading from "../loading";
+import { Suspense } from "react";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -11,9 +13,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const ProductPage = () => {
   return (
-    <div className="min-h-screen">
+    <Suspense fallback={<Loading />}>
       <ProductsPublicClient />
-    </div>
+    </Suspense>
   );
 };
 

@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
+import { motion } from "@/lib/motion";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -45,7 +47,6 @@ export default function AboutMoiMocClient() {
         `${process.env.NEXT_PUBLIC_API_URL}/images-models`,
       );
 
-     
       if (response.status !== 200 && !response.data) {
         return [];
       }
@@ -89,7 +90,6 @@ export default function AboutMoiMocClient() {
 
           <div className="absolute inset-0 bg-black/10 flex flex-col items-center justify-center">
             <div className="flex items-center justify-center flex-col">
-             
               {imagesModels && imagesModels?.length > 0 ? (
                 <ParallaxScroll
                   images={imagesModels}
@@ -106,7 +106,6 @@ export default function AboutMoiMocClient() {
             </div>
           </div>
         </motion.section>
-
 
         <motion.section
           className="relative overflow-hidden"

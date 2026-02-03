@@ -13,21 +13,21 @@ export const storeTokenCookies = async (
     secure: true,
     maxAge: 60 * 60 * 24 * 7,
   };
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   cookieStore.set("token", token, options);
   cookieStore.set("refreshToken", refreshToken, options);
 };
 
 export const deleteTokenCookies = async () => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   cookieStore.delete("token");
   cookieStore.delete("refreshToken");
 };
 
 export const getTokenCookies = async () => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   return {
     token: cookieStore.get("token"),

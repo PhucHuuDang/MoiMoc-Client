@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { JSX } from "react";
 
 import { PurchaseOrder } from "../purchase-order";
 import { purchaseOrderData } from "../../db";

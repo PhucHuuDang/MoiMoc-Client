@@ -1,0 +1,26 @@
+
+> moimoc@0.1.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+- Experiments (use with caution):
+  · optimizePackageImports
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.5s
+  Running TypeScript ...
+Failed to compile.
+
+./app/(platform)/(admin)/dashboard/about-moi-moc/_components-about-moi-moc/images-notfound.tsx:24:13
+Type error: Type '{ children: Element[]; initial: { opacity: number; y: number; }; animate: { opacity: number; y: number; }; transition: { duration: number; }; className: string; }' is not assignable to type 'IntrinsicAttributes & HTMLAttributesWithoutMotionProps<unknown, unknown> & MotionProps & RefAttributes<unknown>'.
+  Property 'className' does not exist on type 'IntrinsicAttributes & HTMLAttributesWithoutMotionProps<unknown, unknown> & MotionProps & RefAttributes<unknown>'.
+
+[0m [90m 22 |[39m             animate[33m=[39m{{ opacity[33m:[39m [35m1[39m[33m,[39m y[33m:[39m [35m0[39m }}
+ [90m 23 |[39m             transition[33m=[39m{{ duration[33m:[39m [35m0.5[39m }}
+[31m[1m>[22m[39m[90m 24 |[39m             className[33m=[39m[32m"flex flex-col items-center space-y-6"[39m
+ [90m    |[39m             [31m[1m^[22m[39m
+ [90m 25 |[39m           [33m>[39m
+ [90m 26 |[39m             [33m<[39m[33mdiv[39m className[33m=[39m[32m"relative w-40 h-40"[39m[33m>[39m
+ [90m 27 |[39m               [33m<[39m[33mmotion[39m[33m.[39mdiv[0m
+Next.js build worker exited with code: 1 and signal: null

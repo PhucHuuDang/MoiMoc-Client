@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { JSX, useEffect, useState } from "react";
+// import { motion } from "framer-motion";
+import { motion } from "@/lib/motion";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "lucide-react";
 import { Rating } from "react-simple-star-rating";

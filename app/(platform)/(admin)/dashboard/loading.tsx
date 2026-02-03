@@ -2,7 +2,8 @@
 
 import { Logo } from "@/components/_global-components-reused/logo";
 import Spinner from "@/components/animata/spinner";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
+import { motion } from "@/lib/motion";
 
 export default function ImprovedLoadingPage() {
   return (
