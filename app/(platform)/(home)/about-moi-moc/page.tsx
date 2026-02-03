@@ -2,14 +2,16 @@ import Image from "next/image";
 import { Footer } from "@/components/_global-components-reused/footer";
 import { TypewriterEffectSmooth } from "@/components/aceternity-ui/typewriter-effect";
 import AboutMoiMocClient from "./about-moi-moc-client";
+import { JsonLd, generateOrganizationSchema } from "@/components/seo/json-ld";
+import { buildAboutPageMetadata } from "@/lib/seo/metadata-builder";
 
 import type { Metadata } from "next";
 
+// ISR: Revalidate every 1 hour for about page content
+export const revalidate = 3600;
+
 export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Về Môi Mộc",
-    description: "Câu chuyện về tầm nhìn và sứ mệnh của Môi Mộc",
-  };
+  return buildAboutPageMetadata();
 }
 
 const AboutMoiMocPage = () => {
@@ -24,12 +26,16 @@ const AboutMoiMocPage = () => {
         "whitespace-nowrap text-5xl font-light text-white text-[#87d5a4] ",
     },
   ];
+
+  const organizationSchema = generateOrganizationSchema();
+
   return (
-    <div className="min-h-screen pt-16">
-      <AboutMoiMocClient />
-    </div>
-
-
+    <>
+      <JsonLd data={organizationSchema} />
+      <div className="min-h-screen pt-16">
+        <AboutMoiMocClient />
+      </div>
+    </>
   );
 };
 

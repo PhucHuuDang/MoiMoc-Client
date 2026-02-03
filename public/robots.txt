@@ -1,0 +1,15 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow admin routes
+Disallow: /dashboard
+Disallow: /settings
+
+# Disallow checkout pages (no indexing for user-specific pages)
+Disallow: /checkout
+Disallow: /success
+Disallow: /cancel
+
+# Sitemap
+Sitemap: ${process.env.NEXT_PUBLIC_SITE_URL || "https://moimoc.com"}/sitemap.xml

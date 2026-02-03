@@ -33,18 +33,57 @@ import { ProductDetailContent } from "./_components/tabs-comunity/product-detail
 import { RatingReviews } from "./_components/tabs-comunity/rating-reviews";
 import { Discussion } from "./_components/tabs-comunity/discussion";
 import { LipBalm } from "../products/_components-products-public/lip-balm";
+import {
+  JsonLd,
+  generateProductSchema,
+  generateBreadcrumbSchema,
+} from "@/components/seo/json-ld";
+import { buildProductMetadata } from "@/lib/seo/metadata-builder";
 
 interface ProductDetailPageProps {
   params: Promise<{ productId: string }>;
 }
 
 export const revalidate = 60;
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Chi tiết sản phẩm",
-    description:
-      "Trang chi tiết sản phẩm giúp bạn có cái nhìn tổng quan hơn khi thảm khảo sản phẩm",
-  };
+
+export async function generateMetadata({
+  params,
+}: ProductDetailPageProps): Promise<Metadata> {
+  const productId = (await params).productId;
+
+  try {
+    const productDetailData = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`,
+      {
+        next: { revalidate: 60 },
+      },
+    );
+
+    if (!productDetailData.ok) {
+      return {
+        title: "Sản phẩm không tìm thấy",
+        description: "Sản phẩm này hiện không có sẵn",
+      };
+    }
+
+    const product = await productDetailData.json();
+
+    return buildProductMetadata({
+      productName: product.productName,
+      description: product.productDescription,
+      price: product.price,
+      discountPrice: product.discountPrice,
+      images: product.productImages?.map((img: any) => img.imageUrl) || [],
+      productId: product.id,
+      category: product.category?.name,
+      inStock: product.quantity > 0,
+    });
+  } catch (error) {
+    return {
+      title: "Chi tiết sản phẩm",
+      description: "Trang chi tiết sản phẩm",
+    };
+  }
 }
 
 export async function generateStaticParams() {
@@ -106,68 +145,106 @@ export default async function ProductDetailPage({
     usage: detailData.usage,
   };
 
+  // Generate JSON-LD schemas for SEO
+  const productSchema = generateProductSchema({
+    name: detailData.productName,
+    description: detailData.productDescription,
+    image: detailData.productImages?.map((img: any) => img.imageUrl) || [],
+    sku: detailData.productId,
+    brand: "Môi Mộc",
+    offers: {
+      price: detailData.discountPrice || detailData.price,
+      priceCurrency: "VND",
+      availability:
+        detailData.quantity > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://moimoc.com"}/${productId}`,
+    },
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    {
+      name: "Trang chủ",
+      url: process.env.NEXT_PUBLIC_SITE_URL || "https://moimoc.com",
+    },
+    {
+      name: "Sản phẩm",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://moimoc.com"}/products`,
+    },
+    {
+      name: detailData.productName,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://moimoc.com"}/${productId}`,
+    },
+  ]);
+
   return (
-    <div className="min-h-screen bg-main_background_color py-20 text-foreground">
-      <div className="bg-gray-900 text-white px-2 text-center text-sm">
-        Đăng ký để được giảm giá 20% ngay đơn hàng đàu tiên của bạn.{" "}
-        <span className="underline">Đăng ký ngay</span>
+    <>
+      <JsonLd data={productSchema} />
+      <JsonLd data={breadcrumbSchema} />
+
+      <div className="min-h-screen bg-main_background_color py-20 text-foreground">
+        <div className="bg-gray-900 text-white px-2 text-center text-sm">
+          Đăng ký để được giảm giá 20% ngay đơn hàng đàu tiên của bạn.{" "}
+          <span className="underline">Đăng ký ngay</span>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">
+                  <Home className="h-4 w-4" />
+                  <span className="sr-only">Trang chủ</span>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <ChevronRightIcon className="h-4 w-4" />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/products">
+                  Chi tiết sản phẩm
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
+        <ProductInfo productDetailData={detailData} />
+
+        <Tabs defaultValue="details" className="p-4 max-w-7xl mx-auto">
+          <TabsList className="grid w-full grid-cols-3">
+            {TABS_TRIGGER.map((tab) => {
+              return (
+                <TabsTrigger
+                  key={tab.value}
+                  value={tab.value}
+                  className="flex items-center"
+                >
+                  {tab.icon} {tab.label}
+                </TabsTrigger>
+              );
+            })}
+          </TabsList>
+
+          <ProductDetailContent
+            productDetailContentData={productDetailContentData!}
+          />
+          <RatingReviews productId={detailData.productId} />
+          <Discussion
+            productId={detailData.productId}
+            discussions={detailData.discussion}
+          />
+        </Tabs>
+
+        <div className="p-4 max-w-7xl mx-auto">
+          <h3 className="text-2xl font-bold mb-4">Sản phẩm liên quan</h3>
+          <LipBalm productDetail />
+        </div>
+
+        <Footer />
       </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">
-                <Home className="h-4 w-4" />
-                <span className="sr-only">Trang chủ</span>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator>
-              <ChevronRightIcon className="h-4 w-4" />
-            </BreadcrumbSeparator>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/products">
-                Chi tiết sản phẩm
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
-
-      <ProductInfo productDetailData={detailData} />
-
-      <Tabs defaultValue="details" className="p-4 max-w-7xl mx-auto">
-        <TabsList className="grid w-full grid-cols-3">
-          {TABS_TRIGGER.map((tab) => {
-            return (
-              <TabsTrigger
-                key={tab.value}
-                value={tab.value}
-                className="flex items-center"
-              >
-                {tab.icon} {tab.label}
-              </TabsTrigger>
-            );
-          })}
-        </TabsList>
-
-        <ProductDetailContent
-          productDetailContentData={productDetailContentData!}
-        />
-        <RatingReviews productId={detailData.productId} />
-        <Discussion
-          productId={detailData.productId}
-          discussions={detailData.discussion}
-        />
-      </Tabs>
-
-      <div className="p-4 max-w-7xl mx-auto">
-        <h3 className="text-2xl font-bold mb-4">Sản phẩm liên quan</h3>
-        <LipBalm productDetail />
-      </div>
-
-      <Footer />
-    </div>
+    </>
 
     // <Suspense fallback={<ProductDetailSkelton />}>
     //   <DetailPage productId={productId} />
