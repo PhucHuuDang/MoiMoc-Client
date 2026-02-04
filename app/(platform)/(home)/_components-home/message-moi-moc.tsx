@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const MessageMoiMoc = () => {
   return (
-    <section>
+    <div>
       {/* <div className="relative w-full aspect-[2/1] h-full"> */}
       {/* <video
           autoPlay
@@ -63,6 +63,6 @@ export const MessageMoiMoc = () => {
           </Link>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
