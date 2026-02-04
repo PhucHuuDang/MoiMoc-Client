@@ -404,6 +404,7 @@ export const ProductsPublicClient = () => {
                           ? Number(product.discountPercentage)
                           : undefined
                       }
+                      productDescription={product.productDescription}
                       inStock={Number(product.quantity) > 0}
                       priority={index < 4} // Prioritize first 4 images
                     />
