@@ -85,6 +85,7 @@ export function generateOrganizationSchema() {
     logo: `${process.env.NEXT_PUBLIC_SITE_URL || "https://moimoc.com"}/logo.png`,
     description:
       "Môi Mộc - Thương hiệu mỹ phẩm thiên nhiên Việt Nam, chuyên sản phẩm son môi từ nguyên liệu hữu cơ",
+    slogan: "Từ thiên nhiên, cho vẻ đẹp tự nhiên",
     founder: {
       "@type": "Person",
       name: "Môi Mộc Team",
@@ -93,12 +94,71 @@ export function generateOrganizationSchema() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Customer Service",
-      availableLanguage: ["Vietnamese"],
+      availableLanguage: ["Vietnamese", "vi"],
     },
     sameAs: [
       // Add your social media URLs here
       "https://www.facebook.com/moimoc",
       "https://www.instagram.com/moimoc",
+    ],
+  };
+}
+
+/**
+ * AboutPage schema for the about page
+ */
+export function generateAboutPageSchema() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://moimoc.com";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "Về Môi Mộc - Câu chuyện thương hiệu",
+    description:
+      "Khám phá câu chuyện thương hiệu Môi Mộc - tiên phong trong sản xuất son môi từ thiên nhiên Việt Nam",
+    url: `${siteUrl}/about-moi-moc`,
+    mainEntity: {
+      "@type": "Organization",
+      name: "Môi Mộc",
+      description:
+        "Thương hiệu mỹ phẩm thiên nhiên Việt Nam chuyên sản xuất son môi từ nguyên liệu hữu cơ",
+    },
+    inLanguage: "vi",
+  };
+}
+
+/**
+ * FAQ schema for common questions about Môi Mộc
+ */
+export function generateAboutFAQSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Môi Mộc sử dụng nguyên liệu gì?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Môi Mộc sử dụng các nguyên liệu thiên nhiên 100% từ Việt Nam như quả gấc, dầu dừa, dầu oliu, sáp ong, và hoa hồng. Tất cả đều là nguyên liệu hữu cơ, an toàn cho môi.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Tầm nhìn của Môi Mộc là gì?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Môi Mộc hướng đến việc trở thành niềm tự hào của người Việt trên thị trường mỹ phẩm quốc tế, xây dựng thương hiệu mỹ phẩm Việt hữu cơ sạch, an toàn và chất lượng.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Sứ mệnh của Môi Mộc là gì?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Mang lại cho bạn một đời sống đẹp, an toàn và lành mạnh với những sản phẩm từ thiên nhiên Việt Nam, phù hợp với làn da người Việt.",
+        },
+      },
     ],
   };
 }

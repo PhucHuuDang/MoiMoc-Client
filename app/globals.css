@@ -1,3 +1,6 @@
+/* Google Fonts - Lora & Raleway for wellness-focused typography */
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap");
+
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -138,6 +141,13 @@
     --color-3: 210 100% 63%;
     --color-4: 195 100% 63%;
     --color-5: 90 100% 63%;
+
+    /* Soft UI Evolution - About Page Design System */
+    --about-primary: #ec4899; /* Pink primary */
+    --about-secondary: #f9a8d4; /* Soft pink */
+    --about-cta: #8b5cf6; /* Purple CTA */
+    --about-bg-soft: #fdf2f8; /* Soft pink background */
+    --about-text: #831843; /* Deep pink text */
   }
   /* Track */
   ::-webkit-scrollbar-track {
@@ -240,5 +250,62 @@
   }
   body {
     @apply bg-background text-foreground; /* [Pink] This applies the background and text colors defined in the base layer to the body element, ensuring consistent theming. */
+  }
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom Utility Classes for About Page */
+@layer utilities {
+  .font-heading {
+    font-family: "Lora", serif;
+  }
+
+  .font-body {
+    font-family: "Raleway", sans-serif;
+  }
+
+  .shadow-soft {
+    box-shadow:
+      0 2px 8px -2px rgba(0, 0, 0, 0.05),
+      0 4px 16px -4px rgba(0, 0, 0, 0.08);
+  }
+
+  .shadow-soft-lg {
+    box-shadow:
+      0 4px 16px -4px rgba(0, 0, 0, 0.08),
+      0 8px 32px -8px rgba(0, 0, 0, 0.12);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-card-dark {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .transition-smooth {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .transition-smooth-slow {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }

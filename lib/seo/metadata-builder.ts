@@ -185,16 +185,23 @@ export function buildProductsPageMetadata(): Metadata {
  */
 export function buildAboutPageMetadata(): Metadata {
   return buildMetadata({
-    title: "Về Môi Mộc",
+    title: "Về Môi Mộc - Câu chuyện thương hiệu",
     description:
-      "Câu chuyện thương hiệu Môi Mộc - Mang vẻ đẹp tự nhiên từ thiên nhiên Việt Nam. Tìm hiểu về tầm nhìn, sứ mệnh và hành trình của chúng tôi.",
+      "Khám phá câu chuyện thương hiệu Môi Mộc - tiên phong trong sản xuất son môi từ thiên nhiên Việt Nam. Sử dụng nguyên liệu hữu cơ như quả gấc, dầu dừa, sáp ong và hoa hồng. Tìm hiểu về tầm nhìn, sứ mệnh và hành trình mang vẻ đẹp tự nhiên đến với làn môi Việt.",
     keywords: [
       "Môi Mộc",
       "về chúng tôi",
       "thương hiệu Việt",
       "mỹ phẩm thiên nhiên",
       "câu chuyện thương hiệu",
+      "son môi organic",
+      "mỹ phẩm hữu cơ Việt Nam",
+      "nguyên liệu thiên nhiên",
+      "quả gấc",
+      "dầu dừa",
+      "sáp ong",
     ],
     url: `${SITE_URL}/about-moi-moc`,
+    type: "article",
   });
 }
