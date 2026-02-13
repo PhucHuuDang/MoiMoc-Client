@@ -1,6 +1,8 @@
 "use client";
 
 import Spinner from "@/components/animata/spinner";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -63,7 +65,14 @@ export const useConfirm = (
       <Dialog open={promise != null}>
         <DialogContent ref={refOutside}>
           <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
+            {title ? (
+              <DialogTitle>{title}</DialogTitle>
+            ) : (
+              <VisuallyHidden>
+                <DialogTitle>Confirmation Dialog</DialogTitle>
+              </VisuallyHidden>
+            )}
+
             <DialogDescription>{message}</DialogDescription>
           </DialogHeader>
 

@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, MapPin, List, Home, Check } from "lucide-react";
 import { FieldValues, Path, UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,6 +34,10 @@ import { AddressSafeTypes } from "@/safe-types-zod/admin/address-safe-types";
 import { useAuthContext } from "@/provider/auth-provider";
 import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
 export type AddressTypes = {
   address: string;
@@ -80,6 +84,8 @@ export const AddAddress = <T extends FieldValues, K>({
   const form = useForm<z.infer<typeof AddressSafeTypes>>({
     resolver: zodResolver(AddressSafeTypes),
   });
+
+  const watchAddress = parentForm?.watch(name);
 
   const addNewAddress = async (value: z.infer<typeof AddressSafeTypes>) => {
     const { address } = value;
@@ -147,24 +153,26 @@ export const AddAddress = <T extends FieldValues, K>({
           <Plus className="mr-2 h-4 w-4" /> Thêm mới hoặc chọn địa chỉ
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <Tabs className="w-full">
-          <TabsList className="w-full">
-            <TabsTrigger className="w-full" value="add">
-              Thêm mới địa chỉ
+      <DialogContent className="sm:max-w-[520px]">
+        <DialogHeader>
+          <DialogTitle>Quản lý địa chỉ</DialogTitle>
+          <DialogDescription>
+            Thêm mới hoặc chọn địa chỉ nhận hàng
+          </DialogDescription>
+        </DialogHeader>
+
+        <Tabs className="w-full" defaultValue="add">
+          <TabsList className="w-full grid grid-cols-2">
+            <TabsTrigger className="flex items-center gap-2" value="add">
+              <Plus className="w-4 h-4" />
+              <span>Thêm mới</span>
             </TabsTrigger>
-            <TabsTrigger className="w-full" value="choose">
-              Chọn địa chỉ
+            <TabsTrigger className="flex items-center gap-2" value="choose">
+              <List className="w-4 h-4" />
+              <span>Chọn địa chỉ</span>
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="add" className="h-[220px]">
-            <DialogHeader>
-              <DialogTitle>Thêm mới địa chỉ nhận hàng</DialogTitle>
-              <DialogDescription>
-                Thêm mới địa chỉ nhận hàng để nhận hàng nhanh chóng
-              </DialogDescription>
-            </DialogHeader>
-
+          <TabsContent value="add" className="min-h-[200px]">
             <FormValues form={form} onSubmit={onSubmit}>
               <div className="grid gap-4 py-4">
                 <FormItemsControl
@@ -177,13 +185,14 @@ export const AddAddress = <T extends FieldValues, K>({
               </div>
 
               <DialogFooter>
-                <DialogClose
-                  className="w-32 outline-1 outline rounded-lg"
+                <Button
+                  type="button"
+                  variant="outline"
                   disabled={isPending}
+                  onClick={() => setIsDialogOpen(false)}
                 >
-                  {/* <Button variant="outline">Hủy</Button> */}
                   Hủy
-                </DialogClose>
+                </Button>
                 <Button
                   variant="moiMoc"
                   disabled={isPending}
@@ -206,50 +215,149 @@ export const AddAddress = <T extends FieldValues, K>({
             </FormValues>
           </TabsContent>
 
-          <TabsContent value="choose" className="min-h-[220px]">
-            {addresses?.data.length === 1 ? (
-              // <Select value={addresses.data[0].id.toString()} />
-              <div>
-                <p className="font-bold">
-                  Địa chỉ: {addresses.data[0].address}
-                </p>
+          <TabsContent
+            value="choose"
+            className="min-h-[240px] max-h-[400px] overflow-y-auto"
+          >
+            {isLoading ? (
+              // Loading skeleton
+              <div className="space-y-3 py-4">
+                {[...Array(2)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 p-4 border rounded-xl"
+                  >
+                    <Skeleton className="w-5 h-5 rounded-full mt-0.5" />
+                    <div className="flex-1 space-y-2">
+                      <Skeleton className="h-4 w-3/4" />
+                      <Skeleton className="h-3 w-1/2" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : addresses?.data.length === 1 ? (
+              // Single address card
+              <div className="py-4">
+                <div className="flex items-start gap-3 p-4 rounded-xl border-2 border-moi_moc_green bg-moi_moc_green/5">
+                  <MapPin className="w-5 h-5 text-moi_moc_green mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-semibold text-gray-900">
+                        {addresses.data[0].address}
+                      </span>
+                      <span className="text-xs px-2 py-0.5 bg-moi_moc_green text-white rounded-full">
+                        Mặc định
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      Địa chỉ này sẽ được sử dụng tự động
+                    </p>
+                  </div>
+                  <Check className="w-5 h-5 text-moi_moc_green flex-shrink-0" />
+                </div>
               </div>
             ) : addresses?.data.length > 0 ? (
-              <Select
-                onValueChange={(value) => {
-                  const selectedAddress = addresses?.data?.find(
-                    (address: AddressTypes) => address.id.toString() === value,
-                  );
+              // Radio card list for multiple addresses
+              <div className="py-4">
+                <RadioGroup
+                  value={addresses?.data
+                    ?.find(
+                      (a: AddressTypes) =>
+                        a.address === (watchAddress as unknown as string),
+                    )
+                    ?.id.toString()}
+                  onValueChange={(value) => {
+                    const selectedAddress = addresses?.data?.find(
+                      (address: AddressTypes) =>
+                        address.id.toString() === value,
+                    );
 
-                  // console.log(selectedAddress.address);
+                    if (selectedAddress) {
+                      parentForm?.setValue(
+                        name as Path<T>,
+                        selectedAddress.address,
+                      );
+                      toast.success("Đã chọn địa chỉ");
+                    }
+                  }}
+                  className="space-y-3"
+                >
+                  {addresses?.data?.map((address: AddressTypes) => {
+                    const isSelected =
+                      addresses?.data?.find(
+                        (a: AddressTypes) =>
+                          a.address === (watchAddress as unknown as string),
+                      )?.id === address.id;
 
-                  if (selectedAddress) {
-                    parentForm?.setValue(
-                      name as Path<T>,
-                      selectedAddress.address,
-                    ); // Set the address value
-
-                    toast.success("Chọn địa chỉ thành công");
-                  }
-                  // console.log(parentForm?.getValues(name));
-                }}
-              >
-                <SelectTrigger className="w-[300px]">
-                  <SelectValue placeholder="Chọn địa chỉ" />
-                </SelectTrigger>
-                <SelectContent>
-                  {addresses?.data?.map((address: AddressTypes) => (
-                    <SelectItem key={address.id} value={address.id.toString()}>
-                      {address.address}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                    return (
+                      <div key={address.id}>
+                        <Label
+                          htmlFor={`address-${address.id}`}
+                          className={cn(
+                            "flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all duration-200",
+                            "hover:border-moi_moc_green/50 hover:bg-moi_moc_green/5",
+                            isSelected
+                              ? "border-moi_moc_green bg-moi_moc_green/10"
+                              : "border-gray-200 bg-white",
+                          )}
+                        >
+                          <RadioGroupItem
+                            value={address.id.toString()}
+                            id={`address-${address.id}`}
+                            className="mt-0.5 text-moi_moc_green"
+                          />
+                          <div className="flex-1">
+                            <MapPin
+                              className={cn(
+                                "w-4 h-4 inline mr-2",
+                                isSelected
+                                  ? "text-moi_moc_green"
+                                  : "text-gray-500",
+                              )}
+                            />
+                            <span
+                              className={cn(
+                                "font-medium",
+                                isSelected ? "text-moi_moc_green" : "",
+                              )}
+                            >
+                              {address.address}
+                            </span>
+                          </div>
+                          {isSelected && (
+                            <Check className="w-5 h-5 text-moi_moc_green" />
+                          )}
+                        </Label>
+                      </div>
+                    );
+                  })}
+                </RadioGroup>
+              </div>
             ) : (
-              <div className="flex items-center justify-center">
-                <span className="font-bold">
-                  Có vẻ như bạn chưa có địa chỉ nào!
-                </span>
+              // Empty state
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+                  <Home className="w-8 h-8 text-gray-400" />
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-1">
+                  Chưa có địa chỉ nào
+                </h3>
+                <p className="text-sm text-gray-500 mb-4">
+                  Hãy thêm địa chỉ đầu tiên để bắt đầu
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const tabTrigger = document.querySelector(
+                      '[value="add"]',
+                    ) as HTMLElement;
+                    tabTrigger?.click();
+                  }}
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Thêm địa chỉ
+                </Button>
               </div>
             )}
           </TabsContent>

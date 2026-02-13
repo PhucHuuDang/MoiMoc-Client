@@ -1,6 +1,5 @@
 "use client";
 
-
 import { CheckoutHeader } from "./_components/checkout-header";
 import { DeliveryMethod } from "./_components/delivery-method";
 import { ReceivingInformation } from "./_components/receiving-information";
@@ -9,10 +8,12 @@ import { OrderDetail } from "./_components/order-detail";
 import { Footer } from "@/components/_global-components-reused/footer";
 import { Separator } from "@/components/ui/separator";
 import { DiscountCode } from "./_components/discount-code";
+import { CheckoutProgress } from "./_components/checkout-progress";
+import { CheckoutSecurityBadges } from "./_components/checkout-security-badges";
 import { FormValues } from "@/components/_global-components-reused/form/form-values";
 import { z } from "zod";
-import { Checkout, CheckoutSchemaTypes } from "@/safe-types-zod/checkout";
-import { Path, PathValue, useForm } from "react-hook-form";
+import { CheckoutSchemaTypes } from "@/safe-types-zod/checkout";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthContext } from "@/provider/auth-provider";
 import { useLoginDiaLogModal } from "@/hooks/login-dialog-modal";
@@ -34,9 +35,7 @@ export const CheckoutClient = () => {
   );
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const router = useRouter();
-
   const loginModal = useLoginDiaLogModal();
 
   const form = useForm<z.infer<typeof CheckoutSchemaTypes>>({
@@ -44,41 +43,39 @@ export const CheckoutClient = () => {
     defaultValues: {
       method: "standard",
       paymentMethod: "receive-order-payment",
-
-      phone: auth?.user?.phoneAuth,
+      phone: "",
+      address: "",
+      discountCode: "",
+      products: [],
+      user: {
+        // id: "",
+        name: "",
+        phoneAuth: "",
+        email: "",
+        avatar: "",
+        role: "",
+        designation: "",
+      },
     },
   });
 
   const onSubmit = async (values: z.infer<typeof CheckoutSchemaTypes>) => {
     if (!auth?.isAuth || !auth?.user || !auth?.token) {
-      loginModal.onOpen(); // Open login modal if not authenticated
+      loginModal.onOpen();
       return;
     }
 
-    const headers = {
-      Authorization: `Bearer ${auth.token}`,
-    };
-
-    // Confirm the action with the user
     const ok = await confirm();
 
     if (ok) {
       console.log("Submitting values:", { values });
-
       setIsLoading(true);
 
       try {
         if (values.paymentMethod === "payOs") {
           const response = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/payos/payment`,
-            // `http://localhost:3002/payos/payment`,
             values,
-            // {
-            //   headers: {
-            //     Authorization: `Bearer ${auth.token}`, // Include the token
-            //     // "Content-Type": "application/json", // Explicitly set content type
-            //   },
-            // },
           );
 
           if (response.status === 201) {
@@ -89,11 +86,10 @@ export const CheckoutClient = () => {
         } else if (values.paymentMethod === "stripe") {
           const response = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/stripe/payment`,
-            // `http://localhost:3002/stripe/payment`,
             values,
             {
               headers: {
-                Authorization: `Bearer ${auth.token}`, // Include the token
+                Authorization: `Bearer ${auth.token}`,
               },
             },
           );
@@ -101,7 +97,6 @@ export const CheckoutClient = () => {
           if (response.status === 201) {
             toast.success("Thanh toán thành công");
             const { paymentUrl } = await response.data;
-
             router.push(paymentUrl);
           }
         }
@@ -116,9 +111,42 @@ export const CheckoutClient = () => {
 
   const cart = useFromStore(useCartStore, (state) => state.orders);
 
-  const products = cart?.map((product) => {
-    const truncateDescription = truncateText(product.productDescription, 80);
-    return {
+  // useEffect(() => {
+  //   if (cart && cart.length > 0) {
+  //     const products = cart.map((product) => ({
+  //       productId: product.id,
+  //       productName: product.productName,
+  //       quantityOrder: product.quantityOrder!,
+  //       price: product.price,
+  //       discountPrice: product.discountPrice,
+  //       discountPercentage: product.discountPercentage,
+  //       imageUrl: product.mainImage,
+  //       productDescription: truncateText(product.productDescription, 100),
+  //     }));
+  //     form.setValue("products", products);
+  //   }
+
+  //   form.setValue("phone", auth?.user?.phoneAuth);
+
+  //   if (!auth?.isAuth) {
+  //     return;
+  //   } else {
+  //     form.setValue("user", {
+  //       id: auth?.user?.id,
+  //       name: auth?.user?.name,
+  //       phoneAuth: auth?.user?.phoneAuth,
+  //       email: auth?.user?.email,
+  //       avatar: auth?.user?.avatar,
+  //       role: auth?.user?.role,
+  //       designation: auth?.user?.designation,
+  //     });
+  //   }
+  // }, [auth?.isAuth, auth?.user, auth?.token, form, cart]);
+
+  useEffect(() => {
+    if (!cart) return;
+
+    const products = cart.map((product) => ({
       productId: product.id,
       productName: product.productName,
       quantityOrder: product.quantityOrder!,
@@ -126,82 +154,85 @@ export const CheckoutClient = () => {
       discountPrice: product.discountPrice,
       discountPercentage: product.discountPercentage,
       imageUrl: product.mainImage,
-      productDescription: truncateDescription,
-    };
-  });
+      productDescription: truncateText(product.productDescription, 100),
+    }));
 
-  useEffect(() => {
-    if (cart && cart.length > 0) {
-      const products = cart.map((product) => ({
-        productId: product.id,
-        productName: product.productName,
-        quantityOrder: product.quantityOrder!,
-        price: product.price,
-        discountPrice: product.discountPrice,
-        discountPercentage: product.discountPercentage,
-        imageUrl: product.mainImage,
-        productDescription: truncateText(product.productDescription, 100),
-      }));
-      form.setValue("products", products); // Correctly assign the array
-    }
-
-    // form.setValue("name", auth?.user?.name);
-    form.setValue("phone", auth?.user?.phoneAuth);
-
-    if (!auth?.isAuth) {
-      // loginModal.onOpen();
-      return;
-    } else {
-      form.setValue("user", {
-        id: auth?.user?.id,
-        name: auth?.user?.name,
-        phoneAuth: auth?.user?.phoneAuth,
-        email: auth?.user?.email,
-        avatar: auth?.user?.avatar,
-        role: auth?.user?.role,
-        designation: auth?.user?.designation,
-      });
-    }
-  }, [auth?.isAuth, auth?.user, auth?.token, form, products]);
+    form.reset({
+      ...form.getValues(),
+      phone: auth?.user?.phoneAuth ?? "",
+      products,
+      user: auth?.user
+        ? {
+            id: auth.user.id ?? "",
+            name: auth.user.name ?? "",
+            phoneAuth: auth.user.phoneAuth ?? "",
+            email: auth.user.email ?? "",
+            avatar: auth.user.avatar ?? "",
+            role: auth.user.role ?? "",
+            designation: auth.user.designation ?? "",
+          }
+        : form.getValues("user"),
+    });
+  }, [auth?.user, cart]);
 
   return (
     <>
       <ConfirmDialog />
 
-      <div className="h-full overflow-x-hidden pt-20">
-        <div className="flex items-center justify-center py-5 md:py-10 pt-20">
+      <div className=" bg-gray-50/30 ">
+        {/* Header Section */}
+        <div className="w-full pt-16 sm:pt-20 pb-4 sm:pb-6">
           <CheckoutHeader />
         </div>
+
+        {/* Progress Indicator */}
+        <div className="w-full pb-5 sm:pb-6">
+          <CheckoutProgress currentStep={3} />
+        </div>
+
+        {/* Main Content */}
         <FormValues form={form} onSubmit={onSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-4 md:gap-x-8 p-1 md:p-2">
-            <div className="flex flex-col items-center gap-y-8">
-              <ReceivingInformation
-                form={form}
-                address="address"
-                phone="phone"
-                name="user.name"
-              />
+          <div className="w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6 pb-8 relative">
+              {/* Left Column - Form Sections */}
+              <div className="flex flex-col gap-5">
+                <ReceivingInformation
+                  form={form}
+                  address="address"
+                  phone="phone"
+                  name="user.name"
+                />
 
-              <FormItemsControl
-                type="hidden"
-                name="user"
-                // value={auth?.user}
-                form={form}
-              />
+                {/* <FormItemsControl  type="hidden" name="user" form={form} /> */}
 
-              <DeliveryMethod form={form} name="method" />
+                <DeliveryMethod form={form} name="method" />
 
-              <PaymentMethod form={form} name="paymentMethod" />
-              <DiscountCode form={form} name="discountCode" />
+                <PaymentMethod form={form} name="paymentMethod" />
+
+                <DiscountCode form={form} name="discountCode" />
+              </div>
+              {/* Right Column - Order Summary (Sticky on Desktop) */}
+              <div className="lg:h-fit lg:sticky lg:top-24 lg:z-10">
+                <OrderDetail
+                  form={form}
+                  name="products"
+                  disabled={!form.watch("address")}
+                  isSubmitting={isLoading}
+                />
+              </div>
             </div>
-
-            <OrderDetail form={form} name="products" disabled={isLoading} />
           </div>
         </FormValues>
 
-        <Separator className="mx-1 my-16 h-0.5 bg-moi_moc_green" />
+        {/* Security Badges */}
+        <div className="w-full py-10 sm:py-12 bg-transparent  border-t border-gray-100">
+          <CheckoutSecurityBadges />
+        </div>
 
-        <div className="py-4 md:py-8">
+        <Separator className="h-px bg-gray-200" />
+
+        {/* Footer */}
+        <div className="w-full py-8 sm:py-12">
           <Footer />
         </div>
       </div>

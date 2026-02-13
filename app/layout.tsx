@@ -43,8 +43,10 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="vi">
       <ParentDataProvider productPromise={productsPromise}>
         <AuthProvider authPromise={auth}>
-          <Toaster richColors closeButton />
-          <body className={inter.className}>{children}</body>
+          <body className={inter.className}>
+            {children}
+            <Toaster richColors closeButton />
+          </body>
         </AuthProvider>
       </ParentDataProvider>
     </html>
