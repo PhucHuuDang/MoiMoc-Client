@@ -137,7 +137,7 @@ export const AddAddress = <T extends FieldValues, K>({
   useEffect(() => {
     if (addresses?.data.length === 1) {
       const singleAddress = addresses.data[0];
-      parentForm?.setValue(name as Path<T>, singleAddress.address); // Auto-set the address
+      parentForm?.setValue(name as Path<T>, singleAddress.address);
       toast.success("Đã chọn địa chỉ.");
     }
   }, [addresses, parentForm, name]);
@@ -148,7 +148,7 @@ export const AddAddress = <T extends FieldValues, K>({
         <Button
           className="w-full h-8 sm:w-auto"
           variant="moiMoc"
-          onClick={() => setIsDialogOpen(true)} // Mở dialog khi click vào button
+          onClick={() => setIsDialogOpen(true)}
         >
           <Plus className="mr-2 h-4 w-4" /> Thêm mới hoặc chọn địa chỉ
         </Button>
