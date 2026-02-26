@@ -1,6 +1,7 @@
 "use client";
 
 import { serverFetching } from "@/api/actions/server-fetching";
+import { clientGetData } from "@/api/actions/get-data-api";
 import {
   CardStackFeedbacks,
   CardStackFeedbacksSkeleton,
@@ -40,10 +41,7 @@ export const ReviewFeedback = () => {
   } = useQuery({
     queryKey: ["discussions"],
     queryFn: async () => {
-      const discussions = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/feedback`,
-      );
-      return discussions.json();
+      return await clientGetData("/feedback");
     },
   });
 
