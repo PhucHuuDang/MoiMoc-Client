@@ -40,8 +40,12 @@ export const CardStackFeedbacks = ({
   const startFlipping = () => {
     interval = setInterval(() => {
       setCards((prevCards: Card[]) => {
+        if (prevCards.length === 0) return prevCards;
         const newArray = [...prevCards]; // create a copy of the array
-        newArray.unshift(newArray.pop()!); // move the last element to the front
+        const lastElement = newArray.pop();
+        if (lastElement) {
+          newArray.unshift(lastElement); // move the last element to the front
+        }
         return newArray;
       });
     }, 5000);
